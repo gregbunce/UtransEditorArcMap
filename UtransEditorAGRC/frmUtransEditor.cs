@@ -80,10 +80,9 @@ namespace UtransEditorAGRC
         {
             try
             {
-                ////set up link for google drive attribute doc
-                //LinkLabel.Link link = new LinkLabel.Link();
-                //link.LinkData = "https://docs.google.com/document/d/1ojjqCa1Z6IG6Wj0oAbZatoYsmbKzO9XwdD88-kqm-zQ/edit";
-                //linkLabelAttrDoc.Links.Add(link);
+                //get reference to the layers in the map
+
+
 
 
             }

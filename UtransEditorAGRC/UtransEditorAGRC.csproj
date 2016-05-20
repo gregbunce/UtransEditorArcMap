@@ -152,6 +152,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="clsBtnUtransEditor.cs" />
+    <Compile Include="clsExtensionDataEditor.cs" />
+    <Compile Include="clsGlobals.cs" />
     <Compile Include="clsModelessDialog.cs" />
     <Compile Include="frmUtransEditor.cs">
       <SubType>Form</SubType>

@@ -5,6 +5,9 @@ using ESRI.ArcGIS.ADF.BaseClasses;
 using ESRI.ArcGIS.ADF.CATIDs;
 using ESRI.ArcGIS.Framework;
 using ESRI.ArcGIS.ArcMapUI;
+using ESRI.ArcGIS.Editor;
+using ESRI.ArcGIS.esriSystem;
+using ESRI.ArcGIS.Carto;
 
 namespace UtransEditorAGRC
 {
@@ -114,6 +117,53 @@ namespace UtransEditorAGRC
 
             // TODO:  Add other initialization code
         }
+
+
+        //enable button if utrans data is in map and editable
+        public override bool Enabled
+        {
+            get
+            {
+                try
+                {
+                    //check to see if the street layer is in the map and is editable                              
+                    bool isEditable = false;
+
+                    //get a reference to ieditlayers to see which layers are editable
+                    IEditLayers arcEditLayers = clsGlobals.arcEditor as IEditLayers;
+                    IMap arcMapp = clsGlobals.arcEditor.Map;
+                    //make sure there is a map document
+                    if (arcMapp == null) { return false; }
+
+                    //loop through all the layers in the map and see if streets is there and editable
+                    for (int i = 0; i < arcMapp.LayerCount; i++)
+                    {
+                        if (arcMapp.get_Layer(i).Name.ToUpper() == "UTRANS.TRANSADMIN.STATEWIDESTREETS")
+                        {
+                            if (arcEditLayers.IsEditable(arcMapp.get_Layer(i) as IFeatureLayer))
+                            {
+                                isEditable = true;
+                            }
+                            else
+                                isEditable = false;
+
+                        }
+                    }
+                    if (isEditable)
+                    {
+                        return true;
+                    }
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    //MessageBox.Show(e.Message + " " + e.Source + " " + e.StackTrace + " " + e.TargetSite, "Error!");
+                    return false;
+                }
+            }
+        }
+
 
         /// <summary>
         /// Occurs when this command is clicked
