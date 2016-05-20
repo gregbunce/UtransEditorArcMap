@@ -179,14 +179,17 @@ namespace UtransEditorAGRC
                             if (arcObjClass.AliasName.ToString().ToUpper() == "UTRANS.TRANSADMIN.STATEWIDESTREETS")
                             {
                                 clsGlobals.arcGeoFLayerUtransStreets = arcMapp.get_Layer(i) as IGeoFeatureLayer;
+                                MessageBox.Show("referenced utrans streets");
                             }
                             if (arcObjClass.AliasName.ToString().ToUpper() == "COUNTYSTREETS")
                             {
                                 clsGlobals.arcGeoFLayerCountyStreets = arcMapp.get_Layer(i) as IGeoFeatureLayer;
+                                MessageBox.Show("referenced county streets");
                             }
                             if (arcObjClass.AliasName.ToString().ToUpper() == "DFC_RESULT")
                             {
                                 clsGlobals.arcGeoFLayerDfcResult = arcMapp.get_Layer(i) as IGeoFeatureLayer;
+                                MessageBox.Show("referenced dfc results");
                             }
                         }
 

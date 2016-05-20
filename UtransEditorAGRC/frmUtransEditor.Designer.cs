@@ -29,66 +29,66 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmUtransEditor));
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtCountyL_F_Add = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBoxCountySeg = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.txtCountySufDir = new System.Windows.Forms.TextBox();
+            this.txtCountyStType = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.txtCountyStName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtCountyPreDir = new System.Windows.Forms.TextBox();
+            this.txtCountyL_T_Add = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txtCountyR_F_Add = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.txtCountyR_T_Add = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
-            this.textBox14 = new System.Windows.Forms.TextBox();
-            this.textBox13 = new System.Windows.Forms.TextBox();
+            this.txtCountyAcsSuf = new System.Windows.Forms.TextBox();
+            this.txtCountyAcsAlilas = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.textBox12 = new System.Windows.Forms.TextBox();
-            this.textBox11 = new System.Windows.Forms.TextBox();
-            this.textBox10 = new System.Windows.Forms.TextBox();
-            this.textBox9 = new System.Windows.Forms.TextBox();
+            this.txtCountyAlias2Type = new System.Windows.Forms.TextBox();
+            this.txtCountyAlias2 = new System.Windows.Forms.TextBox();
+            this.txtCountyAlias1Type = new System.Windows.Forms.TextBox();
+            this.txtCountyAlias1 = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.groupBoxUtransSeg = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label23 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
-            this.textBox23 = new System.Windows.Forms.TextBox();
-            this.textBox24 = new System.Windows.Forms.TextBox();
+            this.txtUtransAcsSuf = new System.Windows.Forms.TextBox();
+            this.txtUtransAcsAllias = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
-            this.textBox25 = new System.Windows.Forms.TextBox();
-            this.textBox26 = new System.Windows.Forms.TextBox();
-            this.textBox27 = new System.Windows.Forms.TextBox();
-            this.textBox28 = new System.Windows.Forms.TextBox();
+            this.txtUtransAlias2Type = new System.Windows.Forms.TextBox();
+            this.txtUtransAlias2 = new System.Windows.Forms.TextBox();
+            this.txtUtransAlias1Type = new System.Windows.Forms.TextBox();
+            this.txtUtransAlias1 = new System.Windows.Forms.TextBox();
             this.label27 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox15 = new System.Windows.Forms.TextBox();
-            this.textBox16 = new System.Windows.Forms.TextBox();
-            this.textBox17 = new System.Windows.Forms.TextBox();
+            this.txtUtranSufDir = new System.Windows.Forms.TextBox();
+            this.txtUtranL_F_Add = new System.Windows.Forms.TextBox();
+            this.txtUtranStType = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
-            this.textBox18 = new System.Windows.Forms.TextBox();
+            this.txtUtranStName = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
-            this.textBox19 = new System.Windows.Forms.TextBox();
-            this.textBox20 = new System.Windows.Forms.TextBox();
+            this.txtUtranPreDir = new System.Windows.Forms.TextBox();
+            this.txtUtranL_T_Add = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
-            this.textBox21 = new System.Windows.Forms.TextBox();
+            this.txtUtranR_F_Add = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
-            this.textBox22 = new System.Windows.Forms.TextBox();
+            this.txtUtranR_T_Add = new System.Windows.Forms.TextBox();
             this.label21 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.linkLabelAttrDoc = new System.Windows.Forms.LinkLabel();
@@ -96,14 +96,14 @@
             this.groupBoxStatusField = new System.Windows.Forms.GroupBox();
             this.label29 = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnSaveToUtrans = new System.Windows.Forms.Button();
             this.label31 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnNext = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.label34 = new System.Windows.Forms.Label();
             this.label33 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnPrev = new System.Windows.Forms.Button();
             this.label35 = new System.Windows.Forms.Label();
             this.groupBoxCountySeg.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -115,12 +115,13 @@
             this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
-            // textBox1
+            // txtCountyL_F_Add
             // 
-            this.textBox1.Location = new System.Drawing.Point(11, 48);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(67, 22);
-            this.textBox1.TabIndex = 1;
+            this.txtCountyL_F_Add.Location = new System.Drawing.Point(11, 48);
+            this.txtCountyL_F_Add.Name = "txtCountyL_F_Add";
+            this.txtCountyL_F_Add.Size = new System.Drawing.Size(67, 22);
+            this.txtCountyL_F_Add.TabIndex = 1;
+            this.txtCountyL_F_Add.Tag = "CoL_F_ADD";
             // 
             // label2
             // 
@@ -160,18 +161,18 @@
             this.groupBox4.BackColor = System.Drawing.SystemColors.Control;
             this.groupBox4.Controls.Add(this.label2);
             this.groupBox4.Controls.Add(this.label4);
-            this.groupBox4.Controls.Add(this.textBox8);
-            this.groupBox4.Controls.Add(this.textBox1);
-            this.groupBox4.Controls.Add(this.textBox7);
+            this.groupBox4.Controls.Add(this.txtCountySufDir);
+            this.groupBox4.Controls.Add(this.txtCountyL_F_Add);
+            this.groupBox4.Controls.Add(this.txtCountyStType);
             this.groupBox4.Controls.Add(this.label6);
-            this.groupBox4.Controls.Add(this.textBox6);
+            this.groupBox4.Controls.Add(this.txtCountyStName);
             this.groupBox4.Controls.Add(this.label1);
-            this.groupBox4.Controls.Add(this.textBox5);
-            this.groupBox4.Controls.Add(this.textBox2);
+            this.groupBox4.Controls.Add(this.txtCountyPreDir);
+            this.groupBox4.Controls.Add(this.txtCountyL_T_Add);
             this.groupBox4.Controls.Add(this.label10);
-            this.groupBox4.Controls.Add(this.textBox3);
+            this.groupBox4.Controls.Add(this.txtCountyR_F_Add);
             this.groupBox4.Controls.Add(this.label9);
-            this.groupBox4.Controls.Add(this.textBox4);
+            this.groupBox4.Controls.Add(this.txtCountyR_T_Add);
             this.groupBox4.Controls.Add(this.label8);
             this.groupBox4.Controls.Add(this.label7);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -182,20 +183,22 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Primary Attributes";
             // 
-            // textBox8
+            // txtCountySufDir
             // 
-            this.textBox8.Location = new System.Drawing.Point(561, 48);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(55, 22);
-            this.textBox8.TabIndex = 17;
+            this.txtCountySufDir.Location = new System.Drawing.Point(561, 48);
+            this.txtCountySufDir.Name = "txtCountySufDir";
+            this.txtCountySufDir.Size = new System.Drawing.Size(55, 22);
+            this.txtCountySufDir.TabIndex = 17;
+            this.txtCountySufDir.Tag = "CoSUFDIR";
             // 
-            // textBox7
+            // txtCountyStType
             // 
-            this.textBox7.Location = new System.Drawing.Point(477, 48);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(78, 22);
-            this.textBox7.TabIndex = 16;
-            this.textBox7.TextChanged += new System.EventHandler(this.textBox7_TextChanged);
+            this.txtCountyStType.Location = new System.Drawing.Point(477, 48);
+            this.txtCountyStType.Name = "txtCountyStType";
+            this.txtCountyStType.Size = new System.Drawing.Size(78, 22);
+            this.txtCountyStType.TabIndex = 16;
+            this.txtCountyStType.Tag = "CoSTREETTYPE";
+            this.txtCountyStType.TextChanged += new System.EventHandler(this.textBox7_TextChanged);
             // 
             // label6
             // 
@@ -208,12 +211,13 @@
             this.label6.Text = "R_T_ADD";
             this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
-            // textBox6
+            // txtCountyStName
             // 
-            this.textBox6.Location = new System.Drawing.Point(232, 48);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(239, 22);
-            this.textBox6.TabIndex = 15;
+            this.txtCountyStName.Location = new System.Drawing.Point(232, 48);
+            this.txtCountyStName.Name = "txtCountyStName";
+            this.txtCountyStName.Size = new System.Drawing.Size(239, 22);
+            this.txtCountyStName.TabIndex = 15;
+            this.txtCountyStName.Tag = "CoSTREETNAME";
             // 
             // label1
             // 
@@ -226,19 +230,21 @@
             this.label1.Text = "R_F_ADD";
             this.label1.Click += new System.EventHandler(this.label1_Click_1);
             // 
-            // textBox5
+            // txtCountyPreDir
             // 
-            this.textBox5.Location = new System.Drawing.Point(159, 48);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(67, 22);
-            this.textBox5.TabIndex = 14;
+            this.txtCountyPreDir.Location = new System.Drawing.Point(159, 48);
+            this.txtCountyPreDir.Name = "txtCountyPreDir";
+            this.txtCountyPreDir.Size = new System.Drawing.Size(67, 22);
+            this.txtCountyPreDir.TabIndex = 14;
+            this.txtCountyPreDir.Tag = "CoPREDIR";
             // 
-            // textBox2
+            // txtCountyL_T_Add
             // 
-            this.textBox2.Location = new System.Drawing.Point(84, 48);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(67, 22);
-            this.textBox2.TabIndex = 7;
+            this.txtCountyL_T_Add.Location = new System.Drawing.Point(84, 48);
+            this.txtCountyL_T_Add.Name = "txtCountyL_T_Add";
+            this.txtCountyL_T_Add.Size = new System.Drawing.Size(67, 22);
+            this.txtCountyL_T_Add.TabIndex = 7;
+            this.txtCountyL_T_Add.Tag = "CoL_T_ADD";
             // 
             // label10
             // 
@@ -250,13 +256,14 @@
             this.label10.TabIndex = 13;
             this.label10.Text = "SUFDIR";
             // 
-            // textBox3
+            // txtCountyR_F_Add
             // 
-            this.textBox3.Location = new System.Drawing.Point(11, 77);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(67, 22);
-            this.textBox3.TabIndex = 8;
-            this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
+            this.txtCountyR_F_Add.Location = new System.Drawing.Point(11, 77);
+            this.txtCountyR_F_Add.Name = "txtCountyR_F_Add";
+            this.txtCountyR_F_Add.Size = new System.Drawing.Size(67, 22);
+            this.txtCountyR_F_Add.TabIndex = 8;
+            this.txtCountyR_F_Add.Tag = "CoR_F_ADD";
+            this.txtCountyR_F_Add.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
             // label9
             // 
@@ -268,12 +275,13 @@
             this.label9.TabIndex = 12;
             this.label9.Text = "STREETTYPE";
             // 
-            // textBox4
+            // txtCountyR_T_Add
             // 
-            this.textBox4.Location = new System.Drawing.Point(84, 77);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(67, 22);
-            this.textBox4.TabIndex = 9;
+            this.txtCountyR_T_Add.Location = new System.Drawing.Point(84, 77);
+            this.txtCountyR_T_Add.Name = "txtCountyR_T_Add";
+            this.txtCountyR_T_Add.Size = new System.Drawing.Size(67, 22);
+            this.txtCountyR_T_Add.TabIndex = 9;
+            this.txtCountyR_T_Add.Tag = "CoR_T_ADD";
             // 
             // label8
             // 
@@ -300,14 +308,14 @@
             // 
             this.groupBox3.Controls.Add(this.label16);
             this.groupBox3.Controls.Add(this.label15);
-            this.groupBox3.Controls.Add(this.textBox14);
-            this.groupBox3.Controls.Add(this.textBox13);
+            this.groupBox3.Controls.Add(this.txtCountyAcsSuf);
+            this.groupBox3.Controls.Add(this.txtCountyAcsAlilas);
             this.groupBox3.Controls.Add(this.label14);
             this.groupBox3.Controls.Add(this.label13);
-            this.groupBox3.Controls.Add(this.textBox12);
-            this.groupBox3.Controls.Add(this.textBox11);
-            this.groupBox3.Controls.Add(this.textBox10);
-            this.groupBox3.Controls.Add(this.textBox9);
+            this.groupBox3.Controls.Add(this.txtCountyAlias2Type);
+            this.groupBox3.Controls.Add(this.txtCountyAlias2);
+            this.groupBox3.Controls.Add(this.txtCountyAlias1Type);
+            this.groupBox3.Controls.Add(this.txtCountyAlias1);
             this.groupBox3.Controls.Add(this.label12);
             this.groupBox3.Controls.Add(this.label11);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -338,19 +346,21 @@
             this.label15.TabIndex = 10;
             this.label15.Text = "ACSALIAS";
             // 
-            // textBox14
+            // txtCountyAcsSuf
             // 
-            this.textBox14.Location = new System.Drawing.Point(450, 63);
-            this.textBox14.Name = "textBox14";
-            this.textBox14.Size = new System.Drawing.Size(102, 22);
-            this.textBox14.TabIndex = 9;
+            this.txtCountyAcsSuf.Location = new System.Drawing.Point(450, 63);
+            this.txtCountyAcsSuf.Name = "txtCountyAcsSuf";
+            this.txtCountyAcsSuf.Size = new System.Drawing.Size(102, 22);
+            this.txtCountyAcsSuf.TabIndex = 9;
+            this.txtCountyAcsSuf.Tag = "CoACSSUF";
             // 
-            // textBox13
+            // txtCountyAcsAlilas
             // 
-            this.textBox13.Location = new System.Drawing.Point(342, 63);
-            this.textBox13.Name = "textBox13";
-            this.textBox13.Size = new System.Drawing.Size(102, 22);
-            this.textBox13.TabIndex = 8;
+            this.txtCountyAcsAlilas.Location = new System.Drawing.Point(342, 63);
+            this.txtCountyAcsAlilas.Name = "txtCountyAcsAlilas";
+            this.txtCountyAcsAlilas.Size = new System.Drawing.Size(102, 22);
+            this.txtCountyAcsAlilas.TabIndex = 8;
+            this.txtCountyAcsAlilas.Tag = "CoACSALIAS";
             // 
             // label14
             // 
@@ -372,33 +382,37 @@
             this.label13.TabIndex = 6;
             this.label13.Text = "ALIAS2";
             // 
-            // textBox12
+            // txtCountyAlias2Type
             // 
-            this.textBox12.Location = new System.Drawing.Point(193, 77);
-            this.textBox12.Name = "textBox12";
-            this.textBox12.Size = new System.Drawing.Size(143, 22);
-            this.textBox12.TabIndex = 5;
+            this.txtCountyAlias2Type.Location = new System.Drawing.Point(193, 77);
+            this.txtCountyAlias2Type.Name = "txtCountyAlias2Type";
+            this.txtCountyAlias2Type.Size = new System.Drawing.Size(143, 22);
+            this.txtCountyAlias2Type.TabIndex = 5;
+            this.txtCountyAlias2Type.Tag = "CoALIAS2TYPE";
             // 
-            // textBox11
+            // txtCountyAlias2
             // 
-            this.textBox11.Location = new System.Drawing.Point(15, 77);
-            this.textBox11.Name = "textBox11";
-            this.textBox11.Size = new System.Drawing.Size(172, 22);
-            this.textBox11.TabIndex = 4;
+            this.txtCountyAlias2.Location = new System.Drawing.Point(15, 77);
+            this.txtCountyAlias2.Name = "txtCountyAlias2";
+            this.txtCountyAlias2.Size = new System.Drawing.Size(172, 22);
+            this.txtCountyAlias2.TabIndex = 4;
+            this.txtCountyAlias2.Tag = "CoALIAS2";
             // 
-            // textBox10
+            // txtCountyAlias1Type
             // 
-            this.textBox10.Location = new System.Drawing.Point(193, 48);
-            this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(143, 22);
-            this.textBox10.TabIndex = 3;
+            this.txtCountyAlias1Type.Location = new System.Drawing.Point(193, 48);
+            this.txtCountyAlias1Type.Name = "txtCountyAlias1Type";
+            this.txtCountyAlias1Type.Size = new System.Drawing.Size(143, 22);
+            this.txtCountyAlias1Type.TabIndex = 3;
+            this.txtCountyAlias1Type.Tag = "CoALIAS1TYPE";
             // 
-            // textBox9
+            // txtCountyAlias1
             // 
-            this.textBox9.Location = new System.Drawing.Point(15, 48);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(172, 22);
-            this.textBox9.TabIndex = 2;
+            this.txtCountyAlias1.Location = new System.Drawing.Point(15, 48);
+            this.txtCountyAlias1.Name = "txtCountyAlias1";
+            this.txtCountyAlias1.Size = new System.Drawing.Size(172, 22);
+            this.txtCountyAlias1.TabIndex = 2;
+            this.txtCountyAlias1.Tag = "CoALIAS1";
             // 
             // label12
             // 
@@ -436,14 +450,14 @@
             // 
             this.groupBox2.Controls.Add(this.label23);
             this.groupBox2.Controls.Add(this.label24);
-            this.groupBox2.Controls.Add(this.textBox23);
-            this.groupBox2.Controls.Add(this.textBox24);
+            this.groupBox2.Controls.Add(this.txtUtransAcsSuf);
+            this.groupBox2.Controls.Add(this.txtUtransAcsAllias);
             this.groupBox2.Controls.Add(this.label25);
             this.groupBox2.Controls.Add(this.label26);
-            this.groupBox2.Controls.Add(this.textBox25);
-            this.groupBox2.Controls.Add(this.textBox26);
-            this.groupBox2.Controls.Add(this.textBox27);
-            this.groupBox2.Controls.Add(this.textBox28);
+            this.groupBox2.Controls.Add(this.txtUtransAlias2Type);
+            this.groupBox2.Controls.Add(this.txtUtransAlias2);
+            this.groupBox2.Controls.Add(this.txtUtransAlias1Type);
+            this.groupBox2.Controls.Add(this.txtUtransAlias1);
             this.groupBox2.Controls.Add(this.label27);
             this.groupBox2.Controls.Add(this.label28);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -474,19 +488,21 @@
             this.label24.TabIndex = 10;
             this.label24.Text = "ACSALIAS";
             // 
-            // textBox23
+            // txtUtransAcsSuf
             // 
-            this.textBox23.Location = new System.Drawing.Point(450, 63);
-            this.textBox23.Name = "textBox23";
-            this.textBox23.Size = new System.Drawing.Size(102, 22);
-            this.textBox23.TabIndex = 9;
+            this.txtUtransAcsSuf.Location = new System.Drawing.Point(450, 63);
+            this.txtUtransAcsSuf.Name = "txtUtransAcsSuf";
+            this.txtUtransAcsSuf.Size = new System.Drawing.Size(102, 22);
+            this.txtUtransAcsSuf.TabIndex = 9;
+            this.txtUtransAcsSuf.Tag = "ACSSUF";
             // 
-            // textBox24
+            // txtUtransAcsAllias
             // 
-            this.textBox24.Location = new System.Drawing.Point(342, 63);
-            this.textBox24.Name = "textBox24";
-            this.textBox24.Size = new System.Drawing.Size(102, 22);
-            this.textBox24.TabIndex = 8;
+            this.txtUtransAcsAllias.Location = new System.Drawing.Point(342, 63);
+            this.txtUtransAcsAllias.Name = "txtUtransAcsAllias";
+            this.txtUtransAcsAllias.Size = new System.Drawing.Size(102, 22);
+            this.txtUtransAcsAllias.TabIndex = 8;
+            this.txtUtransAcsAllias.Tag = "ACSALIAS";
             // 
             // label25
             // 
@@ -508,33 +524,37 @@
             this.label26.TabIndex = 6;
             this.label26.Text = "ALIAS2";
             // 
-            // textBox25
+            // txtUtransAlias2Type
             // 
-            this.textBox25.Location = new System.Drawing.Point(193, 77);
-            this.textBox25.Name = "textBox25";
-            this.textBox25.Size = new System.Drawing.Size(143, 22);
-            this.textBox25.TabIndex = 5;
+            this.txtUtransAlias2Type.Location = new System.Drawing.Point(193, 77);
+            this.txtUtransAlias2Type.Name = "txtUtransAlias2Type";
+            this.txtUtransAlias2Type.Size = new System.Drawing.Size(143, 22);
+            this.txtUtransAlias2Type.TabIndex = 5;
+            this.txtUtransAlias2Type.Tag = "ALIAS2TYPE";
             // 
-            // textBox26
+            // txtUtransAlias2
             // 
-            this.textBox26.Location = new System.Drawing.Point(15, 77);
-            this.textBox26.Name = "textBox26";
-            this.textBox26.Size = new System.Drawing.Size(172, 22);
-            this.textBox26.TabIndex = 4;
+            this.txtUtransAlias2.Location = new System.Drawing.Point(15, 77);
+            this.txtUtransAlias2.Name = "txtUtransAlias2";
+            this.txtUtransAlias2.Size = new System.Drawing.Size(172, 22);
+            this.txtUtransAlias2.TabIndex = 4;
+            this.txtUtransAlias2.Tag = "ALIAS2";
             // 
-            // textBox27
+            // txtUtransAlias1Type
             // 
-            this.textBox27.Location = new System.Drawing.Point(193, 48);
-            this.textBox27.Name = "textBox27";
-            this.textBox27.Size = new System.Drawing.Size(143, 22);
-            this.textBox27.TabIndex = 3;
+            this.txtUtransAlias1Type.Location = new System.Drawing.Point(193, 48);
+            this.txtUtransAlias1Type.Name = "txtUtransAlias1Type";
+            this.txtUtransAlias1Type.Size = new System.Drawing.Size(143, 22);
+            this.txtUtransAlias1Type.TabIndex = 3;
+            this.txtUtransAlias1Type.Tag = "ALIAS1TYPE";
             // 
-            // textBox28
+            // txtUtransAlias1
             // 
-            this.textBox28.Location = new System.Drawing.Point(15, 48);
-            this.textBox28.Name = "textBox28";
-            this.textBox28.Size = new System.Drawing.Size(172, 22);
-            this.textBox28.TabIndex = 2;
+            this.txtUtransAlias1.Location = new System.Drawing.Point(15, 48);
+            this.txtUtransAlias1.Name = "txtUtransAlias1";
+            this.txtUtransAlias1.Size = new System.Drawing.Size(172, 22);
+            this.txtUtransAlias1.TabIndex = 2;
+            this.txtUtransAlias1.Tag = "ALIAS1";
             // 
             // label27
             // 
@@ -561,18 +581,18 @@
             this.groupBox1.BackColor = System.Drawing.SystemColors.Control;
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.textBox15);
-            this.groupBox1.Controls.Add(this.textBox16);
-            this.groupBox1.Controls.Add(this.textBox17);
+            this.groupBox1.Controls.Add(this.txtUtranSufDir);
+            this.groupBox1.Controls.Add(this.txtUtranL_F_Add);
+            this.groupBox1.Controls.Add(this.txtUtranStType);
             this.groupBox1.Controls.Add(this.label17);
-            this.groupBox1.Controls.Add(this.textBox18);
+            this.groupBox1.Controls.Add(this.txtUtranStName);
             this.groupBox1.Controls.Add(this.label18);
-            this.groupBox1.Controls.Add(this.textBox19);
-            this.groupBox1.Controls.Add(this.textBox20);
+            this.groupBox1.Controls.Add(this.txtUtranPreDir);
+            this.groupBox1.Controls.Add(this.txtUtranL_T_Add);
             this.groupBox1.Controls.Add(this.label19);
-            this.groupBox1.Controls.Add(this.textBox21);
+            this.groupBox1.Controls.Add(this.txtUtranR_F_Add);
             this.groupBox1.Controls.Add(this.label20);
-            this.groupBox1.Controls.Add(this.textBox22);
+            this.groupBox1.Controls.Add(this.txtUtranR_T_Add);
             this.groupBox1.Controls.Add(this.label21);
             this.groupBox1.Controls.Add(this.label22);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -603,26 +623,29 @@
             this.label5.TabIndex = 4;
             this.label5.Text = "L_T_ADD";
             // 
-            // textBox15
+            // txtUtranSufDir
             // 
-            this.textBox15.Location = new System.Drawing.Point(561, 48);
-            this.textBox15.Name = "textBox15";
-            this.textBox15.Size = new System.Drawing.Size(55, 22);
-            this.textBox15.TabIndex = 17;
+            this.txtUtranSufDir.Location = new System.Drawing.Point(561, 48);
+            this.txtUtranSufDir.Name = "txtUtranSufDir";
+            this.txtUtranSufDir.Size = new System.Drawing.Size(55, 22);
+            this.txtUtranSufDir.TabIndex = 17;
+            this.txtUtranSufDir.Tag = "SUFDIR";
             // 
-            // textBox16
+            // txtUtranL_F_Add
             // 
-            this.textBox16.Location = new System.Drawing.Point(11, 48);
-            this.textBox16.Name = "textBox16";
-            this.textBox16.Size = new System.Drawing.Size(67, 22);
-            this.textBox16.TabIndex = 1;
+            this.txtUtranL_F_Add.Location = new System.Drawing.Point(11, 48);
+            this.txtUtranL_F_Add.Name = "txtUtranL_F_Add";
+            this.txtUtranL_F_Add.Size = new System.Drawing.Size(67, 22);
+            this.txtUtranL_F_Add.TabIndex = 1;
+            this.txtUtranL_F_Add.Tag = "L_F_ADD";
             // 
-            // textBox17
+            // txtUtranStType
             // 
-            this.textBox17.Location = new System.Drawing.Point(477, 48);
-            this.textBox17.Name = "textBox17";
-            this.textBox17.Size = new System.Drawing.Size(78, 22);
-            this.textBox17.TabIndex = 16;
+            this.txtUtranStType.Location = new System.Drawing.Point(477, 48);
+            this.txtUtranStType.Name = "txtUtranStType";
+            this.txtUtranStType.Size = new System.Drawing.Size(78, 22);
+            this.txtUtranStType.TabIndex = 16;
+            this.txtUtranStType.Tag = "STREETTYPE";
             // 
             // label17
             // 
@@ -634,12 +657,13 @@
             this.label17.TabIndex = 6;
             this.label17.Text = "R_T_ADD";
             // 
-            // textBox18
+            // txtUtranStName
             // 
-            this.textBox18.Location = new System.Drawing.Point(232, 48);
-            this.textBox18.Name = "textBox18";
-            this.textBox18.Size = new System.Drawing.Size(239, 22);
-            this.textBox18.TabIndex = 15;
+            this.txtUtranStName.Location = new System.Drawing.Point(232, 48);
+            this.txtUtranStName.Name = "txtUtranStName";
+            this.txtUtranStName.Size = new System.Drawing.Size(239, 22);
+            this.txtUtranStName.TabIndex = 15;
+            this.txtUtranStName.Tag = "STREETNAME";
             // 
             // label18
             // 
@@ -651,19 +675,21 @@
             this.label18.TabIndex = 5;
             this.label18.Text = "R_F_ADD";
             // 
-            // textBox19
+            // txtUtranPreDir
             // 
-            this.textBox19.Location = new System.Drawing.Point(159, 48);
-            this.textBox19.Name = "textBox19";
-            this.textBox19.Size = new System.Drawing.Size(67, 22);
-            this.textBox19.TabIndex = 14;
+            this.txtUtranPreDir.Location = new System.Drawing.Point(159, 48);
+            this.txtUtranPreDir.Name = "txtUtranPreDir";
+            this.txtUtranPreDir.Size = new System.Drawing.Size(67, 22);
+            this.txtUtranPreDir.TabIndex = 14;
+            this.txtUtranPreDir.Tag = "PREDIR";
             // 
-            // textBox20
+            // txtUtranL_T_Add
             // 
-            this.textBox20.Location = new System.Drawing.Point(84, 48);
-            this.textBox20.Name = "textBox20";
-            this.textBox20.Size = new System.Drawing.Size(67, 22);
-            this.textBox20.TabIndex = 7;
+            this.txtUtranL_T_Add.Location = new System.Drawing.Point(84, 48);
+            this.txtUtranL_T_Add.Name = "txtUtranL_T_Add";
+            this.txtUtranL_T_Add.Size = new System.Drawing.Size(67, 22);
+            this.txtUtranL_T_Add.TabIndex = 7;
+            this.txtUtranL_T_Add.Tag = "L_T_ADD";
             // 
             // label19
             // 
@@ -675,12 +701,13 @@
             this.label19.TabIndex = 13;
             this.label19.Text = "SUFDIR";
             // 
-            // textBox21
+            // txtUtranR_F_Add
             // 
-            this.textBox21.Location = new System.Drawing.Point(11, 77);
-            this.textBox21.Name = "textBox21";
-            this.textBox21.Size = new System.Drawing.Size(67, 22);
-            this.textBox21.TabIndex = 8;
+            this.txtUtranR_F_Add.Location = new System.Drawing.Point(11, 77);
+            this.txtUtranR_F_Add.Name = "txtUtranR_F_Add";
+            this.txtUtranR_F_Add.Size = new System.Drawing.Size(67, 22);
+            this.txtUtranR_F_Add.TabIndex = 8;
+            this.txtUtranR_F_Add.Tag = "R_F_ADD";
             // 
             // label20
             // 
@@ -692,12 +719,13 @@
             this.label20.TabIndex = 12;
             this.label20.Text = "STREETTYPE";
             // 
-            // textBox22
+            // txtUtranR_T_Add
             // 
-            this.textBox22.Location = new System.Drawing.Point(84, 77);
-            this.textBox22.Name = "textBox22";
-            this.textBox22.Size = new System.Drawing.Size(67, 22);
-            this.textBox22.TabIndex = 9;
+            this.txtUtranR_T_Add.Location = new System.Drawing.Point(84, 77);
+            this.txtUtranR_T_Add.Name = "txtUtranR_T_Add";
+            this.txtUtranR_T_Add.Size = new System.Drawing.Size(67, 22);
+            this.txtUtranR_T_Add.TabIndex = 9;
+            this.txtUtranR_T_Add.Tag = "R_T_ADD";
             // 
             // label21
             // 
@@ -777,14 +805,14 @@
             this.label30.TabIndex = 14;
             this.label30.Text = "Attribute, New, Spatial, Attribute and Spatial";
             // 
-            // button1
+            // btnSaveToUtrans
             // 
-            this.button1.Location = new System.Drawing.Point(1067, 409);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(166, 27);
-            this.button1.TabIndex = 15;
-            this.button1.Text = "Save in UTRANS";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnSaveToUtrans.Location = new System.Drawing.Point(1067, 409);
+            this.btnSaveToUtrans.Name = "btnSaveToUtrans";
+            this.btnSaveToUtrans.Size = new System.Drawing.Size(166, 27);
+            this.btnSaveToUtrans.TabIndex = 15;
+            this.btnSaveToUtrans.Text = "Save in UTRANS";
+            this.btnSaveToUtrans.UseVisualStyleBackColor = true;
             // 
             // label31
             // 
@@ -804,23 +832,23 @@
             this.label32.TabIndex = 17;
             this.label32.Text = "USER NAME";
             // 
-            // button2
+            // btnNext
             // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(80, 16);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(58, 32);
-            this.button2.TabIndex = 0;
-            this.button2.Text = ">";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNext.Location = new System.Drawing.Point(80, 16);
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(58, 32);
+            this.btnNext.TabIndex = 0;
+            this.btnNext.Text = ">";
+            this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.button2_Click);
             // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.label34);
             this.groupBox6.Controls.Add(this.label33);
-            this.groupBox6.Controls.Add(this.button2);
-            this.groupBox6.Controls.Add(this.button3);
+            this.groupBox6.Controls.Add(this.btnNext);
+            this.groupBox6.Controls.Add(this.btnPrev);
             this.groupBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox6.Location = new System.Drawing.Point(588, 393);
             this.groupBox6.Name = "groupBox6";
@@ -846,15 +874,15 @@
             this.label33.TabIndex = 1;
             this.label33.Text = "Prev";
             // 
-            // button3
+            // btnPrev
             // 
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(7, 16);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(58, 32);
-            this.button3.TabIndex = 0;
-            this.button3.Text = "<";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnPrev.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPrev.Location = new System.Drawing.Point(7, 16);
+            this.btnPrev.Name = "btnPrev";
+            this.btnPrev.Size = new System.Drawing.Size(58, 32);
+            this.btnPrev.TabIndex = 0;
+            this.btnPrev.Text = "<";
+            this.btnPrev.UseVisualStyleBackColor = true;
             // 
             // label35
             // 
@@ -874,7 +902,7 @@
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.label32);
             this.Controls.Add(this.label31);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnSaveToUtrans);
             this.Controls.Add(this.label30);
             this.Controls.Add(this.label29);
             this.Controls.Add(this.groupBoxStatusField);
@@ -907,79 +935,79 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtCountyL_F_Add;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.GroupBox groupBoxCountySeg;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtCountyR_T_Add;
+        private System.Windows.Forms.TextBox txtCountyR_F_Add;
+        private System.Windows.Forms.TextBox txtCountyL_T_Add;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.GroupBox groupBoxUtransSeg;
-        private System.Windows.Forms.TextBox textBox8;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox txtCountySufDir;
+        private System.Windows.Forms.TextBox txtCountyStType;
+        private System.Windows.Forms.TextBox txtCountyStName;
+        private System.Windows.Forms.TextBox txtCountyPreDir;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.TextBox textBox10;
-        private System.Windows.Forms.TextBox textBox9;
+        private System.Windows.Forms.TextBox txtCountyAlias1Type;
+        private System.Windows.Forms.TextBox txtCountyAlias1;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.LinkLabel linkLabelAttrDoc;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.TextBox textBox14;
-        private System.Windows.Forms.TextBox textBox13;
+        private System.Windows.Forms.TextBox txtCountyAcsSuf;
+        private System.Windows.Forms.TextBox txtCountyAcsAlilas;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox textBox12;
-        private System.Windows.Forms.TextBox textBox11;
+        private System.Windows.Forms.TextBox txtCountyAlias2Type;
+        private System.Windows.Forms.TextBox txtCountyAlias2;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.TextBox textBox23;
-        private System.Windows.Forms.TextBox textBox24;
+        private System.Windows.Forms.TextBox txtUtransAcsSuf;
+        private System.Windows.Forms.TextBox txtUtransAcsAllias;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.TextBox textBox25;
-        private System.Windows.Forms.TextBox textBox26;
-        private System.Windows.Forms.TextBox textBox27;
-        private System.Windows.Forms.TextBox textBox28;
+        private System.Windows.Forms.TextBox txtUtransAlias2Type;
+        private System.Windows.Forms.TextBox txtUtransAlias2;
+        private System.Windows.Forms.TextBox txtUtransAlias1Type;
+        private System.Windows.Forms.TextBox txtUtransAlias1;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox15;
-        private System.Windows.Forms.TextBox textBox16;
-        private System.Windows.Forms.TextBox textBox17;
+        private System.Windows.Forms.TextBox txtUtranSufDir;
+        private System.Windows.Forms.TextBox txtUtranL_F_Add;
+        private System.Windows.Forms.TextBox txtUtranStType;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.TextBox textBox18;
+        private System.Windows.Forms.TextBox txtUtranStName;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.TextBox textBox19;
-        private System.Windows.Forms.TextBox textBox20;
+        private System.Windows.Forms.TextBox txtUtranPreDir;
+        private System.Windows.Forms.TextBox txtUtranL_T_Add;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.TextBox textBox21;
+        private System.Windows.Forms.TextBox txtUtranR_F_Add;
         private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.TextBox textBox22;
+        private System.Windows.Forms.TextBox txtUtranR_T_Add;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.ComboBox cboStatusField;
         private System.Windows.Forms.GroupBox groupBoxStatusField;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.Label label30;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnSaveToUtrans;
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.Label label32;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnPrev;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.Label label35;
