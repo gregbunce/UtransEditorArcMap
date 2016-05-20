@@ -104,11 +104,6 @@
             this.label34 = new System.Windows.Forms.Label();
             this.label33 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
-            this.groupBoxChngOpts = new System.Windows.Forms.GroupBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label35 = new System.Windows.Forms.Label();
             this.groupBoxCountySeg.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -118,7 +113,6 @@
             this.groupBox1.SuspendLayout();
             this.groupBoxStatusField.SuspendLayout();
             this.groupBox6.SuspendLayout();
-            this.groupBoxChngOpts.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBox1
@@ -755,7 +749,7 @@
             // groupBoxStatusField
             // 
             this.groupBoxStatusField.Controls.Add(this.cboStatusField);
-            this.groupBoxStatusField.Location = new System.Drawing.Point(763, 401);
+            this.groupBoxStatusField.Location = new System.Drawing.Point(782, 401);
             this.groupBoxStatusField.Name = "groupBoxStatusField";
             this.groupBoxStatusField.Size = new System.Drawing.Size(166, 49);
             this.groupBoxStatusField.TabIndex = 12;
@@ -862,63 +856,10 @@
             this.button3.Text = "<";
             this.button3.UseVisualStyleBackColor = true;
             // 
-            // groupBoxChngOpts
-            // 
-            this.groupBoxChngOpts.Controls.Add(this.checkBox4);
-            this.groupBoxChngOpts.Controls.Add(this.checkBox3);
-            this.groupBoxChngOpts.Controls.Add(this.checkBox2);
-            this.groupBoxChngOpts.Controls.Add(this.checkBox1);
-            this.groupBoxChngOpts.Location = new System.Drawing.Point(279, 394);
-            this.groupBoxChngOpts.Name = "groupBoxChngOpts";
-            this.groupBoxChngOpts.Size = new System.Drawing.Size(219, 73);
-            this.groupBoxChngOpts.TabIndex = 20;
-            this.groupBoxChngOpts.TabStop = false;
-            this.groupBoxChngOpts.Text = "Change Types";
-            // 
-            // checkBox4
-            // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(106, 36);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(102, 17);
-            this.checkBox4.TabIndex = 3;
-            this.checkBox4.Text = "Attribute/Spatial";
-            this.checkBox4.UseVisualStyleBackColor = true;
-            // 
-            // checkBox3
-            // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(106, 17);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(58, 17);
-            this.checkBox3.TabIndex = 2;
-            this.checkBox3.Text = "Spatial";
-            this.checkBox3.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(7, 36);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(48, 17);
-            this.checkBox2.TabIndex = 1;
-            this.checkBox2.Text = "New";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(7, 17);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(65, 17);
-            this.checkBox1.TabIndex = 0;
-            this.checkBox1.Text = "Attribute";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
             // label35
             // 
             this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(951, 416);
+            this.label35.Location = new System.Drawing.Point(448, 428);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(110, 13);
             this.label35.TabIndex = 21;
@@ -930,7 +871,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1258, 472);
             this.Controls.Add(this.label35);
-            this.Controls.Add(this.groupBoxChngOpts);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.label32);
             this.Controls.Add(this.label31);
@@ -960,8 +900,6 @@
             this.groupBoxStatusField.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
-            this.groupBoxChngOpts.ResumeLayout(false);
-            this.groupBoxChngOpts.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1042,11 +980,6 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.GroupBox groupBoxChngOpts;
-        private System.Windows.Forms.CheckBox checkBox4;
-        private System.Windows.Forms.CheckBox checkBox3;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.Label label35;
