@@ -95,10 +95,10 @@
             this.cboStatusField = new System.Windows.Forms.ComboBox();
             this.groupBoxStatusField = new System.Windows.Forms.GroupBox();
             this.label29 = new System.Windows.Forms.Label();
-            this.label30 = new System.Windows.Forms.Label();
+            this.lblChangeType = new System.Windows.Forms.Label();
             this.btnSaveToUtrans = new System.Windows.Forms.Button();
             this.label31 = new System.Windows.Forms.Label();
-            this.label32 = new System.Windows.Forms.Label();
+            this.lblVersionName = new System.Windows.Forms.Label();
             this.btnNext = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.label34 = new System.Windows.Forms.Label();
@@ -117,8 +117,10 @@
             // 
             // txtCountyL_F_Add
             // 
+            this.txtCountyL_F_Add.BackColor = System.Drawing.SystemColors.Window;
             this.txtCountyL_F_Add.Location = new System.Drawing.Point(11, 48);
             this.txtCountyL_F_Add.Name = "txtCountyL_F_Add";
+            this.txtCountyL_F_Add.ReadOnly = true;
             this.txtCountyL_F_Add.Size = new System.Drawing.Size(67, 22);
             this.txtCountyL_F_Add.TabIndex = 1;
             this.txtCountyL_F_Add.Tag = "CoL_F_ADD";
@@ -185,16 +187,20 @@
             // 
             // txtCountySufDir
             // 
+            this.txtCountySufDir.BackColor = System.Drawing.SystemColors.Window;
             this.txtCountySufDir.Location = new System.Drawing.Point(561, 48);
             this.txtCountySufDir.Name = "txtCountySufDir";
+            this.txtCountySufDir.ReadOnly = true;
             this.txtCountySufDir.Size = new System.Drawing.Size(55, 22);
             this.txtCountySufDir.TabIndex = 17;
             this.txtCountySufDir.Tag = "CoSUFDIR";
             // 
             // txtCountyStType
             // 
+            this.txtCountyStType.BackColor = System.Drawing.SystemColors.Window;
             this.txtCountyStType.Location = new System.Drawing.Point(477, 48);
             this.txtCountyStType.Name = "txtCountyStType";
+            this.txtCountyStType.ReadOnly = true;
             this.txtCountyStType.Size = new System.Drawing.Size(78, 22);
             this.txtCountyStType.TabIndex = 16;
             this.txtCountyStType.Tag = "CoSTREETTYPE";
@@ -213,8 +219,10 @@
             // 
             // txtCountyStName
             // 
+            this.txtCountyStName.BackColor = System.Drawing.SystemColors.Window;
             this.txtCountyStName.Location = new System.Drawing.Point(232, 48);
             this.txtCountyStName.Name = "txtCountyStName";
+            this.txtCountyStName.ReadOnly = true;
             this.txtCountyStName.Size = new System.Drawing.Size(239, 22);
             this.txtCountyStName.TabIndex = 15;
             this.txtCountyStName.Tag = "CoSTREETNAME";
@@ -232,16 +240,20 @@
             // 
             // txtCountyPreDir
             // 
+            this.txtCountyPreDir.BackColor = System.Drawing.SystemColors.Window;
             this.txtCountyPreDir.Location = new System.Drawing.Point(159, 48);
             this.txtCountyPreDir.Name = "txtCountyPreDir";
+            this.txtCountyPreDir.ReadOnly = true;
             this.txtCountyPreDir.Size = new System.Drawing.Size(67, 22);
             this.txtCountyPreDir.TabIndex = 14;
             this.txtCountyPreDir.Tag = "CoPREDIR";
             // 
             // txtCountyL_T_Add
             // 
+            this.txtCountyL_T_Add.BackColor = System.Drawing.SystemColors.Window;
             this.txtCountyL_T_Add.Location = new System.Drawing.Point(84, 48);
             this.txtCountyL_T_Add.Name = "txtCountyL_T_Add";
+            this.txtCountyL_T_Add.ReadOnly = true;
             this.txtCountyL_T_Add.Size = new System.Drawing.Size(67, 22);
             this.txtCountyL_T_Add.TabIndex = 7;
             this.txtCountyL_T_Add.Tag = "CoL_T_ADD";
@@ -258,8 +270,10 @@
             // 
             // txtCountyR_F_Add
             // 
+            this.txtCountyR_F_Add.BackColor = System.Drawing.SystemColors.Window;
             this.txtCountyR_F_Add.Location = new System.Drawing.Point(11, 77);
             this.txtCountyR_F_Add.Name = "txtCountyR_F_Add";
+            this.txtCountyR_F_Add.ReadOnly = true;
             this.txtCountyR_F_Add.Size = new System.Drawing.Size(67, 22);
             this.txtCountyR_F_Add.TabIndex = 8;
             this.txtCountyR_F_Add.Tag = "CoR_F_ADD";
@@ -277,8 +291,10 @@
             // 
             // txtCountyR_T_Add
             // 
+            this.txtCountyR_T_Add.BackColor = System.Drawing.SystemColors.Window;
             this.txtCountyR_T_Add.Location = new System.Drawing.Point(84, 77);
             this.txtCountyR_T_Add.Name = "txtCountyR_T_Add";
+            this.txtCountyR_T_Add.ReadOnly = true;
             this.txtCountyR_T_Add.Size = new System.Drawing.Size(67, 22);
             this.txtCountyR_T_Add.TabIndex = 9;
             this.txtCountyR_T_Add.Tag = "CoR_T_ADD";
@@ -348,16 +364,20 @@
             // 
             // txtCountyAcsSuf
             // 
+            this.txtCountyAcsSuf.BackColor = System.Drawing.SystemColors.Window;
             this.txtCountyAcsSuf.Location = new System.Drawing.Point(450, 63);
             this.txtCountyAcsSuf.Name = "txtCountyAcsSuf";
+            this.txtCountyAcsSuf.ReadOnly = true;
             this.txtCountyAcsSuf.Size = new System.Drawing.Size(102, 22);
             this.txtCountyAcsSuf.TabIndex = 9;
             this.txtCountyAcsSuf.Tag = "CoACSSUF";
             // 
             // txtCountyAcsAlilas
             // 
+            this.txtCountyAcsAlilas.BackColor = System.Drawing.SystemColors.Window;
             this.txtCountyAcsAlilas.Location = new System.Drawing.Point(342, 63);
             this.txtCountyAcsAlilas.Name = "txtCountyAcsAlilas";
+            this.txtCountyAcsAlilas.ReadOnly = true;
             this.txtCountyAcsAlilas.Size = new System.Drawing.Size(102, 22);
             this.txtCountyAcsAlilas.TabIndex = 8;
             this.txtCountyAcsAlilas.Tag = "CoACSALIAS";
@@ -384,32 +404,40 @@
             // 
             // txtCountyAlias2Type
             // 
+            this.txtCountyAlias2Type.BackColor = System.Drawing.SystemColors.Window;
             this.txtCountyAlias2Type.Location = new System.Drawing.Point(193, 77);
             this.txtCountyAlias2Type.Name = "txtCountyAlias2Type";
+            this.txtCountyAlias2Type.ReadOnly = true;
             this.txtCountyAlias2Type.Size = new System.Drawing.Size(143, 22);
             this.txtCountyAlias2Type.TabIndex = 5;
             this.txtCountyAlias2Type.Tag = "CoALIAS2TYPE";
             // 
             // txtCountyAlias2
             // 
+            this.txtCountyAlias2.BackColor = System.Drawing.SystemColors.Window;
             this.txtCountyAlias2.Location = new System.Drawing.Point(15, 77);
             this.txtCountyAlias2.Name = "txtCountyAlias2";
+            this.txtCountyAlias2.ReadOnly = true;
             this.txtCountyAlias2.Size = new System.Drawing.Size(172, 22);
             this.txtCountyAlias2.TabIndex = 4;
             this.txtCountyAlias2.Tag = "CoALIAS2";
             // 
             // txtCountyAlias1Type
             // 
+            this.txtCountyAlias1Type.BackColor = System.Drawing.SystemColors.Window;
             this.txtCountyAlias1Type.Location = new System.Drawing.Point(193, 48);
             this.txtCountyAlias1Type.Name = "txtCountyAlias1Type";
+            this.txtCountyAlias1Type.ReadOnly = true;
             this.txtCountyAlias1Type.Size = new System.Drawing.Size(143, 22);
             this.txtCountyAlias1Type.TabIndex = 3;
             this.txtCountyAlias1Type.Tag = "CoALIAS1TYPE";
             // 
             // txtCountyAlias1
             // 
+            this.txtCountyAlias1.BackColor = System.Drawing.SystemColors.Window;
             this.txtCountyAlias1.Location = new System.Drawing.Point(15, 48);
             this.txtCountyAlias1.Name = "txtCountyAlias1";
+            this.txtCountyAlias1.ReadOnly = true;
             this.txtCountyAlias1.Size = new System.Drawing.Size(172, 22);
             this.txtCountyAlias1.TabIndex = 2;
             this.txtCountyAlias1.Tag = "CoALIAS1";
@@ -794,16 +822,16 @@
             this.label29.TabIndex = 13;
             this.label29.Text = "Update Change Type:";
             // 
-            // label30
+            // lblChangeType
             // 
-            this.label30.AutoSize = true;
-            this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label30.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.label30.Location = new System.Drawing.Point(665, 15);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(308, 16);
-            this.label30.TabIndex = 14;
-            this.label30.Text = "Attribute, New, Spatial, Attribute and Spatial";
+            this.lblChangeType.AutoSize = true;
+            this.lblChangeType.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblChangeType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.lblChangeType.Location = new System.Drawing.Point(665, 15);
+            this.lblChangeType.Name = "lblChangeType";
+            this.lblChangeType.Size = new System.Drawing.Size(308, 16);
+            this.lblChangeType.TabIndex = 14;
+            this.lblChangeType.Text = "Attribute, New, Spatial, Attribute and Spatial";
             // 
             // btnSaveToUtrans
             // 
@@ -823,14 +851,14 @@
             this.label31.TabIndex = 16;
             this.label31.Text = "UTRANS Database Version: ";
             // 
-            // label32
+            // lblVersionName
             // 
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(164, 401);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(71, 13);
-            this.label32.TabIndex = 17;
-            this.label32.Text = "USER NAME";
+            this.lblVersionName.AutoSize = true;
+            this.lblVersionName.Location = new System.Drawing.Point(164, 401);
+            this.lblVersionName.Name = "lblVersionName";
+            this.lblVersionName.Size = new System.Drawing.Size(71, 13);
+            this.lblVersionName.TabIndex = 17;
+            this.lblVersionName.Text = "USER NAME";
             // 
             // btnNext
             // 
@@ -900,10 +928,10 @@
             this.ClientSize = new System.Drawing.Size(1258, 472);
             this.Controls.Add(this.label35);
             this.Controls.Add(this.groupBox6);
-            this.Controls.Add(this.label32);
+            this.Controls.Add(this.lblVersionName);
             this.Controls.Add(this.label31);
             this.Controls.Add(this.btnSaveToUtrans);
-            this.Controls.Add(this.label30);
+            this.Controls.Add(this.lblChangeType);
             this.Controls.Add(this.label29);
             this.Controls.Add(this.groupBoxStatusField);
             this.Controls.Add(this.linkLabelAttrDoc);
@@ -1001,10 +1029,10 @@
         private System.Windows.Forms.ComboBox cboStatusField;
         private System.Windows.Forms.GroupBox groupBoxStatusField;
         private System.Windows.Forms.Label label29;
-        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Label lblChangeType;
         private System.Windows.Forms.Button btnSaveToUtrans;
         private System.Windows.Forms.Label label31;
-        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Label lblVersionName;
         private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Button btnPrev;

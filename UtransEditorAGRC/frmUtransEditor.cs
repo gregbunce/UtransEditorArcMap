@@ -21,6 +21,9 @@ namespace UtransEditorAGRC
         // create a list of controls that contains address pieces for managing edits
         private List<Control> ctrlList = new List<Control>();
 
+        //get the selected feature(s) from the dfc fc
+        IFeatureSelection arcFeatureSelection; // = clsGlobals.arcGeoFLayerDfcResult as IFeatureSelection;
+        ISelectionSet arcSelSet; // = arcFeatureSelection.SelectionSet;
 
 
         public frmUtransEditor()
@@ -50,6 +53,8 @@ namespace UtransEditorAGRC
                     //IVersionedWorkspace versionedWorkspace = (IVersionedWorkspace)arcWspace;
                     IVersion2 arcVersion = (IVersion2)arcWspace;
 
+                    lblVersionName.Text = arcVersion.VersionName.ToString();
+
                     //show message box so user knows what version they are editing on the utrans database
                     MessageBox.Show("You are editing the UTRANS database using the following version: " + arcVersion.VersionName, "Utrans Version", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -65,6 +70,8 @@ namespace UtransEditorAGRC
 
                 //get the focus map
                 IMap arcMapp = arcMxDoc.FocusMap;
+
+                IActiveView arcActiveView = arcMapp as IActiveView;
 
                 //get reference to the layers in the map
                 //clear out any reference to the utrans street layer
@@ -124,8 +131,51 @@ namespace UtransEditorAGRC
                 }
 
                 
+                //clear the selection in the map, so we can start fresh with the tool and user's inputs
+                arcMapp.ClearSelection();
+                
+                //refresh the map on the selected features
+                arcActiveView.PartialRefresh(esriViewDrawPhase.esriViewGeoSelection, null, null);
 
 
+                //add textboxes to the control list
+                ctrlList.Add(this.txtCountyAcsAlilas);
+                ctrlList.Add(this.txtCountyAcsSuf);
+                ctrlList.Add(this.txtCountyAlias1);
+                ctrlList.Add(this.txtCountyAlias1Type);
+                ctrlList.Add(this.txtCountyAlias2);
+                ctrlList.Add(this.txtCountyAlias2Type);
+                ctrlList.Add(this.txtCountyL_F_Add);
+                ctrlList.Add(this.txtCountyL_T_Add);
+                ctrlList.Add(this.txtCountyPreDir);
+                ctrlList.Add(this.txtCountyR_F_Add);
+                ctrlList.Add(this.txtCountyR_T_Add);
+                ctrlList.Add(this.txtCountyStName);
+                ctrlList.Add(this.txtCountyStType);
+                ctrlList.Add(this.txtCountySufDir);
+                ctrlList.Add(this.txtUtranL_F_Add);
+                ctrlList.Add(this.txtUtranL_T_Add);
+                ctrlList.Add(this.txtUtranPreDir);
+                ctrlList.Add(this.txtUtranR_F_Add);
+                ctrlList.Add(this.txtUtranR_T_Add);
+                ctrlList.Add(this.txtUtransAcsAllias);
+                ctrlList.Add(this.txtUtransAcsSuf);
+                ctrlList.Add(this.txtUtransAlias1);
+                ctrlList.Add(this.txtUtransAlias1Type);
+                ctrlList.Add(this.txtUtransAlias2);
+                ctrlList.Add(this.txtUtransAlias2Type);
+                ctrlList.Add(this.txtUtranStName);
+                ctrlList.Add(this.txtUtranStType);
+                ctrlList.Add(this.txtUtranSufDir);
+
+
+                //make sure the backcolor of each color is white
+                for (int i = 0; i < ctrlList.Count; i++)
+                {
+                    Control ctrl = ctrlList.ElementAt(i);
+                    ctrl.BackColor = Color.White;
+                    ctrl.Text = "";
+                }
 
 
             }
@@ -147,11 +197,116 @@ namespace UtransEditorAGRC
         {
             try
             {
-                //update all the text boxes
-                foreach (var ctrl in ctrlList)
+                //moved to top for wider scope
+                //get the selected feature(s) from the dfc fc
+                //IFeatureSelection arcFeatureSelection = clsGlobals.arcGeoFLayerDfcResult as IFeatureSelection;
+                //ISelectionSet arcSelSet = arcFeatureSelection.SelectionSet;
+
+                arcFeatureSelection = clsGlobals.arcGeoFLayerDfcResult as IFeatureSelection;
+                arcSelSet = arcFeatureSelection.SelectionSet;
+
+
+                //check record is selected in the dfc fc
+                if (arcSelSet.Count == 1)
                 {
-                    updateTextBox(ctrl);
+                    //get a cursor of the selected features
+                    ICursor arcCursor;
+                    arcSelSet.Search(null, false, out arcCursor);
+
+                    //get the first row (there should only be one)
+                    IRow arcRow = arcCursor.NextRow();
+
+                    //get the objectids from dfc layer for selecting on corresponding layer
+                    string strCountyOID = arcRow.get_Value(arcRow.Fields.FindField("UPDATE_FID")).ToString();
+                    string strUtransOID = arcRow.get_Value(arcRow.Fields.FindField("BASE_FID")).ToString();
+                    string strChangeType = arcRow.get_Value(arcRow.Fields.FindField("CHANGE_TYPE")).ToString();
+
+                    //populate the change type on the top of the form
+                    switch (strChangeType)
+                    {
+                        case "N":
+                            lblChangeType.Text = "New";
+                            break;
+                        case "S":
+                            lblChangeType.Text = "Spatial";
+                            break;
+                        case "A":
+                            lblChangeType.Text = "Attribute";
+                            break;
+                        case "SA":
+                            lblChangeType.Text = "Spatial and Attribute";
+                            break;
+                        case "NC":
+                            lblChangeType.Text = "No Change";
+                            break;
+                        case "D":
+                            lblChangeType.Text = "Delation";
+                            break;
+                        default:
+                            lblChangeType.Text = "Unknown";
+                            break;
+                    }
+
+
+                    //get the corresponding features
+                    IQueryFilter arcCountyQueryFilter = new QueryFilter();
+                    arcCountyQueryFilter.WhereClause = "OBJECTID = " + strCountyOID.ToString();
+                    MessageBox.Show("County OID: " + strCountyOID.ToString());
+
+                    IQueryFilter arcUtransQueryFilter = new QueryFilter();
+                    arcUtransQueryFilter.WhereClause = "OBJECTID = " + strUtransOID.ToString();
+                    MessageBox.Show("Utrans OID: " + strUtransOID.ToString());
+
+                    IFeatureCursor arcCountyFeatCursor = clsGlobals.arcGeoFLayerCountyStreets.Search(arcCountyQueryFilter, true);
+                    IFeature arcCountyFeature = (IFeature)arcCountyFeatCursor.NextFeature();
+
+
+                    IFeatureCursor arcUtransFeatCursor = clsGlobals.arcGeoFLayerUtransStreets.Search(arcUtransQueryFilter, true);
+                    IFeature arcUtransFeature = (IFeature)arcUtransFeatCursor.NextFeature();
+
+
+                    //update the textboxes with the selected dfc row//
+
+                    //make sure the query returned results for county roads
+                    if (arcCountyFeature != null)
+                    {
+                        //update all the text boxes
+                        foreach (var ctrl in ctrlList)
+                        {
+                            if (arcCountyFeature.Fields.FindFieldByAliasName(ctrl.Tag.ToString()) > -1)
+                            {
+                                ctrl.Text = arcCountyFeature.get_Value(arcCountyFeature.Fields.FindFieldByAliasName(ctrl.Tag.ToString())).ToString();
+                            }
+                        }
+                    }
+
+
+                    //make sure the query returned results for utrans roads
+                    if (arcUtransFeature != null)
+                    {
+                        //update all the text boxes
+                        foreach (var ctrl in ctrlList)
+                        {
+                            if (arcUtransFeature.Fields.FindFieldByAliasName(ctrl.Tag.ToString())>-1)
+                            {
+                                ctrl.Text = arcUtransFeature.get_Value(arcUtransFeature.Fields.FindFieldByAliasName(ctrl.Tag.ToString())).ToString();
+                            }
+                        }
+                    }
+
+
                 }
+                else //if the user selects more or less than one record in the dfc fc - clear out the textboxes
+                {
+                    //clear out the textboxes so nothing is populated
+                    foreach (var ctrl in ctrlList)
+                    {
+                        ctrl.Text = "";
+                    }
+                }
+ 
+
+
             }
             catch (Exception ex)
             {
@@ -162,11 +317,77 @@ namespace UtransEditorAGRC
 
 
         //this method updates the textbox controls on the form with the currently selected features
-        private void updateTextBox(Control ctrl) 
+        private void updateTextBox(Control ctrl, string strCountyObjectID, string strUtransObjecID) 
         {
 
             try
             {
+                //this.Focus();//set focus to the form if there is a road segment selected
+
+                ////get a cursor of the selected features
+                //ICursor arcCursor;
+                //arcSelSet.Search(null, false, out arcCursor);
+
+                ////get the first row (there should only be one)
+                //IRow arcRow = arcCursor.NextRow();
+
+                ////get the objectids from dfc layer for selecting on corresponding layer
+                //string strCountyOID = arcRow.get_Value(arcRow.Fields.FindField("UPDATE_FID")).ToString();
+                //string strUtransOID = arcRow.get_Value(arcRow.Fields.FindField("BASE_FID")).ToString();
+                //string strChangeType = arcRow.get_Value(arcRow.Fields.FindField("CHANGE_TYPE")).ToString();
+
+                ////populate the change type on the top of the form
+                //switch (strChangeType)
+                //{
+                //    case "N":
+                //        lblChangeType.Text = "New";
+                //        break;
+                //    case "S":
+                //        lblChangeType.Text = "Spatial";
+                //        break;
+                //    case "A":
+                //        lblChangeType.Text = "Attribute";
+                //        break;
+                //    case "SA":
+                //        lblChangeType.Text = "Spatial and Attribute";
+                //        break;
+                //    case "NC":
+                //        lblChangeType.Text = "No Change";
+                //        break;
+                //    case "D":
+                //        lblChangeType.Text = "Delation";
+                //        break;
+                //    default:
+                //        lblChangeType.Text = "Unknown";
+                //        break;
+                //}
+
+                ////get the corresponding features
+                //IQueryFilter arcCountyQueryFilter = new QueryFilter();
+                //arcCountyQueryFilter.WhereClause = "OBJECTID = " + strCountyObjectID.ToString();
+
+                //IQueryFilter arcUtransQueryFilter = new QueryFilter();
+                //arcUtransQueryFilter.WhereClause = "OBJECTID = " + strUtransObjecID.ToString();
+
+
+                //IFeatureCursor arcCountyFeatCursor = clsGlobals.arcGeoFLayerCountyStreets.Search(arcCountyQueryFilter, true);
+                //arcCountyFeatCursor.NextFeature();
+                
+
+                //IFeatureCursor arcUtransFeatCursor = clsGlobals.arcGeoFLayerUtransStreets.Search(arcUtransQueryFilter, true);
+                //arcUtransFeatCursor.NextFeature();
+
+                //if (arcCountyFeatCursor != null)
+                //{
+                    
+
+                //}
+
+                //if (arcUtransFeatCursor != null)
+                //{
+                    
+
+                //}
 
 
 
