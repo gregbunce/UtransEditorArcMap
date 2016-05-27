@@ -144,61 +144,59 @@ namespace UtransEditorAGRC
         {
             try
             {
-                //get the editor workspace
-                IWorkspace arcWspace = clsGlobals.arcEditor.EditWorkspace;
+                ////get the editor workspace
+                //IWorkspace arcWspace = clsGlobals.arcEditor.EditWorkspace;
 
-                //if the workspace is not remote (sde), exit the sub
-                if (arcWspace.Type != esriWorkspaceType.esriRemoteDatabaseWorkspace) { return; }
+                ////if the workspace is not remote (sde), exit the sub
+                //if (arcWspace.Type != esriWorkspaceType.esriRemoteDatabaseWorkspace) { return; }
 
-                //get the workspace as an IWorkspaceEdit
-                IWorkspaceEdit arcWspaceEdit = clsGlobals.arcEditor.EditWorkspace as IWorkspaceEdit;
+                ////get the workspace as an IWorkspaceEdit
+                //IWorkspaceEdit arcWspaceEdit = clsGlobals.arcEditor.EditWorkspace as IWorkspaceEdit;
 
-                //get the workspace as a feature workspace
-                IFeatureWorkspace arcFeatWspace = arcWspace as IFeatureWorkspace;
+                ////get the workspace as a feature workspace
+                //IFeatureWorkspace arcFeatWspace = arcWspace as IFeatureWorkspace;
 
-                //get the current document
-                IMxDocument arcMxDoc = clsGlobals.arcApplication.Document as IMxDocument;
+                ////get the current document
+                //IMxDocument arcMxDoc = clsGlobals.arcApplication.Document as IMxDocument;
 
-                //get the focus map
-                IMap arcMapp = arcMxDoc.FocusMap;
+                ////get the focus map
+                //IMap arcMapp = arcMxDoc.FocusMap;
 
-                //clear out any reference to the utrans street layer
-                clsGlobals.arcGeoFLayerUtransStreets = null;
-
-
-                //loop through the map layers and get the utrans.statewidestreets, the county roads data, and the detect feature change fc - all into IGeoFeatureLayer(s)
-                for (int i = 0; i < arcMapp.LayerCount; i++)
-                {
-                    if (arcMapp.get_Layer(i) is IGeoFeatureLayer)
-                    {
-                        try
-                        {
-                            IFeatureLayer arcFLayer = arcMapp.get_Layer(i) as IFeatureLayer;
-                            IFeatureClass arcFClass = arcFLayer.FeatureClass;
-                            IObjectClass arcObjClass = arcFClass as IObjectClass;
-                            if (arcObjClass.AliasName.ToString().ToUpper() == "UTRANS.TRANSADMIN.STATEWIDESTREETS")
-                            {
-                                clsGlobals.arcGeoFLayerUtransStreets = arcMapp.get_Layer(i) as IGeoFeatureLayer;
-                                MessageBox.Show("referenced utrans streets");
-                            }
-                            if (arcObjClass.AliasName.ToString().ToUpper() == "COUNTYSTREETS")
-                            {
-                                clsGlobals.arcGeoFLayerCountyStreets = arcMapp.get_Layer(i) as IGeoFeatureLayer;
-                                MessageBox.Show("referenced county streets");
-                            }
-                            if (arcObjClass.AliasName.ToString().ToUpper() == "DFC_RESULT")
-                            {
-                                clsGlobals.arcGeoFLayerDfcResult = arcMapp.get_Layer(i) as IGeoFeatureLayer;
-                                MessageBox.Show("referenced dfc results");
-                            }
-                        }
-
-                        catch (Exception e) { }//in case there is an error looping through layers (sometimes on group layers or dynamic xy layers), just keep going
-
-                    }
-                }
+                ////clear out any reference to the utrans street layer
+                //clsGlobals.arcGeoFLayerUtransStreets = null;
 
 
+                ////loop through the map layers and get the utrans.statewidestreets, the county roads data, and the detect feature change fc - all into IGeoFeatureLayer(s)
+                //for (int i = 0; i < arcMapp.LayerCount; i++)
+                //{
+                //    if (arcMapp.get_Layer(i) is IGeoFeatureLayer)
+                //    {
+                //        try
+                //        {
+                //            IFeatureLayer arcFLayer = arcMapp.get_Layer(i) as IFeatureLayer;
+                //            IFeatureClass arcFClass = arcFLayer.FeatureClass;
+                //            IObjectClass arcObjClass = arcFClass as IObjectClass;
+                //            if (arcObjClass.AliasName.ToString().ToUpper() == "UTRANS.TRANSADMIN.STATEWIDESTREETS")
+                //            {
+                //                clsGlobals.arcGeoFLayerUtransStreets = arcMapp.get_Layer(i) as IGeoFeatureLayer;
+                //                MessageBox.Show("referenced utrans streets");
+                //            }
+                //            if (arcObjClass.AliasName.ToString().ToUpper() == "COUNTY_STREETS")
+                //            {
+                //                clsGlobals.arcGeoFLayerCountyStreets = arcMapp.get_Layer(i) as IGeoFeatureLayer;
+                //                MessageBox.Show("referenced county streets");
+                //            }
+                //            if (arcObjClass.AliasName.ToString().ToUpper() == "DFC_RESULT")
+                //            {
+                //                clsGlobals.arcGeoFLayerDfcResult = arcMapp.get_Layer(i) as IGeoFeatureLayer;
+                //                MessageBox.Show("referenced dfc results");
+                //            }
+                //        }
+
+                //        catch (Exception e) { }//in case there is an error looping through layers (sometimes on group layers or dynamic xy layers), just keep going
+
+                //    }
+                //}
 
             }
             catch (Exception e) 

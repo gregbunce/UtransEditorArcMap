@@ -77,7 +77,7 @@ namespace UtransEditorAGRC
             //
             base.m_category = "AGRC"; //localizable text
             base.m_caption = "UTRANS Editor";  //localizable text
-            base.m_message = "This tool assists in the UTRANS update process";  //localizable text 
+            base.m_message = "This tool assists in the UTRANS update process.  Requires the following layers as named in the map: ''UTRANS.TRANSADMIN.StatewideStreets'', ''COUNTY_STREETS'', ''DFC_RESULT''.  Also, must be editing on UTRANS layer.";  //localizable text 
             base.m_toolTip = "AGRC UTRANS Editor Tool";  //localizable text 
             base.m_name = "UtransEditorTool";   //unique id, non-localizable (e.g. "MyCategory_ArcMapCommand")
             base.m_bitmap = Properties.Resources.clsBtnUtransEditor;
@@ -128,6 +128,8 @@ namespace UtransEditorAGRC
                 {
                     //check to see if the street layer is in the map and is editable                              
                     bool isEditable = false;
+                    bool isCountyStreets = false;
+                    bool isDfcResult = false;
 
                     //get a reference to ieditlayers to see which layers are editable
                     IEditLayers arcEditLayers = clsGlobals.arcEditor as IEditLayers;
@@ -146,10 +148,18 @@ namespace UtransEditorAGRC
                             }
                             else
                                 isEditable = false;
-
+                        }
+                        if (arcMapp.get_Layer(i).Name.ToUpper() == "COUNTY_STREETS")
+                        {
+                            isCountyStreets = true;
+                        }
+                        if (arcMapp.get_Layer(i).Name.ToUpper() == "DFC_RESULT")
+                        {
+                            isDfcResult = true;
                         }
                     }
-                    if (isEditable)
+                    //if all the needed layers are in the map, and utrans streets are editable then enable button
+                    if (isEditable & isCountyStreets & isDfcResult)
                     {
                         return true;
                     }
