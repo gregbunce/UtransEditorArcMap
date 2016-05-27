@@ -827,7 +827,7 @@
             this.lblChangeType.AutoSize = true;
             this.lblChangeType.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblChangeType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.lblChangeType.Location = new System.Drawing.Point(665, 15);
+            this.lblChangeType.Location = new System.Drawing.Point(662, 15);
             this.lblChangeType.Name = "lblChangeType";
             this.lblChangeType.Size = new System.Drawing.Size(308, 16);
             this.lblChangeType.TabIndex = 14;

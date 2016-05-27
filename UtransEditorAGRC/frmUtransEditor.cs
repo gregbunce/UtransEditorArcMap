@@ -176,8 +176,6 @@ namespace UtransEditorAGRC
                     ctrl.BackColor = Color.White;
                     ctrl.Text = "";
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -201,6 +199,15 @@ namespace UtransEditorAGRC
                 //get the selected feature(s) from the dfc fc
                 //IFeatureSelection arcFeatureSelection = clsGlobals.arcGeoFLayerDfcResult as IFeatureSelection;
                 //ISelectionSet arcSelSet = arcFeatureSelection.SelectionSet;
+
+                //make sure the backcolor of each color is white
+                for (int i = 0; i < ctrlList.Count; i++)
+                {
+                    Control ctrl = ctrlList.ElementAt(i);
+                    ctrl.BackColor = Color.White;
+                    ctrl.Text = "";
+                }
+
 
                 arcFeatureSelection = clsGlobals.arcGeoFLayerDfcResult as IFeatureSelection;
                 arcSelSet = arcFeatureSelection.SelectionSet;
@@ -251,11 +258,12 @@ namespace UtransEditorAGRC
                     //get the corresponding features
                     IQueryFilter arcCountyQueryFilter = new QueryFilter();
                     arcCountyQueryFilter.WhereClause = "OBJECTID = " + strCountyOID.ToString();
-                    MessageBox.Show("County OID: " + strCountyOID.ToString());
+                    //MessageBox.Show("County OID: " + strCountyOID.ToString());
 
                     IQueryFilter arcUtransQueryFilter = new QueryFilter();
                     arcUtransQueryFilter.WhereClause = "OBJECTID = " + strUtransOID.ToString();
-                    MessageBox.Show("Utrans OID: " + strUtransOID.ToString());
+                    //can check if oid = -1 then it's a new record so maybe make backround color on form green or something until user says okay to import, then populate
+                    //MessageBox.Show("Utrans OID: " + strUtransOID.ToString());
 
                     IFeatureCursor arcCountyFeatCursor = clsGlobals.arcGeoFLayerCountyStreets.Search(arcCountyQueryFilter, true);
                     IFeature arcCountyFeature = (IFeature)arcCountyFeatCursor.NextFeature();
@@ -294,6 +302,9 @@ namespace UtransEditorAGRC
                         }
                     }
 
+
+                    //call check differnces method
+                    checkTextboxDifferneces();
 
                 }
                 else //if the user selects more or less than one record in the dfc fc - clear out the textboxes
@@ -396,6 +407,54 @@ namespace UtransEditorAGRC
             {
                 MessageBox.Show(ex.Message + " " + ex.Source + " " + ex.StackTrace + " " + ex.TargetSite, "Error!");
             }
+        }
+
+
+
+        private void checkTextboxDifferneces() 
+        {
+            try
+            {
+                if (txtCountyStName.Text.ToUpper().ToString() != txtUtranStName.Text.ToUpper().ToString())
+                {
+                    txtUtranStName.BackColor = Color.LightSalmon;                    
+                }
+                if (txtCountyStType.Text.ToUpper().ToString() != txtUtranStType.Text.ToUpper().ToString())
+                {
+                    txtUtranStType.BackColor = Color.LightSalmon;
+                }
+                if (txtCountySufDir.Text.ToUpper().ToString() != txtUtranSufDir.Text.ToUpper().ToString())
+                {
+                    txtUtranSufDir.BackColor = Color.LightSalmon;
+                }
+                if (txtCountyPreDir.Text.ToUpper().ToString() != txtUtranPreDir.Text.ToUpper().ToString())
+                {
+                    txtUtranPreDir.BackColor = Color.LightSalmon;
+                }
+                if (txtCountyL_F_Add.Text.ToString() != txtUtranL_F_Add.Text.ToString())
+                {
+                    txtUtranL_F_Add.BackColor = Color.LightSalmon;
+                }
+                if (txtCountyL_T_Add.Text.ToString() != txtUtranL_T_Add.Text.ToString())
+                {
+                    txtUtranL_T_Add.BackColor = Color.LightSalmon;
+                }
+                if (txtCountyR_F_Add.Text.ToString() != txtUtranR_F_Add.Text.ToString())
+                {
+                    txtUtranR_F_Add.BackColor = Color.LightSalmon;
+                }
+                if (txtCountyR_T_Add.Text.ToString() != txtUtranR_T_Add.Text.ToString())
+                {
+                    txtUtranR_T_Add.BackColor = Color.LightSalmon;
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + " " + ex.Source + " " + ex.StackTrace + " " + ex.TargetSite, "Error!");
+            }
+        
         }
 
 
