@@ -62,35 +62,35 @@
             this.label11 = new System.Windows.Forms.Label();
             this.groupBoxUtransSeg = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
+            this.lblAcsSuf = new System.Windows.Forms.Label();
+            this.lblAcsAlias = new System.Windows.Forms.Label();
             this.txtUtransAcsSuf = new System.Windows.Forms.TextBox();
             this.txtUtransAcsAllias = new System.Windows.Forms.TextBox();
-            this.label25 = new System.Windows.Forms.Label();
-            this.label26 = new System.Windows.Forms.Label();
+            this.lblAlias2Type = new System.Windows.Forms.Label();
+            this.lblAlias2 = new System.Windows.Forms.Label();
             this.txtUtransAlias2Type = new System.Windows.Forms.TextBox();
             this.txtUtransAlias2 = new System.Windows.Forms.TextBox();
             this.txtUtransAlias1Type = new System.Windows.Forms.TextBox();
             this.txtUtransAlias1 = new System.Windows.Forms.TextBox();
-            this.label27 = new System.Windows.Forms.Label();
-            this.label28 = new System.Windows.Forms.Label();
+            this.lblAlias1Type = new System.Windows.Forms.Label();
+            this.lblAlias = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.lblLeftFrom = new System.Windows.Forms.Label();
+            this.lblLeftTo = new System.Windows.Forms.Label();
             this.txtUtranSufDir = new System.Windows.Forms.TextBox();
             this.txtUtranL_F_Add = new System.Windows.Forms.TextBox();
             this.txtUtranStType = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
+            this.lblRightTo = new System.Windows.Forms.Label();
             this.txtUtranStName = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
+            this.lblRightFrom = new System.Windows.Forms.Label();
             this.txtUtranPreDir = new System.Windows.Forms.TextBox();
             this.txtUtranL_T_Add = new System.Windows.Forms.TextBox();
-            this.label19 = new System.Windows.Forms.Label();
+            this.lblSufDir = new System.Windows.Forms.Label();
             this.txtUtranR_F_Add = new System.Windows.Forms.TextBox();
-            this.label20 = new System.Windows.Forms.Label();
+            this.lblStType = new System.Windows.Forms.Label();
             this.txtUtranR_T_Add = new System.Windows.Forms.TextBox();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
+            this.lblStName = new System.Windows.Forms.Label();
+            this.lblPreDir = new System.Windows.Forms.Label();
             this.linkLabelAttrDoc = new System.Windows.Forms.LinkLabel();
             this.cboStatusField = new System.Windows.Forms.ComboBox();
             this.groupBoxStatusField = new System.Windows.Forms.GroupBox();
@@ -204,7 +204,6 @@
             this.txtCountyStType.Size = new System.Drawing.Size(78, 22);
             this.txtCountyStType.TabIndex = 16;
             this.txtCountyStType.Tag = "CoSTREETTYPE";
-            this.txtCountyStType.TextChanged += new System.EventHandler(this.textBox7_TextChanged);
             // 
             // label6
             // 
@@ -215,7 +214,6 @@
             this.label6.Size = new System.Drawing.Size(57, 13);
             this.label6.TabIndex = 6;
             this.label6.Text = "R_T_ADD";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // txtCountyStName
             // 
@@ -236,7 +234,6 @@
             this.label1.Size = new System.Drawing.Size(56, 13);
             this.label1.TabIndex = 5;
             this.label1.Text = "R_F_ADD";
-            this.label1.Click += new System.EventHandler(this.label1_Click_1);
             // 
             // txtCountyPreDir
             // 
@@ -277,7 +274,6 @@
             this.txtCountyR_F_Add.Size = new System.Drawing.Size(67, 22);
             this.txtCountyR_F_Add.TabIndex = 8;
             this.txtCountyR_F_Add.Tag = "CoR_F_ADD";
-            this.txtCountyR_F_Add.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
             // label9
             // 
@@ -318,7 +314,6 @@
             this.label7.Size = new System.Drawing.Size(48, 13);
             this.label7.TabIndex = 10;
             this.label7.Text = "PREDIR";
-            this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // groupBox3
             // 
@@ -476,18 +471,18 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.label23);
-            this.groupBox2.Controls.Add(this.label24);
+            this.groupBox2.Controls.Add(this.lblAcsSuf);
+            this.groupBox2.Controls.Add(this.lblAcsAlias);
             this.groupBox2.Controls.Add(this.txtUtransAcsSuf);
             this.groupBox2.Controls.Add(this.txtUtransAcsAllias);
-            this.groupBox2.Controls.Add(this.label25);
-            this.groupBox2.Controls.Add(this.label26);
+            this.groupBox2.Controls.Add(this.lblAlias2Type);
+            this.groupBox2.Controls.Add(this.lblAlias2);
             this.groupBox2.Controls.Add(this.txtUtransAlias2Type);
             this.groupBox2.Controls.Add(this.txtUtransAlias2);
             this.groupBox2.Controls.Add(this.txtUtransAlias1Type);
             this.groupBox2.Controls.Add(this.txtUtransAlias1);
-            this.groupBox2.Controls.Add(this.label27);
-            this.groupBox2.Controls.Add(this.label28);
+            this.groupBox2.Controls.Add(this.lblAlias1Type);
+            this.groupBox2.Controls.Add(this.lblAlias);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(653, 19);
             this.groupBox2.Name = "groupBox2";
@@ -496,133 +491,151 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Alias Attributes";
             // 
-            // label23
+            // lblAcsSuf
             // 
-            this.label23.AutoSize = true;
-            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.Location = new System.Drawing.Point(447, 46);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(49, 13);
-            this.label23.TabIndex = 11;
-            this.label23.Text = "ACSSUF";
+            this.lblAcsSuf.AutoSize = true;
+            this.lblAcsSuf.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAcsSuf.Location = new System.Drawing.Point(447, 46);
+            this.lblAcsSuf.Name = "lblAcsSuf";
+            this.lblAcsSuf.Size = new System.Drawing.Size(49, 13);
+            this.lblAcsSuf.TabIndex = 11;
+            this.lblAcsSuf.Text = "ACSSUF";
+            this.lblAcsSuf.DoubleClick += new System.EventHandler(this.lblAcsSuf_DoubleClick);
             // 
-            // label24
+            // lblAcsAlias
             // 
-            this.label24.AutoSize = true;
-            this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label24.Location = new System.Drawing.Point(342, 46);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(58, 13);
-            this.label24.TabIndex = 10;
-            this.label24.Text = "ACSALIAS";
+            this.lblAcsAlias.AutoSize = true;
+            this.lblAcsAlias.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAcsAlias.Location = new System.Drawing.Point(342, 46);
+            this.lblAcsAlias.Name = "lblAcsAlias";
+            this.lblAcsAlias.Size = new System.Drawing.Size(58, 13);
+            this.lblAcsAlias.TabIndex = 10;
+            this.lblAcsAlias.Text = "ACSALIAS";
+            this.lblAcsAlias.DoubleClick += new System.EventHandler(this.lblAcsAlias_DoubleClick);
             // 
             // txtUtransAcsSuf
             // 
+            this.txtUtransAcsSuf.BackColor = System.Drawing.SystemColors.Window;
             this.txtUtransAcsSuf.Location = new System.Drawing.Point(450, 63);
             this.txtUtransAcsSuf.Name = "txtUtransAcsSuf";
+            this.txtUtransAcsSuf.ReadOnly = true;
             this.txtUtransAcsSuf.Size = new System.Drawing.Size(102, 22);
             this.txtUtransAcsSuf.TabIndex = 9;
             this.txtUtransAcsSuf.Tag = "ACSSUF";
             // 
             // txtUtransAcsAllias
             // 
+            this.txtUtransAcsAllias.BackColor = System.Drawing.SystemColors.Window;
             this.txtUtransAcsAllias.Location = new System.Drawing.Point(342, 63);
             this.txtUtransAcsAllias.Name = "txtUtransAcsAllias";
+            this.txtUtransAcsAllias.ReadOnly = true;
             this.txtUtransAcsAllias.Size = new System.Drawing.Size(102, 22);
             this.txtUtransAcsAllias.TabIndex = 8;
             this.txtUtransAcsAllias.Tag = "ACSALIAS";
             // 
-            // label25
+            // lblAlias2Type
             // 
-            this.label25.AutoSize = true;
-            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label25.Location = new System.Drawing.Point(193, 102);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(71, 13);
-            this.label25.TabIndex = 7;
-            this.label25.Text = "ALIAS2TYPE";
+            this.lblAlias2Type.AutoSize = true;
+            this.lblAlias2Type.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAlias2Type.Location = new System.Drawing.Point(193, 102);
+            this.lblAlias2Type.Name = "lblAlias2Type";
+            this.lblAlias2Type.Size = new System.Drawing.Size(71, 13);
+            this.lblAlias2Type.TabIndex = 7;
+            this.lblAlias2Type.Text = "ALIAS2TYPE";
+            this.lblAlias2Type.DoubleClick += new System.EventHandler(this.lblAlias2Type_DoubleClick);
             // 
-            // label26
+            // lblAlias2
             // 
-            this.label26.AutoSize = true;
-            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.Location = new System.Drawing.Point(12, 102);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(43, 13);
-            this.label26.TabIndex = 6;
-            this.label26.Text = "ALIAS2";
+            this.lblAlias2.AutoSize = true;
+            this.lblAlias2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAlias2.Location = new System.Drawing.Point(12, 102);
+            this.lblAlias2.Name = "lblAlias2";
+            this.lblAlias2.Size = new System.Drawing.Size(43, 13);
+            this.lblAlias2.TabIndex = 6;
+            this.lblAlias2.Text = "ALIAS2";
+            this.lblAlias2.DoubleClick += new System.EventHandler(this.lblAlias2_DoubleClick);
             // 
             // txtUtransAlias2Type
             // 
+            this.txtUtransAlias2Type.BackColor = System.Drawing.SystemColors.Window;
             this.txtUtransAlias2Type.Location = new System.Drawing.Point(193, 77);
             this.txtUtransAlias2Type.Name = "txtUtransAlias2Type";
+            this.txtUtransAlias2Type.ReadOnly = true;
             this.txtUtransAlias2Type.Size = new System.Drawing.Size(143, 22);
             this.txtUtransAlias2Type.TabIndex = 5;
             this.txtUtransAlias2Type.Tag = "ALIAS2TYPE";
             // 
             // txtUtransAlias2
             // 
+            this.txtUtransAlias2.BackColor = System.Drawing.SystemColors.Window;
             this.txtUtransAlias2.Location = new System.Drawing.Point(15, 77);
             this.txtUtransAlias2.Name = "txtUtransAlias2";
+            this.txtUtransAlias2.ReadOnly = true;
             this.txtUtransAlias2.Size = new System.Drawing.Size(172, 22);
             this.txtUtransAlias2.TabIndex = 4;
             this.txtUtransAlias2.Tag = "ALIAS2";
             // 
             // txtUtransAlias1Type
             // 
+            this.txtUtransAlias1Type.BackColor = System.Drawing.SystemColors.Window;
             this.txtUtransAlias1Type.Location = new System.Drawing.Point(193, 48);
             this.txtUtransAlias1Type.Name = "txtUtransAlias1Type";
+            this.txtUtransAlias1Type.ReadOnly = true;
             this.txtUtransAlias1Type.Size = new System.Drawing.Size(143, 22);
             this.txtUtransAlias1Type.TabIndex = 3;
             this.txtUtransAlias1Type.Tag = "ALIAS1TYPE";
             // 
             // txtUtransAlias1
             // 
+            this.txtUtransAlias1.BackColor = System.Drawing.SystemColors.Window;
             this.txtUtransAlias1.Location = new System.Drawing.Point(15, 48);
             this.txtUtransAlias1.Name = "txtUtransAlias1";
+            this.txtUtransAlias1.ReadOnly = true;
             this.txtUtransAlias1.Size = new System.Drawing.Size(172, 22);
             this.txtUtransAlias1.TabIndex = 2;
             this.txtUtransAlias1.Tag = "ALIAS1";
             // 
-            // label27
+            // lblAlias1Type
             // 
-            this.label27.AutoSize = true;
-            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.Location = new System.Drawing.Point(190, 31);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(71, 13);
-            this.label27.TabIndex = 1;
-            this.label27.Text = "ALIAS1TYPE";
+            this.lblAlias1Type.AutoSize = true;
+            this.lblAlias1Type.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAlias1Type.Location = new System.Drawing.Point(190, 31);
+            this.lblAlias1Type.Name = "lblAlias1Type";
+            this.lblAlias1Type.Size = new System.Drawing.Size(71, 13);
+            this.lblAlias1Type.TabIndex = 1;
+            this.lblAlias1Type.Text = "ALIAS1TYPE";
+            this.lblAlias1Type.DoubleClick += new System.EventHandler(this.lblAlias1Type_DoubleClick);
             // 
-            // label28
+            // lblAlias
             // 
-            this.label28.AutoSize = true;
-            this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label28.Location = new System.Drawing.Point(12, 31);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(43, 13);
-            this.label28.TabIndex = 0;
-            this.label28.Text = "ALIAS1";
+            this.lblAlias.AutoSize = true;
+            this.lblAlias.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAlias.Location = new System.Drawing.Point(12, 31);
+            this.lblAlias.Name = "lblAlias";
+            this.lblAlias.Size = new System.Drawing.Size(43, 13);
+            this.lblAlias.TabIndex = 0;
+            this.lblAlias.Text = "ALIAS1";
+            this.lblAlias.DoubleClick += new System.EventHandler(this.lblAlias_DoubleClick);
             // 
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.lblLeftFrom);
+            this.groupBox1.Controls.Add(this.lblLeftTo);
             this.groupBox1.Controls.Add(this.txtUtranSufDir);
             this.groupBox1.Controls.Add(this.txtUtranL_F_Add);
             this.groupBox1.Controls.Add(this.txtUtranStType);
-            this.groupBox1.Controls.Add(this.label17);
+            this.groupBox1.Controls.Add(this.lblRightTo);
             this.groupBox1.Controls.Add(this.txtUtranStName);
-            this.groupBox1.Controls.Add(this.label18);
+            this.groupBox1.Controls.Add(this.lblRightFrom);
             this.groupBox1.Controls.Add(this.txtUtranPreDir);
             this.groupBox1.Controls.Add(this.txtUtranL_T_Add);
-            this.groupBox1.Controls.Add(this.label19);
+            this.groupBox1.Controls.Add(this.lblSufDir);
             this.groupBox1.Controls.Add(this.txtUtranR_F_Add);
-            this.groupBox1.Controls.Add(this.label20);
+            this.groupBox1.Controls.Add(this.lblStType);
             this.groupBox1.Controls.Add(this.txtUtranR_T_Add);
-            this.groupBox1.Controls.Add(this.label21);
-            this.groupBox1.Controls.Add(this.label22);
+            this.groupBox1.Controls.Add(this.lblStName);
+            this.groupBox1.Controls.Add(this.lblPreDir);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(12, 19);
             this.groupBox1.Name = "groupBox1";
@@ -631,149 +644,173 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Primary Attributes";
             // 
-            // label3
+            // lblLeftFrom
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(8, 31);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(54, 13);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "L_F_ADD";
+            this.lblLeftFrom.AutoSize = true;
+            this.lblLeftFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLeftFrom.Location = new System.Drawing.Point(8, 31);
+            this.lblLeftFrom.Name = "lblLeftFrom";
+            this.lblLeftFrom.Size = new System.Drawing.Size(54, 13);
+            this.lblLeftFrom.TabIndex = 2;
+            this.lblLeftFrom.Text = "L_F_ADD";
+            this.lblLeftFrom.DoubleClick += new System.EventHandler(this.lblLeftFrom_DoubleClick);
             // 
-            // label5
+            // lblLeftTo
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(81, 31);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(55, 13);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "L_T_ADD";
+            this.lblLeftTo.AutoSize = true;
+            this.lblLeftTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLeftTo.Location = new System.Drawing.Point(81, 31);
+            this.lblLeftTo.Name = "lblLeftTo";
+            this.lblLeftTo.Size = new System.Drawing.Size(55, 13);
+            this.lblLeftTo.TabIndex = 4;
+            this.lblLeftTo.Text = "L_T_ADD";
+            this.lblLeftTo.DoubleClick += new System.EventHandler(this.lblLeftTo_DoubleClick);
             // 
             // txtUtranSufDir
             // 
+            this.txtUtranSufDir.BackColor = System.Drawing.SystemColors.Window;
             this.txtUtranSufDir.Location = new System.Drawing.Point(561, 48);
             this.txtUtranSufDir.Name = "txtUtranSufDir";
+            this.txtUtranSufDir.ReadOnly = true;
             this.txtUtranSufDir.Size = new System.Drawing.Size(55, 22);
             this.txtUtranSufDir.TabIndex = 17;
             this.txtUtranSufDir.Tag = "SUFDIR";
             // 
             // txtUtranL_F_Add
             // 
+            this.txtUtranL_F_Add.BackColor = System.Drawing.SystemColors.Window;
             this.txtUtranL_F_Add.Location = new System.Drawing.Point(11, 48);
             this.txtUtranL_F_Add.Name = "txtUtranL_F_Add";
+            this.txtUtranL_F_Add.ReadOnly = true;
             this.txtUtranL_F_Add.Size = new System.Drawing.Size(67, 22);
             this.txtUtranL_F_Add.TabIndex = 1;
             this.txtUtranL_F_Add.Tag = "L_F_ADD";
             // 
             // txtUtranStType
             // 
+            this.txtUtranStType.BackColor = System.Drawing.SystemColors.Window;
             this.txtUtranStType.Location = new System.Drawing.Point(477, 48);
             this.txtUtranStType.Name = "txtUtranStType";
+            this.txtUtranStType.ReadOnly = true;
             this.txtUtranStType.Size = new System.Drawing.Size(78, 22);
             this.txtUtranStType.TabIndex = 16;
             this.txtUtranStType.Tag = "STREETTYPE";
             // 
-            // label17
+            // lblRightTo
             // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(81, 102);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(57, 13);
-            this.label17.TabIndex = 6;
-            this.label17.Text = "R_T_ADD";
+            this.lblRightTo.AutoSize = true;
+            this.lblRightTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRightTo.Location = new System.Drawing.Point(81, 102);
+            this.lblRightTo.Name = "lblRightTo";
+            this.lblRightTo.Size = new System.Drawing.Size(57, 13);
+            this.lblRightTo.TabIndex = 6;
+            this.lblRightTo.Text = "R_T_ADD";
+            this.lblRightTo.DoubleClick += new System.EventHandler(this.lblRightTo_DoubleClick);
             // 
             // txtUtranStName
             // 
+            this.txtUtranStName.BackColor = System.Drawing.SystemColors.Window;
             this.txtUtranStName.Location = new System.Drawing.Point(232, 48);
             this.txtUtranStName.Name = "txtUtranStName";
+            this.txtUtranStName.ReadOnly = true;
             this.txtUtranStName.Size = new System.Drawing.Size(239, 22);
             this.txtUtranStName.TabIndex = 15;
             this.txtUtranStName.Tag = "STREETNAME";
             // 
-            // label18
+            // lblRightFrom
             // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(8, 102);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(56, 13);
-            this.label18.TabIndex = 5;
-            this.label18.Text = "R_F_ADD";
+            this.lblRightFrom.AutoSize = true;
+            this.lblRightFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRightFrom.Location = new System.Drawing.Point(8, 102);
+            this.lblRightFrom.Name = "lblRightFrom";
+            this.lblRightFrom.Size = new System.Drawing.Size(56, 13);
+            this.lblRightFrom.TabIndex = 5;
+            this.lblRightFrom.Text = "R_F_ADD";
+            this.lblRightFrom.DoubleClick += new System.EventHandler(this.lblRightFrom_DoubleClick);
             // 
             // txtUtranPreDir
             // 
+            this.txtUtranPreDir.BackColor = System.Drawing.SystemColors.Window;
             this.txtUtranPreDir.Location = new System.Drawing.Point(159, 48);
             this.txtUtranPreDir.Name = "txtUtranPreDir";
+            this.txtUtranPreDir.ReadOnly = true;
             this.txtUtranPreDir.Size = new System.Drawing.Size(67, 22);
             this.txtUtranPreDir.TabIndex = 14;
             this.txtUtranPreDir.Tag = "PREDIR";
             // 
             // txtUtranL_T_Add
             // 
+            this.txtUtranL_T_Add.BackColor = System.Drawing.SystemColors.Window;
             this.txtUtranL_T_Add.Location = new System.Drawing.Point(84, 48);
             this.txtUtranL_T_Add.Name = "txtUtranL_T_Add";
+            this.txtUtranL_T_Add.ReadOnly = true;
             this.txtUtranL_T_Add.Size = new System.Drawing.Size(67, 22);
             this.txtUtranL_T_Add.TabIndex = 7;
             this.txtUtranL_T_Add.Tag = "L_T_ADD";
             // 
-            // label19
+            // lblSufDir
             // 
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(558, 31);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(47, 13);
-            this.label19.TabIndex = 13;
-            this.label19.Text = "SUFDIR";
+            this.lblSufDir.AutoSize = true;
+            this.lblSufDir.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSufDir.Location = new System.Drawing.Point(558, 31);
+            this.lblSufDir.Name = "lblSufDir";
+            this.lblSufDir.Size = new System.Drawing.Size(47, 13);
+            this.lblSufDir.TabIndex = 13;
+            this.lblSufDir.Text = "SUFDIR";
+            this.lblSufDir.DoubleClick += new System.EventHandler(this.lblSufDir_DoubleClick);
             // 
             // txtUtranR_F_Add
             // 
+            this.txtUtranR_F_Add.BackColor = System.Drawing.SystemColors.Window;
             this.txtUtranR_F_Add.Location = new System.Drawing.Point(11, 77);
             this.txtUtranR_F_Add.Name = "txtUtranR_F_Add";
+            this.txtUtranR_F_Add.ReadOnly = true;
             this.txtUtranR_F_Add.Size = new System.Drawing.Size(67, 22);
             this.txtUtranR_F_Add.TabIndex = 8;
             this.txtUtranR_F_Add.Tag = "R_F_ADD";
             // 
-            // label20
+            // lblStType
             // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(474, 31);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(78, 13);
-            this.label20.TabIndex = 12;
-            this.label20.Text = "STREETTYPE";
+            this.lblStType.AutoSize = true;
+            this.lblStType.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStType.Location = new System.Drawing.Point(474, 31);
+            this.lblStType.Name = "lblStType";
+            this.lblStType.Size = new System.Drawing.Size(78, 13);
+            this.lblStType.TabIndex = 12;
+            this.lblStType.Text = "STREETTYPE";
+            this.lblStType.DoubleClick += new System.EventHandler(this.lblStType_DoubleClick);
             // 
             // txtUtranR_T_Add
             // 
+            this.txtUtranR_T_Add.BackColor = System.Drawing.SystemColors.Window;
             this.txtUtranR_T_Add.Location = new System.Drawing.Point(84, 77);
             this.txtUtranR_T_Add.Name = "txtUtranR_T_Add";
+            this.txtUtranR_T_Add.ReadOnly = true;
             this.txtUtranR_T_Add.Size = new System.Drawing.Size(67, 22);
             this.txtUtranR_T_Add.TabIndex = 9;
             this.txtUtranR_T_Add.Tag = "R_T_ADD";
             // 
-            // label21
+            // lblStName
             // 
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(229, 31);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(81, 13);
-            this.label21.TabIndex = 11;
-            this.label21.Text = "STREETNAME";
+            this.lblStName.AutoSize = true;
+            this.lblStName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStName.Location = new System.Drawing.Point(229, 31);
+            this.lblStName.Name = "lblStName";
+            this.lblStName.Size = new System.Drawing.Size(81, 13);
+            this.lblStName.TabIndex = 11;
+            this.lblStName.Text = "STREETNAME";
+            this.lblStName.DoubleClick += new System.EventHandler(this.lblStName_DoubleClick);
             // 
-            // label22
+            // lblPreDir
             // 
-            this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.Location = new System.Drawing.Point(156, 31);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(48, 13);
-            this.label22.TabIndex = 10;
-            this.label22.Text = "PREDIR";
+            this.lblPreDir.AutoSize = true;
+            this.lblPreDir.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPreDir.Location = new System.Drawing.Point(156, 31);
+            this.lblPreDir.Name = "lblPreDir";
+            this.lblPreDir.Size = new System.Drawing.Size(48, 13);
+            this.lblPreDir.TabIndex = 10;
+            this.lblPreDir.Text = "PREDIR";
+            this.lblPreDir.DoubleClick += new System.EventHandler(this.lblPreDir_DoubleClick);
             // 
             // linkLabelAttrDoc
             // 
@@ -869,7 +906,6 @@
             this.btnNext.TabIndex = 0;
             this.btnNext.Text = ">";
             this.btnNext.UseVisualStyleBackColor = true;
-            this.btnNext.Click += new System.EventHandler(this.button2_Click);
             // 
             // groupBox6
             // 
@@ -997,35 +1033,35 @@
         private System.Windows.Forms.TextBox txtCountyAlias2Type;
         private System.Windows.Forms.TextBox txtCountyAlias2;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label lblAcsSuf;
+        private System.Windows.Forms.Label lblAcsAlias;
         private System.Windows.Forms.TextBox txtUtransAcsSuf;
         private System.Windows.Forms.TextBox txtUtransAcsAllias;
-        private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label lblAlias2Type;
+        private System.Windows.Forms.Label lblAlias2;
         private System.Windows.Forms.TextBox txtUtransAlias2Type;
         private System.Windows.Forms.TextBox txtUtransAlias2;
         private System.Windows.Forms.TextBox txtUtransAlias1Type;
         private System.Windows.Forms.TextBox txtUtransAlias1;
-        private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label lblAlias1Type;
+        private System.Windows.Forms.Label lblAlias;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblLeftFrom;
+        private System.Windows.Forms.Label lblLeftTo;
         private System.Windows.Forms.TextBox txtUtranSufDir;
         private System.Windows.Forms.TextBox txtUtranL_F_Add;
         private System.Windows.Forms.TextBox txtUtranStType;
-        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label lblRightTo;
         private System.Windows.Forms.TextBox txtUtranStName;
-        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label lblRightFrom;
         private System.Windows.Forms.TextBox txtUtranPreDir;
         private System.Windows.Forms.TextBox txtUtranL_T_Add;
-        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label lblSufDir;
         private System.Windows.Forms.TextBox txtUtranR_F_Add;
-        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label lblStType;
         private System.Windows.Forms.TextBox txtUtranR_T_Add;
-        private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label lblStName;
+        private System.Windows.Forms.Label lblPreDir;
         private System.Windows.Forms.ComboBox cboStatusField;
         private System.Windows.Forms.GroupBox groupBoxStatusField;
         private System.Windows.Forms.Label label29;

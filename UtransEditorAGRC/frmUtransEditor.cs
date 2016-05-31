@@ -21,9 +21,26 @@ namespace UtransEditorAGRC
         // create a list of controls that contains address pieces for managing edits
         private List<Control> ctrlList = new List<Control>();
 
+        string txtUtransExistingL_F_Add;
+        string txtUtransExistingL_TAdd;
+        string txtUtransExistingR_F_Add;
+        string txtUtransExistingR_T_Add;
+        string txtUtransExistingPreDir;
+        string txtUtransExistingStName;
+        string txtUtransExistingStType;
+        string txtUtransExistingSufDir;
+        string txtUtransExistingAlias1;
+        string txtUtransExistingAlias1Type;
+        string txtUtransExistingAlias2;
+        string txtUtransExistingAlias2Type;
+        string txtUtransExistingAcsAlias;
+        string txtUtransExistingAscSuf;
+
+
         //get the selected feature(s) from the dfc fc
         IFeatureSelection arcFeatureSelection; // = clsGlobals.arcGeoFLayerDfcResult as IFeatureSelection;
         ISelectionSet arcSelSet; // = arcFeatureSelection.SelectionSet;
+
 
 
         public frmUtransEditor()
@@ -208,6 +225,43 @@ namespace UtransEditorAGRC
                     ctrl.Text = "";
                 }
 
+                //revert labels back to regular (non-italic)
+                //create an italic font for lables - to use where data does not match
+                Font fontLabelRegular = new Font("Microsoft Sans Serif", 8.0f, FontStyle.Regular);
+                lblAcsAlias.Font = fontLabelRegular;
+                lblAcsSuf.Font = fontLabelRegular;
+                lblAlias.Font = fontLabelRegular;
+                lblAlias1Type.Font = fontLabelRegular;
+                lblAlias2.Font = fontLabelRegular;
+                lblAlias2Type.Font = fontLabelRegular;
+                lblLeftFrom.Font = fontLabelRegular;
+                lblLeftTo.Font = fontLabelRegular;
+                lblPreDir.Font = fontLabelRegular;
+                lblRightFrom.Font = fontLabelRegular;
+                lblRightTo.Font = fontLabelRegular;
+                lblStName.Font = fontLabelRegular;
+                lblStType.Font = fontLabelRegular;
+                lblSufDir.Font = fontLabelRegular;
+
+                //clear utrans existing variables - for reuse
+                txtUtransExistingL_F_Add = null;
+                txtUtransExistingL_F_Add = txtUtranL_F_Add.Text;
+                txtUtransExistingL_TAdd = null;
+                txtUtransExistingL_TAdd = txtUtranL_T_Add.Text;
+                txtUtransExistingR_F_Add = null;
+                txtUtransExistingR_F_Add = txtUtranR_F_Add.Text;  //finish these and then handle the bold font if the text in the boxes changed from original, also make both green if match
+                txtUtransExistingR_T_Add = null;
+                txtUtransExistingPreDir = null;
+                txtUtransExistingStName = null;
+                txtUtransExistingStType = null;
+                txtUtransExistingSufDir = null;
+                txtUtransExistingAlias1 = null;
+                txtUtransExistingAlias1Type = null;
+                txtUtransExistingAlias2 = null;
+                txtUtransExistingAlias2Type = null;
+                txtUtransExistingAcsAlias = null;
+                txtUtransExistingAscSuf = null;
+
 
                 arcFeatureSelection = clsGlobals.arcGeoFLayerDfcResult as IFeatureSelection;
                 arcSelSet = arcFeatureSelection.SelectionSet;
@@ -283,7 +337,7 @@ namespace UtransEditorAGRC
                         {
                             if (arcCountyFeature.Fields.FindFieldByAliasName(ctrl.Tag.ToString()) > -1)
                             {
-                                ctrl.Text = arcCountyFeature.get_Value(arcCountyFeature.Fields.FindFieldByAliasName(ctrl.Tag.ToString())).ToString();
+                                ctrl.Text = arcCountyFeature.get_Value(arcCountyFeature.Fields.FindFieldByAliasName(ctrl.Tag.ToString())).ToString().ToUpper();
                             }
                         }
                     }
@@ -415,39 +469,95 @@ namespace UtransEditorAGRC
         {
             try
             {
+                //create an italic font for lables - to use where data does not match
+                Font fontLabelDataMismatch = new Font("Microsoft Sans Serif", 8.0f, FontStyle.Bold);
+
                 if (txtCountyStName.Text.ToUpper().ToString() != txtUtranStName.Text.ToUpper().ToString())
                 {
-                    txtUtranStName.BackColor = Color.LightSalmon;                    
+                    txtUtranStName.BackColor = Color.LightSalmon;
+                    txtCountyStName.BackColor = Color.LightSalmon;
+                    lblStName.Font = fontLabelDataMismatch;
                 }
                 if (txtCountyStType.Text.ToUpper().ToString() != txtUtranStType.Text.ToUpper().ToString())
                 {
                     txtUtranStType.BackColor = Color.LightSalmon;
+                    txtCountyStType.BackColor = Color.LightSalmon;
+                    lblStType.Font = fontLabelDataMismatch;
                 }
                 if (txtCountySufDir.Text.ToUpper().ToString() != txtUtranSufDir.Text.ToUpper().ToString())
                 {
                     txtUtranSufDir.BackColor = Color.LightSalmon;
+                    txtCountySufDir.BackColor = Color.LightSalmon;
+                    lblSufDir.Font = fontLabelDataMismatch;
                 }
                 if (txtCountyPreDir.Text.ToUpper().ToString() != txtUtranPreDir.Text.ToUpper().ToString())
                 {
                     txtUtranPreDir.BackColor = Color.LightSalmon;
+                    txtCountyPreDir.BackColor = Color.LightSalmon;
+                    lblPreDir.Font = fontLabelDataMismatch;
                 }
                 if (txtCountyL_F_Add.Text.ToString() != txtUtranL_F_Add.Text.ToString())
                 {
                     txtUtranL_F_Add.BackColor = Color.LightSalmon;
+                    txtCountyL_F_Add.BackColor = Color.LightSalmon;
+                    lblLeftFrom.Font = fontLabelDataMismatch;
+                    //capture the curent text - incase we want to revert to it
+                    //txtUtransExistingL_F_Add = txtUtranL_F_Add.Text;
                 }
                 if (txtCountyL_T_Add.Text.ToString() != txtUtranL_T_Add.Text.ToString())
                 {
                     txtUtranL_T_Add.BackColor = Color.LightSalmon;
+                    txtCountyL_T_Add.BackColor = Color.LightSalmon;
+                    lblLeftTo.Font = fontLabelDataMismatch;
                 }
                 if (txtCountyR_F_Add.Text.ToString() != txtUtranR_F_Add.Text.ToString())
                 {
                     txtUtranR_F_Add.BackColor = Color.LightSalmon;
+                    txtCountyR_F_Add.BackColor = Color.LightSalmon;
+                    lblRightFrom.Font = fontLabelDataMismatch;
                 }
                 if (txtCountyR_T_Add.Text.ToString() != txtUtranR_T_Add.Text.ToString())
                 {
                     txtUtranR_T_Add.BackColor = Color.LightSalmon;
+                    txtCountyR_T_Add.BackColor = Color.LightSalmon;
+                    lblRightTo.Font = fontLabelDataMismatch;
                 }
-
+                if (txtCountyAcsAlilas.Text.ToUpper().ToString() != txtUtransAcsAllias.Text.ToUpper().ToString())
+                {
+                    txtUtransAcsAllias.BackColor = Color.LightSalmon;
+                    txtCountyAcsAlilas.BackColor = Color.LightSalmon;
+                    lblAcsAlias.Font = fontLabelDataMismatch;
+                }
+                if (txtCountyAcsSuf.Text.ToUpper().ToString() != txtUtransAcsSuf.Text.ToUpper().ToString())
+                {
+                    txtUtransAcsSuf.BackColor = Color.LightSalmon;
+                    txtCountyAcsSuf.BackColor = Color.LightSalmon;
+                    lblAcsSuf.Font = fontLabelDataMismatch;
+                }
+                if (txtCountyAlias1.Text.ToUpper().ToString() != txtUtransAlias1.Text.ToUpper().ToString())
+                {
+                    txtUtransAlias1.BackColor = Color.LightSalmon;
+                    txtCountyAlias1.BackColor = Color.LightSalmon;
+                    lblAlias.Font = fontLabelDataMismatch;
+                }
+                if (txtCountyAlias1Type.Text.ToUpper().ToString() != txtUtransAlias1Type.Text.ToUpper().ToString())
+                {
+                    txtUtransAlias1Type.BackColor = Color.LightSalmon;
+                    txtCountyAlias1Type.BackColor = Color.LightSalmon;
+                    lblAlias1Type.Font = fontLabelDataMismatch;
+                }
+                if (txtCountyAlias2.Text.ToUpper().ToString() != txtUtransAlias2.Text.ToUpper().ToString())
+                {
+                    txtUtransAlias2.BackColor = Color.LightSalmon;
+                    txtCountyAlias2.BackColor = Color.LightSalmon;
+                    lblAlias2.Font = fontLabelDataMismatch;
+                }
+                if (txtCountyAlias2Type.Text.ToUpper().ToString() != txtUtransAlias2.Text.ToUpper().ToString())
+                {
+                    txtUtransAlias2.BackColor = Color.LightSalmon;
+                    txtCountyAlias2.BackColor = Color.LightSalmon;
+                    lblAlias2Type.Font = fontLabelDataMismatch;
+                }
 
             }
             catch (Exception ex)
@@ -455,38 +565,6 @@ namespace UtransEditorAGRC
                 MessageBox.Show(ex.Message + " " + ex.Source + " " + ex.StackTrace + " " + ex.TargetSite, "Error!");
             }
         
-        }
-
-
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox7_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
 
@@ -553,14 +631,143 @@ namespace UtransEditorAGRC
 
         }
 
-        private void groupBox5_Enter(object sender, EventArgs e)
+
+        //the following methods handle the double click labels
+        private void lblLeftFrom_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                Label clickedLabel = sender as Label;
+
+                if (clickedLabel.Text == "L_F_ADD")
+                {
+                    if (txtUtranL_F_Add.BackColor == Color.LightSalmon)
+                    {
+                        txtUtranL_F_Add.BackColor = Color.LightSeaGreen;
+                        txtUtranL_F_Add.Text = txtCountyL_F_Add.Text;
+                        txtUtranL_F_Add.ReadOnly = true;
+                        return;
+                    }
+                    if (txtUtranL_F_Add.BackColor == Color.LightSeaGreen)
+                    {
+                        txtUtranL_F_Add.BackColor = Color.White;
+                        txtUtranL_F_Add.ReadOnly = false;
+                        return;
+                    }
+                    if (txtUtranL_F_Add.BackColor == Color.White)
+                    {
+                        txtUtranL_F_Add.BackColor = Color.LightSalmon;
+                        txtUtranL_F_Add.Text = txtUtransExistingL_F_Add;
+                        txtUtranL_F_Add.ReadOnly = true;
+                        return;
+                    }
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
+                "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
+                "Error Location:" + Environment.NewLine + ex.StackTrace,
+                "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+
+        private void lblLeftTo_DoubleClick(object sender, EventArgs e)
         {
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void lblRightFrom_DoubleClick(object sender, EventArgs e)
+        {
+
+        } 
+
+        private void lblRightTo_DoubleClick(object sender, EventArgs e)
         {
 
         }
+
+        private void lblPreDir_DoubleClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblStName_DoubleClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblStType_DoubleClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblSufDir_DoubleClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblAlias_DoubleClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblAlias1Type_DoubleClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblAlias2_DoubleClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblAlias2Type_DoubleClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblAcsAlias_DoubleClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblAcsSuf_DoubleClick(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }
