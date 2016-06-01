@@ -36,34 +36,17 @@ namespace UtransEditorAGRC
         string txtUtransInitialAcsAlias;
         string txtUtransInitialAscSuf;
 
-
-
-        //bool boolHadDifferenceL_F_Add;
-        //bool boolHadDifferenceL_T_Add;
-        //bool boolHadDifferenceR_F_Add;
-        //bool boolHadDifferenceR_T_Add;
-        //bool boolHadDifferencePreDir;
-        //bool boolHadDifferenceStName;
-        //bool boolHadDifferenceStType;
-        //bool boolHadDifferenceSufDir;
-        //bool boolHadDifferenceAlias1;
-        //bool boolHadDifferenceAlias1Type;
-        //bool boolHadDifferenceAlias2;
-        //bool boolHadDifferenceAlias2Type;
-        //bool boolHadDifferenceAcsAlias;
-        //bool boolHadDifferenceAscSuf;
-
-
         //get the selected feature(s) from the dfc fc
         IFeatureSelection arcFeatureSelection; // = clsGlobals.arcGeoFLayerDfcResult as IFeatureSelection;
         ISelectionSet arcSelSet; // = arcFeatureSelection.SelectionSet;
         IActiveView arcActiveView;
 
         //create an italic font for lables - to use where data does not match
+        
         Font fontLabelHasEdits = new Font("Microsoft Sans Serif", 8.0f, FontStyle.Bold);
 
         //create an italic font for lables - to use where data does not match
-        Font fontLabelRegular = new Font("Microsoft Sans Serif", 9.0f, FontStyle.Regular);
+        Font fontLabelRegular = new Font("Microsoft Sans Serif", 8.0f, FontStyle.Regular);
 
 
         public frmUtransEditor()
@@ -235,11 +218,6 @@ namespace UtransEditorAGRC
         {
             try
             {
-                //moved to top for wider scope
-                //get the selected feature(s) from the dfc fc
-                //IFeatureSelection arcFeatureSelection = clsGlobals.arcGeoFLayerDfcResult as IFeatureSelection;
-                //ISelectionSet arcSelSet = arcFeatureSelection.SelectionSet;
-
                 //make sure the backcolor of each color is white
                 for (int i = 0; i < ctrlList.Count; i++)
                 {
@@ -248,21 +226,6 @@ namespace UtransEditorAGRC
                     ctrl.Text = "";
                 }
 
-                ////revert labels back to regular (non-italic)
-                //lblAcsAlias.Font = fontLabelRegular;
-                //lblAcsSuf.Font = fontLabelRegular;
-                //lblAlias.Font = fontLabelRegular;
-                //lblAlias1Type.Font = fontLabelRegular;
-                //lblAlias2.Font = fontLabelRegular;
-                //lblAlias2Type.Font = fontLabelRegular;
-                //lblLeftFrom.Font = fontLabelRegular;
-                //lblLeftTo.Font = fontLabelRegular;
-                //lblPreDir.Font = fontLabelRegular;
-                //lblRightFrom.Font = fontLabelRegular;
-                //lblRightTo.Font = fontLabelRegular;
-                //lblStName.Font = fontLabelRegular;
-                //lblStType.Font = fontLabelRegular;
-                //lblSufDir.Font = fontLabelRegular;
 
                 //clear utrans existing variables - for reuse
                 txtUtransInitialL_F_Add = null;
@@ -279,22 +242,6 @@ namespace UtransEditorAGRC
                 txtUtransInitialAlias2Type = null;
                 txtUtransInitialAcsAlias = null;
                 txtUtransInitialAscSuf = null;
-
-                //set all values to false - they will get appropriately assigned below based on the data
-                //boolHadDifferenceL_F_Add = false;
-                //boolHadDifferenceL_T_Add = false;
-                //boolHadDifferenceR_F_Add = false;
-                //boolHadDifferenceR_T_Add = false;
-                //boolHadDifferencePreDir = false;
-                //boolHadDifferenceStName = false;
-                //boolHadDifferenceStType = false;
-                //boolHadDifferenceSufDir = false;
-                //boolHadDifferenceAlias1 = false;
-                //boolHadDifferenceAlias1Type = false;
-                //boolHadDifferenceAlias2 = false;
-                //boolHadDifferenceAlias2Type = false;
-                //boolHadDifferenceAcsAlias = false;
-                //boolHadDifferenceAscSuf = false;
 
                 arcFeatureSelection = clsGlobals.arcGeoFLayerDfcResult as IFeatureSelection;
                 arcSelSet = arcFeatureSelection.SelectionSet;
@@ -448,90 +395,7 @@ namespace UtransEditorAGRC
 
 
 
-        //this method updates the textbox controls on the form with the currently selected features
-        private void updateTextBox(Control ctrl, string strCountyObjectID, string strUtransObjecID) 
-        {
-
-            try
-            {
-                //this.Focus();//set focus to the form if there is a road segment selected
-
-                ////get a cursor of the selected features
-                //ICursor arcCursor;
-                //arcSelSet.Search(null, false, out arcCursor);
-
-                ////get the first row (there should only be one)
-                //IRow arcRow = arcCursor.NextRow();
-
-                ////get the objectids from dfc layer for selecting on corresponding layer
-                //string strCountyOID = arcRow.get_Value(arcRow.Fields.FindField("UPDATE_FID")).ToString();
-                //string strUtransOID = arcRow.get_Value(arcRow.Fields.FindField("BASE_FID")).ToString();
-                //string strChangeType = arcRow.get_Value(arcRow.Fields.FindField("CHANGE_TYPE")).ToString();
-
-                ////populate the change type on the top of the form
-                //switch (strChangeType)
-                //{
-                //    case "N":
-                //        lblChangeType.Text = "New";
-                //        break;
-                //    case "S":
-                //        lblChangeType.Text = "Spatial";
-                //        break;
-                //    case "A":
-                //        lblChangeType.Text = "Attribute";
-                //        break;
-                //    case "SA":
-                //        lblChangeType.Text = "Spatial and Attribute";
-                //        break;
-                //    case "NC":
-                //        lblChangeType.Text = "No Change";
-                //        break;
-                //    case "D":
-                //        lblChangeType.Text = "Delation";
-                //        break;
-                //    default:
-                //        lblChangeType.Text = "Unknown";
-                //        break;
-                //}
-
-                ////get the corresponding features
-                //IQueryFilter arcCountyQueryFilter = new QueryFilter();
-                //arcCountyQueryFilter.WhereClause = "OBJECTID = " + strCountyObjectID.ToString();
-
-                //IQueryFilter arcUtransQueryFilter = new QueryFilter();
-                //arcUtransQueryFilter.WhereClause = "OBJECTID = " + strUtransObjecID.ToString();
-
-
-                //IFeatureCursor arcCountyFeatCursor = clsGlobals.arcGeoFLayerCountyStreets.Search(arcCountyQueryFilter, true);
-                //arcCountyFeatCursor.NextFeature();
-                
-
-                //IFeatureCursor arcUtransFeatCursor = clsGlobals.arcGeoFLayerUtransStreets.Search(arcUtransQueryFilter, true);
-                //arcUtransFeatCursor.NextFeature();
-
-                //if (arcCountyFeatCursor != null)
-                //{
-                    
-
-                //}
-
-                //if (arcUtransFeatCursor != null)
-                //{
-                    
-
-                //}
-
-
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message + " " + ex.Source + " " + ex.StackTrace + " " + ex.TargetSite, "Error!");
-            }
-        }
-
-
-
+        //not using this right now, moved this to the text changed event on the textboxes
         private void checkTextboxDifferneces() 
         {
             try
@@ -661,16 +525,8 @@ namespace UtransEditorAGRC
                 "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
                 "Error Location:" + Environment.NewLine + ex.StackTrace,
                 "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                //throw;
             }
-
-
-
-
         }
-
-
-
 
 
 
@@ -689,6 +545,7 @@ namespace UtransEditorAGRC
                 //throw;
             }
         }
+
 
 
         private void cboStatusField_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -711,92 +568,75 @@ namespace UtransEditorAGRC
 
 
 
-        //the following methods handle the double click labels
-        private void lblLeftFrom_DoubleClick(object sender, EventArgs e)
+        //this method handles the double clicks on the labels
+        private void lbl_DoubleClick(object sender, EventArgs e)
         {
             try
             {
-                //Label clickedLabel = sender as Label;
-
-                //if (clickedLabel.Text == "L_F_ADD")
-                //{
-                //    if (txtUtranL_F_Add.BackColor == Color.LightSalmon)
-                //    {
-                //        txtUtranL_F_Add.BackColor = Color.LightSeaGreen;
-                //        txtUtranL_F_Add.Text = txtCountyL_F_Add.Text;
-                //        txtUtranL_F_Add.ReadOnly = true;
-                //        return;
-                //    }
-                //    if (txtUtranL_F_Add.BackColor == Color.LightSeaGreen)
-                //    {
-                //        txtUtranL_F_Add.BackColor = Color.White;
-                //        txtUtranL_F_Add.ReadOnly = false;
-                //        return;
-                //    }
-                //    if (txtUtranL_F_Add.BackColor == Color.White & boolHadDifferenceL_F_Add == true)
-                //    {
-                //        txtUtranL_F_Add.BackColor = Color.LightSalmon;
-                //        txtUtranL_F_Add.Text = txtUtransInitialL_F_Add;
-                //        txtUtranL_F_Add.ReadOnly = true;
-                //        return;
-                //    }
-                //    if (txtUtranL_F_Add.BackColor == Color.White & boolHadDifferenceL_F_Add == false)
-                //    {
-                //        txtUtranL_F_Add.ReadOnly = false;
-                //        return;
-                //    }
-                //    if (txtUtranL_F_Add.BackColor == Color.LightYellow & boolHadDifferenceL_F_Add == true)
-                //    {
-                //        txtUtranL_F_Add.BackColor = Color.LightSalmon;
-                //        txtUtranL_F_Add.Text = txtUtransInitialStName;
-                //        txtUtranL_F_Add.ReadOnly = true;
-                //        return;
-                //    }
-                //    if (txtUtranL_F_Add.BackColor == Color.LightYellow & boolHadDifferenceL_F_Add == false)
-                //    {
-                //        txtUtranL_F_Add.BackColor = Color.White;
-                //        txtUtranL_F_Add.ReadOnly = false;
-                //        return;
-                //    }
-                //}
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
-                "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
-                "Error Location:" + Environment.NewLine + ex.StackTrace,
-                "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-        }
-
-
-        private void lblLeftTo_DoubleClick(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblRightFrom_DoubleClick(object sender, EventArgs e)
-        {
-
-        } 
-
-        private void lblRightTo_DoubleClick(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblPreDir_DoubleClick(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblStName_DoubleClick(object sender, EventArgs e)
-        {
-            try
-            {
+                //get a reference to the label that was doublecliked
                 Label clickedLabel = sender as Label;
 
+                // L_F_ADD
+                if (clickedLabel.Text == "L_F_ADD")
+                {
+                    if (txtUtranL_F_Add.Text != txtCountyL_F_Add.Text)
+                    {
+                        txtUtranL_F_Add.Text = txtCountyL_F_Add.Text;
+                        return;
+                    }
+                    if (txtUtranL_F_Add.Text == txtCountyL_F_Add.Text)
+                    {
+                        txtUtranL_F_Add.Text = txtUtransInitialL_F_Add;
+                        return;
+                    }
+                }
+
+                // L_T_ADD
+                if (clickedLabel.Text == "L_T_ADD")
+                {
+                    if (txtUtranL_T_Add.Text != txtCountyL_T_Add.Text)
+                    {
+                        txtUtranL_T_Add.Text = txtCountyL_T_Add.Text;
+                        return;
+                    }
+                    if (txtUtranL_T_Add.Text == txtCountyL_T_Add.Text)
+                    {
+                        txtUtranL_T_Add.Text = txtUtransInitialL_TAdd;
+                        return;
+                    }
+                }
+
+                // R_F_ADD
+                if (clickedLabel.Text == "R_F_ADD")
+                {
+                    if (txtUtranR_F_Add.Text != txtCountyR_F_Add.Text)
+                    {
+                        txtUtranR_F_Add.Text = txtCountyR_F_Add.Text;
+                        return;
+                    }
+                    if (txtUtranR_F_Add.Text == txtCountyR_F_Add.Text)
+                    {
+                        txtUtranR_F_Add.Text = txtUtransInitialR_F_Add;
+                        return;
+                    }
+                }
+
+                // R_T_ADD
+                if (clickedLabel.Text == "R_T_ADD")
+                {
+                    if (txtUtranR_T_Add.Text != txtCountyR_T_Add.Text)
+                    {
+                        txtUtranR_T_Add.Text = txtCountyR_T_Add.Text;
+                        return;
+                    }
+                    if (txtUtranR_T_Add.Text == txtCountyR_T_Add.Text)
+                    {
+                        txtUtranR_T_Add.Text = txtUtransInitialR_T_Add;
+                        return;
+                    }
+                }
+
+                // STREETNAME
                 if (clickedLabel.Text == "STREETNAME")
                 {
                     if (txtUtranStName.Text != txtCountyStName.Text)
@@ -809,41 +649,182 @@ namespace UtransEditorAGRC
                         txtUtranStName.Text = txtUtransInitialStName;
                         return;
                     }
-                    //if (txtUtranStName.BackColor == Color.LightSeaGreen)
-                    //{
-                    //    //txtUtranStName.BackColor = Color.White;
-                    //    //txtUtranStName.BackColor = Color.LightSalmon;
-                    //    //revert back to original values
-                    //    txtUtranStName.Text = txtUtransInitialStName;
-                    //    return;
-                    //}
+                }
+
+                // PREDIR
+                if (clickedLabel.Text == "PREDIR")
+                {
+                    if (txtUtranPreDir.Text != txtCountyPreDir.Text)
+                    {
+                        txtUtranPreDir.Text = txtCountyPreDir.Text;
+                        return;
+                    }
+                    if (txtUtranPreDir.Text == txtCountyPreDir.Text)
+                    {
+                        txtUtranPreDir.Text = txtUtransInitialPreDir;
+                        return;
+                    }
+                }
+
+                // STREETTYPE
+                if (clickedLabel.Text == "STREETTYPE")
+                {
+                    if (txtUtranStType.Text != txtCountyStType.Text)
+                    {
+                        txtUtranStType.Text = txtCountyStType.Text;
+                        return;
+                    }
+                    if (txtUtranStType.Text == txtCountyStType.Text)
+                    {
+                        txtUtranStType.Text = txtUtransInitialStType;
+                        return;
+                    }
+                }
+
+                // SUFDIR
+                if (clickedLabel.Text == "SUFDIR")
+                {
+                    if (txtUtranSufDir.Text != txtCountySufDir.Text)
+                    {
+                        txtUtranSufDir.Text = txtCountySufDir.Text;
+                        return;
+                    }
+                    if (txtUtranSufDir.Text == txtCountySufDir.Text)
+                    {
+                        txtUtranSufDir.Text = txtUtransInitialSufDir;
+                        return;
+                    }
+                }
+
+                // ALIAS1
+                if (clickedLabel.Text == "ALIAS1")
+                {
+                    if (txtUtransAlias1.Text != txtCountyAlias1.Text)
+                    {
+                        txtUtransAlias1.Text = txtCountyAlias1.Text;
+                        return;
+                    }
+                    if (txtUtransAlias1.Text == txtCountyAlias1.Text)
+                    {
+                        txtUtransAlias1.Text = txtUtransInitialAlias1;
+                        return;
+                    }
+                }
+
+                // ALIAS1TYPE
+                if (clickedLabel.Text == "ALIAS1TYPE")
+                {
+                    if (txtUtransAlias1Type.Text != txtCountyAlias1Type.Text)
+                    {
+                        txtUtransAlias1Type.Text = txtCountyAlias1Type.Text;
+                        return;
+                    }
+                    if (txtUtransAlias1Type.Text == txtCountyAlias1Type.Text)
+                    {
+                        txtUtransAlias1Type.Text = txtUtransInitialAlias1Type;
+                        return;
+                    }
+                }
+
+                // ALIAS2
+                if (clickedLabel.Text == "ALIAS2")
+                {
+                    if (txtUtransAlias2.Text != txtCountyAlias2.Text)
+                    {
+                        txtUtransAlias2.Text = txtCountyAlias2.Text;
+                        return;
+                    }
+                    if (txtUtransAlias2.Text == txtCountyAlias2.Text)
+                    {
+                        txtUtransAlias2.Text = txtUtransInitialAlias2;
+                        return;
+                    }
+                }
+
+                // ALIAS2TYPE
+                if (clickedLabel.Text == "ALIAS2TYPE")
+                {
+                    if (txtUtransAlias2Type.Text != txtCountyAlias2Type.Text)
+                    {
+                        txtUtransAlias2Type.Text = txtCountyAlias2Type.Text;
+                        return;
+                    }
+                    if (txtUtransAlias2Type.Text == txtCountyAlias2Type.Text)
+                    {
+                        txtUtransAlias2Type.Text = txtUtransInitialAlias2Type;
+                        return;
+                    }
+                }
+
+                // ACSALIAS
+                if (clickedLabel.Text == "ACSALIAS")
+                {
+                    if (txtUtransAcsAllias.Text != txtCountyAcsAlilas.Text)
+                    {
+                        txtUtransAcsAllias.Text = txtCountyAcsAlilas.Text;
+                        return;
+                    }
+                    if (txtUtransAcsAllias.Text == txtCountyAcsAlilas.Text)
+                    {
+                        txtUtransAcsAllias.Text = txtUtransInitialAcsAlias;
+                        return;
+                    }
+                }
+
+                // ACSSUF
+                if (clickedLabel.Text == "ACSSUF")
+                {
+                    if (txtUtransAcsSuf.Text != txtCountyAcsSuf.Text)
+                    {
+                        txtUtransAcsSuf.Text = txtCountyAcsSuf.Text;
+                        return;
+                    }
+                    if (txtUtransAcsSuf.Text == txtCountyAcsSuf.Text)
+                    {
+                        txtUtransAcsSuf.Text = txtUtransInitialAscSuf;
+                        return;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
+                "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
+                "Error Location:" + Environment.NewLine + ex.StackTrace,
+                "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
 
 
-                    //if (txtUtranStName.BackColor == Color.White & boolHadDifferenceStName == true)
-                    //{
-                    //    txtUtranStName.BackColor = Color.LightSalmon;
-                    //    txtUtranStName.Text = txtUtransInitialStName;
-                    //    //txtUtranStName.ReadOnly = true;
-                    //    return;
-                    //}
-                    //if (txtUtranStName.BackColor == Color.White & boolHadDifferenceStName == false)
-                    //{
-                    //    //txtUtranStName.ReadOnly = false;
-                    //    return;
-                    //}
-                    //if (txtUtranStName.BackColor == Color.LightYellow & boolHadDifferenceStName == true)
-                    //{
-                    //    txtUtranStName.BackColor = Color.LightSalmon;
-                    //    txtUtranStName.Text = txtUtransInitialStName;
-                    //    //txtUtranStName.ReadOnly = true;
-                    //    return;
-                    //}
-                    //if (txtUtranStName.BackColor == Color.LightYellow & boolHadDifferenceStName == false)
-                    //{
-                    //    txtUtranStName.BackColor = Color.White;
-                    //    //txtUtranStName.ReadOnly = false;
-                    //    return;
-                    //}
+
+        // the following methods handle textbox text changes // 
+
+        // L_F_ADD
+        private void txtUtranL_F_Add_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (txtUtranL_F_Add.Text.ToUpper().ToString() != txtCountyL_F_Add.Text.ToUpper().ToString())
+                {
+                    txtUtranL_F_Add.BackColor = Color.LightYellow;
+                    txtCountyL_F_Add.BackColor = Color.LightYellow;
+                }
+                else if (txtUtranL_F_Add.Text.ToUpper().ToString() == txtCountyL_F_Add.Text.ToUpper().ToString())
+                {
+                    txtUtranL_F_Add.BackColor = Color.White;
+                    txtCountyL_F_Add.BackColor = Color.White;
+                }
+
+                if (txtUtranL_F_Add.Text != txtUtransInitialL_F_Add)
+                {
+                    lblLeftFrom.Font = fontLabelHasEdits;
+                    lblLeftFrom.ForeColor = Color.LightSalmon;
+                }
+                else
+                {
+                    lblLeftFrom.Font = fontLabelRegular;
+                    lblLeftFrom.ForeColor = Color.Black;
                 }
             }
             catch (Exception ex)
@@ -855,107 +836,159 @@ namespace UtransEditorAGRC
             }
         }
 
-        private void lblStType_DoubleClick(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblSufDir_DoubleClick(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblAlias_DoubleClick(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblAlias1Type_DoubleClick(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblAlias2_DoubleClick(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblAlias2Type_DoubleClick(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblAcsAlias_DoubleClick(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblAcsSuf_DoubleClick(object sender, EventArgs e)
-        {
-
-        }
-
-
-
-
-
-        //text changed in the textboxes
-        private void txtUtranL_F_Add_TextChanged(object sender, EventArgs e)
-        {
-            //try
-            //{
-            //    if (txtUtranL_F_Add.Text != txtUtransInitialL_F_Add | txtUtranL_F_Add.Text != txtCountyL_F_Add.Text)
-            //    {
-            //        txtUtranL_F_Add.BackColor = Color.LightYellow;
-            //    }
-
-
-
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
-            //    "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
-            //    "Error Location:" + Environment.NewLine + ex.StackTrace,
-            //    "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            //}
-        }
-
+        // L_T_ADD
         private void txtUtranL_T_Add_TextChanged(object sender, EventArgs e)
         {
+            try
+            {
+                if (txtUtranL_T_Add.Text.ToUpper().ToString() != txtCountyL_T_Add.Text.ToUpper().ToString())
+                {
+                    txtUtranL_T_Add.BackColor = Color.LightYellow;
+                    txtCountyL_T_Add.BackColor = Color.LightYellow;
+                }
+                else if (txtUtranL_T_Add.Text.ToUpper().ToString() == txtCountyL_T_Add.Text.ToUpper().ToString())
+                {
+                    txtUtranL_T_Add.BackColor = Color.White;
+                    txtCountyL_T_Add.BackColor = Color.White;
+                }
 
+                if (txtUtranL_T_Add.Text != txtUtransInitialL_TAdd)
+                {
+                    lblLeftTo.Font = fontLabelHasEdits;
+                    lblLeftTo.ForeColor = Color.LightSalmon;
+                }
+                else
+                {
+                    lblLeftTo.Font = fontLabelRegular;
+                    lblLeftTo.ForeColor = Color.Black;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
+                "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
+                "Error Location:" + Environment.NewLine + ex.StackTrace,
+                "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
+        // R_F_ADD
         private void txtUtranR_F_Add_TextChanged(object sender, EventArgs e)
         {
+            try
+            {
+                if (txtUtranR_F_Add.Text.ToUpper().ToString() != txtCountyR_F_Add.Text.ToUpper().ToString())
+                {
+                    txtUtranR_F_Add.BackColor = Color.LightYellow;
+                    txtCountyR_F_Add.BackColor = Color.LightYellow;
+                }
+                else if (txtUtranR_F_Add.Text.ToUpper().ToString() == txtCountyR_F_Add.Text.ToUpper().ToString())
+                {
+                    txtUtranR_F_Add.BackColor = Color.White;
+                    txtCountyR_F_Add.BackColor = Color.White;
+                }
 
+                if (txtUtranR_F_Add.Text != txtUtransInitialR_F_Add)
+                {
+                    lblRightFrom.Font = fontLabelHasEdits;
+                    lblRightFrom.ForeColor = Color.LightSalmon;
+                }
+                else
+                {
+                    lblRightFrom.Font = fontLabelRegular;
+                    lblRightFrom.ForeColor = Color.Black;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
+                "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
+                "Error Location:" + Environment.NewLine + ex.StackTrace,
+                "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
+        // R_T_ADD
         private void txtUtranR_T_Add_TextChanged(object sender, EventArgs e)
         {
+            try
+            {
+                if (txtUtranR_T_Add.Text.ToUpper().ToString() != txtCountyR_T_Add.Text.ToUpper().ToString())
+                {
+                    txtUtranR_T_Add.BackColor = Color.LightYellow;
+                    txtCountyR_T_Add.BackColor = Color.LightYellow;
+                }
+                else if (txtUtranR_T_Add.Text.ToUpper().ToString() == txtCountyR_T_Add.Text.ToUpper().ToString())
+                {
+                    txtUtranR_T_Add.BackColor = Color.White;
+                    txtCountyR_T_Add.BackColor = Color.White;
+                }
 
+                if (txtUtranR_T_Add.Text != txtUtransInitialR_T_Add)
+                {
+                    lblRightTo.Font = fontLabelHasEdits;
+                    lblRightTo.ForeColor = Color.LightSalmon;
+                }
+                else
+                {
+                    lblRightTo.Font = fontLabelRegular;
+                    lblRightTo.ForeColor = Color.Black;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
+                "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
+                "Error Location:" + Environment.NewLine + ex.StackTrace,
+                "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
+        // PREDIR
         private void txtUtranPreDir_TextChanged(object sender, EventArgs e)
         {
+            try
+            {
+                if (txtUtranPreDir.Text.ToUpper().ToString() != txtCountyPreDir.Text.ToUpper().ToString())
+                {
+                    txtUtranPreDir.BackColor = Color.LightYellow;
+                    txtCountyPreDir.BackColor = Color.LightYellow;
+                }
+                else if (txtUtranPreDir.Text.ToUpper().ToString() == txtCountyPreDir.Text.ToUpper().ToString())
+                {
+                    txtUtranPreDir.BackColor = Color.White;
+                    txtCountyPreDir.BackColor = Color.White;
+                }
 
+                if (txtUtranPreDir.Text != txtUtransInitialPreDir)
+                {
+                    lblPreDir.Font = fontLabelHasEdits;
+                    lblPreDir.ForeColor = Color.LightSalmon;
+                }
+                else
+                {
+                    lblPreDir.Font = fontLabelRegular;
+                    lblPreDir.ForeColor = Color.Black;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
+                "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
+                "Error Location:" + Environment.NewLine + ex.StackTrace,
+                "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
+        // STREETNAME
         private void txtUtranStName_TextChanged(object sender, EventArgs e)
         {
             try
             {
-                //if (txtUtranStName.Text == txtCountyStName.Text)
-                //{
-                //    txtUtranStName.BackColor = Color.LightSeaGreen;
-                //    txtCountyStName.BackColor = Color.LightSeaGreen;
-                //    lblStName.Font = fontLabelHasEdits;
-                //}
                 if (txtUtranStName.Text.ToUpper().ToString() != txtCountyStName.Text.ToUpper().ToString())
                 {
-                    txtUtranStName.BackColor = Color.LightSalmon;
-                    txtCountyStName.BackColor = Color.LightSalmon;
-                    //lblStName.Font = fontLabelRegular;
+                    txtUtranStName.BackColor = Color.LightYellow;
+                    txtCountyStName.BackColor = Color.LightYellow;
                 }
                 else if (txtUtranStName.Text.ToUpper().ToString() == txtCountyStName.Text.ToUpper().ToString())
                 {
@@ -963,25 +996,16 @@ namespace UtransEditorAGRC
                     txtCountyStName.BackColor = Color.White;
                 }
 
-
-                //after text changed
-                //afterTextChanged();
-
                 if (txtUtranStName.Text != txtUtransInitialStName)
                 {
                     lblStName.Font = fontLabelHasEdits;
+                    lblStName.ForeColor = Color.LightSalmon;
                 }
                 else
                 {
                     lblStName.Font = fontLabelRegular;
+                    lblStName.ForeColor = Color.Black;
                 }
-
-                //if (txtUtranStName.Text != txtUtransInitialStName & txtUtranStName.Text != txtCountyStName.Text)
-                //{
-                //    txtUtranStName.BackColor = Color.LightYellow;
-                //    lblStName.Font = fontLabelHasEdits;
-                //}
-
             }
             catch (Exception ex)
             {
@@ -990,69 +1014,287 @@ namespace UtransEditorAGRC
                 "Error Location:" + Environment.NewLine + ex.StackTrace,
                 "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-
         }
 
+        // STREETTYPE
         private void txtUtranStType_TextChanged(object sender, EventArgs e)
         {
+            try
+            {
+                if (txtUtranStType.Text.ToUpper().ToString() != txtCountyStType.Text.ToUpper().ToString())
+                {
+                    txtUtranStType.BackColor = Color.LightYellow;
+                    txtCountyStType.BackColor = Color.LightYellow;
+                }
+                else if (txtUtranStType.Text.ToUpper().ToString() == txtCountyStType.Text.ToUpper().ToString())
+                {
+                    txtUtranStType.BackColor = Color.White;
+                    txtCountyStType.BackColor = Color.White;
+                }
 
+                if (txtUtranStType.Text != txtUtransInitialStType)
+                {
+                    lblStType.Font = fontLabelHasEdits;
+                    lblStType.ForeColor = Color.LightSalmon;
+                }
+                else
+                {
+                    lblStType.Font = fontLabelRegular;
+                    lblStType.ForeColor = Color.Black;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
+                "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
+                "Error Location:" + Environment.NewLine + ex.StackTrace,
+                "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
+        // SUFDIR
         private void txtUtranSufDir_TextChanged(object sender, EventArgs e)
         {
+            try
+            {
+                if (txtUtranSufDir.Text.ToUpper().ToString() != txtCountySufDir.Text.ToUpper().ToString())
+                {
+                    txtUtranSufDir.BackColor = Color.LightYellow;
+                    txtCountySufDir.BackColor = Color.LightYellow;
+                }
+                else if (txtUtranSufDir.Text.ToUpper().ToString() == txtCountySufDir.Text.ToUpper().ToString())
+                {
+                    txtUtranSufDir.BackColor = Color.White;
+                    txtCountySufDir.BackColor = Color.White;
+                }
 
+                if (txtUtranSufDir.Text != txtUtransInitialSufDir)
+                {
+                    lblSufDir.Font = fontLabelHasEdits;
+                    lblSufDir.ForeColor = Color.LightSalmon;
+                }
+                else
+                {
+                    lblSufDir.Font = fontLabelRegular;
+                    lblSufDir.ForeColor = Color.Black;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
+                "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
+                "Error Location:" + Environment.NewLine + ex.StackTrace,
+                "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
+        // ALIAS1
         private void txtUtransAlias1_TextChanged(object sender, EventArgs e)
         {
+            try
+            {
+                if (txtUtransAlias1.Text.ToUpper().ToString() != txtCountyAlias1.Text.ToUpper().ToString())
+                {
+                    txtUtransAlias1.BackColor = Color.LightYellow;
+                    txtCountyAlias1.BackColor = Color.LightYellow;
+                }
+                else if (txtUtransAlias1.Text.ToUpper().ToString() == txtCountyAlias1.Text.ToUpper().ToString())
+                {
+                    txtUtransAlias1.BackColor = Color.White;
+                    txtCountyAlias1.BackColor = Color.White;
+                }
+
+                if (txtUtransAlias1.Text != txtUtransInitialAlias1)
+                {
+                    lblAlias.Font = fontLabelHasEdits;
+                    lblAlias.ForeColor = Color.LightSalmon;
+                }
+                else
+                {
+                    lblAlias.Font = fontLabelRegular;
+                    lblAlias.ForeColor = Color.Black;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
+                "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
+                "Error Location:" + Environment.NewLine + ex.StackTrace,
+                "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
 
         }
 
+        // ALIAS1TYPE
         private void txtUtransAlias1Type_TextChanged(object sender, EventArgs e)
         {
+            try
+            {
+                if (txtUtransAlias1Type.Text.ToUpper().ToString() != txtCountyAlias1Type.Text.ToUpper().ToString())
+                {
+                    txtUtransAlias1Type.BackColor = Color.LightYellow;
+                    txtCountyAlias1Type.BackColor = Color.LightYellow;
+                }
+                else if (txtUtransAlias1Type.Text.ToUpper().ToString() == txtCountyAlias1Type.Text.ToUpper().ToString())
+                {
+                    txtUtransAlias1Type.BackColor = Color.White;
+                    txtCountyAlias1Type.BackColor = Color.White;
+                }
 
+                if (txtUtransAlias1Type.Text != txtUtransInitialAlias1Type)
+                {
+                    lblAlias1Type.Font = fontLabelHasEdits;
+                    lblAlias1Type.ForeColor = Color.LightSalmon;
+                }
+                else
+                {
+                    lblAlias1Type.Font = fontLabelRegular;
+                    lblAlias1Type.ForeColor = Color.Black;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
+                "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
+                "Error Location:" + Environment.NewLine + ex.StackTrace,
+                "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
+        // ALIAS2
         private void txtUtransAlias2_TextChanged(object sender, EventArgs e)
         {
+            try
+            {
+                if (txtUtransAlias2.Text.ToUpper().ToString() != txtCountyAlias2.Text.ToUpper().ToString())
+                {
+                    txtUtransAlias2.BackColor = Color.LightYellow;
+                    txtCountyAlias2.BackColor = Color.LightYellow;
+                }
+                else if (txtUtransAlias2.Text.ToUpper().ToString() == txtCountyAlias2.Text.ToUpper().ToString())
+                {
+                    txtUtransAlias2.BackColor = Color.White;
+                    txtCountyAlias2.BackColor = Color.White;
+                }
 
+                if (txtUtransAlias2.Text != txtUtransInitialAlias2)
+                {
+                    lblAlias2.Font = fontLabelHasEdits;
+                    lblAlias2.ForeColor = Color.LightSalmon;
+                }
+                else
+                {
+                    lblAlias2.Font = fontLabelRegular;
+                    lblAlias2.ForeColor = Color.Black;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
+                "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
+                "Error Location:" + Environment.NewLine + ex.StackTrace,
+                "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
+        // ALIAS2TYPE
         private void txtUtransAlias2Type_TextChanged(object sender, EventArgs e)
         {
+            try
+            {
+                if (txtUtransAlias2Type.Text.ToUpper().ToString() != txtCountyAlias2Type.Text.ToUpper().ToString())
+                {
+                    txtUtransAlias2Type.BackColor = Color.LightYellow;
+                    txtCountyAlias2Type.BackColor = Color.LightYellow;
+                }
+                else if (txtUtransAlias2Type.Text.ToUpper().ToString() == txtCountyAlias2Type.Text.ToUpper().ToString())
+                {
+                    txtUtransAlias2Type.BackColor = Color.White;
+                    txtCountyAlias2Type.BackColor = Color.White;
+                }
 
+                if (txtUtransAlias2Type.Text != txtUtransInitialAlias2Type)
+                {
+                    lblAlias2Type.Font = fontLabelHasEdits;
+                    lblAlias2Type.ForeColor = Color.LightSalmon;
+                }
+                else
+                {
+                    lblAlias2Type.Font = fontLabelRegular;
+                    lblAlias2Type.ForeColor = Color.Black;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
+                "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
+                "Error Location:" + Environment.NewLine + ex.StackTrace,
+                "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
+        //ACSALIAS
         private void txtUtransAcsAllias_TextChanged(object sender, EventArgs e)
         {
+            try
+            {
+                if (txtUtransAcsAllias.Text.ToUpper().ToString() != txtCountyAcsAlilas.Text.ToUpper().ToString())
+                {
+                    txtUtransAcsAllias.BackColor = Color.LightYellow;
+                    txtCountyAcsAlilas.BackColor = Color.LightYellow;
+                }
+                else if (txtUtransAcsAllias.Text.ToUpper().ToString() == txtCountyAcsAlilas.Text.ToUpper().ToString())
+                {
+                    txtUtransAcsAllias.BackColor = Color.White;
+                    txtCountyAcsAlilas.BackColor = Color.White;
+                }
 
+                if (txtUtransAcsAllias.Text != txtUtransInitialAcsAlias)
+                {
+                    lblAcsAlias.Font = fontLabelHasEdits;
+                    lblAcsAlias.ForeColor = Color.LightSalmon;
+                }
+                else
+                {
+                    lblAcsAlias.Font = fontLabelRegular;
+                    lblAcsAlias.ForeColor = Color.Black;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
+                "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
+                "Error Location:" + Environment.NewLine + ex.StackTrace,
+                "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
+        // ACSSUF
         private void txtUtransAcsSuf_TextChanged(object sender, EventArgs e)
         {
-
-        }
-
-
-
-
-
-        //these are events for when the user has left the textbox - changing the textbox to yellow if the values have changed
-        private void txtUtranL_F_Add_Leave(object sender, EventArgs e)
-        {
             try
             {
-                //if (txtUtranL_F_Add.Text != txtUtransInitialL_F_Add | txtUtranL_F_Add.Text != txtCountyL_F_Add.Text)
-                //{
-                //    lblLeftFrom.Font = fontLabelDataMismatch;
-                //    //txtUtranL_F_Add.BackColor = Color.LightYellow;
-                //    //txtUtranL_F_Add.ReadOnly = true;
-                //}
-                //else
-                //{
-                //    lblLeftFrom.Font = fontLabelRegular;
-                //}
+                if (txtUtransAcsSuf.Text.ToUpper().ToString() != txtCountyAcsSuf.Text.ToUpper().ToString())
+                {
+                    txtUtransAcsSuf.BackColor = Color.LightYellow;
+                    txtCountyAcsSuf.BackColor = Color.LightYellow;
+                }
+                else if (txtUtransAcsSuf.Text.ToUpper().ToString() == txtCountyAcsSuf.Text.ToUpper().ToString())
+                {
+                    txtUtransAcsSuf.BackColor = Color.White;
+                    txtCountyAcsSuf.BackColor = Color.White;
+                }
 
+                if (txtUtransAcsSuf.Text != txtUtransInitialAscSuf)
+                {
+                    lblAcsSuf.Font = fontLabelHasEdits;
+                    lblAcsSuf.ForeColor = Color.LightSalmon;
+                }
+                else
+                {
+                    lblAcsSuf.Font = fontLabelRegular;
+                    lblAcsSuf.ForeColor = Color.Black;
+                }
             }
             catch (Exception ex)
             {
@@ -1061,70 +1303,12 @@ namespace UtransEditorAGRC
                 "Error Location:" + Environment.NewLine + ex.StackTrace,
                 "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-
-        }
-
-        private void txtUtranStName_Leave(object sender, EventArgs e)
-        {
-            try
-            {
-                //if (txtUtranStName.Text != txtUtransInitialStName | txtUtranStName.Text != txtCountyStName.Text)
-                //{
-                //    lblStName.Font = fontLabelDataMismatch;
-                //    //txtUtranStName.BackColor = Color.LightYellow;
-                //    //txtUtranStName.ReadOnly = true;
-                //}
-                //else
-                //{
-                //    lblStName.Font = fontLabelRegular;
-                //}
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
-                "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
-                "Error Location:" + Environment.NewLine + ex.StackTrace,
-                "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-
         }
 
 
 
 
-
-
-
-
-
-
-        //private void afterTextChanged()
-        //{
-        //    try
-        //    {
-        //        if (txtUtranStName.Text != txtUtransInitialStName)
-        //        {
-        //            lblStName.Font = fontLabelHasEdits;
-        //        }
-        //        else
-        //        {
-        //            lblStName.Font = fontLabelRegular;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
-        //        "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
-        //        "Error Location:" + Environment.NewLine + ex.StackTrace,
-        //        "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-        //    }
-        
-        //}
-
-
-
-
-        //force the house range number texboxes to only accept numeric values
+        //this method forces the house range number texboxes to only accept numeric values
         private void txtUtran_HouseNumber_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))

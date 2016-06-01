@@ -62,10 +62,10 @@
             this.label11 = new System.Windows.Forms.Label();
             this.groupBoxUtransSeg = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.lblAcsSuf = new System.Windows.Forms.Label();
-            this.lblAcsAlias = new System.Windows.Forms.Label();
             this.txtUtransAcsSuf = new System.Windows.Forms.TextBox();
             this.txtUtransAcsAllias = new System.Windows.Forms.TextBox();
+            this.lblAcsSuf = new System.Windows.Forms.Label();
+            this.lblAcsAlias = new System.Windows.Forms.Label();
             this.lblAlias2Type = new System.Windows.Forms.Label();
             this.lblAlias2 = new System.Windows.Forms.Label();
             this.txtUtransAlias2Type = new System.Windows.Forms.TextBox();
@@ -75,16 +75,16 @@
             this.lblAlias1Type = new System.Windows.Forms.Label();
             this.lblAlias = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtUtranL_F_Add = new System.Windows.Forms.TextBox();
+            this.txtUtranL_T_Add = new System.Windows.Forms.TextBox();
             this.lblLeftFrom = new System.Windows.Forms.Label();
             this.lblLeftTo = new System.Windows.Forms.Label();
             this.txtUtranSufDir = new System.Windows.Forms.TextBox();
-            this.txtUtranL_F_Add = new System.Windows.Forms.TextBox();
             this.txtUtranStType = new System.Windows.Forms.TextBox();
             this.lblRightTo = new System.Windows.Forms.Label();
             this.txtUtranStName = new System.Windows.Forms.TextBox();
             this.lblRightFrom = new System.Windows.Forms.Label();
             this.txtUtranPreDir = new System.Windows.Forms.TextBox();
-            this.txtUtranL_T_Add = new System.Windows.Forms.TextBox();
             this.lblSufDir = new System.Windows.Forms.Label();
             this.txtUtranR_F_Add = new System.Windows.Forms.TextBox();
             this.lblStType = new System.Windows.Forms.Label();
@@ -471,10 +471,10 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.lblAcsSuf);
-            this.groupBox2.Controls.Add(this.lblAcsAlias);
             this.groupBox2.Controls.Add(this.txtUtransAcsSuf);
             this.groupBox2.Controls.Add(this.txtUtransAcsAllias);
+            this.groupBox2.Controls.Add(this.lblAcsSuf);
+            this.groupBox2.Controls.Add(this.lblAcsAlias);
             this.groupBox2.Controls.Add(this.lblAlias2Type);
             this.groupBox2.Controls.Add(this.lblAlias2);
             this.groupBox2.Controls.Add(this.txtUtransAlias2Type);
@@ -490,28 +490,6 @@
             this.groupBox2.TabIndex = 21;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Alias Attributes";
-            // 
-            // lblAcsSuf
-            // 
-            this.lblAcsSuf.AutoSize = true;
-            this.lblAcsSuf.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAcsSuf.Location = new System.Drawing.Point(447, 45);
-            this.lblAcsSuf.Name = "lblAcsSuf";
-            this.lblAcsSuf.Size = new System.Drawing.Size(49, 13);
-            this.lblAcsSuf.TabIndex = 11;
-            this.lblAcsSuf.Text = "ACSSUF";
-            this.lblAcsSuf.DoubleClick += new System.EventHandler(this.lblAcsSuf_DoubleClick);
-            // 
-            // lblAcsAlias
-            // 
-            this.lblAcsAlias.AutoSize = true;
-            this.lblAcsAlias.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAcsAlias.Location = new System.Drawing.Point(342, 45);
-            this.lblAcsAlias.Name = "lblAcsAlias";
-            this.lblAcsAlias.Size = new System.Drawing.Size(58, 13);
-            this.lblAcsAlias.TabIndex = 10;
-            this.lblAcsAlias.Text = "ACSALIAS";
-            this.lblAcsAlias.DoubleClick += new System.EventHandler(this.lblAcsAlias_DoubleClick);
             // 
             // txtUtransAcsSuf
             // 
@@ -535,6 +513,28 @@
             this.txtUtransAcsAllias.Tag = "ACSALIAS";
             this.txtUtransAcsAllias.TextChanged += new System.EventHandler(this.txtUtransAcsAllias_TextChanged);
             // 
+            // lblAcsSuf
+            // 
+            this.lblAcsSuf.AutoSize = true;
+            this.lblAcsSuf.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAcsSuf.Location = new System.Drawing.Point(447, 45);
+            this.lblAcsSuf.Name = "lblAcsSuf";
+            this.lblAcsSuf.Size = new System.Drawing.Size(49, 13);
+            this.lblAcsSuf.TabIndex = 11;
+            this.lblAcsSuf.Text = "ACSSUF";
+            this.lblAcsSuf.DoubleClick += new System.EventHandler(this.lbl_DoubleClick);
+            // 
+            // lblAcsAlias
+            // 
+            this.lblAcsAlias.AutoSize = true;
+            this.lblAcsAlias.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAcsAlias.Location = new System.Drawing.Point(342, 45);
+            this.lblAcsAlias.Name = "lblAcsAlias";
+            this.lblAcsAlias.Size = new System.Drawing.Size(58, 13);
+            this.lblAcsAlias.TabIndex = 10;
+            this.lblAcsAlias.Text = "ACSALIAS";
+            this.lblAcsAlias.DoubleClick += new System.EventHandler(this.lbl_DoubleClick);
+            // 
             // lblAlias2Type
             // 
             this.lblAlias2Type.AutoSize = true;
@@ -544,7 +544,7 @@
             this.lblAlias2Type.Size = new System.Drawing.Size(71, 13);
             this.lblAlias2Type.TabIndex = 7;
             this.lblAlias2Type.Text = "ALIAS2TYPE";
-            this.lblAlias2Type.DoubleClick += new System.EventHandler(this.lblAlias2Type_DoubleClick);
+            this.lblAlias2Type.DoubleClick += new System.EventHandler(this.lbl_DoubleClick);
             // 
             // lblAlias2
             // 
@@ -555,7 +555,7 @@
             this.lblAlias2.Size = new System.Drawing.Size(43, 13);
             this.lblAlias2.TabIndex = 6;
             this.lblAlias2.Text = "ALIAS2";
-            this.lblAlias2.DoubleClick += new System.EventHandler(this.lblAlias2_DoubleClick);
+            this.lblAlias2.DoubleClick += new System.EventHandler(this.lbl_DoubleClick);
             // 
             // txtUtransAlias2Type
             // 
@@ -610,7 +610,7 @@
             this.lblAlias1Type.Size = new System.Drawing.Size(71, 13);
             this.lblAlias1Type.TabIndex = 1;
             this.lblAlias1Type.Text = "ALIAS1TYPE";
-            this.lblAlias1Type.DoubleClick += new System.EventHandler(this.lblAlias1Type_DoubleClick);
+            this.lblAlias1Type.DoubleClick += new System.EventHandler(this.lbl_DoubleClick);
             // 
             // lblAlias
             // 
@@ -621,21 +621,21 @@
             this.lblAlias.Size = new System.Drawing.Size(43, 13);
             this.lblAlias.TabIndex = 0;
             this.lblAlias.Text = "ALIAS1";
-            this.lblAlias.DoubleClick += new System.EventHandler(this.lblAlias_DoubleClick);
+            this.lblAlias.DoubleClick += new System.EventHandler(this.lbl_DoubleClick);
             // 
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox1.Controls.Add(this.txtUtranL_F_Add);
+            this.groupBox1.Controls.Add(this.txtUtranL_T_Add);
             this.groupBox1.Controls.Add(this.lblLeftFrom);
             this.groupBox1.Controls.Add(this.lblLeftTo);
             this.groupBox1.Controls.Add(this.txtUtranSufDir);
-            this.groupBox1.Controls.Add(this.txtUtranL_F_Add);
             this.groupBox1.Controls.Add(this.txtUtranStType);
             this.groupBox1.Controls.Add(this.lblRightTo);
             this.groupBox1.Controls.Add(this.txtUtranStName);
             this.groupBox1.Controls.Add(this.lblRightFrom);
             this.groupBox1.Controls.Add(this.txtUtranPreDir);
-            this.groupBox1.Controls.Add(this.txtUtranL_T_Add);
             this.groupBox1.Controls.Add(this.lblSufDir);
             this.groupBox1.Controls.Add(this.txtUtranR_F_Add);
             this.groupBox1.Controls.Add(this.lblStType);
@@ -650,27 +650,50 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Primary Attributes";
             // 
+            // txtUtranL_F_Add
+            // 
+            this.txtUtranL_F_Add.BackColor = System.Drawing.SystemColors.Window;
+            this.txtUtranL_F_Add.Location = new System.Drawing.Point(11, 48);
+            this.txtUtranL_F_Add.Name = "txtUtranL_F_Add";
+            this.txtUtranL_F_Add.Size = new System.Drawing.Size(67, 22);
+            this.txtUtranL_F_Add.TabIndex = 1;
+            this.txtUtranL_F_Add.Tag = "L_F_ADD";
+            this.txtUtranL_F_Add.TextChanged += new System.EventHandler(this.txtUtranL_F_Add_TextChanged);
+            this.txtUtranL_F_Add.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtUtran_HouseNumber_KeyPress);
+            // 
+            // txtUtranL_T_Add
+            // 
+            this.txtUtranL_T_Add.BackColor = System.Drawing.SystemColors.Window;
+            this.txtUtranL_T_Add.Location = new System.Drawing.Point(84, 48);
+            this.txtUtranL_T_Add.Name = "txtUtranL_T_Add";
+            this.txtUtranL_T_Add.Size = new System.Drawing.Size(67, 22);
+            this.txtUtranL_T_Add.TabIndex = 7;
+            this.txtUtranL_T_Add.Tag = "L_T_ADD";
+            this.txtUtranL_T_Add.TextChanged += new System.EventHandler(this.txtUtranL_T_Add_TextChanged);
+            this.txtUtranL_T_Add.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtUtran_HouseNumber_KeyPress);
+            // 
             // lblLeftFrom
             // 
             this.lblLeftFrom.AutoSize = true;
             this.lblLeftFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLeftFrom.Location = new System.Drawing.Point(8, 30);
+            this.lblLeftFrom.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblLeftFrom.Location = new System.Drawing.Point(8, 31);
             this.lblLeftFrom.Name = "lblLeftFrom";
             this.lblLeftFrom.Size = new System.Drawing.Size(54, 13);
             this.lblLeftFrom.TabIndex = 2;
             this.lblLeftFrom.Text = "L_F_ADD";
-            this.lblLeftFrom.DoubleClick += new System.EventHandler(this.lblLeftFrom_DoubleClick);
+            this.lblLeftFrom.DoubleClick += new System.EventHandler(this.lbl_DoubleClick);
             // 
             // lblLeftTo
             // 
             this.lblLeftTo.AutoSize = true;
             this.lblLeftTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLeftTo.Location = new System.Drawing.Point(81, 30);
+            this.lblLeftTo.Location = new System.Drawing.Point(81, 31);
             this.lblLeftTo.Name = "lblLeftTo";
             this.lblLeftTo.Size = new System.Drawing.Size(55, 13);
             this.lblLeftTo.TabIndex = 4;
             this.lblLeftTo.Text = "L_T_ADD";
-            this.lblLeftTo.DoubleClick += new System.EventHandler(this.lblLeftTo_DoubleClick);
+            this.lblLeftTo.DoubleClick += new System.EventHandler(this.lbl_DoubleClick);
             // 
             // txtUtranSufDir
             // 
@@ -682,18 +705,6 @@
             this.txtUtranSufDir.TabIndex = 17;
             this.txtUtranSufDir.Tag = "SUFDIR";
             this.txtUtranSufDir.TextChanged += new System.EventHandler(this.txtUtranSufDir_TextChanged);
-            // 
-            // txtUtranL_F_Add
-            // 
-            this.txtUtranL_F_Add.BackColor = System.Drawing.SystemColors.Window;
-            this.txtUtranL_F_Add.Location = new System.Drawing.Point(11, 48);
-            this.txtUtranL_F_Add.Name = "txtUtranL_F_Add";
-            this.txtUtranL_F_Add.Size = new System.Drawing.Size(67, 22);
-            this.txtUtranL_F_Add.TabIndex = 1;
-            this.txtUtranL_F_Add.Tag = "L_F_ADD";
-            this.txtUtranL_F_Add.TextChanged += new System.EventHandler(this.txtUtranL_F_Add_TextChanged);
-            this.txtUtranL_F_Add.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtUtran_HouseNumber_KeyPress);
-            this.txtUtranL_F_Add.Leave += new System.EventHandler(this.txtUtranL_F_Add_Leave);
             // 
             // txtUtranStType
             // 
@@ -715,7 +726,7 @@
             this.lblRightTo.Size = new System.Drawing.Size(57, 13);
             this.lblRightTo.TabIndex = 6;
             this.lblRightTo.Text = "R_T_ADD";
-            this.lblRightTo.DoubleClick += new System.EventHandler(this.lblRightTo_DoubleClick);
+            this.lblRightTo.DoubleClick += new System.EventHandler(this.lbl_DoubleClick);
             // 
             // txtUtranStName
             // 
@@ -727,7 +738,6 @@
             this.txtUtranStName.TabIndex = 15;
             this.txtUtranStName.Tag = "STREETNAME";
             this.txtUtranStName.TextChanged += new System.EventHandler(this.txtUtranStName_TextChanged);
-            this.txtUtranStName.Leave += new System.EventHandler(this.txtUtranStName_Leave);
             // 
             // lblRightFrom
             // 
@@ -738,7 +748,7 @@
             this.lblRightFrom.Size = new System.Drawing.Size(56, 13);
             this.lblRightFrom.TabIndex = 5;
             this.lblRightFrom.Text = "R_F_ADD";
-            this.lblRightFrom.DoubleClick += new System.EventHandler(this.lblRightFrom_DoubleClick);
+            this.lblRightFrom.DoubleClick += new System.EventHandler(this.lbl_DoubleClick);
             // 
             // txtUtranPreDir
             // 
@@ -751,17 +761,6 @@
             this.txtUtranPreDir.Tag = "PREDIR";
             this.txtUtranPreDir.TextChanged += new System.EventHandler(this.txtUtranPreDir_TextChanged);
             // 
-            // txtUtranL_T_Add
-            // 
-            this.txtUtranL_T_Add.BackColor = System.Drawing.SystemColors.Window;
-            this.txtUtranL_T_Add.Location = new System.Drawing.Point(84, 48);
-            this.txtUtranL_T_Add.Name = "txtUtranL_T_Add";
-            this.txtUtranL_T_Add.Size = new System.Drawing.Size(67, 22);
-            this.txtUtranL_T_Add.TabIndex = 7;
-            this.txtUtranL_T_Add.Tag = "L_T_ADD";
-            this.txtUtranL_T_Add.TextChanged += new System.EventHandler(this.txtUtranL_T_Add_TextChanged);
-            this.txtUtranL_T_Add.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtUtran_HouseNumber_KeyPress);
-            // 
             // lblSufDir
             // 
             this.lblSufDir.AutoSize = true;
@@ -771,7 +770,7 @@
             this.lblSufDir.Size = new System.Drawing.Size(47, 13);
             this.lblSufDir.TabIndex = 13;
             this.lblSufDir.Text = "SUFDIR";
-            this.lblSufDir.DoubleClick += new System.EventHandler(this.lblSufDir_DoubleClick);
+            this.lblSufDir.DoubleClick += new System.EventHandler(this.lbl_DoubleClick);
             // 
             // txtUtranR_F_Add
             // 
@@ -793,7 +792,7 @@
             this.lblStType.Size = new System.Drawing.Size(78, 13);
             this.lblStType.TabIndex = 12;
             this.lblStType.Text = "STREETTYPE";
-            this.lblStType.DoubleClick += new System.EventHandler(this.lblStType_DoubleClick);
+            this.lblStType.DoubleClick += new System.EventHandler(this.lbl_DoubleClick);
             // 
             // txtUtranR_T_Add
             // 
@@ -815,7 +814,7 @@
             this.lblStName.Size = new System.Drawing.Size(81, 13);
             this.lblStName.TabIndex = 11;
             this.lblStName.Text = "STREETNAME";
-            this.lblStName.DoubleClick += new System.EventHandler(this.lblStName_DoubleClick);
+            this.lblStName.DoubleClick += new System.EventHandler(this.lbl_DoubleClick);
             // 
             // lblPreDir
             // 
@@ -826,7 +825,7 @@
             this.lblPreDir.Size = new System.Drawing.Size(48, 13);
             this.lblPreDir.TabIndex = 10;
             this.lblPreDir.Text = "PREDIR";
-            this.lblPreDir.DoubleClick += new System.EventHandler(this.lblPreDir_DoubleClick);
+            this.lblPreDir.DoubleClick += new System.EventHandler(this.lbl_DoubleClick);
             // 
             // linkLabelAttrDoc
             // 
