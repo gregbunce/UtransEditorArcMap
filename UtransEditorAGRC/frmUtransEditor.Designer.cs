@@ -495,7 +495,7 @@
             // 
             this.lblAcsSuf.AutoSize = true;
             this.lblAcsSuf.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAcsSuf.Location = new System.Drawing.Point(447, 46);
+            this.lblAcsSuf.Location = new System.Drawing.Point(447, 45);
             this.lblAcsSuf.Name = "lblAcsSuf";
             this.lblAcsSuf.Size = new System.Drawing.Size(49, 13);
             this.lblAcsSuf.TabIndex = 11;
@@ -506,7 +506,7 @@
             // 
             this.lblAcsAlias.AutoSize = true;
             this.lblAcsAlias.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAcsAlias.Location = new System.Drawing.Point(342, 46);
+            this.lblAcsAlias.Location = new System.Drawing.Point(342, 45);
             this.lblAcsAlias.Name = "lblAcsAlias";
             this.lblAcsAlias.Size = new System.Drawing.Size(58, 13);
             this.lblAcsAlias.TabIndex = 10;
@@ -516,22 +516,24 @@
             // txtUtransAcsSuf
             // 
             this.txtUtransAcsSuf.BackColor = System.Drawing.SystemColors.Window;
+            this.txtUtransAcsSuf.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtUtransAcsSuf.Location = new System.Drawing.Point(450, 63);
             this.txtUtransAcsSuf.Name = "txtUtransAcsSuf";
-            this.txtUtransAcsSuf.ReadOnly = true;
             this.txtUtransAcsSuf.Size = new System.Drawing.Size(102, 22);
             this.txtUtransAcsSuf.TabIndex = 9;
             this.txtUtransAcsSuf.Tag = "ACSSUF";
+            this.txtUtransAcsSuf.TextChanged += new System.EventHandler(this.txtUtransAcsSuf_TextChanged);
             // 
             // txtUtransAcsAllias
             // 
             this.txtUtransAcsAllias.BackColor = System.Drawing.SystemColors.Window;
+            this.txtUtransAcsAllias.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtUtransAcsAllias.Location = new System.Drawing.Point(342, 63);
             this.txtUtransAcsAllias.Name = "txtUtransAcsAllias";
-            this.txtUtransAcsAllias.ReadOnly = true;
             this.txtUtransAcsAllias.Size = new System.Drawing.Size(102, 22);
             this.txtUtransAcsAllias.TabIndex = 8;
             this.txtUtransAcsAllias.Tag = "ACSALIAS";
+            this.txtUtransAcsAllias.TextChanged += new System.EventHandler(this.txtUtransAcsAllias_TextChanged);
             // 
             // lblAlias2Type
             // 
@@ -558,42 +560,46 @@
             // txtUtransAlias2Type
             // 
             this.txtUtransAlias2Type.BackColor = System.Drawing.SystemColors.Window;
+            this.txtUtransAlias2Type.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtUtransAlias2Type.Location = new System.Drawing.Point(193, 77);
             this.txtUtransAlias2Type.Name = "txtUtransAlias2Type";
-            this.txtUtransAlias2Type.ReadOnly = true;
             this.txtUtransAlias2Type.Size = new System.Drawing.Size(143, 22);
             this.txtUtransAlias2Type.TabIndex = 5;
             this.txtUtransAlias2Type.Tag = "ALIAS2TYPE";
+            this.txtUtransAlias2Type.TextChanged += new System.EventHandler(this.txtUtransAlias2Type_TextChanged);
             // 
             // txtUtransAlias2
             // 
             this.txtUtransAlias2.BackColor = System.Drawing.SystemColors.Window;
+            this.txtUtransAlias2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtUtransAlias2.Location = new System.Drawing.Point(15, 77);
             this.txtUtransAlias2.Name = "txtUtransAlias2";
-            this.txtUtransAlias2.ReadOnly = true;
             this.txtUtransAlias2.Size = new System.Drawing.Size(172, 22);
             this.txtUtransAlias2.TabIndex = 4;
             this.txtUtransAlias2.Tag = "ALIAS2";
+            this.txtUtransAlias2.TextChanged += new System.EventHandler(this.txtUtransAlias2_TextChanged);
             // 
             // txtUtransAlias1Type
             // 
             this.txtUtransAlias1Type.BackColor = System.Drawing.SystemColors.Window;
+            this.txtUtransAlias1Type.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtUtransAlias1Type.Location = new System.Drawing.Point(193, 48);
             this.txtUtransAlias1Type.Name = "txtUtransAlias1Type";
-            this.txtUtransAlias1Type.ReadOnly = true;
             this.txtUtransAlias1Type.Size = new System.Drawing.Size(143, 22);
             this.txtUtransAlias1Type.TabIndex = 3;
             this.txtUtransAlias1Type.Tag = "ALIAS1TYPE";
+            this.txtUtransAlias1Type.TextChanged += new System.EventHandler(this.txtUtransAlias1Type_TextChanged);
             // 
             // txtUtransAlias1
             // 
             this.txtUtransAlias1.BackColor = System.Drawing.SystemColors.Window;
+            this.txtUtransAlias1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtUtransAlias1.Location = new System.Drawing.Point(15, 48);
             this.txtUtransAlias1.Name = "txtUtransAlias1";
-            this.txtUtransAlias1.ReadOnly = true;
             this.txtUtransAlias1.Size = new System.Drawing.Size(172, 22);
             this.txtUtransAlias1.TabIndex = 2;
             this.txtUtransAlias1.Tag = "ALIAS1";
+            this.txtUtransAlias1.TextChanged += new System.EventHandler(this.txtUtransAlias1_TextChanged);
             // 
             // lblAlias1Type
             // 
@@ -648,7 +654,7 @@
             // 
             this.lblLeftFrom.AutoSize = true;
             this.lblLeftFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLeftFrom.Location = new System.Drawing.Point(8, 31);
+            this.lblLeftFrom.Location = new System.Drawing.Point(8, 30);
             this.lblLeftFrom.Name = "lblLeftFrom";
             this.lblLeftFrom.Size = new System.Drawing.Size(54, 13);
             this.lblLeftFrom.TabIndex = 2;
@@ -659,7 +665,7 @@
             // 
             this.lblLeftTo.AutoSize = true;
             this.lblLeftTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLeftTo.Location = new System.Drawing.Point(81, 31);
+            this.lblLeftTo.Location = new System.Drawing.Point(81, 30);
             this.lblLeftTo.Name = "lblLeftTo";
             this.lblLeftTo.Size = new System.Drawing.Size(55, 13);
             this.lblLeftTo.TabIndex = 4;
@@ -669,32 +675,36 @@
             // txtUtranSufDir
             // 
             this.txtUtranSufDir.BackColor = System.Drawing.SystemColors.Window;
+            this.txtUtranSufDir.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtUtranSufDir.Location = new System.Drawing.Point(561, 48);
             this.txtUtranSufDir.Name = "txtUtranSufDir";
-            this.txtUtranSufDir.ReadOnly = true;
             this.txtUtranSufDir.Size = new System.Drawing.Size(55, 22);
             this.txtUtranSufDir.TabIndex = 17;
             this.txtUtranSufDir.Tag = "SUFDIR";
+            this.txtUtranSufDir.TextChanged += new System.EventHandler(this.txtUtranSufDir_TextChanged);
             // 
             // txtUtranL_F_Add
             // 
             this.txtUtranL_F_Add.BackColor = System.Drawing.SystemColors.Window;
             this.txtUtranL_F_Add.Location = new System.Drawing.Point(11, 48);
             this.txtUtranL_F_Add.Name = "txtUtranL_F_Add";
-            this.txtUtranL_F_Add.ReadOnly = true;
             this.txtUtranL_F_Add.Size = new System.Drawing.Size(67, 22);
             this.txtUtranL_F_Add.TabIndex = 1;
             this.txtUtranL_F_Add.Tag = "L_F_ADD";
+            this.txtUtranL_F_Add.TextChanged += new System.EventHandler(this.txtUtranL_F_Add_TextChanged);
+            this.txtUtranL_F_Add.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtUtran_HouseNumber_KeyPress);
+            this.txtUtranL_F_Add.Leave += new System.EventHandler(this.txtUtranL_F_Add_Leave);
             // 
             // txtUtranStType
             // 
             this.txtUtranStType.BackColor = System.Drawing.SystemColors.Window;
+            this.txtUtranStType.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtUtranStType.Location = new System.Drawing.Point(477, 48);
             this.txtUtranStType.Name = "txtUtranStType";
-            this.txtUtranStType.ReadOnly = true;
             this.txtUtranStType.Size = new System.Drawing.Size(78, 22);
             this.txtUtranStType.TabIndex = 16;
             this.txtUtranStType.Tag = "STREETTYPE";
+            this.txtUtranStType.TextChanged += new System.EventHandler(this.txtUtranStType_TextChanged);
             // 
             // lblRightTo
             // 
@@ -710,12 +720,14 @@
             // txtUtranStName
             // 
             this.txtUtranStName.BackColor = System.Drawing.SystemColors.Window;
+            this.txtUtranStName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtUtranStName.Location = new System.Drawing.Point(232, 48);
             this.txtUtranStName.Name = "txtUtranStName";
-            this.txtUtranStName.ReadOnly = true;
             this.txtUtranStName.Size = new System.Drawing.Size(239, 22);
             this.txtUtranStName.TabIndex = 15;
             this.txtUtranStName.Tag = "STREETNAME";
+            this.txtUtranStName.TextChanged += new System.EventHandler(this.txtUtranStName_TextChanged);
+            this.txtUtranStName.Leave += new System.EventHandler(this.txtUtranStName_Leave);
             // 
             // lblRightFrom
             // 
@@ -731,22 +743,24 @@
             // txtUtranPreDir
             // 
             this.txtUtranPreDir.BackColor = System.Drawing.SystemColors.Window;
+            this.txtUtranPreDir.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtUtranPreDir.Location = new System.Drawing.Point(159, 48);
             this.txtUtranPreDir.Name = "txtUtranPreDir";
-            this.txtUtranPreDir.ReadOnly = true;
             this.txtUtranPreDir.Size = new System.Drawing.Size(67, 22);
             this.txtUtranPreDir.TabIndex = 14;
             this.txtUtranPreDir.Tag = "PREDIR";
+            this.txtUtranPreDir.TextChanged += new System.EventHandler(this.txtUtranPreDir_TextChanged);
             // 
             // txtUtranL_T_Add
             // 
             this.txtUtranL_T_Add.BackColor = System.Drawing.SystemColors.Window;
             this.txtUtranL_T_Add.Location = new System.Drawing.Point(84, 48);
             this.txtUtranL_T_Add.Name = "txtUtranL_T_Add";
-            this.txtUtranL_T_Add.ReadOnly = true;
             this.txtUtranL_T_Add.Size = new System.Drawing.Size(67, 22);
             this.txtUtranL_T_Add.TabIndex = 7;
             this.txtUtranL_T_Add.Tag = "L_T_ADD";
+            this.txtUtranL_T_Add.TextChanged += new System.EventHandler(this.txtUtranL_T_Add_TextChanged);
+            this.txtUtranL_T_Add.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtUtran_HouseNumber_KeyPress);
             // 
             // lblSufDir
             // 
@@ -764,10 +778,11 @@
             this.txtUtranR_F_Add.BackColor = System.Drawing.SystemColors.Window;
             this.txtUtranR_F_Add.Location = new System.Drawing.Point(11, 77);
             this.txtUtranR_F_Add.Name = "txtUtranR_F_Add";
-            this.txtUtranR_F_Add.ReadOnly = true;
             this.txtUtranR_F_Add.Size = new System.Drawing.Size(67, 22);
             this.txtUtranR_F_Add.TabIndex = 8;
             this.txtUtranR_F_Add.Tag = "R_F_ADD";
+            this.txtUtranR_F_Add.TextChanged += new System.EventHandler(this.txtUtranR_F_Add_TextChanged);
+            this.txtUtranR_F_Add.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtUtran_HouseNumber_KeyPress);
             // 
             // lblStType
             // 
@@ -785,10 +800,11 @@
             this.txtUtranR_T_Add.BackColor = System.Drawing.SystemColors.Window;
             this.txtUtranR_T_Add.Location = new System.Drawing.Point(84, 77);
             this.txtUtranR_T_Add.Name = "txtUtranR_T_Add";
-            this.txtUtranR_T_Add.ReadOnly = true;
             this.txtUtranR_T_Add.Size = new System.Drawing.Size(67, 22);
             this.txtUtranR_T_Add.TabIndex = 9;
             this.txtUtranR_T_Add.Tag = "R_T_ADD";
+            this.txtUtranR_T_Add.TextChanged += new System.EventHandler(this.txtUtranR_T_Add_TextChanged);
+            this.txtUtranR_T_Add.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtUtran_HouseNumber_KeyPress);
             // 
             // lblStName
             // 

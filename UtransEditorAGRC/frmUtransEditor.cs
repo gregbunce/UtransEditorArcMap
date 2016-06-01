@@ -21,26 +21,49 @@ namespace UtransEditorAGRC
         // create a list of controls that contains address pieces for managing edits
         private List<Control> ctrlList = new List<Control>();
 
-        string txtUtransExistingL_F_Add;
-        string txtUtransExistingL_TAdd;
-        string txtUtransExistingR_F_Add;
-        string txtUtransExistingR_T_Add;
-        string txtUtransExistingPreDir;
-        string txtUtransExistingStName;
-        string txtUtransExistingStType;
-        string txtUtransExistingSufDir;
-        string txtUtransExistingAlias1;
-        string txtUtransExistingAlias1Type;
-        string txtUtransExistingAlias2;
-        string txtUtransExistingAlias2Type;
-        string txtUtransExistingAcsAlias;
-        string txtUtransExistingAscSuf;
+        string txtUtransInitialL_F_Add;
+        string txtUtransInitialL_TAdd;
+        string txtUtransInitialR_F_Add;
+        string txtUtransInitialR_T_Add;
+        string txtUtransInitialPreDir;
+        string txtUtransInitialStName;
+        string txtUtransInitialStType;
+        string txtUtransInitialSufDir;
+        string txtUtransInitialAlias1;
+        string txtUtransInitialAlias1Type;
+        string txtUtransInitialAlias2;
+        string txtUtransInitialAlias2Type;
+        string txtUtransInitialAcsAlias;
+        string txtUtransInitialAscSuf;
+
+
+
+        //bool boolHadDifferenceL_F_Add;
+        //bool boolHadDifferenceL_T_Add;
+        //bool boolHadDifferenceR_F_Add;
+        //bool boolHadDifferenceR_T_Add;
+        //bool boolHadDifferencePreDir;
+        //bool boolHadDifferenceStName;
+        //bool boolHadDifferenceStType;
+        //bool boolHadDifferenceSufDir;
+        //bool boolHadDifferenceAlias1;
+        //bool boolHadDifferenceAlias1Type;
+        //bool boolHadDifferenceAlias2;
+        //bool boolHadDifferenceAlias2Type;
+        //bool boolHadDifferenceAcsAlias;
+        //bool boolHadDifferenceAscSuf;
 
 
         //get the selected feature(s) from the dfc fc
         IFeatureSelection arcFeatureSelection; // = clsGlobals.arcGeoFLayerDfcResult as IFeatureSelection;
         ISelectionSet arcSelSet; // = arcFeatureSelection.SelectionSet;
+        IActiveView arcActiveView;
 
+        //create an italic font for lables - to use where data does not match
+        Font fontLabelHasEdits = new Font("Microsoft Sans Serif", 8.0f, FontStyle.Bold);
+
+        //create an italic font for lables - to use where data does not match
+        Font fontLabelRegular = new Font("Microsoft Sans Serif", 9.0f, FontStyle.Regular);
 
 
         public frmUtransEditor()
@@ -88,7 +111,7 @@ namespace UtransEditorAGRC
                 //get the focus map
                 IMap arcMapp = arcMxDoc.FocusMap;
 
-                IActiveView arcActiveView = arcMapp as IActiveView;
+                arcActiveView = arcMapp as IActiveView;
 
                 //get reference to the layers in the map
                 //clear out any reference to the utrans street layer
@@ -225,43 +248,53 @@ namespace UtransEditorAGRC
                     ctrl.Text = "";
                 }
 
-                //revert labels back to regular (non-italic)
-                //create an italic font for lables - to use where data does not match
-                Font fontLabelRegular = new Font("Microsoft Sans Serif", 8.0f, FontStyle.Regular);
-                lblAcsAlias.Font = fontLabelRegular;
-                lblAcsSuf.Font = fontLabelRegular;
-                lblAlias.Font = fontLabelRegular;
-                lblAlias1Type.Font = fontLabelRegular;
-                lblAlias2.Font = fontLabelRegular;
-                lblAlias2Type.Font = fontLabelRegular;
-                lblLeftFrom.Font = fontLabelRegular;
-                lblLeftTo.Font = fontLabelRegular;
-                lblPreDir.Font = fontLabelRegular;
-                lblRightFrom.Font = fontLabelRegular;
-                lblRightTo.Font = fontLabelRegular;
-                lblStName.Font = fontLabelRegular;
-                lblStType.Font = fontLabelRegular;
-                lblSufDir.Font = fontLabelRegular;
+                ////revert labels back to regular (non-italic)
+                //lblAcsAlias.Font = fontLabelRegular;
+                //lblAcsSuf.Font = fontLabelRegular;
+                //lblAlias.Font = fontLabelRegular;
+                //lblAlias1Type.Font = fontLabelRegular;
+                //lblAlias2.Font = fontLabelRegular;
+                //lblAlias2Type.Font = fontLabelRegular;
+                //lblLeftFrom.Font = fontLabelRegular;
+                //lblLeftTo.Font = fontLabelRegular;
+                //lblPreDir.Font = fontLabelRegular;
+                //lblRightFrom.Font = fontLabelRegular;
+                //lblRightTo.Font = fontLabelRegular;
+                //lblStName.Font = fontLabelRegular;
+                //lblStType.Font = fontLabelRegular;
+                //lblSufDir.Font = fontLabelRegular;
 
                 //clear utrans existing variables - for reuse
-                txtUtransExistingL_F_Add = null;
-                txtUtransExistingL_F_Add = txtUtranL_F_Add.Text;
-                txtUtransExistingL_TAdd = null;
-                txtUtransExistingL_TAdd = txtUtranL_T_Add.Text;
-                txtUtransExistingR_F_Add = null;
-                txtUtransExistingR_F_Add = txtUtranR_F_Add.Text;  //finish these and then handle the bold font if the text in the boxes changed from original, also make both green if match
-                txtUtransExistingR_T_Add = null;
-                txtUtransExistingPreDir = null;
-                txtUtransExistingStName = null;
-                txtUtransExistingStType = null;
-                txtUtransExistingSufDir = null;
-                txtUtransExistingAlias1 = null;
-                txtUtransExistingAlias1Type = null;
-                txtUtransExistingAlias2 = null;
-                txtUtransExistingAlias2Type = null;
-                txtUtransExistingAcsAlias = null;
-                txtUtransExistingAscSuf = null;
+                txtUtransInitialL_F_Add = null;
+                txtUtransInitialL_TAdd = null;;
+                txtUtransInitialR_F_Add = null;
+                txtUtransInitialR_T_Add = null;
+                txtUtransInitialPreDir = null;
+                txtUtransInitialStName = null;
+                txtUtransInitialStType = null;
+                txtUtransInitialSufDir = null;;
+                txtUtransInitialAlias1 = null;
+                txtUtransInitialAlias1Type = null;
+                txtUtransInitialAlias2 = null;
+                txtUtransInitialAlias2Type = null;
+                txtUtransInitialAcsAlias = null;
+                txtUtransInitialAscSuf = null;
 
+                //set all values to false - they will get appropriately assigned below based on the data
+                //boolHadDifferenceL_F_Add = false;
+                //boolHadDifferenceL_T_Add = false;
+                //boolHadDifferenceR_F_Add = false;
+                //boolHadDifferenceR_T_Add = false;
+                //boolHadDifferencePreDir = false;
+                //boolHadDifferenceStName = false;
+                //boolHadDifferenceStType = false;
+                //boolHadDifferenceSufDir = false;
+                //boolHadDifferenceAlias1 = false;
+                //boolHadDifferenceAlias1Type = false;
+                //boolHadDifferenceAlias2 = false;
+                //boolHadDifferenceAlias2Type = false;
+                //boolHadDifferenceAcsAlias = false;
+                //boolHadDifferenceAscSuf = false;
 
                 arcFeatureSelection = clsGlobals.arcGeoFLayerDfcResult as IFeatureSelection;
                 arcSelSet = arcFeatureSelection.SelectionSet;
@@ -358,7 +391,7 @@ namespace UtransEditorAGRC
 
 
                     //call check differnces method
-                    checkTextboxDifferneces();
+                    //checkTextboxDifferneces();
 
                 }
                 else //if the user selects more or less than one record in the dfc fc - clear out the textboxes
@@ -369,7 +402,41 @@ namespace UtransEditorAGRC
                         ctrl.Text = "";
                     }
                 }
- 
+
+                //refresh the map on the selected features
+                arcActiveView.PartialRefresh(esriViewDrawPhase.esriViewGeoSelection, null, null);
+
+                //populate variables to hold the initial textbox text for utrans streets - in case the user wants to revert to it
+                txtUtransInitialL_F_Add = txtUtranL_F_Add.Text;
+                txtUtransInitialL_TAdd = txtUtranL_T_Add.Text;
+                txtUtransInitialR_F_Add = txtUtranR_F_Add.Text;
+                txtUtransInitialR_T_Add = txtUtranR_T_Add.Text;
+                txtUtransInitialPreDir = txtUtranPreDir.Text;
+                txtUtransInitialStName = txtUtranStName.Text;
+                txtUtransInitialStType = txtUtranStType.Text;
+                txtUtransInitialSufDir = txtUtranSufDir.Text;
+                txtUtransInitialAlias1 = txtUtransAlias1.Text;
+                txtUtransInitialAlias1Type = txtUtransAlias1Type.Text;
+                txtUtransInitialAlias2 = txtUtransAlias2.Text;
+                txtUtransInitialAlias2Type = txtUtransAlias2Type.Text;
+                txtUtransInitialAcsAlias = txtUtransAcsAllias.Text;
+                txtUtransInitialAscSuf = txtUtransAcsSuf.Text;
+
+                //revert labels back to regular (non-italic)
+                lblAcsAlias.Font = fontLabelRegular;
+                lblAcsSuf.Font = fontLabelRegular;
+                lblAlias.Font = fontLabelRegular;
+                lblAlias1Type.Font = fontLabelRegular;
+                lblAlias2.Font = fontLabelRegular;
+                lblAlias2Type.Font = fontLabelRegular;
+                lblLeftFrom.Font = fontLabelRegular;
+                lblLeftTo.Font = fontLabelRegular;
+                lblPreDir.Font = fontLabelRegular;
+                lblRightFrom.Font = fontLabelRegular;
+                lblRightTo.Font = fontLabelRegular;
+                lblStName.Font = fontLabelRegular;
+                lblStType.Font = fontLabelRegular;
+                lblSufDir.Font = fontLabelRegular;
 
 
             }
@@ -469,95 +536,105 @@ namespace UtransEditorAGRC
         {
             try
             {
-                //create an italic font for lables - to use where data does not match
-                Font fontLabelDataMismatch = new Font("Microsoft Sans Serif", 8.0f, FontStyle.Bold);
-
-                if (txtCountyStName.Text.ToUpper().ToString() != txtUtranStName.Text.ToUpper().ToString())
-                {
-                    txtUtranStName.BackColor = Color.LightSalmon;
-                    txtCountyStName.BackColor = Color.LightSalmon;
-                    lblStName.Font = fontLabelDataMismatch;
-                }
-                if (txtCountyStType.Text.ToUpper().ToString() != txtUtranStType.Text.ToUpper().ToString())
-                {
-                    txtUtranStType.BackColor = Color.LightSalmon;
-                    txtCountyStType.BackColor = Color.LightSalmon;
-                    lblStType.Font = fontLabelDataMismatch;
-                }
-                if (txtCountySufDir.Text.ToUpper().ToString() != txtUtranSufDir.Text.ToUpper().ToString())
-                {
-                    txtUtranSufDir.BackColor = Color.LightSalmon;
-                    txtCountySufDir.BackColor = Color.LightSalmon;
-                    lblSufDir.Font = fontLabelDataMismatch;
-                }
-                if (txtCountyPreDir.Text.ToUpper().ToString() != txtUtranPreDir.Text.ToUpper().ToString())
-                {
-                    txtUtranPreDir.BackColor = Color.LightSalmon;
-                    txtCountyPreDir.BackColor = Color.LightSalmon;
-                    lblPreDir.Font = fontLabelDataMismatch;
-                }
-                if (txtCountyL_F_Add.Text.ToString() != txtUtranL_F_Add.Text.ToString())
-                {
-                    txtUtranL_F_Add.BackColor = Color.LightSalmon;
-                    txtCountyL_F_Add.BackColor = Color.LightSalmon;
-                    lblLeftFrom.Font = fontLabelDataMismatch;
-                    //capture the curent text - incase we want to revert to it
-                    //txtUtransExistingL_F_Add = txtUtranL_F_Add.Text;
-                }
-                if (txtCountyL_T_Add.Text.ToString() != txtUtranL_T_Add.Text.ToString())
-                {
-                    txtUtranL_T_Add.BackColor = Color.LightSalmon;
-                    txtCountyL_T_Add.BackColor = Color.LightSalmon;
-                    lblLeftTo.Font = fontLabelDataMismatch;
-                }
-                if (txtCountyR_F_Add.Text.ToString() != txtUtranR_F_Add.Text.ToString())
-                {
-                    txtUtranR_F_Add.BackColor = Color.LightSalmon;
-                    txtCountyR_F_Add.BackColor = Color.LightSalmon;
-                    lblRightFrom.Font = fontLabelDataMismatch;
-                }
-                if (txtCountyR_T_Add.Text.ToString() != txtUtranR_T_Add.Text.ToString())
-                {
-                    txtUtranR_T_Add.BackColor = Color.LightSalmon;
-                    txtCountyR_T_Add.BackColor = Color.LightSalmon;
-                    lblRightTo.Font = fontLabelDataMismatch;
-                }
-                if (txtCountyAcsAlilas.Text.ToUpper().ToString() != txtUtransAcsAllias.Text.ToUpper().ToString())
-                {
-                    txtUtransAcsAllias.BackColor = Color.LightSalmon;
-                    txtCountyAcsAlilas.BackColor = Color.LightSalmon;
-                    lblAcsAlias.Font = fontLabelDataMismatch;
-                }
-                if (txtCountyAcsSuf.Text.ToUpper().ToString() != txtUtransAcsSuf.Text.ToUpper().ToString())
-                {
-                    txtUtransAcsSuf.BackColor = Color.LightSalmon;
-                    txtCountyAcsSuf.BackColor = Color.LightSalmon;
-                    lblAcsSuf.Font = fontLabelDataMismatch;
-                }
-                if (txtCountyAlias1.Text.ToUpper().ToString() != txtUtransAlias1.Text.ToUpper().ToString())
-                {
-                    txtUtransAlias1.BackColor = Color.LightSalmon;
-                    txtCountyAlias1.BackColor = Color.LightSalmon;
-                    lblAlias.Font = fontLabelDataMismatch;
-                }
-                if (txtCountyAlias1Type.Text.ToUpper().ToString() != txtUtransAlias1Type.Text.ToUpper().ToString())
-                {
-                    txtUtransAlias1Type.BackColor = Color.LightSalmon;
-                    txtCountyAlias1Type.BackColor = Color.LightSalmon;
-                    lblAlias1Type.Font = fontLabelDataMismatch;
-                }
-                if (txtCountyAlias2.Text.ToUpper().ToString() != txtUtransAlias2.Text.ToUpper().ToString())
-                {
-                    txtUtransAlias2.BackColor = Color.LightSalmon;
-                    txtCountyAlias2.BackColor = Color.LightSalmon;
-                    lblAlias2.Font = fontLabelDataMismatch;
-                }
-                if (txtCountyAlias2Type.Text.ToUpper().ToString() != txtUtransAlias2.Text.ToUpper().ToString())
-                {
-                    txtUtransAlias2.BackColor = Color.LightSalmon;
-                    txtCountyAlias2.BackColor = Color.LightSalmon;
-                    lblAlias2Type.Font = fontLabelDataMismatch;
-                }
+            //    if (txtCountyStName.Text.ToUpper().ToString().Trim() != txtUtranStName.Text.ToUpper().ToString().Trim())
+            //    {
+            //        txtUtranStName.BackColor = Color.LightSalmon;
+            //        txtCountyStName.BackColor = Color.LightSalmon;
+            //        boolHadDifferenceStName = true;
+            //    }
+            //    if (txtCountyStType.Text.ToUpper().ToString() != txtUtranStType.Text.ToUpper().ToString())
+            //    {
+            //        txtUtranStType.BackColor = Color.LightSalmon;
+            //        txtCountyStType.BackColor = Color.LightSalmon;
+            //        //lblStType.Font = fontLabelDataMismatch;
+            //        boolHadDifferenceStType = true;
+            //    }
+            //    if (txtCountySufDir.Text.ToUpper().ToString() != txtUtranSufDir.Text.ToUpper().ToString())
+            //    {
+            //        txtUtranSufDir.BackColor = Color.LightSalmon;
+            //        txtCountySufDir.BackColor = Color.LightSalmon;
+            //        //lblSufDir.Font = fontLabelDataMismatch;
+            //        boolHadDifferenceSufDir = true;
+            //    }
+            //    if (txtCountyPreDir.Text.ToUpper().ToString() != txtUtranPreDir.Text.ToUpper().ToString())
+            //    {
+            //        txtUtranPreDir.BackColor = Color.LightSalmon;
+            //        txtCountyPreDir.BackColor = Color.LightSalmon;
+            //        //lblPreDir.Font = fontLabelDataMismatch;
+            //        boolHadDifferencePreDir = true;
+            //    }
+            //    if (txtCountyL_F_Add.Text.ToString() != txtUtranL_F_Add.Text.ToString())
+            //    {
+            //        txtUtranL_F_Add.BackColor = Color.LightSalmon;
+            //        txtCountyL_F_Add.BackColor = Color.LightSalmon;
+            //        //lblLeftFrom.Font = fontLabelDataMismatch;
+            //        //capture the curent text - incase we want to revert to it
+            //        //txtUtransExistingL_F_Add = txtUtranL_F_Add.Text;
+            //        boolHadDifferenceL_F_Add = true;
+            //    }
+            //    if (txtCountyL_T_Add.Text.ToString() != txtUtranL_T_Add.Text.ToString())
+            //    {
+            //        txtUtranL_T_Add.BackColor = Color.LightSalmon;
+            //        txtCountyL_T_Add.BackColor = Color.LightSalmon;
+            //        //lblLeftTo.Font = fontLabelDataMismatch;
+            //        boolHadDifferenceL_T_Add = true;
+            //    }
+            //    if (txtCountyR_F_Add.Text.ToString() != txtUtranR_F_Add.Text.ToString())
+            //    {
+            //        txtUtranR_F_Add.BackColor = Color.LightSalmon;
+            //        txtCountyR_F_Add.BackColor = Color.LightSalmon;
+            //        //lblRightFrom.Font = fontLabelDataMismatch;
+            //        boolHadDifferenceR_F_Add = true;
+            //    }
+            //    if (txtCountyR_T_Add.Text.ToString() != txtUtranR_T_Add.Text.ToString())
+            //    {
+            //        txtUtranR_T_Add.BackColor = Color.LightSalmon;
+            //        txtCountyR_T_Add.BackColor = Color.LightSalmon;
+            //        //lblRightTo.Font = fontLabelDataMismatch;
+            //        boolHadDifferenceR_T_Add = true;
+            //    }
+            //    if (txtCountyAcsAlilas.Text.ToUpper().ToString() != txtUtransAcsAllias.Text.ToUpper().ToString())
+            //    {
+            //        txtUtransAcsAllias.BackColor = Color.LightSalmon;
+            //        txtCountyAcsAlilas.BackColor = Color.LightSalmon;
+            //        //lblAcsAlias.Font = fontLabelDataMismatch;
+            //        boolHadDifferenceAcsAlias = true;
+            //    }
+            //    if (txtCountyAcsSuf.Text.ToUpper().ToString() != txtUtransAcsSuf.Text.ToUpper().ToString())
+            //    {
+            //        txtUtransAcsSuf.BackColor = Color.LightSalmon;
+            //        txtCountyAcsSuf.BackColor = Color.LightSalmon;
+            //        //lblAcsSuf.Font = fontLabelDataMismatch;
+            //        boolHadDifferenceAscSuf = true;
+            //    }
+            //    if (txtCountyAlias1.Text.ToUpper().ToString() != txtUtransAlias1.Text.ToUpper().ToString())
+            //    {
+            //        txtUtransAlias1.BackColor = Color.LightSalmon;
+            //        txtCountyAlias1.BackColor = Color.LightSalmon;
+            //        //lblAlias.Font = fontLabelDataMismatch;
+            //        boolHadDifferenceAlias1 = true;
+            //    }
+            //    if (txtCountyAlias1Type.Text.ToUpper().ToString() != txtUtransAlias1Type.Text.ToUpper().ToString())
+            //    {
+            //        txtUtransAlias1Type.BackColor = Color.LightSalmon;
+            //        txtCountyAlias1Type.BackColor = Color.LightSalmon;
+            //        //lblAlias1Type.Font = fontLabelDataMismatch;
+            //        boolHadDifferenceAlias1Type = true;
+            //    }
+            //    if (txtCountyAlias2.Text.ToUpper().ToString() != txtUtransAlias2.Text.ToUpper().ToString())
+            //    {
+            //        txtUtransAlias2.BackColor = Color.LightSalmon;
+            //        txtCountyAlias2.BackColor = Color.LightSalmon;
+            //        //lblAlias2.Font = fontLabelDataMismatch;
+            //        boolHadDifferenceAlias2 = true;
+            //    }
+            //    if (txtCountyAlias2Type.Text.ToUpper().ToString() != txtUtransAlias2.Text.ToUpper().ToString())
+            //    {
+            //        txtUtransAlias2.BackColor = Color.LightSalmon;
+            //        txtCountyAlias2.BackColor = Color.LightSalmon;
+            //        //lblAlias2Type.Font = fontLabelDataMismatch;
+            //        boolHadDifferenceAlias2Type = true;
+            //    }
 
             }
             catch (Exception ex)
@@ -632,37 +709,56 @@ namespace UtransEditorAGRC
         }
 
 
+
+
         //the following methods handle the double click labels
         private void lblLeftFrom_DoubleClick(object sender, EventArgs e)
         {
             try
             {
-                Label clickedLabel = sender as Label;
+                //Label clickedLabel = sender as Label;
 
-                if (clickedLabel.Text == "L_F_ADD")
-                {
-                    if (txtUtranL_F_Add.BackColor == Color.LightSalmon)
-                    {
-                        txtUtranL_F_Add.BackColor = Color.LightSeaGreen;
-                        txtUtranL_F_Add.Text = txtCountyL_F_Add.Text;
-                        txtUtranL_F_Add.ReadOnly = true;
-                        return;
-                    }
-                    if (txtUtranL_F_Add.BackColor == Color.LightSeaGreen)
-                    {
-                        txtUtranL_F_Add.BackColor = Color.White;
-                        txtUtranL_F_Add.ReadOnly = false;
-                        return;
-                    }
-                    if (txtUtranL_F_Add.BackColor == Color.White)
-                    {
-                        txtUtranL_F_Add.BackColor = Color.LightSalmon;
-                        txtUtranL_F_Add.Text = txtUtransExistingL_F_Add;
-                        txtUtranL_F_Add.ReadOnly = true;
-                        return;
-                    }
-                }
-
+                //if (clickedLabel.Text == "L_F_ADD")
+                //{
+                //    if (txtUtranL_F_Add.BackColor == Color.LightSalmon)
+                //    {
+                //        txtUtranL_F_Add.BackColor = Color.LightSeaGreen;
+                //        txtUtranL_F_Add.Text = txtCountyL_F_Add.Text;
+                //        txtUtranL_F_Add.ReadOnly = true;
+                //        return;
+                //    }
+                //    if (txtUtranL_F_Add.BackColor == Color.LightSeaGreen)
+                //    {
+                //        txtUtranL_F_Add.BackColor = Color.White;
+                //        txtUtranL_F_Add.ReadOnly = false;
+                //        return;
+                //    }
+                //    if (txtUtranL_F_Add.BackColor == Color.White & boolHadDifferenceL_F_Add == true)
+                //    {
+                //        txtUtranL_F_Add.BackColor = Color.LightSalmon;
+                //        txtUtranL_F_Add.Text = txtUtransInitialL_F_Add;
+                //        txtUtranL_F_Add.ReadOnly = true;
+                //        return;
+                //    }
+                //    if (txtUtranL_F_Add.BackColor == Color.White & boolHadDifferenceL_F_Add == false)
+                //    {
+                //        txtUtranL_F_Add.ReadOnly = false;
+                //        return;
+                //    }
+                //    if (txtUtranL_F_Add.BackColor == Color.LightYellow & boolHadDifferenceL_F_Add == true)
+                //    {
+                //        txtUtranL_F_Add.BackColor = Color.LightSalmon;
+                //        txtUtranL_F_Add.Text = txtUtransInitialStName;
+                //        txtUtranL_F_Add.ReadOnly = true;
+                //        return;
+                //    }
+                //    if (txtUtranL_F_Add.BackColor == Color.LightYellow & boolHadDifferenceL_F_Add == false)
+                //    {
+                //        txtUtranL_F_Add.BackColor = Color.White;
+                //        txtUtranL_F_Add.ReadOnly = false;
+                //        return;
+                //    }
+                //}
 
             }
             catch (Exception ex)
@@ -697,7 +793,66 @@ namespace UtransEditorAGRC
 
         private void lblStName_DoubleClick(object sender, EventArgs e)
         {
+            try
+            {
+                Label clickedLabel = sender as Label;
 
+                if (clickedLabel.Text == "STREETNAME")
+                {
+                    if (txtUtranStName.Text != txtCountyStName.Text)
+                    {
+                        txtUtranStName.Text = txtCountyStName.Text;
+                        return;
+                    }
+                    if (txtUtranStName.Text == txtCountyStName.Text)
+                    {
+                        txtUtranStName.Text = txtUtransInitialStName;
+                        return;
+                    }
+                    //if (txtUtranStName.BackColor == Color.LightSeaGreen)
+                    //{
+                    //    //txtUtranStName.BackColor = Color.White;
+                    //    //txtUtranStName.BackColor = Color.LightSalmon;
+                    //    //revert back to original values
+                    //    txtUtranStName.Text = txtUtransInitialStName;
+                    //    return;
+                    //}
+
+
+                    //if (txtUtranStName.BackColor == Color.White & boolHadDifferenceStName == true)
+                    //{
+                    //    txtUtranStName.BackColor = Color.LightSalmon;
+                    //    txtUtranStName.Text = txtUtransInitialStName;
+                    //    //txtUtranStName.ReadOnly = true;
+                    //    return;
+                    //}
+                    //if (txtUtranStName.BackColor == Color.White & boolHadDifferenceStName == false)
+                    //{
+                    //    //txtUtranStName.ReadOnly = false;
+                    //    return;
+                    //}
+                    //if (txtUtranStName.BackColor == Color.LightYellow & boolHadDifferenceStName == true)
+                    //{
+                    //    txtUtranStName.BackColor = Color.LightSalmon;
+                    //    txtUtranStName.Text = txtUtransInitialStName;
+                    //    //txtUtranStName.ReadOnly = true;
+                    //    return;
+                    //}
+                    //if (txtUtranStName.BackColor == Color.LightYellow & boolHadDifferenceStName == false)
+                    //{
+                    //    txtUtranStName.BackColor = Color.White;
+                    //    //txtUtranStName.ReadOnly = false;
+                    //    return;
+                    //}
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
+                "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
+                "Error Location:" + Environment.NewLine + ex.StackTrace,
+                "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
         private void lblStType_DoubleClick(object sender, EventArgs e)
@@ -739,6 +894,248 @@ namespace UtransEditorAGRC
         {
 
         }
+
+
+
+
+
+        //text changed in the textboxes
+        private void txtUtranL_F_Add_TextChanged(object sender, EventArgs e)
+        {
+            //try
+            //{
+            //    if (txtUtranL_F_Add.Text != txtUtransInitialL_F_Add | txtUtranL_F_Add.Text != txtCountyL_F_Add.Text)
+            //    {
+            //        txtUtranL_F_Add.BackColor = Color.LightYellow;
+            //    }
+
+
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
+            //    "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
+            //    "Error Location:" + Environment.NewLine + ex.StackTrace,
+            //    "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //}
+        }
+
+        private void txtUtranL_T_Add_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtUtranR_F_Add_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtUtranR_T_Add_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtUtranPreDir_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtUtranStName_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                //if (txtUtranStName.Text == txtCountyStName.Text)
+                //{
+                //    txtUtranStName.BackColor = Color.LightSeaGreen;
+                //    txtCountyStName.BackColor = Color.LightSeaGreen;
+                //    lblStName.Font = fontLabelHasEdits;
+                //}
+                if (txtUtranStName.Text.ToUpper().ToString() != txtCountyStName.Text.ToUpper().ToString())
+                {
+                    txtUtranStName.BackColor = Color.LightSalmon;
+                    txtCountyStName.BackColor = Color.LightSalmon;
+                    //lblStName.Font = fontLabelRegular;
+                }
+                else if (txtUtranStName.Text.ToUpper().ToString() == txtCountyStName.Text.ToUpper().ToString())
+                {
+                    txtUtranStName.BackColor = Color.White;
+                    txtCountyStName.BackColor = Color.White;
+                }
+
+
+                //after text changed
+                //afterTextChanged();
+
+                if (txtUtranStName.Text != txtUtransInitialStName)
+                {
+                    lblStName.Font = fontLabelHasEdits;
+                }
+                else
+                {
+                    lblStName.Font = fontLabelRegular;
+                }
+
+                //if (txtUtranStName.Text != txtUtransInitialStName & txtUtranStName.Text != txtCountyStName.Text)
+                //{
+                //    txtUtranStName.BackColor = Color.LightYellow;
+                //    lblStName.Font = fontLabelHasEdits;
+                //}
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
+                "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
+                "Error Location:" + Environment.NewLine + ex.StackTrace,
+                "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+
+        }
+
+        private void txtUtranStType_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtUtranSufDir_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtUtransAlias1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtUtransAlias1Type_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtUtransAlias2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtUtransAlias2Type_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtUtransAcsAllias_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtUtransAcsSuf_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+
+
+        //these are events for when the user has left the textbox - changing the textbox to yellow if the values have changed
+        private void txtUtranL_F_Add_Leave(object sender, EventArgs e)
+        {
+            try
+            {
+                //if (txtUtranL_F_Add.Text != txtUtransInitialL_F_Add | txtUtranL_F_Add.Text != txtCountyL_F_Add.Text)
+                //{
+                //    lblLeftFrom.Font = fontLabelDataMismatch;
+                //    //txtUtranL_F_Add.BackColor = Color.LightYellow;
+                //    //txtUtranL_F_Add.ReadOnly = true;
+                //}
+                //else
+                //{
+                //    lblLeftFrom.Font = fontLabelRegular;
+                //}
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
+                "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
+                "Error Location:" + Environment.NewLine + ex.StackTrace,
+                "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+
+        }
+
+        private void txtUtranStName_Leave(object sender, EventArgs e)
+        {
+            try
+            {
+                //if (txtUtranStName.Text != txtUtransInitialStName | txtUtranStName.Text != txtCountyStName.Text)
+                //{
+                //    lblStName.Font = fontLabelDataMismatch;
+                //    //txtUtranStName.BackColor = Color.LightYellow;
+                //    //txtUtranStName.ReadOnly = true;
+                //}
+                //else
+                //{
+                //    lblStName.Font = fontLabelRegular;
+                //}
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
+                "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
+                "Error Location:" + Environment.NewLine + ex.StackTrace,
+                "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+
+        }
+
+
+
+
+
+
+
+
+
+
+        //private void afterTextChanged()
+        //{
+        //    try
+        //    {
+        //        if (txtUtranStName.Text != txtUtransInitialStName)
+        //        {
+        //            lblStName.Font = fontLabelHasEdits;
+        //        }
+        //        else
+        //        {
+        //            lblStName.Font = fontLabelRegular;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
+        //        "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
+        //        "Error Location:" + Environment.NewLine + ex.StackTrace,
+        //        "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        //    }
+        
+        //}
+
+
+
+
+        //force the house range number texboxes to only accept numeric values
+        private void txtUtran_HouseNumber_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+        }
+
+
+
+
 
 
 
