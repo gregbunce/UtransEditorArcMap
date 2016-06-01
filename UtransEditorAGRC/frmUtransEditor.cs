@@ -1377,21 +1377,24 @@ namespace UtransEditorAGRC
         {
             try
             {
-                IFeatureCursor arcUtransGetNextBtn_FeatCursor = clsGlobals.arcGeoFLayerUtransStreets.SearchDisplayFeatures(null, false);
+                IFeatureCursor arcUtransGetNextBtn_FeatCursor = clsGlobals.arcGeoFLayerDfcResult.SearchDisplayFeatures(null, false);
+                
+                //used this line twice in a for loop <2 to get each features oid then had three str variables orig, cur, next and set the orig to the cur in the onchange method
+                //then checked if they match there and if they did match i used the strnext one to create the query filter
                 IFeature arcUtransGetNextBtn_Feature = arcUtransGetNextBtn_FeatCursor.NextFeature();
 
                 IQueryFilter arcQueryFilter = new QueryFilter();
                 arcQueryFilter.WhereClause = "OBJECTID = " + arcUtransGetNextBtn_Feature.get_Value(arcUtransGetNextBtn_Feature.Fields.FindField("OBJECTID"));
 
 
-                IFeatureSelection featSelect = clsGlobals.arcGeoFLayerUtransStreets as IFeatureSelection;
+                IFeatureSelection featSelect = clsGlobals.arcGeoFLayerDfcResult as IFeatureSelection;
                 featSelect.SelectFeatures(arcQueryFilter, esriSelectionResultEnum.esriSelectionResultNew, false);
                 featSelect.SelectionChanged();
 
 
                 //call change seleted - not sure if i need to do this, it might be automatic
-                //frmUtransEditor_OnSelectionChanged();
-
+                frmUtransEditor_OnSelectionChanged();
+                
 
 
 
