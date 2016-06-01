@@ -496,6 +496,7 @@
             this.txtUtransAcsSuf.BackColor = System.Drawing.SystemColors.Window;
             this.txtUtransAcsSuf.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtUtransAcsSuf.Location = new System.Drawing.Point(450, 63);
+            this.txtUtransAcsSuf.MaxLength = 1;
             this.txtUtransAcsSuf.Name = "txtUtransAcsSuf";
             this.txtUtransAcsSuf.Size = new System.Drawing.Size(102, 22);
             this.txtUtransAcsSuf.TabIndex = 9;
@@ -507,6 +508,7 @@
             this.txtUtransAcsAllias.BackColor = System.Drawing.SystemColors.Window;
             this.txtUtransAcsAllias.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtUtransAcsAllias.Location = new System.Drawing.Point(342, 63);
+            this.txtUtransAcsAllias.MaxLength = 8;
             this.txtUtransAcsAllias.Name = "txtUtransAcsAllias";
             this.txtUtransAcsAllias.Size = new System.Drawing.Size(102, 22);
             this.txtUtransAcsAllias.TabIndex = 8;
@@ -562,6 +564,7 @@
             this.txtUtransAlias2Type.BackColor = System.Drawing.SystemColors.Window;
             this.txtUtransAlias2Type.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtUtransAlias2Type.Location = new System.Drawing.Point(193, 77);
+            this.txtUtransAlias2Type.MaxLength = 4;
             this.txtUtransAlias2Type.Name = "txtUtransAlias2Type";
             this.txtUtransAlias2Type.Size = new System.Drawing.Size(143, 22);
             this.txtUtransAlias2Type.TabIndex = 5;
@@ -573,6 +576,7 @@
             this.txtUtransAlias2.BackColor = System.Drawing.SystemColors.Window;
             this.txtUtransAlias2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtUtransAlias2.Location = new System.Drawing.Point(15, 77);
+            this.txtUtransAlias2.MaxLength = 30;
             this.txtUtransAlias2.Name = "txtUtransAlias2";
             this.txtUtransAlias2.Size = new System.Drawing.Size(172, 22);
             this.txtUtransAlias2.TabIndex = 4;
@@ -584,6 +588,7 @@
             this.txtUtransAlias1Type.BackColor = System.Drawing.SystemColors.Window;
             this.txtUtransAlias1Type.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtUtransAlias1Type.Location = new System.Drawing.Point(193, 48);
+            this.txtUtransAlias1Type.MaxLength = 4;
             this.txtUtransAlias1Type.Name = "txtUtransAlias1Type";
             this.txtUtransAlias1Type.Size = new System.Drawing.Size(143, 22);
             this.txtUtransAlias1Type.TabIndex = 3;
@@ -595,6 +600,7 @@
             this.txtUtransAlias1.BackColor = System.Drawing.SystemColors.Window;
             this.txtUtransAlias1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtUtransAlias1.Location = new System.Drawing.Point(15, 48);
+            this.txtUtransAlias1.MaxLength = 30;
             this.txtUtransAlias1.Name = "txtUtransAlias1";
             this.txtUtransAlias1.Size = new System.Drawing.Size(172, 22);
             this.txtUtransAlias1.TabIndex = 2;
@@ -654,6 +660,7 @@
             // 
             this.txtUtranL_F_Add.BackColor = System.Drawing.SystemColors.Window;
             this.txtUtranL_F_Add.Location = new System.Drawing.Point(11, 48);
+            this.txtUtranL_F_Add.MaxLength = 17;
             this.txtUtranL_F_Add.Name = "txtUtranL_F_Add";
             this.txtUtranL_F_Add.Size = new System.Drawing.Size(67, 22);
             this.txtUtranL_F_Add.TabIndex = 1;
@@ -665,6 +672,7 @@
             // 
             this.txtUtranL_T_Add.BackColor = System.Drawing.SystemColors.Window;
             this.txtUtranL_T_Add.Location = new System.Drawing.Point(84, 48);
+            this.txtUtranL_T_Add.MaxLength = 17;
             this.txtUtranL_T_Add.Name = "txtUtranL_T_Add";
             this.txtUtranL_T_Add.Size = new System.Drawing.Size(67, 22);
             this.txtUtranL_T_Add.TabIndex = 7;
@@ -675,6 +683,7 @@
             // lblLeftFrom
             // 
             this.lblLeftFrom.AutoSize = true;
+            this.lblLeftFrom.BackColor = System.Drawing.SystemColors.Control;
             this.lblLeftFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblLeftFrom.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lblLeftFrom.Location = new System.Drawing.Point(8, 31);
@@ -700,6 +709,7 @@
             this.txtUtranSufDir.BackColor = System.Drawing.SystemColors.Window;
             this.txtUtranSufDir.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtUtranSufDir.Location = new System.Drawing.Point(561, 48);
+            this.txtUtranSufDir.MaxLength = 1;
             this.txtUtranSufDir.Name = "txtUtranSufDir";
             this.txtUtranSufDir.Size = new System.Drawing.Size(55, 22);
             this.txtUtranSufDir.TabIndex = 17;
@@ -711,6 +721,7 @@
             this.txtUtranStType.BackColor = System.Drawing.SystemColors.Window;
             this.txtUtranStType.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtUtranStType.Location = new System.Drawing.Point(477, 48);
+            this.txtUtranStType.MaxLength = 4;
             this.txtUtranStType.Name = "txtUtranStType";
             this.txtUtranStType.Size = new System.Drawing.Size(78, 22);
             this.txtUtranStType.TabIndex = 16;
@@ -733,6 +744,7 @@
             this.txtUtranStName.BackColor = System.Drawing.SystemColors.Window;
             this.txtUtranStName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtUtranStName.Location = new System.Drawing.Point(232, 48);
+            this.txtUtranStName.MaxLength = 30;
             this.txtUtranStName.Name = "txtUtranStName";
             this.txtUtranStName.Size = new System.Drawing.Size(239, 22);
             this.txtUtranStName.TabIndex = 15;
@@ -755,6 +767,7 @@
             this.txtUtranPreDir.BackColor = System.Drawing.SystemColors.Window;
             this.txtUtranPreDir.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtUtranPreDir.Location = new System.Drawing.Point(159, 48);
+            this.txtUtranPreDir.MaxLength = 1;
             this.txtUtranPreDir.Name = "txtUtranPreDir";
             this.txtUtranPreDir.Size = new System.Drawing.Size(67, 22);
             this.txtUtranPreDir.TabIndex = 14;
@@ -776,6 +789,7 @@
             // 
             this.txtUtranR_F_Add.BackColor = System.Drawing.SystemColors.Window;
             this.txtUtranR_F_Add.Location = new System.Drawing.Point(11, 77);
+            this.txtUtranR_F_Add.MaxLength = 17;
             this.txtUtranR_F_Add.Name = "txtUtranR_F_Add";
             this.txtUtranR_F_Add.Size = new System.Drawing.Size(67, 22);
             this.txtUtranR_F_Add.TabIndex = 8;
@@ -798,6 +812,7 @@
             // 
             this.txtUtranR_T_Add.BackColor = System.Drawing.SystemColors.Window;
             this.txtUtranR_T_Add.Location = new System.Drawing.Point(84, 77);
+            this.txtUtranR_T_Add.MaxLength = 17;
             this.txtUtranR_T_Add.Name = "txtUtranR_T_Add";
             this.txtUtranR_T_Add.Size = new System.Drawing.Size(67, 22);
             this.txtUtranR_T_Add.TabIndex = 9;
@@ -881,9 +896,9 @@
             this.lblChangeType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.lblChangeType.Location = new System.Drawing.Point(662, 15);
             this.lblChangeType.Name = "lblChangeType";
-            this.lblChangeType.Size = new System.Drawing.Size(308, 16);
+            this.lblChangeType.Size = new System.Drawing.Size(364, 16);
             this.lblChangeType.TabIndex = 14;
-            this.lblChangeType.Text = "Attribute, New, Spatial, Attribute and Spatial";
+            this.lblChangeType.Text = "Please select one feature from DFC_RESULT layer.";
             // 
             // btnSaveToUtrans
             // 
@@ -893,6 +908,7 @@
             this.btnSaveToUtrans.TabIndex = 15;
             this.btnSaveToUtrans.Text = "Save in UTRANS";
             this.btnSaveToUtrans.UseVisualStyleBackColor = true;
+            this.btnSaveToUtrans.Click += new System.EventHandler(this.btnSaveToUtrans_Click);
             // 
             // label31
             // 
@@ -921,6 +937,7 @@
             this.btnNext.TabIndex = 0;
             this.btnNext.Text = ">";
             this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
             // groupBox6
             // 

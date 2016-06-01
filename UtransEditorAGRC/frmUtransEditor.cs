@@ -226,6 +226,8 @@ namespace UtransEditorAGRC
                     ctrl.Text = "";
                 }
 
+                // revert title to default - incase previous was a udot street
+                groupBoxUtransSeg.Text = "Selected UTRANS Road Segment";
 
                 //clear utrans existing variables - for reuse
                 txtUtransInitialL_F_Add = null;
@@ -267,6 +269,22 @@ namespace UtransEditorAGRC
                     {
                         case "N":
                             lblChangeType.Text = "New";
+                            
+                            //make the textboxes a light red color, indicating there's no attributes for this feature
+                            txtUtranL_F_Add.BackColor = Color.LightSalmon;
+                            txtUtranL_T_Add.BackColor = Color.LightSalmon;
+                            txtUtranPreDir.BackColor = Color.LightSalmon;
+                            txtUtranR_F_Add.BackColor = Color.LightSalmon;
+                            txtUtranR_T_Add.BackColor = Color.LightSalmon;
+                            txtUtransAcsAllias.BackColor = Color.LightSalmon;
+                            txtUtransAcsSuf.BackColor = Color.LightSalmon;
+                            txtUtransAlias1.BackColor = Color.LightSalmon;
+                            txtUtransAlias1Type.BackColor = Color.LightSalmon;
+                            txtUtransAlias2.BackColor = Color.LightSalmon;
+                            txtUtransAlias2Type.BackColor = Color.LightSalmon;
+                            txtUtranStName.BackColor = Color.LightSalmon;
+                            txtUtranStType.BackColor = Color.LightSalmon;
+                            txtUtranSufDir.BackColor = Color.LightSalmon;
                             break;
                         case "S":
                             lblChangeType.Text = "Spatial";
@@ -334,6 +352,13 @@ namespace UtransEditorAGRC
                                 ctrl.Text = arcUtransFeature.get_Value(arcUtransFeature.Fields.FindFieldByAliasName(ctrl.Tag.ToString())).ToString();
                             }
                         }
+
+                        //also check if u_dot street
+                        string checkIfUdotStreet = arcUtransFeature.get_Value(arcUtransFeature.Fields.FindField("DOT_RTNAME")).ToString();
+                        if (checkIfUdotStreet != "")
+                        {
+                            groupBoxUtransSeg.Text = groupBoxUtransSeg.Text + " (UDOT STREET)";
+                        }
                     }
 
 
@@ -348,6 +373,10 @@ namespace UtransEditorAGRC
                     {
                         ctrl.Text = "";
                     }
+
+                    //change the attribute type
+                    lblChangeType.Text = "Please select one feature from DFC_RESULT layer.";
+
                 }
 
                 //refresh the map on the selected features
@@ -819,12 +848,12 @@ namespace UtransEditorAGRC
                 if (txtUtranL_F_Add.Text != txtUtransInitialL_F_Add)
                 {
                     lblLeftFrom.Font = fontLabelHasEdits;
-                    lblLeftFrom.ForeColor = Color.LightSalmon;
+                    //lblLeftFrom.ForeColor = Color.LightSalmon;
                 }
                 else
                 {
                     lblLeftFrom.Font = fontLabelRegular;
-                    lblLeftFrom.ForeColor = Color.Black;
+                    //lblLeftFrom.ForeColor = Color.Black;
                 }
             }
             catch (Exception ex)
@@ -855,12 +884,12 @@ namespace UtransEditorAGRC
                 if (txtUtranL_T_Add.Text != txtUtransInitialL_TAdd)
                 {
                     lblLeftTo.Font = fontLabelHasEdits;
-                    lblLeftTo.ForeColor = Color.LightSalmon;
+                    //lblLeftTo.ForeColor = Color.LightSalmon;
                 }
                 else
                 {
                     lblLeftTo.Font = fontLabelRegular;
-                    lblLeftTo.ForeColor = Color.Black;
+                    //lblLeftTo.ForeColor = Color.Black;
                 }
             }
             catch (Exception ex)
@@ -891,12 +920,12 @@ namespace UtransEditorAGRC
                 if (txtUtranR_F_Add.Text != txtUtransInitialR_F_Add)
                 {
                     lblRightFrom.Font = fontLabelHasEdits;
-                    lblRightFrom.ForeColor = Color.LightSalmon;
+                    //lblRightFrom.ForeColor = Color.LightSalmon;
                 }
                 else
                 {
                     lblRightFrom.Font = fontLabelRegular;
-                    lblRightFrom.ForeColor = Color.Black;
+                    //lblRightFrom.ForeColor = Color.Black;
                 }
             }
             catch (Exception ex)
@@ -927,12 +956,12 @@ namespace UtransEditorAGRC
                 if (txtUtranR_T_Add.Text != txtUtransInitialR_T_Add)
                 {
                     lblRightTo.Font = fontLabelHasEdits;
-                    lblRightTo.ForeColor = Color.LightSalmon;
+                    //lblRightTo.ForeColor = Color.LightSalmon;
                 }
                 else
                 {
                     lblRightTo.Font = fontLabelRegular;
-                    lblRightTo.ForeColor = Color.Black;
+                    //lblRightTo.ForeColor = Color.Black;
                 }
             }
             catch (Exception ex)
@@ -963,12 +992,12 @@ namespace UtransEditorAGRC
                 if (txtUtranPreDir.Text != txtUtransInitialPreDir)
                 {
                     lblPreDir.Font = fontLabelHasEdits;
-                    lblPreDir.ForeColor = Color.LightSalmon;
+                    //lblPreDir.ForeColor = Color.LightSalmon;
                 }
                 else
                 {
                     lblPreDir.Font = fontLabelRegular;
-                    lblPreDir.ForeColor = Color.Black;
+                    //lblPreDir.ForeColor = Color.Black;
                 }
             }
             catch (Exception ex)
@@ -999,12 +1028,12 @@ namespace UtransEditorAGRC
                 if (txtUtranStName.Text != txtUtransInitialStName)
                 {
                     lblStName.Font = fontLabelHasEdits;
-                    lblStName.ForeColor = Color.LightSalmon;
+                    //lblStName.ForeColor = Color.LightSalmon;
                 }
                 else
                 {
                     lblStName.Font = fontLabelRegular;
-                    lblStName.ForeColor = Color.Black;
+                    //lblStName.ForeColor = Color.Black;
                 }
             }
             catch (Exception ex)
@@ -1035,12 +1064,12 @@ namespace UtransEditorAGRC
                 if (txtUtranStType.Text != txtUtransInitialStType)
                 {
                     lblStType.Font = fontLabelHasEdits;
-                    lblStType.ForeColor = Color.LightSalmon;
+                    //lblStType.ForeColor = Color.LightSalmon;
                 }
                 else
                 {
                     lblStType.Font = fontLabelRegular;
-                    lblStType.ForeColor = Color.Black;
+                    //lblStType.ForeColor = Color.Black;
                 }
             }
             catch (Exception ex)
@@ -1071,12 +1100,12 @@ namespace UtransEditorAGRC
                 if (txtUtranSufDir.Text != txtUtransInitialSufDir)
                 {
                     lblSufDir.Font = fontLabelHasEdits;
-                    lblSufDir.ForeColor = Color.LightSalmon;
+                    //lblSufDir.ForeColor = Color.LightSalmon;
                 }
                 else
                 {
                     lblSufDir.Font = fontLabelRegular;
-                    lblSufDir.ForeColor = Color.Black;
+                    //lblSufDir.ForeColor = Color.Black;
                 }
             }
             catch (Exception ex)
@@ -1107,12 +1136,12 @@ namespace UtransEditorAGRC
                 if (txtUtransAlias1.Text != txtUtransInitialAlias1)
                 {
                     lblAlias.Font = fontLabelHasEdits;
-                    lblAlias.ForeColor = Color.LightSalmon;
+                    //lblAlias.ForeColor = Color.LightSalmon;
                 }
                 else
                 {
                     lblAlias.Font = fontLabelRegular;
-                    lblAlias.ForeColor = Color.Black;
+                    //lblAlias.ForeColor = Color.Black;
                 }
             }
             catch (Exception ex)
@@ -1144,12 +1173,12 @@ namespace UtransEditorAGRC
                 if (txtUtransAlias1Type.Text != txtUtransInitialAlias1Type)
                 {
                     lblAlias1Type.Font = fontLabelHasEdits;
-                    lblAlias1Type.ForeColor = Color.LightSalmon;
+                    //lblAlias1Type.ForeColor = Color.LightSalmon;
                 }
                 else
                 {
                     lblAlias1Type.Font = fontLabelRegular;
-                    lblAlias1Type.ForeColor = Color.Black;
+                    //lblAlias1Type.ForeColor = Color.Black;
                 }
             }
             catch (Exception ex)
@@ -1180,12 +1209,12 @@ namespace UtransEditorAGRC
                 if (txtUtransAlias2.Text != txtUtransInitialAlias2)
                 {
                     lblAlias2.Font = fontLabelHasEdits;
-                    lblAlias2.ForeColor = Color.LightSalmon;
+                    //lblAlias2.ForeColor = Color.LightSalmon;
                 }
                 else
                 {
                     lblAlias2.Font = fontLabelRegular;
-                    lblAlias2.ForeColor = Color.Black;
+                    //lblAlias2.ForeColor = Color.Black;
                 }
             }
             catch (Exception ex)
@@ -1216,12 +1245,12 @@ namespace UtransEditorAGRC
                 if (txtUtransAlias2Type.Text != txtUtransInitialAlias2Type)
                 {
                     lblAlias2Type.Font = fontLabelHasEdits;
-                    lblAlias2Type.ForeColor = Color.LightSalmon;
+                    //lblAlias2Type.ForeColor = Color.LightSalmon;
                 }
                 else
                 {
                     lblAlias2Type.Font = fontLabelRegular;
-                    lblAlias2Type.ForeColor = Color.Black;
+                    //lblAlias2Type.ForeColor = Color.Black;
                 }
             }
             catch (Exception ex)
@@ -1252,12 +1281,12 @@ namespace UtransEditorAGRC
                 if (txtUtransAcsAllias.Text != txtUtransInitialAcsAlias)
                 {
                     lblAcsAlias.Font = fontLabelHasEdits;
-                    lblAcsAlias.ForeColor = Color.LightSalmon;
+                    //lblAcsAlias.ForeColor = Color.LightSalmon;
                 }
                 else
                 {
                     lblAcsAlias.Font = fontLabelRegular;
-                    lblAcsAlias.ForeColor = Color.Black;
+                    //lblAcsAlias.ForeColor = Color.Black;
                 }
             }
             catch (Exception ex)
@@ -1288,12 +1317,12 @@ namespace UtransEditorAGRC
                 if (txtUtransAcsSuf.Text != txtUtransInitialAscSuf)
                 {
                     lblAcsSuf.Font = fontLabelHasEdits;
-                    lblAcsSuf.ForeColor = Color.LightSalmon;
+                    //lblAcsSuf.ForeColor = Color.LightSalmon;
                 }
                 else
                 {
                     lblAcsSuf.Font = fontLabelRegular;
-                    lblAcsSuf.ForeColor = Color.Black;
+                    //lblAcsSuf.ForeColor = Color.Black;
                 }
             }
             catch (Exception ex)
@@ -1308,12 +1337,71 @@ namespace UtransEditorAGRC
 
 
 
-        //this method forces the house range number texboxes to only accept numeric values
+        // this method forces the house range number texboxes to only accept numeric values
         private void txtUtran_HouseNumber_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
             {
                 e.Handled = true;
+            }
+        }
+
+
+
+        // save button
+        private void btnSaveToUtrans_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //save the values on the form to the selected feature
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
+                "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
+                "Error Location:" + Environment.NewLine + ex.StackTrace,
+                "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+
+
+
+
+        //this method is called when the next button is clicked
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                IFeatureCursor arcUtransGetNextBtn_FeatCursor = clsGlobals.arcGeoFLayerUtransStreets.SearchDisplayFeatures(null, false);
+                IFeature arcUtransGetNextBtn_Feature = arcUtransGetNextBtn_FeatCursor.NextFeature();
+
+                IQueryFilter arcQueryFilter = new QueryFilter();
+                arcQueryFilter.WhereClause = "OBJECTID = " + arcUtransGetNextBtn_Feature.get_Value(arcUtransGetNextBtn_Feature.Fields.FindField("OBJECTID"));
+
+
+                IFeatureSelection featSelect = clsGlobals.arcGeoFLayerUtransStreets as IFeatureSelection;
+                featSelect.SelectFeatures(arcQueryFilter, esriSelectionResultEnum.esriSelectionResultNew, false);
+                featSelect.SelectionChanged();
+
+
+                //call change seleted - not sure if i need to do this, it might be automatic
+                //frmUtransEditor_OnSelectionChanged();
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
+                "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
+                "Error Location:" + Environment.NewLine + ex.StackTrace,
+                "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
