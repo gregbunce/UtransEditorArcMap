@@ -2,6 +2,7 @@
 using ESRI.ArcGIS.Carto;
 using ESRI.ArcGIS.Editor;
 using ESRI.ArcGIS.Geodatabase;
+using ESRI.ArcGIS.Geometry;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -1355,9 +1356,6 @@ namespace UtransEditorAGRC
             {
                 //save the values on the form to the selected feature
 
-
-
-
             }
             catch (Exception ex)
             {
@@ -1371,12 +1369,17 @@ namespace UtransEditorAGRC
 
 
 
-
         //this method is called when the next button is clicked
         private void btnNext_Click(object sender, EventArgs e)
         {
             try
             {
+                //variables used in this method
+                IFeatureCursor arcFeatCur_zoomTo = null;
+                IFeature arcFeature_zoomTo = null;
+
+
+
                 //check if any features are selected
                 arcFeatureSelection = clsGlobals.arcGeoFLayerDfcResult as IFeatureSelection;
                 arcSelSet = arcFeatureSelection.SelectionSet;
@@ -1393,10 +1396,6 @@ namespace UtransEditorAGRC
 
                     //get the objectid from dfc layer
                     string strDFC_ResultOID = arcRow.get_Value(arcRow.Fields.FindField("OBJECTID")).ToString();
-
-                    //clear out variables and free memory
-                    arcSelSet = null;
-                    arcFeatureSelection = null;
 
                     //select a feature that has a oid greater than the one selected (the next button gets the next feature in the table)
                     IFeatureCursor arcUtransGetNextBtn_FeatCursor = clsGlobals.arcGeoFLayerDfcResult.SearchDisplayFeatures(null, false);
@@ -1423,6 +1422,11 @@ namespace UtransEditorAGRC
                     featSelect.SelectFeatures(arcQueryFilter2, esriSelectionResultEnum.esriSelectionResultNew, false);
                     //featSelect.SelectionChanged();
 
+                    //get the selected record as a feature so we can zoom to it below
+                    arcFeatCur_zoomTo = clsGlobals.arcGeoFLayerDfcResult.Search(arcQueryFilter2, false);
+                    arcFeature_zoomTo = arcFeatCur_zoomTo.NextFeature();
+
+
                     //clear out variables
                     arcCursor = null;
                     arcRow = null;
@@ -1435,8 +1439,6 @@ namespace UtransEditorAGRC
                     strNextOID = null;
                     arcQueryFilter2 = null;
                     featSelect = null; 
-
-
                 }
                 else //nothing is selected, so query the whole fc and get first record
                 {
@@ -1446,11 +1448,15 @@ namespace UtransEditorAGRC
                     IFeature arcUtransGetNextBtn_Feature3 = arcUtransGetNextBtn_FeatCursor3.NextFeature();
 
                     IQueryFilter arcQueryFilter3 = new QueryFilter();
-                    arcQueryFilter3.WhereClause = "OBJECTID = " + arcUtransGetNextBtn_Feature3.get_Value(arcUtransGetNextBtn_Feature3.Fields.FindField("OBJECTID")); ;
+                    arcQueryFilter3.WhereClause = "OBJECTID = " + arcUtransGetNextBtn_Feature3.get_Value(arcUtransGetNextBtn_Feature3.Fields.FindField("OBJECTID"));
 
                     IFeatureSelection featSelect3 = clsGlobals.arcGeoFLayerDfcResult as IFeatureSelection;
                     featSelect3.SelectFeatures(arcQueryFilter3, esriSelectionResultEnum.esriSelectionResultNew, false);
                     //featSelect.SelectionChanged();
+
+                    //get the selected record as a feature so we can zoom to it below
+                    arcFeatCur_zoomTo = clsGlobals.arcGeoFLayerDfcResult.Search(arcQueryFilter3, false);
+                    arcFeature_zoomTo = arcFeatCur_zoomTo.NextFeature();
 
                     //clear out variables
                     arcUtransGetNextBtn_FeatCursor3 = null;
@@ -1460,15 +1466,18 @@ namespace UtransEditorAGRC
                 }
 
 
+                // zoom to the selected feature //
+                //define an envelope to zoom to
+                IEnvelope arcEnv = new EnvelopeClass();
+                arcEnv = arcFeature_zoomTo.Shape.Envelope;
+
+                arcEnv.Expand(1.2, 1.2, true);
+                arcActiveView.Extent = arcEnv;
+                arcActiveView.Refresh();
+
+
                 //call change seleted - not sure if i need to do this, it might be automatic
                 frmUtransEditor_OnSelectionChanged();
-
-
-
-                //zoom to the selected feature
-
-
-
             }
             catch (Exception ex)
             {
