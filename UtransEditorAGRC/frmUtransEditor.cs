@@ -429,105 +429,105 @@ namespace UtransEditorAGRC
         {
             try
             {
-            //    if (txtCountyStName.Text.ToUpper().ToString().Trim() != txtUtranStName.Text.ToUpper().ToString().Trim())
-            //    {
-            //        txtUtranStName.BackColor = Color.LightSalmon;
-            //        txtCountyStName.BackColor = Color.LightSalmon;
-            //        boolHadDifferenceStName = true;
-            //    }
-            //    if (txtCountyStType.Text.ToUpper().ToString() != txtUtranStType.Text.ToUpper().ToString())
-            //    {
-            //        txtUtranStType.BackColor = Color.LightSalmon;
-            //        txtCountyStType.BackColor = Color.LightSalmon;
-            //        //lblStType.Font = fontLabelDataMismatch;
-            //        boolHadDifferenceStType = true;
-            //    }
-            //    if (txtCountySufDir.Text.ToUpper().ToString() != txtUtranSufDir.Text.ToUpper().ToString())
-            //    {
-            //        txtUtranSufDir.BackColor = Color.LightSalmon;
-            //        txtCountySufDir.BackColor = Color.LightSalmon;
-            //        //lblSufDir.Font = fontLabelDataMismatch;
-            //        boolHadDifferenceSufDir = true;
-            //    }
-            //    if (txtCountyPreDir.Text.ToUpper().ToString() != txtUtranPreDir.Text.ToUpper().ToString())
-            //    {
-            //        txtUtranPreDir.BackColor = Color.LightSalmon;
-            //        txtCountyPreDir.BackColor = Color.LightSalmon;
-            //        //lblPreDir.Font = fontLabelDataMismatch;
-            //        boolHadDifferencePreDir = true;
-            //    }
-            //    if (txtCountyL_F_Add.Text.ToString() != txtUtranL_F_Add.Text.ToString())
-            //    {
-            //        txtUtranL_F_Add.BackColor = Color.LightSalmon;
-            //        txtCountyL_F_Add.BackColor = Color.LightSalmon;
-            //        //lblLeftFrom.Font = fontLabelDataMismatch;
-            //        //capture the curent text - incase we want to revert to it
-            //        //txtUtransExistingL_F_Add = txtUtranL_F_Add.Text;
-            //        boolHadDifferenceL_F_Add = true;
-            //    }
-            //    if (txtCountyL_T_Add.Text.ToString() != txtUtranL_T_Add.Text.ToString())
-            //    {
-            //        txtUtranL_T_Add.BackColor = Color.LightSalmon;
-            //        txtCountyL_T_Add.BackColor = Color.LightSalmon;
-            //        //lblLeftTo.Font = fontLabelDataMismatch;
-            //        boolHadDifferenceL_T_Add = true;
-            //    }
-            //    if (txtCountyR_F_Add.Text.ToString() != txtUtranR_F_Add.Text.ToString())
-            //    {
-            //        txtUtranR_F_Add.BackColor = Color.LightSalmon;
-            //        txtCountyR_F_Add.BackColor = Color.LightSalmon;
-            //        //lblRightFrom.Font = fontLabelDataMismatch;
-            //        boolHadDifferenceR_F_Add = true;
-            //    }
-            //    if (txtCountyR_T_Add.Text.ToString() != txtUtranR_T_Add.Text.ToString())
-            //    {
-            //        txtUtranR_T_Add.BackColor = Color.LightSalmon;
-            //        txtCountyR_T_Add.BackColor = Color.LightSalmon;
-            //        //lblRightTo.Font = fontLabelDataMismatch;
-            //        boolHadDifferenceR_T_Add = true;
-            //    }
-            //    if (txtCountyAcsAlilas.Text.ToUpper().ToString() != txtUtransAcsAllias.Text.ToUpper().ToString())
-            //    {
-            //        txtUtransAcsAllias.BackColor = Color.LightSalmon;
-            //        txtCountyAcsAlilas.BackColor = Color.LightSalmon;
-            //        //lblAcsAlias.Font = fontLabelDataMismatch;
-            //        boolHadDifferenceAcsAlias = true;
-            //    }
-            //    if (txtCountyAcsSuf.Text.ToUpper().ToString() != txtUtransAcsSuf.Text.ToUpper().ToString())
-            //    {
-            //        txtUtransAcsSuf.BackColor = Color.LightSalmon;
-            //        txtCountyAcsSuf.BackColor = Color.LightSalmon;
-            //        //lblAcsSuf.Font = fontLabelDataMismatch;
-            //        boolHadDifferenceAscSuf = true;
-            //    }
-            //    if (txtCountyAlias1.Text.ToUpper().ToString() != txtUtransAlias1.Text.ToUpper().ToString())
-            //    {
-            //        txtUtransAlias1.BackColor = Color.LightSalmon;
-            //        txtCountyAlias1.BackColor = Color.LightSalmon;
-            //        //lblAlias.Font = fontLabelDataMismatch;
-            //        boolHadDifferenceAlias1 = true;
-            //    }
-            //    if (txtCountyAlias1Type.Text.ToUpper().ToString() != txtUtransAlias1Type.Text.ToUpper().ToString())
-            //    {
-            //        txtUtransAlias1Type.BackColor = Color.LightSalmon;
-            //        txtCountyAlias1Type.BackColor = Color.LightSalmon;
-            //        //lblAlias1Type.Font = fontLabelDataMismatch;
-            //        boolHadDifferenceAlias1Type = true;
-            //    }
-            //    if (txtCountyAlias2.Text.ToUpper().ToString() != txtUtransAlias2.Text.ToUpper().ToString())
-            //    {
-            //        txtUtransAlias2.BackColor = Color.LightSalmon;
-            //        txtCountyAlias2.BackColor = Color.LightSalmon;
-            //        //lblAlias2.Font = fontLabelDataMismatch;
-            //        boolHadDifferenceAlias2 = true;
-            //    }
-            //    if (txtCountyAlias2Type.Text.ToUpper().ToString() != txtUtransAlias2.Text.ToUpper().ToString())
-            //    {
-            //        txtUtransAlias2.BackColor = Color.LightSalmon;
-            //        txtCountyAlias2.BackColor = Color.LightSalmon;
-            //        //lblAlias2Type.Font = fontLabelDataMismatch;
-            //        boolHadDifferenceAlias2Type = true;
-            //    }
+                if (txtCountyStName.Text.ToUpper().ToString().Trim() != txtUtranStName.Text.ToUpper().ToString().Trim())
+                {
+                    txtUtranStName.BackColor = Color.LightYellow;
+                    txtCountyStName.BackColor = Color.LightYellow;
+                    //boolHadDifferenceStName = true;
+                }
+                if (txtCountyStType.Text.ToUpper().ToString() != txtUtranStType.Text.ToUpper().ToString())
+                {
+                    txtUtranStType.BackColor = Color.LightYellow;
+                    txtCountyStType.BackColor = Color.LightYellow;
+                    //lblStType.Font = fontLabelDataMismatch;
+                    //boolHadDifferenceStType = true;
+                }
+                if (txtCountySufDir.Text.ToUpper().ToString() != txtUtranSufDir.Text.ToUpper().ToString())
+                {
+                    txtUtranSufDir.BackColor = Color.LightYellow;
+                    txtCountySufDir.BackColor = Color.LightYellow;
+                    //lblSufDir.Font = fontLabelDataMismatch;
+                    //boolHadDifferenceSufDir = true;
+                }
+                if (txtCountyPreDir.Text.ToUpper().ToString() != txtUtranPreDir.Text.ToUpper().ToString())
+                {
+                    txtUtranPreDir.BackColor = Color.LightYellow;
+                    txtCountyPreDir.BackColor = Color.LightYellow;
+                    //lblPreDir.Font = fontLabelDataMismatch;
+                    //boolHadDifferencePreDir = true;
+                }
+                if (txtCountyL_F_Add.Text.ToString() != txtUtranL_F_Add.Text.ToString())
+                {
+                    txtUtranL_F_Add.BackColor = Color.LightYellow;
+                    txtCountyL_F_Add.BackColor = Color.LightYellow;
+                    //lblLeftFrom.Font = fontLabelDataMismatch;
+                    //capture the curent text - incase we want to revert to it
+                    //txtUtransExistingL_F_Add = txtUtranL_F_Add.Text;
+                    //boolHadDifferenceL_F_Add = true;
+                }
+                if (txtCountyL_T_Add.Text.ToString() != txtUtranL_T_Add.Text.ToString())
+                {
+                    txtUtranL_T_Add.BackColor = Color.LightYellow;
+                    txtCountyL_T_Add.BackColor = Color.LightYellow;
+                    //lblLeftTo.Font = fontLabelDataMismatch;
+                    //boolHadDifferenceL_T_Add = true;
+                }
+                if (txtCountyR_F_Add.Text.ToString() != txtUtranR_F_Add.Text.ToString())
+                {
+                    txtUtranR_F_Add.BackColor = Color.LightYellow;
+                    txtCountyR_F_Add.BackColor = Color.LightYellow;
+                    //lblRightFrom.Font = fontLabelDataMismatch;
+                    //boolHadDifferenceR_F_Add = true;
+                }
+                if (txtCountyR_T_Add.Text.ToString() != txtUtranR_T_Add.Text.ToString())
+                {
+                    txtUtranR_T_Add.BackColor = Color.LightYellow;
+                    txtCountyR_T_Add.BackColor = Color.LightYellow;
+                    //lblRightTo.Font = fontLabelDataMismatch;
+                    //boolHadDifferenceR_T_Add = true;
+                }
+                if (txtCountyAcsAlilas.Text.ToUpper().ToString() != txtUtransAcsAllias.Text.ToUpper().ToString())
+                {
+                    txtUtransAcsAllias.BackColor = Color.LightYellow;
+                    txtCountyAcsAlilas.BackColor = Color.LightYellow;
+                    //lblAcsAlias.Font = fontLabelDataMismatch;
+                    //boolHadDifferenceAcsAlias = true;
+                }
+                if (txtCountyAcsSuf.Text.ToUpper().ToString() != txtUtransAcsSuf.Text.ToUpper().ToString())
+                {
+                    txtUtransAcsSuf.BackColor = Color.LightYellow;
+                    txtCountyAcsSuf.BackColor = Color.LightYellow;
+                    //lblAcsSuf.Font = fontLabelDataMismatch;
+                    //boolHadDifferenceAscSuf = true;
+                }
+                if (txtCountyAlias1.Text.ToUpper().ToString() != txtUtransAlias1.Text.ToUpper().ToString())
+                {
+                    txtUtransAlias1.BackColor = Color.LightYellow;
+                    txtCountyAlias1.BackColor = Color.LightYellow;
+                    //lblAlias.Font = fontLabelDataMismatch;
+                    //boolHadDifferenceAlias1 = true;
+                }
+                if (txtCountyAlias1Type.Text.ToUpper().ToString() != txtUtransAlias1Type.Text.ToUpper().ToString())
+                {
+                    txtUtransAlias1Type.BackColor = Color.LightYellow;
+                    txtCountyAlias1Type.BackColor = Color.LightYellow;
+                    //lblAlias1Type.Font = fontLabelDataMismatch;
+                    //boolHadDifferenceAlias1Type = true;
+                }
+                if (txtCountyAlias2.Text.ToUpper().ToString() != txtUtransAlias2.Text.ToUpper().ToString())
+                {
+                    txtUtransAlias2.BackColor = Color.LightYellow;
+                    txtCountyAlias2.BackColor = Color.LightYellow;
+                    //lblAlias2.Font = fontLabelDataMismatch;
+                    //boolHadDifferenceAlias2 = true;
+                }
+                if (txtCountyAlias2Type.Text.ToUpper().ToString() != txtUtransAlias2.Text.ToUpper().ToString())
+                {
+                    txtUtransAlias2.BackColor = Color.LightYellow;
+                    txtCountyAlias2.BackColor = Color.LightYellow;
+                    //lblAlias2Type.Font = fontLabelDataMismatch;
+                    //boolHadDifferenceAlias2Type = true;
+                }
 
             }
             catch (Exception ex)
@@ -1377,24 +1377,95 @@ namespace UtransEditorAGRC
         {
             try
             {
-                IFeatureCursor arcUtransGetNextBtn_FeatCursor = clsGlobals.arcGeoFLayerDfcResult.SearchDisplayFeatures(null, false);
-                
-                //used this line twice in a for loop <2 to get each features oid then had three str variables orig, cur, next and set the orig to the cur in the onchange method
-                //then checked if they match there and if they did match i used the strnext one to create the query filter
-                IFeature arcUtransGetNextBtn_Feature = arcUtransGetNextBtn_FeatCursor.NextFeature();
+                //check if any features are selected
+                arcFeatureSelection = clsGlobals.arcGeoFLayerDfcResult as IFeatureSelection;
+                arcSelSet = arcFeatureSelection.SelectionSet;
 
-                IQueryFilter arcQueryFilter = new QueryFilter();
-                arcQueryFilter.WhereClause = "OBJECTID = " + arcUtransGetNextBtn_Feature.get_Value(arcUtransGetNextBtn_Feature.Fields.FindField("OBJECTID"));
+                //make sure one feature is selected, else get first record in set
+                if (arcSelSet.Count == 1)
+                {
+                    //get a cursor of the selected features
+                    ICursor arcCursor;
+                    arcSelSet.Search(null, false, out arcCursor);
+
+                    //get the first row (there should only be one)
+                    IRow arcRow = arcCursor.NextRow();
+
+                    //get the objectid from dfc layer
+                    string strDFC_ResultOID = arcRow.get_Value(arcRow.Fields.FindField("OBJECTID")).ToString();
+
+                    //clear out variables and free memory
+                    arcSelSet = null;
+                    arcFeatureSelection = null;
+
+                    //select a feature that has a oid greater than the one selected (the next button gets the next feature in the table)
+                    IFeatureCursor arcUtransGetNextBtn_FeatCursor = clsGlobals.arcGeoFLayerDfcResult.SearchDisplayFeatures(null, false);
+                    IFeature arcUtransGetNextBtn_Feature = arcUtransGetNextBtn_FeatCursor.NextFeature();
+
+                    IQueryFilter arcQueryFilter = new QueryFilter();
+                    arcQueryFilter.WhereClause = "OBJECTID > " + strDFC_ResultOID;
+
+                    //get a new feature cursor with all records that are greater than the selected oid
+                    IFeatureCursor arcUtransGetNextBtn_FeatCursor2 = clsGlobals.arcGeoFLayerDfcResult.SearchDisplayFeatures(arcQueryFilter, false);
+                    IFeature arcUtransGetNextBtn_Feature2 = arcUtransGetNextBtn_FeatCursor2.NextFeature();
+
+                    //get oid of this feature and then pass it into a query filter to select from
+                    string strNextOID = arcUtransGetNextBtn_Feature2.get_Value(arcUtransGetNextBtn_Feature2.Fields.FindField("OBJECTID")).ToString();
+
+                    //create query filter for the next highest oid in the table - based on the one that's currently selected
+                    IQueryFilter arcQueryFilter2 = null;
+                    arcQueryFilter2 = new QueryFilter();
+                    arcQueryFilter2.WhereClause = "OBJECTID = " + strNextOID;
 
 
-                IFeatureSelection featSelect = clsGlobals.arcGeoFLayerDfcResult as IFeatureSelection;
-                featSelect.SelectFeatures(arcQueryFilter, esriSelectionResultEnum.esriSelectionResultNew, false);
-                featSelect.SelectionChanged();
+                    //select the one record in the above asigned feature layer
+                    IFeatureSelection featSelect = clsGlobals.arcGeoFLayerDfcResult as IFeatureSelection;
+                    featSelect.SelectFeatures(arcQueryFilter2, esriSelectionResultEnum.esriSelectionResultNew, false);
+                    //featSelect.SelectionChanged();
+
+                    //clear out variables
+                    arcCursor = null;
+                    arcRow = null;
+                    strDFC_ResultOID = null;
+                    arcUtransGetNextBtn_FeatCursor = null;
+                    arcUtransGetNextBtn_Feature = null;
+                    arcQueryFilter = null;
+                    arcUtransGetNextBtn_FeatCursor2 = null;
+                    arcUtransGetNextBtn_Feature2 = null;
+                    strNextOID = null;
+                    arcQueryFilter2 = null;
+                    featSelect = null; 
+
+
+                }
+                else //nothing is selected, so query the whole fc and get first record
+                {
+
+                    //select 
+                    IFeatureCursor arcUtransGetNextBtn_FeatCursor3 = clsGlobals.arcGeoFLayerDfcResult.SearchDisplayFeatures(null, false);
+                    IFeature arcUtransGetNextBtn_Feature3 = arcUtransGetNextBtn_FeatCursor3.NextFeature();
+
+                    IQueryFilter arcQueryFilter3 = new QueryFilter();
+                    arcQueryFilter3.WhereClause = "OBJECTID = " + arcUtransGetNextBtn_Feature3.get_Value(arcUtransGetNextBtn_Feature3.Fields.FindField("OBJECTID")); ;
+
+                    IFeatureSelection featSelect3 = clsGlobals.arcGeoFLayerDfcResult as IFeatureSelection;
+                    featSelect3.SelectFeatures(arcQueryFilter3, esriSelectionResultEnum.esriSelectionResultNew, false);
+                    //featSelect.SelectionChanged();
+
+                    //clear out variables
+                    arcUtransGetNextBtn_FeatCursor3 = null;
+                    arcUtransGetNextBtn_Feature3 = null;
+                    arcQueryFilter3 = null;
+                    featSelect3 = null;
+                }
 
 
                 //call change seleted - not sure if i need to do this, it might be automatic
                 frmUtransEditor_OnSelectionChanged();
-                
+
+
+
+                //zoom to the selected feature
 
 
 
