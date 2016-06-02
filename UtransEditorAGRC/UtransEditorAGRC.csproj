@@ -188,6 +188,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="clsBtnUtransEditor.bmp" />
+    <None Include="EditingCopyParallel32.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="frmUtransEditor.resx">

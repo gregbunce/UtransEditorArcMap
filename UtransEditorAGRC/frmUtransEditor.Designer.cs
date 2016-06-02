@@ -104,7 +104,7 @@
             this.label34 = new System.Windows.Forms.Label();
             this.label33 = new System.Windows.Forms.Label();
             this.btnPrev = new System.Windows.Forms.Button();
-            this.label35 = new System.Windows.Forms.Label();
+            this.btnCopyNewSegment = new System.Windows.Forms.Button();
             this.groupBoxCountySeg.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -980,21 +980,24 @@
             this.btnPrev.Text = "<";
             this.btnPrev.UseVisualStyleBackColor = true;
             // 
-            // label35
+            // btnCopyNewSegment
             // 
-            this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(448, 428);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(110, 13);
-            this.label35.TabIndex = 21;
-            this.label35.Text = "Choose Vertex Button";
+            this.btnCopyNewSegment.BackgroundImage = global::UtransEditorAGRC.Properties.Resources.EditingCopyParallel32;
+            this.btnCopyNewSegment.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnCopyNewSegment.Location = new System.Drawing.Point(988, 401);
+            this.btnCopyNewSegment.Name = "btnCopyNewSegment";
+            this.btnCopyNewSegment.Size = new System.Drawing.Size(50, 50);
+            this.btnCopyNewSegment.TabIndex = 22;
+            this.btnCopyNewSegment.UseVisualStyleBackColor = true;
+            this.btnCopyNewSegment.Visible = false;
+            this.btnCopyNewSegment.Click += new System.EventHandler(this.btnCopyNewSegment_Click);
             // 
             // frmUtransEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1258, 472);
-            this.Controls.Add(this.label35);
+            this.Controls.Add(this.btnCopyNewSegment);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.lblVersionName);
             this.Controls.Add(this.label31);
@@ -1106,6 +1109,6 @@
         private System.Windows.Forms.Button btnPrev;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Label label33;
-        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.Button btnCopyNewSegment;
     }
 }

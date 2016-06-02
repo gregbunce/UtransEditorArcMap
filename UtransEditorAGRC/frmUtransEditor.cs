@@ -219,6 +219,13 @@ namespace UtransEditorAGRC
         {
             try
             {
+                //hide the copy new segment button
+                btnCopyNewSegment.Hide();
+
+                //disable the save to utrans button - until a change has been detected
+                btnSaveToUtrans.Enabled = false;
+
+
                 //make sure the backcolor of each color is white
                 for (int i = 0; i < ctrlList.Count; i++)
                 {
@@ -229,6 +236,12 @@ namespace UtransEditorAGRC
 
                 // revert title to default - incase previous was a udot street
                 groupBoxUtransSeg.Text = "Selected UTRANS Road Segment";
+
+                //get the objectids from dfc layer for selecting on corresponding layer
+                string strCountyOID = "";
+                string strUtransOID = "";
+                string strChangeType = "";
+
 
                 //clear utrans existing variables - for reuse
                 txtUtransInitialL_F_Add = null;
@@ -261,31 +274,15 @@ namespace UtransEditorAGRC
                     IRow arcRow = arcCursor.NextRow();
 
                     //get the objectids from dfc layer for selecting on corresponding layer
-                    string strCountyOID = arcRow.get_Value(arcRow.Fields.FindField("UPDATE_FID")).ToString();
-                    string strUtransOID = arcRow.get_Value(arcRow.Fields.FindField("BASE_FID")).ToString();
-                    string strChangeType = arcRow.get_Value(arcRow.Fields.FindField("CHANGE_TYPE")).ToString();
+                    strCountyOID = arcRow.get_Value(arcRow.Fields.FindField("UPDATE_FID")).ToString();
+                    strUtransOID = arcRow.get_Value(arcRow.Fields.FindField("BASE_FID")).ToString();
+                    strChangeType = arcRow.get_Value(arcRow.Fields.FindField("CHANGE_TYPE")).ToString();
 
                     //populate the change type on the top of the form
                     switch (strChangeType)
                     {
                         case "N":
                             lblChangeType.Text = "New";
-                            
-                            //make the textboxes a light red color, indicating there's no attributes for this feature
-                            txtUtranL_F_Add.BackColor = Color.LightSalmon;
-                            txtUtranL_T_Add.BackColor = Color.LightSalmon;
-                            txtUtranPreDir.BackColor = Color.LightSalmon;
-                            txtUtranR_F_Add.BackColor = Color.LightSalmon;
-                            txtUtranR_T_Add.BackColor = Color.LightSalmon;
-                            txtUtransAcsAllias.BackColor = Color.LightSalmon;
-                            txtUtransAcsSuf.BackColor = Color.LightSalmon;
-                            txtUtransAlias1.BackColor = Color.LightSalmon;
-                            txtUtransAlias1Type.BackColor = Color.LightSalmon;
-                            txtUtransAlias2.BackColor = Color.LightSalmon;
-                            txtUtransAlias2Type.BackColor = Color.LightSalmon;
-                            txtUtranStName.BackColor = Color.LightSalmon;
-                            txtUtranStType.BackColor = Color.LightSalmon;
-                            txtUtranSufDir.BackColor = Color.LightSalmon;
                             break;
                         case "S":
                             lblChangeType.Text = "Spatial";
@@ -364,7 +361,7 @@ namespace UtransEditorAGRC
 
 
                     //call check differnces method
-                    //checkTextboxDifferneces();
+                    checkTextboxDifferneces();
 
                 }
                 else //if the user selects more or less than one record in the dfc fc - clear out the textboxes
@@ -414,6 +411,31 @@ namespace UtransEditorAGRC
                 lblStName.Font = fontLabelRegular;
                 lblStType.Font = fontLabelRegular;
                 lblSufDir.Font = fontLabelRegular;
+
+
+                //if it's a new record
+                if (strChangeType == "N")
+                {
+                    //make the textboxes a light red color, indicating there's no attributes for this feature
+                    txtUtranL_F_Add.BackColor = Color.LightSalmon;
+                    txtUtranL_T_Add.BackColor = Color.LightSalmon;
+                    txtUtranPreDir.BackColor = Color.LightSalmon;
+                    txtUtranR_F_Add.BackColor = Color.LightSalmon;
+                    txtUtranR_T_Add.BackColor = Color.LightSalmon;
+                    txtUtransAcsAllias.BackColor = Color.LightSalmon;
+                    txtUtransAcsSuf.BackColor = Color.LightSalmon;
+                    txtUtransAlias1.BackColor = Color.LightSalmon;
+                    txtUtransAlias1Type.BackColor = Color.LightSalmon;
+                    txtUtransAlias2.BackColor = Color.LightSalmon;
+                    txtUtransAlias2Type.BackColor = Color.LightSalmon;
+                    txtUtranStName.BackColor = Color.LightSalmon;
+                    txtUtranStType.BackColor = Color.LightSalmon;
+                    txtUtranSufDir.BackColor = Color.LightSalmon;
+
+                    //show get new feature button and make save button not enabled
+                    btnCopyNewSegment.Visible = true;
+                    btnSaveToUtrans.Enabled = false;
+                }
 
 
             }
@@ -850,11 +872,13 @@ namespace UtransEditorAGRC
                 {
                     lblLeftFrom.Font = fontLabelHasEdits;
                     //lblLeftFrom.ForeColor = Color.LightSalmon;
+                    btnSaveToUtrans.Enabled = true;
                 }
                 else
                 {
                     lblLeftFrom.Font = fontLabelRegular;
                     //lblLeftFrom.ForeColor = Color.Black;
+                    btnSaveToUtrans.Enabled = false;
                 }
             }
             catch (Exception ex)
@@ -886,11 +910,13 @@ namespace UtransEditorAGRC
                 {
                     lblLeftTo.Font = fontLabelHasEdits;
                     //lblLeftTo.ForeColor = Color.LightSalmon;
+                    btnSaveToUtrans.Enabled = true;
                 }
                 else
                 {
                     lblLeftTo.Font = fontLabelRegular;
                     //lblLeftTo.ForeColor = Color.Black;
+                    btnSaveToUtrans.Enabled = false;
                 }
             }
             catch (Exception ex)
@@ -922,11 +948,13 @@ namespace UtransEditorAGRC
                 {
                     lblRightFrom.Font = fontLabelHasEdits;
                     //lblRightFrom.ForeColor = Color.LightSalmon;
+                    btnSaveToUtrans.Enabled = true;
                 }
                 else
                 {
                     lblRightFrom.Font = fontLabelRegular;
                     //lblRightFrom.ForeColor = Color.Black;
+                    btnSaveToUtrans.Enabled = false;
                 }
             }
             catch (Exception ex)
@@ -958,11 +986,13 @@ namespace UtransEditorAGRC
                 {
                     lblRightTo.Font = fontLabelHasEdits;
                     //lblRightTo.ForeColor = Color.LightSalmon;
+                    btnSaveToUtrans.Enabled = true;
                 }
                 else
                 {
                     lblRightTo.Font = fontLabelRegular;
                     //lblRightTo.ForeColor = Color.Black;
+                    btnSaveToUtrans.Enabled = false;
                 }
             }
             catch (Exception ex)
@@ -994,11 +1024,13 @@ namespace UtransEditorAGRC
                 {
                     lblPreDir.Font = fontLabelHasEdits;
                     //lblPreDir.ForeColor = Color.LightSalmon;
+                    btnSaveToUtrans.Enabled = true;
                 }
                 else
                 {
                     lblPreDir.Font = fontLabelRegular;
                     //lblPreDir.ForeColor = Color.Black;
+                    btnSaveToUtrans.Enabled = false;
                 }
             }
             catch (Exception ex)
@@ -1030,11 +1062,13 @@ namespace UtransEditorAGRC
                 {
                     lblStName.Font = fontLabelHasEdits;
                     //lblStName.ForeColor = Color.LightSalmon;
+                    btnSaveToUtrans.Enabled = true;
                 }
                 else
                 {
                     lblStName.Font = fontLabelRegular;
                     //lblStName.ForeColor = Color.Black;
+                    btnSaveToUtrans.Enabled = false;
                 }
             }
             catch (Exception ex)
@@ -1066,11 +1100,13 @@ namespace UtransEditorAGRC
                 {
                     lblStType.Font = fontLabelHasEdits;
                     //lblStType.ForeColor = Color.LightSalmon;
+                    btnSaveToUtrans.Enabled = true;
                 }
                 else
                 {
                     lblStType.Font = fontLabelRegular;
                     //lblStType.ForeColor = Color.Black;
+                    btnSaveToUtrans.Enabled = false;
                 }
             }
             catch (Exception ex)
@@ -1102,11 +1138,13 @@ namespace UtransEditorAGRC
                 {
                     lblSufDir.Font = fontLabelHasEdits;
                     //lblSufDir.ForeColor = Color.LightSalmon;
+                    btnSaveToUtrans.Enabled = true;
                 }
                 else
                 {
                     lblSufDir.Font = fontLabelRegular;
                     //lblSufDir.ForeColor = Color.Black;
+                    btnSaveToUtrans.Enabled = false;
                 }
             }
             catch (Exception ex)
@@ -1138,11 +1176,13 @@ namespace UtransEditorAGRC
                 {
                     lblAlias.Font = fontLabelHasEdits;
                     //lblAlias.ForeColor = Color.LightSalmon;
+                    btnSaveToUtrans.Enabled = true;
                 }
                 else
                 {
                     lblAlias.Font = fontLabelRegular;
                     //lblAlias.ForeColor = Color.Black;
+                    btnSaveToUtrans.Enabled = false;
                 }
             }
             catch (Exception ex)
@@ -1175,11 +1215,13 @@ namespace UtransEditorAGRC
                 {
                     lblAlias1Type.Font = fontLabelHasEdits;
                     //lblAlias1Type.ForeColor = Color.LightSalmon;
+                    btnSaveToUtrans.Enabled = true;
                 }
                 else
                 {
                     lblAlias1Type.Font = fontLabelRegular;
                     //lblAlias1Type.ForeColor = Color.Black;
+                    btnSaveToUtrans.Enabled = false;
                 }
             }
             catch (Exception ex)
@@ -1211,11 +1253,13 @@ namespace UtransEditorAGRC
                 {
                     lblAlias2.Font = fontLabelHasEdits;
                     //lblAlias2.ForeColor = Color.LightSalmon;
+                    btnSaveToUtrans.Enabled = true;
                 }
                 else
                 {
                     lblAlias2.Font = fontLabelRegular;
                     //lblAlias2.ForeColor = Color.Black;
+                    btnSaveToUtrans.Enabled = false;
                 }
             }
             catch (Exception ex)
@@ -1247,11 +1291,13 @@ namespace UtransEditorAGRC
                 {
                     lblAlias2Type.Font = fontLabelHasEdits;
                     //lblAlias2Type.ForeColor = Color.LightSalmon;
+                    btnSaveToUtrans.Enabled = true;
                 }
                 else
                 {
                     lblAlias2Type.Font = fontLabelRegular;
                     //lblAlias2Type.ForeColor = Color.Black;
+                    btnSaveToUtrans.Enabled = false;
                 }
             }
             catch (Exception ex)
@@ -1283,11 +1329,13 @@ namespace UtransEditorAGRC
                 {
                     lblAcsAlias.Font = fontLabelHasEdits;
                     //lblAcsAlias.ForeColor = Color.LightSalmon;
+                    btnSaveToUtrans.Enabled = true;
                 }
                 else
                 {
                     lblAcsAlias.Font = fontLabelRegular;
                     //lblAcsAlias.ForeColor = Color.Black;
+                    btnSaveToUtrans.Enabled = false;
                 }
             }
             catch (Exception ex)
@@ -1319,11 +1367,13 @@ namespace UtransEditorAGRC
                 {
                     lblAcsSuf.Font = fontLabelHasEdits;
                     //lblAcsSuf.ForeColor = Color.LightSalmon;
+                    btnSaveToUtrans.Enabled = true;
                 }
                 else
                 {
                     lblAcsSuf.Font = fontLabelRegular;
                     //lblAcsSuf.ForeColor = Color.Black;
+                    btnSaveToUtrans.Enabled = false;
                 }
             }
             catch (Exception ex)
@@ -1471,7 +1521,7 @@ namespace UtransEditorAGRC
                 IEnvelope arcEnv = new EnvelopeClass();
                 arcEnv = arcFeature_zoomTo.Shape.Envelope;
 
-                arcEnv.Expand(1.2, 1.2, true);
+                arcEnv.Expand(1.5, 1.5, true);
                 arcActiveView.Extent = arcEnv;
                 arcActiveView.Refresh();
 
@@ -1491,34 +1541,27 @@ namespace UtransEditorAGRC
 
 
 
+        //this method copies the selected county road segment and pastes it into the utrans database
+        private void btnCopyNewSegment_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //get access to the selected feature in county roads dataset 
 
 
 
-        
+                //call on selection changed
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
+                "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
+                "Error Location:" + Environment.NewLine + ex.StackTrace,
+                "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
 
 
     }
