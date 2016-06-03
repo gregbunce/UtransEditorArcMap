@@ -136,7 +136,6 @@ namespace UtransEditorAGRC
                                 //MessageBox.Show("referenced dfc results");
                             }
                         }
-
                         catch (Exception) { }//in case there is an error looping through layers (sometimes on group layers or dynamic xy layers), just keep going
 
                     }
@@ -231,6 +230,37 @@ namespace UtransEditorAGRC
                 //hide the copy new segment button
                 btnCopyNewSegment.Hide();
 
+                //enable the textboxes - in case last record was "N" and were disabled
+                txtUtranL_F_Add.ReadOnly = false;
+                txtUtranL_T_Add.ReadOnly = false;
+                txtUtranPreDir.ReadOnly = false;
+                txtUtranR_F_Add.ReadOnly = false;
+                txtUtranR_T_Add.ReadOnly = false;
+                txtUtransAcsAllias.ReadOnly = false;
+                txtUtransAcsSuf.ReadOnly = false;
+                txtUtransAlias1.ReadOnly = false;
+                txtUtransAlias1Type.ReadOnly = false;
+                txtUtransAlias2.ReadOnly = false;
+                txtUtransAlias2Type.ReadOnly = false;
+                txtUtranStName.ReadOnly = false;
+                txtUtranStType.ReadOnly = false;
+                txtUtranSufDir.ReadOnly = false;
+
+                lblLeftFrom.Enabled = true;
+                lblRightFrom.Enabled = true;
+                lblLeftTo.Enabled = true;
+                lblRightTo.Enabled = true;
+                lblPreDir.Enabled = true;
+                lblStName.Enabled = true;
+                lblStType.Enabled = true;
+                lblSufDir.Enabled = true;
+                lblAcsAlias.Enabled = true;
+                lblAcsSuf.Enabled = true;
+                lblAlias.Enabled = true;
+                lblAlias1Type.Enabled = true;
+                lblAlias2.Enabled = true;
+                lblAlias2Type.Enabled = true;
+
                 //disable the save to utrans button - until a change has been detected
                 btnSaveToUtrans.Enabled = false;
 
@@ -293,7 +323,15 @@ namespace UtransEditorAGRC
                     switch (strChangeType)
                     {
                         case "N":
-                            lblChangeType.Text = "New";
+                            if (strUtransOID == "-1")
+                            {
+                                lblChangeType.Text = "New";
+                            }
+                            else
+                            {
+                                lblChangeType.Text = "New (Now in UTRANS - Please Verify Attributes and Click ''Save in UTRANS'' Button)";
+                            }
+                            //lblChangeType.Text = "New";
                             break;
                         case "S":
                             lblChangeType.Text = "Spatial";
@@ -425,23 +463,56 @@ namespace UtransEditorAGRC
 
 
                 //if it's a new record
-                if (strChangeType == "N")
+                if (strChangeType == "N" & strUtransOID == "-1")
                 {
                     //make the textboxes a light red color, indicating there's no attributes for this feature
-                    txtUtranL_F_Add.BackColor = Color.LightSalmon;
-                    txtUtranL_T_Add.BackColor = Color.LightSalmon;
-                    txtUtranPreDir.BackColor = Color.LightSalmon;
-                    txtUtranR_F_Add.BackColor = Color.LightSalmon;
-                    txtUtranR_T_Add.BackColor = Color.LightSalmon;
-                    txtUtransAcsAllias.BackColor = Color.LightSalmon;
-                    txtUtransAcsSuf.BackColor = Color.LightSalmon;
-                    txtUtransAlias1.BackColor = Color.LightSalmon;
-                    txtUtransAlias1Type.BackColor = Color.LightSalmon;
-                    txtUtransAlias2.BackColor = Color.LightSalmon;
-                    txtUtransAlias2Type.BackColor = Color.LightSalmon;
-                    txtUtranStName.BackColor = Color.LightSalmon;
-                    txtUtranStType.BackColor = Color.LightSalmon;
-                    txtUtranSufDir.BackColor = Color.LightSalmon;
+                    txtUtranL_F_Add.BackColor = Color.LightGray;
+                    txtUtranL_T_Add.BackColor = Color.LightGray;
+                    txtUtranPreDir.BackColor = Color.LightGray;
+                    txtUtranR_F_Add.BackColor = Color.LightGray;
+                    txtUtranR_T_Add.BackColor = Color.LightGray;
+                    txtUtransAcsAllias.BackColor = Color.LightGray;
+                    txtUtransAcsSuf.BackColor = Color.LightGray;
+                    txtUtransAlias1.BackColor = Color.LightGray;
+                    txtUtransAlias1Type.BackColor = Color.LightGray;
+                    txtUtransAlias2.BackColor = Color.LightGray;
+                    txtUtransAlias2Type.BackColor = Color.LightGray;
+                    txtUtranStName.BackColor = Color.LightGray;
+                    txtUtranStType.BackColor = Color.LightGray;
+                    txtUtranSufDir.BackColor = Color.LightGray;
+
+                    //i could change this to loop the control list and update all the controls with a tag like utrans
+                    txtUtranL_F_Add.ReadOnly = true;
+                    txtUtranL_T_Add.ReadOnly = true;
+                    txtUtranPreDir.ReadOnly = true;
+                    txtUtranR_F_Add.ReadOnly = true;
+                    txtUtranR_T_Add.ReadOnly = true;
+                    txtUtransAcsAllias.ReadOnly = true;
+                    txtUtransAcsSuf.ReadOnly = true;
+                    txtUtransAlias1.ReadOnly = true;
+                    txtUtransAlias1Type.ReadOnly = true;
+                    txtUtransAlias2.ReadOnly = true;
+                    txtUtransAlias2Type.ReadOnly = true;
+                    txtUtranStName.ReadOnly = true;
+                    txtUtranStType.ReadOnly = true;
+                    txtUtranSufDir.ReadOnly = true;
+
+                    lblLeftFrom.Enabled = false;
+                    lblRightFrom.Enabled = false;
+                    lblLeftTo.Enabled = false;
+                    lblRightTo.Enabled = false;
+                    lblPreDir.Enabled = false;
+                    lblStName.Enabled = false;
+                    lblStType.Enabled = false;
+                    lblSufDir.Enabled = false;
+                    lblAcsAlias.Enabled = false;
+                    lblAcsSuf.Enabled = false;
+                    lblAlias.Enabled = false;
+                    lblAlias1Type.Enabled = false;
+                    lblAlias2.Enabled = false;
+                    lblAlias2Type.Enabled = false;
+                    
+
 
                     //show get new feature button and make save button not enabled
                     btnCopyNewSegment.Visible = true;
@@ -1644,13 +1715,6 @@ namespace UtransEditorAGRC
                     " AND ACSALIAS = '" + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("ACSALIAS")) + "'" +
                     " AND ACSSUF = '" + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("ACSSUF")) + "'";
 
-                //"L_F_ADD = " + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("L_F_ADD")) +
-                //" AND L_T_ADD = " + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("L_T_ADD")) +
-                //" AND R_F_ADD = " + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("R_F_ADD")) +
-                //" AND R_T_ADD = " + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("R_T_ADD")) +
-                //" AND PREDIR = '" + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("PREDIR")) + "'" +
-                //" AND STREETNAME = '" + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("STREETNAME")) + "'";
-
                 //create feature cursor for getting new road segment 
                 IFeatureCursor arcFeatCur_UtransNewSegment = clsGlobals.arcGeoFLayerUtransStreets.SearchDisplayFeatures(arcQueryFilterNewUtransSegment, false);
                 IFeature arcFeature_UtransNewSegment; // = arcFeatCur_UtransNewSegment.NextFeature();
@@ -1697,9 +1761,11 @@ namespace UtransEditorAGRC
                 arcActiveView.Refresh(); //.PartialRefresh(esriViewDrawPhase.esriViewGeoSelection, null, null);
                 arcActiveView.Refresh();
 
+                //select the dfc layer again with now the new object id on the utrans segment (base_fid) now has an oid instead of a "-1" value
+                //IFeatureSelection arcFeatSelection_dfcNewUtransOID;
 
                 //call on selection changed
-
+                frmUtransEditor_OnSelectionChanged();
 
 
             }
