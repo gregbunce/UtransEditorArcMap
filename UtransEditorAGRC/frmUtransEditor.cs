@@ -15,6 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ESRI.ArcGIS.GeoDatabaseUI;
 
 namespace UtransEditorAGRC
 {
@@ -55,6 +56,7 @@ namespace UtransEditorAGRC
         string strCountyOID = "";
         string strUtransOID = "";
         string strChangeType = "";
+        string strDFC_RESULT_oid = "";
 
 
         public frmUtransEditor()
@@ -248,6 +250,7 @@ namespace UtransEditorAGRC
                 strCountyOID = "";
                 strUtransOID = "";
                 strChangeType = "";
+                strDFC_RESULT_oid = "";
 
 
                 //clear utrans existing variables - for reuse
@@ -284,6 +287,7 @@ namespace UtransEditorAGRC
                     strCountyOID = arcRow.get_Value(arcRow.Fields.FindField("UPDATE_FID")).ToString();
                     strUtransOID = arcRow.get_Value(arcRow.Fields.FindField("BASE_FID")).ToString();
                     strChangeType = arcRow.get_Value(arcRow.Fields.FindField("CHANGE_TYPE")).ToString();
+                    strDFC_RESULT_oid = arcRow.get_Value(arcRow.Fields.FindField("OBJECTID")).ToString();
 
                     //populate the change type on the top of the form
                     switch (strChangeType)
@@ -1569,11 +1573,12 @@ namespace UtransEditorAGRC
 
                 //create query filter to get the new segment (from county fc)
                 IQueryFilter arcQueryFilter_loadSegment = new QueryFilter();
-                arcQueryFilter_loadSegment.SubFields = "Shape,ZIPLEFT,ZIPRIGHT,L_F_ADD,L_T_ADD,R_F_ADD,R_T_ADD,PREDIR,STREETNAME,STREETTYPE,SUFDIR";
+                arcQueryFilter_loadSegment.SubFields = "Shape,ZIPLEFT,ZIPRIGHT,L_F_ADD,L_T_ADD,R_F_ADD,R_T_ADD,PREDIR,STREETNAME,STREETTYPE,SUFDIR,ALIAS1,ALIAS1TYPE,ALIAS2,ALIAS2TYPE,ACSALIAS,ACSNAME,ACSSUF,USPS_PLACE,ONEWAY,SPEED,VERTLEVEL,CLASS,MODIFYDATE,COLLDATE,ACCURACY,SOURCE,NOTES";
                 arcQueryFilter_loadSegment.WhereClause = "OBJECTID = " + strCountyOID;
 
-                //IFeatureCursor arcFeatCur_loadSegment = clsGlobals.arcGeoFLayerCountyStreets.Search(arcQueryFilter_loadSegment, false);
-                //IFeature arcFeature_loadSegment = arcFeatCur_loadSegment.NextFeature();
+                //get the county roads segment for quering new utrans street segment below
+                IFeatureCursor arcFeatCur_CountyLoadSegment = clsGlobals.arcGeoFLayerCountyStreets.Search(arcQueryFilter_loadSegment, false);
+                IFeature arcFeature_CountyLoadSegment = arcFeatCur_CountyLoadSegment.NextFeature();
 
                 IFeatureClass arcFeatClassCounty = clsGlobals.arcGeoFLayerCountyStreets.FeatureClass;
                 IFeatureClass arcFeaClassUtrans = clsGlobals.arcGeoFLayerUtransStreets.FeatureClass;
@@ -1621,12 +1626,76 @@ namespace UtransEditorAGRC
                 }
 
 
+                //select the new feature in the utrans database - based on values in the county street layer
+                IQueryFilter arcQueryFilterNewUtransSegment = new QueryFilter();
+                arcQueryFilterNewUtransSegment.WhereClause =
+                    "L_F_ADD = " + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("L_F_ADD")) +
+                    " AND L_T_ADD = " + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("L_T_ADD")) +
+                    " AND R_F_ADD = " + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("R_F_ADD")) +
+                    " AND R_T_ADD = " + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("R_T_ADD")) +
+                    " AND PREDIR = '" + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("PREDIR")) + "'" +
+                    " AND STREETNAME = '" + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("STREETNAME")) + "'" +
+                    " AND STREETTYPE = '" + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("STREETTYPE")) + "'" +
+                    " AND SUFDIR = '" + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("SUFDIR")) + "'" +
+                    " AND ALIAS1 = '" + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("ALIAS1")) + "'" +
+                    " AND ALIAS1TYPE = '" + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("ALIAS1TYPE")) + "'" +
+                    " AND ALIAS2 = '" + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("ALIAS2")) + "'" +
+                    " AND ALIAS2TYPE = '" + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("ALIAS2TYPE")) + "'" +
+                    " AND ACSALIAS = '" + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("ACSALIAS")) + "'" +
+                    " AND ACSSUF = '" + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("ACSSUF")) + "'";
+
+                //"L_F_ADD = " + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("L_F_ADD")) +
+                //" AND L_T_ADD = " + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("L_T_ADD")) +
+                //" AND R_F_ADD = " + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("R_F_ADD")) +
+                //" AND R_T_ADD = " + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("R_T_ADD")) +
+                //" AND PREDIR = '" + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("PREDIR")) + "'" +
+                //" AND STREETNAME = '" + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("STREETNAME")) + "'";
+
+                //create feature cursor for getting new road segment 
+                IFeatureCursor arcFeatCur_UtransNewSegment = clsGlobals.arcGeoFLayerUtransStreets.SearchDisplayFeatures(arcQueryFilterNewUtransSegment, false);
+                IFeature arcFeature_UtransNewSegment; // = arcFeatCur_UtransNewSegment.NextFeature();
+
+                //check if there are duplicate records in the table - if not preceed, else give message box and return
+                int intUtransFeatCount = 0;
+                string strNewStreetOID = "";
+                
+                while ((arcFeature_UtransNewSegment = arcFeatCur_UtransNewSegment.NextFeature()) != null)
+                {
+                    strNewStreetOID = arcFeature_UtransNewSegment.get_Value(arcFeature_UtransNewSegment.Fields.FindField("OBJECTID")).ToString();
+                    intUtransFeatCount = intUtransFeatCount + 1;
+                }
+
+
+                //check for duplcate records
+                if (intUtransFeatCount == 1)
+                {
+                    IQueryFilter arcQueryFilter_DFC_updateOID = new QueryFilter();
+                    arcQueryFilter_DFC_updateOID.WhereClause = "OBJECTID = " + strDFC_RESULT_oid;
+
+                    //proceed with calculating values in the dfc table - 
+                    ICalculator arcCalculator = new Calculator();
+                    ICursor arcCur_dfcLayer = clsGlobals.arcGeoFLayerDfcResult.FeatureClass.Update(arcQueryFilter_DFC_updateOID, true) as ICursor;
+
+                    arcCalculator.Cursor = arcCur_dfcLayer;
+                    arcCalculator.Expression = strNewStreetOID;
+                    arcCalculator.Field = "BASE_FID"; // "CURRENT_NOTES";
+                    arcCalculator.Calculate();
+                    arcCalculator.ShowErrorPrompt = true;
+
+                    //clear out the cursor
+                    arcCur_dfcLayer = null;
+                }
+                else if (intUtransFeatCount > 1)
+                {
+                    MessageBox.Show("The new road segment that was just copied into the Utrans database has duplicate attributes with an existing segment! Please investigate and proceed as necessary.", "Duplicate Attributes!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+
+                }
+
 
                 //refresh the map layers and data
                 arcActiveView.Refresh(); //.PartialRefresh(esriViewDrawPhase.esriViewGeoSelection, null, null);
                 arcActiveView.Refresh();
-
-                //select the new feature in the utrans database
 
 
                 //call on selection changed
