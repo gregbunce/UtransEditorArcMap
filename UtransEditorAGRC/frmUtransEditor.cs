@@ -1,6 +1,8 @@
 ﻿using ESRI.ArcGIS.ArcMapUI;
 using ESRI.ArcGIS.Carto;
 using ESRI.ArcGIS.Editor;
+using ESRI.ArcGIS.EditorExt;
+using ESRI.ArcGIS.esriSystem;
 using ESRI.ArcGIS.Geodatabase;
 using ESRI.ArcGIS.Geometry;
 using System;
@@ -48,6 +50,11 @@ namespace UtransEditorAGRC
 
         //create an italic font for lables - to use where data does not match
         Font fontLabelRegular = new Font("Microsoft Sans Serif", 8.0f, FontStyle.Regular);
+
+        //get the objectids from dfc layer for selecting on corresponding layer
+        string strCountyOID = "";
+        string strUtransOID = "";
+        string strChangeType = "";
 
 
         public frmUtransEditor()
@@ -238,9 +245,9 @@ namespace UtransEditorAGRC
                 groupBoxUtransSeg.Text = "Selected UTRANS Road Segment";
 
                 //get the objectids from dfc layer for selecting on corresponding layer
-                string strCountyOID = "";
-                string strUtransOID = "";
-                string strChangeType = "";
+                strCountyOID = "";
+                strUtransOID = "";
+                strChangeType = "";
 
 
                 //clear utrans existing variables - for reuse
@@ -1546,11 +1553,84 @@ namespace UtransEditorAGRC
         {
             try
             {
-                //get access to the selected feature in county roads dataset 
+                //UID uID = new UID();
+                //uID.Value = "esriEditor.Editor";
+                //if (clsGlobals.arcApplication == null)
+                //    return;
 
+                //IEditor arcEditor = clsGlobals.arcApplication.FindExtensionByCLSID(uID) as IEditor;
+                
+                //or just use the global reference
+                //clsGlobals.arcEditor;
+
+                //get access to the selected feature in county roads dataset 
+                IObjectLoader objectLoader = new ObjectLoaderClass();
+                IEnumInvalidObject invalidObjectEnum;
+
+                //create query filter to get the new segment (from county fc)
+                IQueryFilter arcQueryFilter_loadSegment = new QueryFilter();
+                arcQueryFilter_loadSegment.SubFields = "Shape,ZIPLEFT,ZIPRIGHT,L_F_ADD,L_T_ADD,R_F_ADD,R_T_ADD,PREDIR,STREETNAME,STREETTYPE,SUFDIR";
+                arcQueryFilter_loadSegment.WhereClause = "OBJECTID = " + strCountyOID;
+
+                //IFeatureCursor arcFeatCur_loadSegment = clsGlobals.arcGeoFLayerCountyStreets.Search(arcQueryFilter_loadSegment, false);
+                //IFeature arcFeature_loadSegment = arcFeatCur_loadSegment.NextFeature();
+
+                IFeatureClass arcFeatClassCounty = clsGlobals.arcGeoFLayerCountyStreets.FeatureClass;
+                IFeatureClass arcFeaClassUtrans = clsGlobals.arcGeoFLayerUtransStreets.FeatureClass;
+
+                //OutputFields parameter needs to match sub-fields in input queryfilter
+                IFields allFields = arcFeaClassUtrans.Fields;
+                IFields outFields = new FieldsClass();
+                IFieldsEdit outFieldsEdit = outFields as IFieldsEdit;
+                // Get the query filter sub-fields as an array
+                // and loop through each field in turn,
+                // adding it to the ouput fields
+                String[] subFields = (arcQueryFilter_loadSegment.SubFields).Split(',');
+                for (int j = 0; j < subFields.Length; j++)
+                {
+                    int fieldID = allFields.FindField(subFields[j]);
+                    if (fieldID == -1)
+                    {
+                        System.Windows.Forms.MessageBox.Show("field not found: " + subFields[j]);
+                        return;
+                    }
+                    outFieldsEdit.AddField(allFields.get_Field(fieldID));
+                }
+
+
+                //load the feature into utrans
+                objectLoader.LoadObjects(
+                    null,
+                    (ITable)arcFeatClassCounty,
+                    arcQueryFilter_loadSegment,
+                    (ITable)arcFeaClassUtrans,
+                    outFields,
+                    false,
+                    0,
+                    false,
+                    false,
+                    10,
+                    out invalidObjectEnum
+                );
+
+                //verify that the feature loaded
+                IInvalidObjectInfo invalidObject = invalidObjectEnum.Next();
+                if (invalidObject != null)
+                {
+                    System.Windows.Forms.MessageBox.Show("Something went wrong... the County road segment did not load in the Utrans database.");
+                }
+
+
+
+                //refresh the map layers and data
+                arcActiveView.Refresh(); //.PartialRefresh(esriViewDrawPhase.esriViewGeoSelection, null, null);
+                arcActiveView.Refresh();
+
+                //select the new feature in the utrans database
 
 
                 //call on selection changed
+
 
 
             }
@@ -1562,6 +1642,13 @@ namespace UtransEditorAGRC
                 "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
+
+        private void toolTip1_Popup(object sender, PopupEventArgs e)
+        {
+
+        }
+
+
 
 
     }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmUtransEditor));
             this.txtCountyL_F_Add = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -105,6 +106,7 @@
             this.label33 = new System.Windows.Forms.Label();
             this.btnPrev = new System.Windows.Forms.Button();
             this.btnCopyNewSegment = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBoxCountySeg.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -988,9 +990,14 @@
             this.btnCopyNewSegment.Name = "btnCopyNewSegment";
             this.btnCopyNewSegment.Size = new System.Drawing.Size(50, 50);
             this.btnCopyNewSegment.TabIndex = 22;
+            this.toolTip1.SetToolTip(this.btnCopyNewSegment, "Load Selected County Segment into UTRANS Database.");
             this.btnCopyNewSegment.UseVisualStyleBackColor = true;
             this.btnCopyNewSegment.Visible = false;
             this.btnCopyNewSegment.Click += new System.EventHandler(this.btnCopyNewSegment_Click);
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip1_Popup);
             // 
             // frmUtransEditor
             // 
@@ -1110,5 +1117,6 @@
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.Button btnCopyNewSegment;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
