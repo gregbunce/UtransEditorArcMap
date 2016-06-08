@@ -1585,32 +1585,52 @@ namespace UtransEditorAGRC
                     //MessageBox.Show("The midpoint of the selected line segment is: " + arcUtransEdits_midPoint.X.ToString() + ", " + arcUtransEdits_midPoint.Y.ToString());
 
 
-
-
-
                     //populate some other fields...
+
+                    // spatial intersect for the following fields: ADDR_SYS, ADDR_QUAD, ZIPLEFT, ZIPRIGHT, COFIPS (Maybe USPS_PLACE)
+                    // ADDR_SYS and ADDR_QUAD
+                    ISpatialFilter arcSpatialFilter_AddrSys = new SpatialFilter();
+                    arcSpatialFilter_AddrSys.Geometry = arcUtransEdits_midPoint;
+                    arcSpatialFilter_AddrSys.GeometryField = "SHAPE";
+                    arcSpatialFilter_AddrSys.SpatialRel = esriSpatialRelEnum.esriSpatialRelIntersects;
+                    arcSpatialFilter_AddrSys.SubFields = "*";
+
+                    IFeatureCursor arcAddrSysCursor = clsGlobals.arcFLayerAddrSysQuads.Search(arcSpatialFilter_AddrSys, false);
+                    IFeature arcFeatureAddrSys = arcAddrSysCursor.NextFeature();
+                    if (arcFeatureAddrSys != null)
+                    {
+                        //update the value in the utrans based on the intersect
+                        arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("ADDR_SYS"), arcFeatureAddrSys.get_Value(arcFeatureAddrSys.Fields.FindField("GRID_NAME")));
+                        arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("ADDR_QUAD"), arcFeatureAddrSys.get_Value(arcFeatureAddrSys.Fields.FindField("QUADRANT")));
+                    }
+                    else
+                    {
+                        MessageBox.Show("The midpoint of the street segment you are trying to update is not within an AddressSystemQuadrants.", "Whoa there Cowboy!");
+                        //give option to leave blank or abort edit operation and return
+                        //return;
+                    }
+                    arcAddrSysCursor = null;
+                    arcFeatureAddrSys = null;
+
+
+
+                    // ZIPLEFT and ZIPRIGHT
+
+                    ISpatialFilter arcSpatialFilter_Zip = new SpatialFilter();
+
+
+
+                    
+                    // COFIPS
+                    ISpatialFilter arcSpatialFilter_County = new SpatialFilter();
+
+                    // USPS_PLACE
+
+
                     // FULLNAME
 
 
                     // ACSNAME
-
-
-                    // ADDR_SYS
-
-
-                    // ADDR_QUAD
-
-
-                    // ZIPLEFT
-
-
-                    // ZIPRIGHT
-
-                    
-                    // COFIPS
-
-
-                    // USPS_PLACE
 
 
 
