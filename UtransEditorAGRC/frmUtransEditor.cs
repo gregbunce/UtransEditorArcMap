@@ -142,6 +142,26 @@ namespace UtransEditorAGRC
                                 clsGlobals.arcGeoFLayerDfcResult = arcMapp.get_Layer(i) as IGeoFeatureLayer;
                                 //MessageBox.Show("referenced dfc results");
                             }
+                            if (arcObjClass.AliasName.ToString().ToUpper() == "SGID10.LOCATION.AddressSystemQuadrants")
+                            {
+                                clsGlobals.arcFLayerAddrSysQuads = arcMapp.get_Layer(i) as IFeatureLayer;
+                            }
+                            if (arcObjClass.AliasName.ToString().ToUpper() == "SGID10.BOUNDARIES.Municipalities")
+                            {
+                                clsGlobals.arcFLayerMuni = arcMapp.get_Layer(i) as IFeatureLayer;
+                            }
+                            if (arcObjClass.AliasName.ToString().ToUpper() == "SGID10.BOUNDARIES.ZipCodes")
+                            {
+                                clsGlobals.arcFLayerZipCodes = arcMapp.get_Layer(i) as IFeatureLayer;
+                            }
+                            if (arcObjClass.AliasName.ToString().ToUpper() == "SGID10.BOUNDARIES.Counties")
+                            {
+                                clsGlobals.arcFLayerCounties = arcMapp.get_Layer(i) as IFeatureLayer;
+                            }
+                            if (arcObjClass.AliasName.ToString().ToUpper() == "SGID10.DEMOGRAPHIC.CensusPlaces2010")
+                            {
+                                clsGlobals.arcFLayerCensusPlace = arcMapp.get_Layer(i) as IFeatureLayer;
+                            }
                         }
                         catch (Exception) { }//in case there is an error looping through layers (sometimes on group layers or dynamic xy layers), just keep going
 
@@ -152,29 +172,48 @@ namespace UtransEditorAGRC
                 //check that the needed layers are in the map - if not, show message and close the form
                 if (clsGlobals.arcGeoFLayerCountyStreets == null)
                 {
-                    MessageBox.Show("A needed layer is Missing in the map.   Please add 'COUNTYSTREETS' in order to continue.", "Missing Layer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("A needed layer is Missing in the map." + Environment.NewLine + "Please add 'COUNTYSTREETS' in order to continue.", "Missing Layer", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     this.Close();
                     return;
                 }
                 else if (clsGlobals.arcGeoFLayerDfcResult == null)
                 {
-                    MessageBox.Show("A needed layer is Missing in the map.   Please add 'DFC_RESULT' in order to continue.", "Missing Layer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("A needed layer is Missing in the map." + Environment.NewLine + "Please add 'DFC_RESULT' in order to continue.", "Missing Layer", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     this.Close();
                     return;
                 }
                 else if (clsGlobals.arcGeoFLayerUtransStreets == null)
                 {
-                    MessageBox.Show("A needed layer is Missing in the map.   Please add 'UTRANS.TRANSADMIN.STATEWIDESTREETS' in order to continue.", "Missing Layer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("A needed layer is Missing in the map." + Environment.NewLine + "Please add 'UTRANS.TRANSADMIN.STATEWIDESTREETS' in order to continue.", "Missing Layer", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     this.Close();
                     return;
                 }
-
+                else if (clsGlobals.arcFLayerAddrSysQuads == null)
+                {
+                    MessageBox.Show("A needed layer is Missing in the map." + Environment.NewLine + "Please add 'SGID10.LOCATION.AddressSystemQuadrants' in order to continue.", "Missing Layer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.Close();
+                    return;
+                }
+                else if (clsGlobals.arcFLayerZipCodes == null)
+                {
+                    MessageBox.Show("A needed layer is Missing in the map." + Environment.NewLine + "Please add 'SGID10.BOUNDARIES.ZipCodes' in order to continue.", "Missing Layer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.Close();
+                    return;
+                }
+                else if (clsGlobals.arcFLayerCounties == null)
+                {
+                    MessageBox.Show("A needed layer is Missing in the map." + Environment.NewLine + "Please add 'SGID10.BOUNDARIES.Counties' in order to continue.", "Missing Layer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.Close();
+                    return;
+                }
+  
                 
                 //clear the selection in the map, so we can start fresh with the tool and user's inputs
                 arcMapp.ClearSelection();
                 
                 //refresh the map on the selected features
-                arcActiveView.PartialRefresh(esriViewDrawPhase.esriViewGeoSelection, null, null);
+                //arcActiveView.PartialRefresh(esriViewDrawPhase.esriViewGeoSelection, null, null);
+                arcActiveView.Refresh();
 
 
                 //add textboxes to the control list
@@ -1536,13 +1575,16 @@ namespace UtransEditorAGRC
                     }
 
 
-                    //get the center/centroid of the line segment for doint spatial queries (intersects)
+                    //get the midpoint of the line segment for doing spatial queries (intersects)
                     IGeometry arcUtransEdits_geometry = arcUtransEdit_Feature.ShapeCopy;
                     IPolyline arcUtransEdits_polyline = arcUtransEdits_geometry as IPolyline;
                     IPoint arcUtransEdits_midPoint = new ESRI.ArcGIS.Geometry.Point();
 
+                    //get the midpoint of the line, pass it into a point
                     arcUtransEdits_polyline.QueryPoint(esriSegmentExtension.esriNoExtension, 0.5, true, arcUtransEdits_midPoint);
                     //MessageBox.Show("The midpoint of the selected line segment is: " + arcUtransEdits_midPoint.X.ToString() + ", " + arcUtransEdits_midPoint.Y.ToString());
+
+
 
 
 

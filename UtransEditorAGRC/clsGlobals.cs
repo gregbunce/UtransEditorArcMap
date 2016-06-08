@@ -43,5 +43,38 @@ namespace UtransEditorAGRC
             set;
         }
 
+        public static IFeatureLayer arcFLayerAddrSysQuads
+        {
+            get;
+            set;
+        }
+
+        public static IFeatureLayer arcFLayerMuni
+        {
+            get;
+            set;
+        }
+
+        public static IFeatureLayer arcFLayerZipCodes
+        {
+            get;
+            set;
+        }
+
+        public static IFeatureLayer arcFLayerCounties
+        {
+            get;
+            set;
+        }
+
+        public static IFeatureLayer arcFLayerCensusPlace
+        {
+            get;
+            set;
+        }
+
+
+
+
     }
 }
