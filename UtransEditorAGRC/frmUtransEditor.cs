@@ -58,10 +58,16 @@ namespace UtransEditorAGRC
         string strChangeType = "";
         string strDFC_RESULT_oid = "";
 
+        //used with blinking label
+        private const int _blinkFrequency = 500; //1.2 second... //1/4 of a second = 250
+        private const int _maxNumberOfBlinks = 4;
+        private int _blinkCount = 0;
 
+        //initialize the form
         public frmUtransEditor()
         {
             InitializeComponent();
+            //timer1.Interval = _blinkFrequency;
         }
 
 
@@ -105,6 +111,7 @@ namespace UtransEditorAGRC
                 IMap arcMapp = arcMxDoc.FocusMap;
 
                 arcActiveView = arcMapp as IActiveView;
+                arcMapp.ClearSelection();
 
                 //get reference to the layers in the map
                 //clear out any reference to the utrans street layer
@@ -230,6 +237,10 @@ namespace UtransEditorAGRC
                 //hide the copy new segment button
                 btnCopyNewSegment.Hide();
 
+                //set the timer's blink frequency
+                timer1.Interval = _blinkFrequency;
+
+
                 //enable the textboxes - in case last record was "N" and were disabled
                 txtUtranL_F_Add.ReadOnly = false;
                 txtUtranL_T_Add.ReadOnly = false;
@@ -329,7 +340,11 @@ namespace UtransEditorAGRC
                             }
                             else
                             {
-                                lblChangeType.Text = "New (Now in UTRANS - Please Verify Attributes and Click ''Save in UTRANS'' Button)";
+                                
+                                lblChangeType.Text = "New (Now in UTRANS - Please verify attributes and click save button on Utrans Editor)";
+                                //make this text flash...
+                                //timer1.Start();
+
                             }
                             //lblChangeType.Text = "New";
                             break;
@@ -1481,12 +1496,55 @@ namespace UtransEditorAGRC
 
 
 
-        // save button
+
+        // save in utrans button
         private void btnSaveToUtrans_Click(object sender, EventArgs e)
         {
             try
             {
-                //save the values on the form to the selected feature
+                //save the values on the form in the utrans database
+                //get the selected dfc layers value for the current utrans oid
+                
+                IQueryFilter arcUtransEdit_QueryFilter = new QueryFilter();
+                arcUtransEdit_QueryFilter.WhereClause = "OBJECTID = " + strUtransOID;
+
+                //get the feaure to update/save
+                IFeatureCursor arcUtransEdit_FeatCur = clsGlobals.arcGeoFLayerUtransStreets.Search(arcUtransEdit_QueryFilter,false);
+                IFeature arcUtransEdit_Feature = arcUtransEdit_FeatCur.NextFeature();
+
+                //make sure a record is selected for editing
+                if (arcUtransEdit_Feature != null)
+                {
+                    //set the current edit layer to the address point layer
+                    IEditLayers arcEditLayers = clsGlobals.arcEditor as IEditLayers;
+                    arcEditLayers.SetCurrentLayer(clsGlobals.arcGeoFLayerUtransStreets, 0);
+
+                    //start the edit operation
+                    clsGlobals.arcEditor.StartOperation();
+
+                    //loop through the control save the changes to utrans
+                    for (int i = 0; i < ctrlList.Count; i++)
+                    {
+
+
+                    }
+
+
+
+
+                }
+                else
+                {
+                    MessageBox.Show("Oops, an error occurred! Could not find a record in the UTRANS database base to update using the following query: " + arcUtransEdit_QueryFilter.ToString() + "." + Environment.NewLine + "Please check DFC_RESULT selection and try again.", "Error Saving to UTRANS!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+
+
+
+
+
+
 
             }
             catch (Exception ex)
@@ -1697,23 +1755,67 @@ namespace UtransEditorAGRC
                 }
 
 
+                //create variables for the address range where clause, in case empty values
+                string strL_F_add = arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("L_F_ADD")).ToString().Trim();
+                string strL_T_add = arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("L_T_ADD")).ToString().Trim();
+                string strR_F_add = arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("R_F_ADD")).ToString().Trim();
+                string strR_T_add = arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("R_T_ADD")).ToString().Trim();
+
+
+                //check for road segment has empty values for street range, if so pass in zero in where clause
+                if (strL_F_add == "")
+                {
+                    strL_F_add = "is null";
+                }
+                else
+                {
+                    strL_F_add = "= " + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("L_F_ADD")).ToString();
+                }
+
+                if (strL_T_add == "")
+                {
+                    strL_T_add = "is null";
+                }
+                else
+                {
+                    strL_T_add = "= " + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("L_T_ADD")).ToString();
+                }
+
+                if (strR_F_add == "")
+                {
+                    strR_F_add = "is null";
+                }
+                else
+                {
+                    strR_F_add = "= " + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("R_F_ADD")).ToString();
+                }
+
+                if (strR_T_add == "")
+                {
+                    strR_T_add = "is null";
+                }
+                else
+                {
+                    strR_T_add = "= " + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("R_T_ADD")).ToString();
+                }
+
                 //select the new feature in the utrans database - based on values in the county street layer
                 IQueryFilter arcQueryFilterNewUtransSegment = new QueryFilter();
                 arcQueryFilterNewUtransSegment.WhereClause =
-                    "L_F_ADD = " + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("L_F_ADD")) +
-                    " AND L_T_ADD = " + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("L_T_ADD")) +
-                    " AND R_F_ADD = " + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("R_F_ADD")) +
-                    " AND R_T_ADD = " + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("R_T_ADD")) +
+                    "L_F_ADD " + strL_F_add +
+                    " AND L_T_ADD " + strL_T_add +
+                    " AND R_F_ADD " + strR_F_add +
+                    " AND R_T_ADD " + strR_T_add +
                     " AND PREDIR = '" + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("PREDIR")) + "'" +
                     " AND STREETNAME = '" + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("STREETNAME")) + "'" +
                     " AND STREETTYPE = '" + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("STREETTYPE")) + "'" +
-                    " AND SUFDIR = '" + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("SUFDIR")) + "'" +
-                    " AND ALIAS1 = '" + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("ALIAS1")) + "'" +
-                    " AND ALIAS1TYPE = '" + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("ALIAS1TYPE")) + "'" +
-                    " AND ALIAS2 = '" + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("ALIAS2")) + "'" +
-                    " AND ALIAS2TYPE = '" + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("ALIAS2TYPE")) + "'" +
-                    " AND ACSALIAS = '" + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("ACSALIAS")) + "'" +
-                    " AND ACSSUF = '" + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("ACSSUF")) + "'";
+                    " AND SUFDIR = '" + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("SUFDIR")) + "'";
+                    //" AND ALIAS1 = '" + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("ALIAS1")) + "'" +
+                    //" AND ALIAS1TYPE = '" + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("ALIAS1TYPE")) + "'" +
+                    //" AND ALIAS2 = '" + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("ALIAS2")) + "'" +
+                    //" AND ALIAS2TYPE = '" + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("ALIAS2TYPE")) + "'" +
+                    //" AND ACSALIAS = '" + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("ACSALIAS")) + "'" +
+                    //" AND ACSSUF = '" + arcFeature_CountyLoadSegment.get_Value(arcFeature_CountyLoadSegment.Fields.FindField("ACSSUF")) + "'";
 
                 //create feature cursor for getting new road segment 
                 IFeatureCursor arcFeatCur_UtransNewSegment = clsGlobals.arcGeoFLayerUtransStreets.SearchDisplayFeatures(arcQueryFilterNewUtransSegment, false);
@@ -1730,7 +1832,7 @@ namespace UtransEditorAGRC
                 }
 
 
-                //check for duplcate records
+                //check for duplcate records - use less than two b/c if the number ranges are null it's doesn't find a match in utrans so it's 0
                 if (intUtransFeatCount == 1)
                 {
                     IQueryFilter arcQueryFilter_DFC_updateOID = new QueryFilter();
@@ -1753,8 +1855,16 @@ namespace UtransEditorAGRC
                 {
                     MessageBox.Show("The new road segment that was just copied into the Utrans database has duplicate attributes with an existing segment! Please investigate and proceed as necessary.", "Duplicate Attributes!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
-
                 }
+                else if (intUtransFeatCount == 0)
+                {
+                    MessageBox.Show("Warning... The new road segment that was just copied into the Utrans database could not be found with the following defintion query: " + arcQueryFilterNewUtransSegment.WhereClause.ToString(), "Not Found in Utrans", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+
+                //calc values in the dfc table to show the new oid
+
 
 
                 //refresh the map layers and data
@@ -1780,6 +1890,23 @@ namespace UtransEditorAGRC
 
         private void toolTip1_Popup(object sender, PopupEventArgs e)
         {
+
+        }
+
+
+        //blink the 'new in utrans' label
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            this.lblChangeType.Visible = !this.lblChangeType.Visible;
+
+            _blinkCount++;
+
+            if (_blinkCount == _maxNumberOfBlinks)
+            {
+                timer1.Stop();
+                lblChangeType.Visible = true;
+                lblChangeType.Visible = true;
+            }
 
         }
 
