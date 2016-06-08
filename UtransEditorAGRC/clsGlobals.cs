@@ -67,13 +67,6 @@ namespace UtransEditorAGRC
             set;
         }
 
-        public static IFeatureLayer arcFLayerCensusPlace
-        {
-            get;
-            set;
-        }
-
-
 
 
     }

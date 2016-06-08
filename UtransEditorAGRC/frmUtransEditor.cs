@@ -142,25 +142,21 @@ namespace UtransEditorAGRC
                                 clsGlobals.arcGeoFLayerDfcResult = arcMapp.get_Layer(i) as IGeoFeatureLayer;
                                 //MessageBox.Show("referenced dfc results");
                             }
-                            if (arcObjClass.AliasName.ToString().ToUpper() == "SGID10.LOCATION.AddressSystemQuadrants")
+                            if (arcObjClass.AliasName.ToString() == "SGID10.LOCATION.AddressSystemQuadrants")
                             {
                                 clsGlobals.arcFLayerAddrSysQuads = arcMapp.get_Layer(i) as IFeatureLayer;
                             }
-                            if (arcObjClass.AliasName.ToString().ToUpper() == "SGID10.BOUNDARIES.Municipalities")
+                            if (arcObjClass.AliasName.ToString() == "SGID10.BOUNDARIES.Municipalities")
                             {
                                 clsGlobals.arcFLayerMuni = arcMapp.get_Layer(i) as IFeatureLayer;
                             }
-                            if (arcObjClass.AliasName.ToString().ToUpper() == "SGID10.BOUNDARIES.ZipCodes")
+                            if (arcObjClass.AliasName.ToString() == "SGID10.BOUNDARIES.ZipCodes")
                             {
                                 clsGlobals.arcFLayerZipCodes = arcMapp.get_Layer(i) as IFeatureLayer;
                             }
-                            if (arcObjClass.AliasName.ToString().ToUpper() == "SGID10.BOUNDARIES.Counties")
+                            if (arcObjClass.AliasName.ToString() == "SGID10.BOUNDARIES.Counties")
                             {
                                 clsGlobals.arcFLayerCounties = arcMapp.get_Layer(i) as IFeatureLayer;
-                            }
-                            if (arcObjClass.AliasName.ToString().ToUpper() == "SGID10.DEMOGRAPHIC.CensusPlaces2010")
-                            {
-                                clsGlobals.arcFLayerCensusPlace = arcMapp.get_Layer(i) as IFeatureLayer;
                             }
                         }
                         catch (Exception) { }//in case there is an error looping through layers (sometimes on group layers or dynamic xy layers), just keep going
@@ -1609,22 +1605,63 @@ namespace UtransEditorAGRC
                         //give option to leave blank or abort edit operation and return
                         //return;
                     }
+                    //clear out variables
                     arcAddrSysCursor = null;
                     arcFeatureAddrSys = null;
 
 
-
                     // ZIPLEFT and ZIPRIGHT
-
                     ISpatialFilter arcSpatialFilter_Zip = new SpatialFilter();
+                    arcSpatialFilter_Zip.Geometry = arcUtransEdits_midPoint;
+                    arcSpatialFilter_Zip.GeometryField = "SHAPE";
+                    arcSpatialFilter_Zip.SpatialRel = esriSpatialRelEnum.esriSpatialRelIntersects;
+                    arcSpatialFilter_Zip.SubFields = "*";
 
-
+                    IFeatureCursor arcZipCursor = clsGlobals.arcFLayerZipCodes.Search(arcSpatialFilter_Zip, false);
+                    IFeature arcFeatureZip = arcZipCursor.NextFeature();
+                    if (arcFeatureZip != null)
+                    {
+                        //update the value in the utrans based on the intersect
+                        arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("ZIPLEFT"), arcFeatureAddrSys.get_Value(arcFeatureAddrSys.Fields.FindField("ZIP5")));
+                        arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("ZIPRIGHT"), arcFeatureAddrSys.get_Value(arcFeatureAddrSys.Fields.FindField("ZIP5")));
+                        //maybe update the usps_place field as well with the "name" field from the zipcodes layer
+                        arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("USPS_PLACE"), arcFeatureAddrSys.get_Value(arcFeatureAddrSys.Fields.FindField("NAME")));
+                    }
+                    else
+                    {
+                        MessageBox.Show("The midpoint of the street segment you are trying to update is not within a ZipCode.", "Whoa there Cowboy!");
+                        //give option to leave blank or abort edit operation and return
+                        //return;
+                    }
+                    //clear out variables
+                    arcZipCursor = null;
+                    arcFeatureZip = null;
 
                     
+
                     // COFIPS
                     ISpatialFilter arcSpatialFilter_County = new SpatialFilter();
+                    arcSpatialFilter_County.Geometry = arcUtransEdits_midPoint;
+                    arcSpatialFilter_County.GeometryField = "SHAPE";
+                    arcSpatialFilter_County.SpatialRel = esriSpatialRelEnum.esriSpatialRelIntersects;
+                    arcSpatialFilter_County.SubFields = "*";
 
-                    // USPS_PLACE
+                    IFeatureCursor arcCountiesCursor = clsGlobals.arcFLayerCounties.Search(arcSpatialFilter_County, false);
+                    IFeature arcFeature_County = arcCountiesCursor.NextFeature();
+                    if (arcFeature_County != null)
+                    {
+                        //update the value in the utrans based on the intersect
+                        arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("COFIPS"), arcFeatureAddrSys.get_Value(arcFeatureAddrSys.Fields.FindField("FIPS_STR")));
+                    }
+                    else
+                    {
+                        MessageBox.Show("The midpoint of the street segment you are trying to update is not within a County.", "Whoa there Cowboy!");
+                        //give option to leave blank or abort edit operation and return
+                        //return;
+                    }
+                    //clear out variables
+                    arcCountiesCursor = null;
+                    arcFeature_County = null;
 
 
                     // FULLNAME
@@ -1641,7 +1678,7 @@ namespace UtransEditorAGRC
                     clsGlobals.arcEditor.StopOperation("Street Edit");
 
 
-                    //select the utrans for visibility in ArcMap
+                    //select the utrans street segment for user's visibility in ArcMap
 
 
                     //refresh the map
@@ -1651,8 +1688,7 @@ namespace UtransEditorAGRC
                     //btnNext_Click(sender, e);
 
                     //or call the onselection changed to refresh and update the form
-                    //frmUtransEditor_OnSelectionChanged();
-
+                    frmUtransEditor_OnSelectionChanged();
 
                 }
                 else
@@ -1660,14 +1696,6 @@ namespace UtransEditorAGRC
                     MessageBox.Show("Oops, an error occurred! Could not find a record in the UTRANS database base to update using the following query: " + arcUtransEdit_QueryFilter.ToString() + "." + Environment.NewLine + "Please check DFC_RESULT selection and try again.", "Error Saving to UTRANS!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-
-
-
-
-
-
-
-
             }
             catch (Exception ex)
             {
