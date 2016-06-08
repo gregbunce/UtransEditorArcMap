@@ -1533,12 +1533,43 @@ namespace UtransEditorAGRC
                             //populate the field with the value in the corresponding textbox
                             arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField(ctrlCurrent.Tag.ToString()), ctrlCurrent.Text.Trim());
                         }
-
-                      
-
-
-
                     }
+
+
+                    //get the center/centroid of the line segment for doint spatial queries (intersects)
+                    IGeometry arcUtransEdits_geometry = arcUtransEdit_Feature.ShapeCopy;
+                    IPolyline arcUtransEdits_polyline = arcUtransEdits_geometry as IPolyline;
+                    IPoint arcUtransEdits_midPoint = new ESRI.ArcGIS.Geometry.Point();
+
+                    arcUtransEdits_polyline.QueryPoint(esriSegmentExtension.esriNoExtension, 0.5, true, arcUtransEdits_midPoint);
+                    //MessageBox.Show("The midpoint of the selected line segment is: " + arcUtransEdits_midPoint.X.ToString() + ", " + arcUtransEdits_midPoint.Y.ToString());
+
+
+
+                    //populate some other fields...
+                    // FULLNAME
+
+
+                    // ACSNAME
+
+
+                    // ADDR_SYS
+
+
+                    // ADDR_QUAD
+
+
+                    // ZIPLEFT
+
+
+                    // ZIPRIGHT
+
+                    
+                    // COFIPS
+
+
+                    // USPS_PLACE
+
 
 
                     //store the feature if not a duplicate
