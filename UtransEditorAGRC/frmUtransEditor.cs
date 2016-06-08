@@ -1525,11 +1525,40 @@ namespace UtransEditorAGRC
                     //loop through the control save the changes to utrans
                     for (int i = 0; i < ctrlList.Count; i++)
                     {
+                        Control ctrlCurrent = ctrlList[i];
+
+                        //make sure the control is not for county streets, aka it doesn't contain Co 
+                        if (!ctrlCurrent.Tag.ToString().Contains("Co"))
+                        {
+                            //populate the field with the value in the corresponding textbox
+                            arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField(ctrlCurrent.Tag.ToString()), ctrlCurrent.Text.Trim());
+                        }
+
+                      
+
 
 
                     }
 
 
+                    //store the feature if not a duplicate
+                    arcUtransEdit_Feature.Store();
+
+                    //stop the edit operation
+                    clsGlobals.arcEditor.StopOperation("Street Edit");
+
+
+                    //select the utrans for visibility in ArcMap
+
+
+                    //refresh the map
+                    arcActiveView.Refresh();
+
+                    //call the next button
+                    //btnNext_Click(sender, e);
+
+                    //or call the onselection changed to refresh and update the form
+                    //frmUtransEditor_OnSelectionChanged();
 
 
                 }
