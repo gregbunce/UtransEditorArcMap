@@ -860,17 +860,17 @@
             // 
             // cboStatusField
             // 
+            this.cboStatusField.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboStatusField.FormattingEnabled = true;
             this.cboStatusField.Items.AddRange(new object[] {
-            "Completed",
-            "Ignore",
-            "Revisit",
-            "Other"});
+            "COMPLETED",
+            "IGNORE",
+            "REVISIT",
+            "OTHER"});
             this.cboStatusField.Location = new System.Drawing.Point(11, 19);
             this.cboStatusField.Name = "cboStatusField";
             this.cboStatusField.Size = new System.Drawing.Size(142, 21);
             this.cboStatusField.TabIndex = 11;
-            this.cboStatusField.Text = "Completed";
             this.cboStatusField.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             this.cboStatusField.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.cboStatusField_MouseDoubleClick);
             // 
@@ -951,7 +951,7 @@
             this.groupBox6.Controls.Add(this.btnNext);
             this.groupBox6.Controls.Add(this.btnPrev);
             this.groupBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox6.Location = new System.Drawing.Point(307, 393);
+            this.groupBox6.Location = new System.Drawing.Point(318, 393);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(145, 74);
             this.groupBox6.TabIndex = 19;

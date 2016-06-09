@@ -270,6 +270,7 @@ namespace UtransEditorAGRC
 
                 //reset the cartocode combobox to nothing
                 cboCartoCode.SelectedIndex = -1;
+                cboStatusField.SelectedIndex = 0; // show the completed value by default
 
                 //enable the textboxes - in case last record was "N" and were disabled
                 txtUtranL_F_Add.ReadOnly = false;
@@ -370,11 +371,7 @@ namespace UtransEditorAGRC
                             }
                             else
                             {
-                                
                                 lblChangeType.Text = "New (Now in UTRANS)";
-                                //make this text flash...
-                                //timer1.Start();
-
                             }
                             //lblChangeType.Text = "New";
                             break;
@@ -432,7 +429,7 @@ namespace UtransEditorAGRC
                         }
 
                         //get the county's cartocode
-                        strCountyCartoCode = arcCountyFeature.get_Value(arcCountyFeature.Fields.FindFieldByAliasName("CARTOCODE")).ToString().Trim();
+                        //strCountyCartoCode = arcCountyFeature.get_Value(arcCountyFeature.Fields.FindFieldByAliasName("CARTOCODE")).ToString().Trim();
                     }
 
 
@@ -585,11 +582,65 @@ namespace UtransEditorAGRC
             try
             {
                 //parse the cartocodes to get the values before the hyphen
-                MessageBox.Show("Cartocodes... Utrans: " + strUtransCartoCode + ", County: " + strCountyCartoCode);
+                //MessageBox.Show("Cartocodes... Utrans: " + strUtransCartoCode + ", County: " + strCountyCartoCode);
 
-
-
-
+                switch (strUtransCartoCode)
+                {
+                    case "1":
+                        cboCartoCode.SelectedIndex = 0;
+                        break;
+                    case "2":
+                        cboCartoCode.SelectedIndex = 1;
+                        break;
+                    case "3":
+                        cboCartoCode.SelectedIndex = 2;
+                        break;
+                    case "4":
+                        cboCartoCode.SelectedIndex = 3;
+                        break;
+                    case "5":
+                        cboCartoCode.SelectedIndex = 4;
+                        break;
+                    case "6":
+                        cboCartoCode.SelectedIndex = 5;
+                        break;
+                    case "7":
+                        cboCartoCode.SelectedIndex = 6;
+                        break;
+                    case "8":
+                        cboCartoCode.SelectedIndex = 7;
+                        break;
+                    case "9":
+                        cboCartoCode.SelectedIndex = 8;
+                        break;
+                    case "10":
+                        cboCartoCode.SelectedIndex = 9;
+                        break;
+                    case "11":
+                        cboCartoCode.SelectedIndex = 10;
+                        break;
+                    case "12":
+                        cboCartoCode.SelectedIndex = 11;
+                        break;
+                    case "13":
+                        cboCartoCode.SelectedIndex = 12;
+                        break;
+                    case "14":
+                        cboCartoCode.SelectedIndex = 13;
+                        break;
+                    case "15":
+                        cboCartoCode.SelectedIndex = 14;
+                        break;
+                    case "99":
+                        cboCartoCode.SelectedIndex = 15;
+                        break;
+                    case "16":
+                        cboCartoCode.SelectedIndex = 16;
+                        break;
+                    default:
+                        cboCartoCode.SelectedIndex = -1;
+                        break;
+                }
             }
             catch (Exception ex)
             {
@@ -1556,7 +1607,7 @@ namespace UtransEditorAGRC
 
 
 
-        // save in utrans button
+        // SAVE IN UTRANS BUTTON //
         private void btnSaveToUtrans_Click(object sender, EventArgs e)
         {
             try
@@ -1673,12 +1724,6 @@ namespace UtransEditorAGRC
                     arcFeatureAddrSys = null;
 
                     // ZIPLEFT and ZIPRIGHT
-                    //ISpatialFilter arcSpatialFilter_Zip = new SpatialFilter();
-                    //arcSpatialFilter_Zip.Geometry = arcUtransEdits_midPoint;
-                    //arcSpatialFilter_Zip.GeometryField = "SHAPE";
-                    //arcSpatialFilter_Zip.SpatialRel = esriSpatialRelEnum.esriSpatialRelIntersects;
-                    //arcSpatialFilter_Zip.SubFields = "*";
-
                     IFeatureCursor arcZipCursor = clsGlobals.arcFLayerZipCodes.Search(arcSpatialFilter, false);
                     IFeature arcFeatureZip = arcZipCursor.NextFeature();
                     if (arcFeatureZip != null)
@@ -1700,12 +1745,6 @@ namespace UtransEditorAGRC
                     arcFeatureZip = null;
 
                     // COFIPS
-                    //ISpatialFilter arcSpatialFilter_County = new SpatialFilter();
-                    //arcSpatialFilter_County.Geometry = arcUtransEdits_midPoint;
-                    //arcSpatialFilter_County.GeometryField = "SHAPE";
-                    //arcSpatialFilter_County.SpatialRel = esriSpatialRelEnum.esriSpatialRelIntersects;
-                    //arcSpatialFilter_County.SubFields = "*";
-
                     IFeatureCursor arcCountiesCursor = clsGlobals.arcFLayerCounties.Search(arcSpatialFilter, false);
                     IFeature arcFeature_County = arcCountiesCursor.NextFeature();
                     if (arcFeature_County != null)
