@@ -1837,8 +1837,26 @@ namespace UtransEditorAGRC
 
 
 
+
+
                     // CARTOCODE
-                    arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("CARTOCODE"), cboCartoCode.SelectedIndex.ToString().Trim());
+                    if (cboCartoCode.SelectedIndex == 15) //this is the 99 value
+                    {
+                        arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("CARTOCODE"), 99);
+                    }
+                    else if (cboCartoCode.SelectedIndex == -1)
+                    {
+                        arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("CARTOCODE"), null);
+                    }
+                    else if (cboCartoCode.SelectedIndex == 16) //don't add one (as in the else) to this case b/c of the 99 value thowing off the index thing
+                    {
+                        arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("CARTOCODE"), 16);
+                    }
+                    else
+                    {
+                        arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("CARTOCODE"), (cboCartoCode.SelectedIndex + 1));
+                    }
+                    
 
                     //store the feature if not a duplicate
                     arcUtransEdit_Feature.Store();
