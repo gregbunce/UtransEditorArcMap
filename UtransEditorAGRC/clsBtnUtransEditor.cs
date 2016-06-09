@@ -181,9 +181,10 @@ namespace UtransEditorAGRC
         public override void OnClick()
         {
             // open form
-            frmUtransEditor UtransEdior = new frmUtransEditor();
-            UtransEdior.Show(new clsModelessDialog(m_application.hWnd));
-
+            //frmUtransEditor UtransEdior = new frmUtransEditor();
+            //UtransEdior.Show(new clsModelessDialog(m_application.hWnd));
+            clsGlobals.UtransEdior2 = new frmUtransEditor();
+            clsGlobals.UtransEdior2.Show(new clsModelessDialog(m_application.hWnd));
         }
 
         #endregion

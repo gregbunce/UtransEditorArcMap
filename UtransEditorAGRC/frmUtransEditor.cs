@@ -264,7 +264,16 @@ namespace UtransEditorAGRC
             try
             {
                 //check if the form is open/visible - if not, don't go through this code
-
+                if (clsGlobals.UtransEdior2.Visible == true)
+                {
+                    //MessageBox.Show("form is visible");
+                }
+                else
+                {
+                    //MessageBox.Show("form is not visible");
+                    //exit out of the method becuase the form is not open
+                    return;
+                }
 
                 //hide the copy new segment button
                 btnCopyNewSegment.Hide();
@@ -1848,7 +1857,7 @@ namespace UtransEditorAGRC
                     {
                         arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("CARTOCODE"), null);
                     }
-                    else if (cboCartoCode.SelectedIndex == 16) //don't add one (as in the else) to this case b/c of the 99 value thowing off the index thing
+                    else if (cboCartoCode.SelectedIndex == 16) //don't add one (as done in the else) to this case b/c of the 99 value throws-off the index thing, so it's 16
                     {
                         arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("CARTOCODE"), 16);
                     }

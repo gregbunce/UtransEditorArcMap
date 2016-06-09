@@ -60,7 +60,11 @@ namespace UtransEditorAGRC
             set;
         }
 
-
+        public static frmUtransEditor UtransEdior2
+        {
+            get;
+            set;
+        }
 
     }
 }
