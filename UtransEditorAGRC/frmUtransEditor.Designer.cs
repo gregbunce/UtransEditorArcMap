@@ -1038,6 +1038,7 @@
             this.cboCartoCode.Name = "cboCartoCode";
             this.cboCartoCode.Size = new System.Drawing.Size(292, 21);
             this.cboCartoCode.TabIndex = 0;
+            this.cboCartoCode.SelectedIndexChanged += new System.EventHandler(this.cboCartoCode_SelectedIndexChanged);
             // 
             // frmUtransEditor
             // 

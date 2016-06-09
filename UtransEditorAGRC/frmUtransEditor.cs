@@ -39,6 +39,7 @@ namespace UtransEditorAGRC
         string txtUtransInitialAlias2Type;
         string txtUtransInitialAcsAlias;
         string txtUtransInitialAscSuf;
+        int intUtransInitialCartoCodeIndex;
 
         //get the selected feature(s) from the dfc fc
         IFeatureSelection arcFeatureSelection; // = clsGlobals.arcGeoFLayerDfcResult as IFeatureSelection;
@@ -271,6 +272,7 @@ namespace UtransEditorAGRC
                 //reset the cartocode combobox to nothing
                 cboCartoCode.SelectedIndex = -1;
                 cboStatusField.SelectedIndex = 0; // show the completed value by default
+                groupBox5.Font = fontLabelRegular;
 
                 //enable the textboxes - in case last record was "N" and were disabled
                 txtUtranL_F_Add.ReadOnly = false;
@@ -473,7 +475,6 @@ namespace UtransEditorAGRC
 
                     //change the attribute type
                     lblChangeType.Text = "Please select one feature from DFC_RESULT layer.";
-
                 }
 
                 //refresh the map on the selected features
@@ -510,7 +511,6 @@ namespace UtransEditorAGRC
                 lblStName.Font = fontLabelRegular;
                 lblStType.Font = fontLabelRegular;
                 lblSufDir.Font = fontLabelRegular;
-
 
                 //if it's a new record
                 if (strChangeType == "N" & strUtransOID == "-1")
@@ -587,60 +587,82 @@ namespace UtransEditorAGRC
                 switch (strUtransCartoCode)
                 {
                     case "1":
+                        //get a refernce to cartocode to see if there will be edits (make it bold on the event handler if there will be edits)
+                        intUtransInitialCartoCodeIndex = 0;
                         cboCartoCode.SelectedIndex = 0;
                         break;
                     case "2":
+                        intUtransInitialCartoCodeIndex = 1;
                         cboCartoCode.SelectedIndex = 1;
                         break;
                     case "3":
+                        intUtransInitialCartoCodeIndex = 2;
                         cboCartoCode.SelectedIndex = 2;
                         break;
                     case "4":
+                        intUtransInitialCartoCodeIndex = 3;
                         cboCartoCode.SelectedIndex = 3;
                         break;
                     case "5":
+                        intUtransInitialCartoCodeIndex = 4;
                         cboCartoCode.SelectedIndex = 4;
                         break;
                     case "6":
+                        intUtransInitialCartoCodeIndex = 5;
                         cboCartoCode.SelectedIndex = 5;
                         break;
                     case "7":
+                        intUtransInitialCartoCodeIndex = 6;
                         cboCartoCode.SelectedIndex = 6;
                         break;
                     case "8":
+                        intUtransInitialCartoCodeIndex = 7;
                         cboCartoCode.SelectedIndex = 7;
                         break;
                     case "9":
+                        intUtransInitialCartoCodeIndex = 8;
                         cboCartoCode.SelectedIndex = 8;
                         break;
                     case "10":
+                        intUtransInitialCartoCodeIndex = 9;
                         cboCartoCode.SelectedIndex = 9;
                         break;
                     case "11":
+                        intUtransInitialCartoCodeIndex = 10;
                         cboCartoCode.SelectedIndex = 10;
                         break;
                     case "12":
+                        intUtransInitialCartoCodeIndex = 11;
                         cboCartoCode.SelectedIndex = 11;
                         break;
                     case "13":
+                        intUtransInitialCartoCodeIndex = 12;
                         cboCartoCode.SelectedIndex = 12;
                         break;
                     case "14":
+                        intUtransInitialCartoCodeIndex = 13;
                         cboCartoCode.SelectedIndex = 13;
                         break;
                     case "15":
+                        intUtransInitialCartoCodeIndex = 14;
                         cboCartoCode.SelectedIndex = 14;
                         break;
                     case "99":
+                        intUtransInitialCartoCodeIndex = 15;
                         cboCartoCode.SelectedIndex = 15;
                         break;
                     case "16":
+                        intUtransInitialCartoCodeIndex = 16;
                         cboCartoCode.SelectedIndex = 16;
                         break;
                     default:
+                        intUtransInitialCartoCodeIndex = -1;
                         cboCartoCode.SelectedIndex = -1;
                         break;
                 }
+
+                //get a refernce to cartocode to see if there will be edits (make it bold on the event handler if there will be edits)
+                intUtransInitialCartoCodeIndex = cboCartoCode.SelectedIndex;
             }
             catch (Exception ex)
             {
@@ -1815,6 +1837,8 @@ namespace UtransEditorAGRC
 
 
 
+                    // CARTOCODE
+                    arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("CARTOCODE"), cboCartoCode.SelectedIndex.ToString().Trim());
 
                     //store the feature if not a duplicate
                     arcUtransEdit_Feature.Store();
@@ -2198,6 +2222,25 @@ namespace UtransEditorAGRC
         private void toolTip1_Popup(object sender, PopupEventArgs e)
         {
 
+        }
+
+
+
+        //this method is called if the user selects something in the cartocode combobox
+        private void cboCartoCode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //make label bold if the selected index is different from intial index (from on-selection-changed)
+            if (intUtransInitialCartoCodeIndex != cboCartoCode.SelectedIndex)
+            {
+                groupBox5.Font = fontLabelHasEdits;
+                cboCartoCode.Font = fontLabelRegular; // for some reason you have to set it to regular each time or it's bold - maybe b/c it's a child of groupbox
+            }
+            else
+            {
+                groupBox5.Font = fontLabelRegular;
+                cboCartoCode.Font = fontLabelRegular; // for some reason you have to set it to regular each time or it's bold - maybe b/c it's a child of groupbox
+            }
+            
         }
 
 
