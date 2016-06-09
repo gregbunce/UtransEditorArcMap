@@ -146,10 +146,6 @@ namespace UtransEditorAGRC
                             {
                                 clsGlobals.arcFLayerAddrSysQuads = arcMapp.get_Layer(i) as IFeatureLayer;
                             }
-                            if (arcObjClass.AliasName.ToString() == "SGID10.BOUNDARIES.Municipalities")
-                            {
-                                clsGlobals.arcFLayerMuni = arcMapp.get_Layer(i) as IFeatureLayer;
-                            }
                             if (arcObjClass.AliasName.ToString() == "SGID10.BOUNDARIES.ZipCodes")
                             {
                                 clsGlobals.arcFLayerZipCodes = arcMapp.get_Layer(i) as IFeatureLayer;
@@ -273,7 +269,7 @@ namespace UtransEditorAGRC
                 btnCopyNewSegment.Hide();
 
                 //set the timer's blink frequency
-                timer1.Interval = _blinkFrequency;
+                //timer1.Interval = _blinkFrequency;
 
 
                 //enable the textboxes - in case last record was "N" and were disabled
@@ -376,7 +372,7 @@ namespace UtransEditorAGRC
                             else
                             {
                                 
-                                lblChangeType.Text = "New (Now in UTRANS - Please verify attributes and click save button on Utrans Editor)";
+                                lblChangeType.Text = "New (Now in UTRANS)";
                                 //make this text flash...
                                 //timer1.Start();
 
@@ -1539,12 +1535,12 @@ namespace UtransEditorAGRC
             {
                 //save the values on the form in the utrans database
                 //get the selected dfc layers value for the current utrans oid
-                
+
                 IQueryFilter arcUtransEdit_QueryFilter = new QueryFilter();
                 arcUtransEdit_QueryFilter.WhereClause = "OBJECTID = " + strUtransOID;
 
                 //get the feaure to update/save
-                IFeatureCursor arcUtransEdit_FeatCur = clsGlobals.arcGeoFLayerUtransStreets.Search(arcUtransEdit_QueryFilter,false);
+                IFeatureCursor arcUtransEdit_FeatCur = clsGlobals.arcGeoFLayerUtransStreets.Search(arcUtransEdit_QueryFilter, false);
                 IFeature arcUtransEdit_Feature = arcUtransEdit_FeatCur.NextFeature();
 
                 //make sure a record is selected for editing
@@ -1565,11 +1561,36 @@ namespace UtransEditorAGRC
                         //make sure the control is not for county streets, aka it doesn't contain Co 
                         if (!ctrlCurrent.Tag.ToString().Contains("Co"))
                         {
-                            //populate the field with the value in the corresponding textbox
-                            arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField(ctrlCurrent.Tag.ToString()), ctrlCurrent.Text.Trim());
+                            //check for emptly values in the numeric fields and populate with zeros in utrans
+                            if (ctrlCurrent.Tag.ToString() == "L_F_ADD" & ctrlCurrent.Text.ToString() == "")
+                            {
+                                arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField(ctrlCurrent.Tag.ToString()), 0);
+                                break;
+                            }
+                            else if (ctrlCurrent.Tag.ToString() == "L_T_ADD" & ctrlCurrent.Text.ToString() == "")
+                            {
+                                arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField(ctrlCurrent.Tag.ToString()), 0);
+                                break;
+                            }
+                            else if (ctrlCurrent.Tag.ToString() == "R_F_ADD" & ctrlCurrent.Text.ToString() == "")
+                            {
+                                arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField(ctrlCurrent.Tag.ToString()), 0);
+                                break;
+                            }
+                            else if (ctrlCurrent.Tag.ToString() == "R_T_ADD" & ctrlCurrent.Text.ToString() == "")
+                            {
+                                arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField(ctrlCurrent.Tag.ToString()), 0);
+                                break;
+                            }
+                            else
+                            {
+                                //populate the field with the value in the corresponding textbox
+                                arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField(ctrlCurrent.Tag.ToString()), ctrlCurrent.Text.Trim());
+                            }
                         }
                     }
 
+                    //populate some other fields...
 
                     //get the midpoint of the line segment for doing spatial queries (intersects)
                     IGeometry arcUtransEdits_geometry = arcUtransEdit_Feature.ShapeCopy;
@@ -1580,24 +1601,21 @@ namespace UtransEditorAGRC
                     arcUtransEdits_polyline.QueryPoint(esriSegmentExtension.esriNoExtension, 0.5, true, arcUtransEdits_midPoint);
                     //MessageBox.Show("The midpoint of the selected line segment is: " + arcUtransEdits_midPoint.X.ToString() + ", " + arcUtransEdits_midPoint.Y.ToString());
 
-
-                    //populate some other fields...
-
                     // spatial intersect for the following fields: ADDR_SYS, ADDR_QUAD, ZIPLEFT, ZIPRIGHT, COFIPS (Maybe USPS_PLACE)
                     // ADDR_SYS and ADDR_QUAD
-                    ISpatialFilter arcSpatialFilter_AddrSys = new SpatialFilter();
-                    arcSpatialFilter_AddrSys.Geometry = arcUtransEdits_midPoint;
-                    arcSpatialFilter_AddrSys.GeometryField = "SHAPE";
-                    arcSpatialFilter_AddrSys.SpatialRel = esriSpatialRelEnum.esriSpatialRelIntersects;
-                    arcSpatialFilter_AddrSys.SubFields = "*";
+                    ISpatialFilter arcSpatialFilter = new SpatialFilter();
+                    arcSpatialFilter.Geometry = arcUtransEdits_midPoint;
+                    arcSpatialFilter.GeometryField = "SHAPE";
+                    arcSpatialFilter.SpatialRel = esriSpatialRelEnum.esriSpatialRelIntersects;
+                    arcSpatialFilter.SubFields = "*";
 
-                    IFeatureCursor arcAddrSysCursor = clsGlobals.arcFLayerAddrSysQuads.Search(arcSpatialFilter_AddrSys, false);
+                    IFeatureCursor arcAddrSysCursor = clsGlobals.arcFLayerAddrSysQuads.Search(arcSpatialFilter, false);
                     IFeature arcFeatureAddrSys = arcAddrSysCursor.NextFeature();
                     if (arcFeatureAddrSys != null)
                     {
                         //update the value in the utrans based on the intersect
-                        arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("ADDR_SYS"), arcFeatureAddrSys.get_Value(arcFeatureAddrSys.Fields.FindField("GRID_NAME")));
-                        arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("ADDR_QUAD"), arcFeatureAddrSys.get_Value(arcFeatureAddrSys.Fields.FindField("QUADRANT")));
+                        arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("ADDR_SYS"), arcFeatureAddrSys.get_Value(arcFeatureAddrSys.Fields.FindField("GRID_NAME")).ToString().Trim());
+                        arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("ADDR_QUAD"), arcFeatureAddrSys.get_Value(arcFeatureAddrSys.Fields.FindField("QUADRANT")).ToString().Trim());
                     }
                     else
                     {
@@ -1609,23 +1627,22 @@ namespace UtransEditorAGRC
                     arcAddrSysCursor = null;
                     arcFeatureAddrSys = null;
 
-
                     // ZIPLEFT and ZIPRIGHT
-                    ISpatialFilter arcSpatialFilter_Zip = new SpatialFilter();
-                    arcSpatialFilter_Zip.Geometry = arcUtransEdits_midPoint;
-                    arcSpatialFilter_Zip.GeometryField = "SHAPE";
-                    arcSpatialFilter_Zip.SpatialRel = esriSpatialRelEnum.esriSpatialRelIntersects;
-                    arcSpatialFilter_Zip.SubFields = "*";
+                    //ISpatialFilter arcSpatialFilter_Zip = new SpatialFilter();
+                    //arcSpatialFilter_Zip.Geometry = arcUtransEdits_midPoint;
+                    //arcSpatialFilter_Zip.GeometryField = "SHAPE";
+                    //arcSpatialFilter_Zip.SpatialRel = esriSpatialRelEnum.esriSpatialRelIntersects;
+                    //arcSpatialFilter_Zip.SubFields = "*";
 
-                    IFeatureCursor arcZipCursor = clsGlobals.arcFLayerZipCodes.Search(arcSpatialFilter_Zip, false);
+                    IFeatureCursor arcZipCursor = clsGlobals.arcFLayerZipCodes.Search(arcSpatialFilter, false);
                     IFeature arcFeatureZip = arcZipCursor.NextFeature();
                     if (arcFeatureZip != null)
                     {
                         //update the value in the utrans based on the intersect
-                        arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("ZIPLEFT"), arcFeatureAddrSys.get_Value(arcFeatureAddrSys.Fields.FindField("ZIP5")));
-                        arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("ZIPRIGHT"), arcFeatureAddrSys.get_Value(arcFeatureAddrSys.Fields.FindField("ZIP5")));
+                        arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("ZIPLEFT"), arcFeatureZip.get_Value(arcFeatureZip.Fields.FindField("ZIP5")));
+                        arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("ZIPRIGHT"), arcFeatureZip.get_Value(arcFeatureZip.Fields.FindField("ZIP5")));
                         //maybe update the usps_place field as well with the "name" field from the zipcodes layer
-                        arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("USPS_PLACE"), arcFeatureAddrSys.get_Value(arcFeatureAddrSys.Fields.FindField("NAME")));
+                        arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("USPS_PLACE"), arcFeatureZip.get_Value(arcFeatureZip.Fields.FindField("NAME")).ToString().Trim());
                     }
                     else
                     {
@@ -1637,21 +1654,19 @@ namespace UtransEditorAGRC
                     arcZipCursor = null;
                     arcFeatureZip = null;
 
-                    
-
                     // COFIPS
-                    ISpatialFilter arcSpatialFilter_County = new SpatialFilter();
-                    arcSpatialFilter_County.Geometry = arcUtransEdits_midPoint;
-                    arcSpatialFilter_County.GeometryField = "SHAPE";
-                    arcSpatialFilter_County.SpatialRel = esriSpatialRelEnum.esriSpatialRelIntersects;
-                    arcSpatialFilter_County.SubFields = "*";
+                    //ISpatialFilter arcSpatialFilter_County = new SpatialFilter();
+                    //arcSpatialFilter_County.Geometry = arcUtransEdits_midPoint;
+                    //arcSpatialFilter_County.GeometryField = "SHAPE";
+                    //arcSpatialFilter_County.SpatialRel = esriSpatialRelEnum.esriSpatialRelIntersects;
+                    //arcSpatialFilter_County.SubFields = "*";
 
-                    IFeatureCursor arcCountiesCursor = clsGlobals.arcFLayerCounties.Search(arcSpatialFilter_County, false);
+                    IFeatureCursor arcCountiesCursor = clsGlobals.arcFLayerCounties.Search(arcSpatialFilter, false);
                     IFeature arcFeature_County = arcCountiesCursor.NextFeature();
                     if (arcFeature_County != null)
                     {
                         //update the value in the utrans based on the intersect
-                        arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("COFIPS"), arcFeatureAddrSys.get_Value(arcFeatureAddrSys.Fields.FindField("FIPS_STR")));
+                        arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("COFIPS"), arcFeature_County.get_Value(arcFeature_County.Fields.FindField("FIPS_STR")));
                     }
                     else
                     {
@@ -1663,12 +1678,58 @@ namespace UtransEditorAGRC
                     arcCountiesCursor = null;
                     arcFeature_County = null;
 
+                    // FULLNAME //
+                    //check if street name is numeric
+                    int intStName;
+                    if (int.TryParse(txtUtranStName.Text, out intStName))
+                    {
+                        string strFullNameNumeric = txtUtranStName.Text.Trim() + " " + txtUtranSufDir.Text.Trim();
 
-                    // FULLNAME
+                        //make sure sufdir is populated and sttype is not
+                        if (txtUtranSufDir.Text == "" | txtUtranStType.Text != "")
+                        {
+                            DialogResult dialogResult = MessageBox.Show("Format Warning!  You are saving a numberic street but have conflict with either SUFDIR or STREETTYPE." + Environment.NewLine + Environment.NewLine +  "Numberic Streets typically require a SUFDIR value and not a STREETTYPE value." + Environment.NewLine + "Would you like to continue with the save?", "Format Warning!", MessageBoxButtons.YesNo);
+                            if (dialogResult == DialogResult.Yes)
+                            {
+                                arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("FULLNAME"), strFullNameNumeric.Trim());
+                            }
+                            else if (dialogResult == DialogResult.No)
+                            {
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("FULLNAME"), strFullNameNumeric.Trim());
+                        }
+                    }
+                    else //it's not a numeric street - it's alphabetic
+	                {
+                        string strFullNameAlpha = txtUtranStName.Text.Trim() + " " + txtUtranStType.Text.Trim();
 
+                        //make sure sttype is populated and sufdir is not
+                        if (txtUtranSufDir.Text != "" | txtUtranStType.Text == "")
+                        {
+                            DialogResult dialogResult = MessageBox.Show("Format Warning!  You are saving an alphabetic street but have conflict with either SUFDIR or STREETTYPE." + Environment.NewLine + Environment.NewLine + "Alphabetic Streets typically require a STREETTYPE and often do not include a SUFDIR value." + Environment.NewLine + "Would you like to continue with the save?", "Format Warning!", MessageBoxButtons.YesNo);
+                            if (dialogResult == DialogResult.Yes)
+                            {
+                                arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("FULLNAME"), strFullNameAlpha.Trim());
+                            }
+                            else if (dialogResult == DialogResult.No)
+                            {
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("FULLNAME"), strFullNameAlpha.Trim());
+                        }
+	                }
+                    
 
-                    // ACSNAME
+                    // ACSNAME //
 
+                    
 
 
                     //store the feature if not a duplicate
@@ -1703,6 +1764,11 @@ namespace UtransEditorAGRC
                 "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
                 "Error Location:" + Environment.NewLine + ex.StackTrace,
                 "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            finally
+            {
+                //stop the edit operation
+                clsGlobals.arcEditor.StopOperation("Street Edit");
             }
         }
 

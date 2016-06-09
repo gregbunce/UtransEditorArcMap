@@ -48,13 +48,6 @@ namespace UtransEditorAGRC
             get;
             set;
         }
-
-        public static IFeatureLayer arcFLayerMuni
-        {
-            get;
-            set;
-        }
-
         public static IFeatureLayer arcFLayerZipCodes
         {
             get;
