@@ -107,7 +107,8 @@
             this.btnPrev = new System.Windows.Forms.Button();
             this.btnCopyNewSegment = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.cboCartoCode = new System.Windows.Forms.ComboBox();
             this.groupBoxCountySeg.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -116,6 +117,7 @@
             this.groupBox1.SuspendLayout();
             this.groupBoxStatusField.SuspendLayout();
             this.groupBox6.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtCountyL_F_Add
@@ -875,7 +877,7 @@
             // groupBoxStatusField
             // 
             this.groupBoxStatusField.Controls.Add(this.cboStatusField);
-            this.groupBoxStatusField.Location = new System.Drawing.Point(782, 401);
+            this.groupBoxStatusField.Location = new System.Drawing.Point(487, 401);
             this.groupBoxStatusField.Name = "groupBoxStatusField";
             this.groupBoxStatusField.Size = new System.Drawing.Size(166, 49);
             this.groupBoxStatusField.TabIndex = 12;
@@ -949,7 +951,7 @@
             this.groupBox6.Controls.Add(this.btnNext);
             this.groupBox6.Controls.Add(this.btnPrev);
             this.groupBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox6.Location = new System.Drawing.Point(588, 393);
+            this.groupBox6.Location = new System.Drawing.Point(307, 393);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(145, 74);
             this.groupBox6.TabIndex = 19;
@@ -987,7 +989,7 @@
             // 
             this.btnCopyNewSegment.BackgroundImage = global::UtransEditorAGRC.Properties.Resources.EditingCopyParallel32;
             this.btnCopyNewSegment.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnCopyNewSegment.Location = new System.Drawing.Point(988, 401);
+            this.btnCopyNewSegment.Location = new System.Drawing.Point(999, 401);
             this.btnCopyNewSegment.Name = "btnCopyNewSegment";
             this.btnCopyNewSegment.Size = new System.Drawing.Size(50, 50);
             this.btnCopyNewSegment.TabIndex = 22;
@@ -1000,15 +1002,49 @@
             // 
             this.toolTip1.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip1_Popup);
             // 
-            // timer1
+            // groupBox5
             // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.groupBox5.Controls.Add(this.cboCartoCode);
+            this.groupBox5.Location = new System.Drawing.Point(668, 401);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(316, 50);
+            this.groupBox5.TabIndex = 23;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "CARTOCODE";
+            // 
+            // cboCartoCode
+            // 
+            this.cboCartoCode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboCartoCode.FormattingEnabled = true;
+            this.cboCartoCode.Items.AddRange(new object[] {
+            "1 - Interstates",
+            "2 - US Highway, Separated",
+            "3 - US Highway, Unseparated",
+            "4 - Major State Highway, Separated",
+            "5 - Major State Highway, Unseparated",
+            "6 - Other State Highway (Institutional) ",
+            "7 - Ramps, Collectors",
+            "8 - Major Local Roads, Paved",
+            "9 - Major Local Roads, Not paved",
+            "10 - Other Federal Aid Eligible Local Roads",
+            "11 - Other Local, Neighborhood, Rural Roads",
+            "12 - Other (i.e. roads within ski resorts, etc.)",
+            "13 - Non-road feature (i.e. ferry)",
+            "14 - Driveway",
+            "15 - Proposed",
+            "99 - UDOT FAE Calibration (Non-Road Feature)",
+            "16 - 4WD and/or high clearance may be required "});
+            this.cboCartoCode.Location = new System.Drawing.Point(15, 19);
+            this.cboCartoCode.Name = "cboCartoCode";
+            this.cboCartoCode.Size = new System.Drawing.Size(292, 21);
+            this.cboCartoCode.TabIndex = 0;
             // 
             // frmUtransEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1258, 472);
+            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.btnCopyNewSegment);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.lblVersionName);
@@ -1039,6 +1075,7 @@
             this.groupBoxStatusField.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1123,6 +1160,7 @@
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.Button btnCopyNewSegment;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.ComboBox cboCartoCode;
     }
 }

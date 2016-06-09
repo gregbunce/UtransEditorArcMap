@@ -57,11 +57,8 @@ namespace UtransEditorAGRC
         string strUtransOID = "";
         string strChangeType = "";
         string strDFC_RESULT_oid = "";
-
-        //used with blinking label
-        private const int _blinkFrequency = 500; //1.2 second... //1/4 of a second = 250
-        private const int _maxNumberOfBlinks = 4;
-        private int _blinkCount = 0;
+        string strUtransCartoCode = "";
+        string strCountyCartoCode = "";
 
         //initialize the form
         public frmUtransEditor()
@@ -265,12 +262,14 @@ namespace UtransEditorAGRC
         {
             try
             {
+                //check if the form is open/visible - if not, don't go through this code
+
+
                 //hide the copy new segment button
                 btnCopyNewSegment.Hide();
 
-                //set the timer's blink frequency
-                //timer1.Interval = _blinkFrequency;
-
+                //reset the cartocode combobox to nothing
+                cboCartoCode.SelectedIndex = -1;
 
                 //enable the textboxes - in case last record was "N" and were disabled
                 txtUtranL_F_Add.ReadOnly = false;
@@ -431,6 +430,9 @@ namespace UtransEditorAGRC
                                 ctrl.Text = arcCountyFeature.get_Value(arcCountyFeature.Fields.FindFieldByAliasName(ctrl.Tag.ToString())).ToString().ToUpper();
                             }
                         }
+
+                        //get the county's cartocode
+                        strCountyCartoCode = arcCountyFeature.get_Value(arcCountyFeature.Fields.FindFieldByAliasName("CARTOCODE")).ToString().Trim();
                     }
 
 
@@ -446,6 +448,9 @@ namespace UtransEditorAGRC
                             }
                         }
 
+                        //get utrans cartocode
+                        strUtransCartoCode = arcUtransFeature.get_Value(arcUtransFeature.Fields.FindField("CARTOCODE")).ToString().Trim();
+
                         //also check if u_dot street
                         string checkIfUdotStreet = arcUtransFeature.get_Value(arcUtransFeature.Fields.FindField("DOT_RTNAME")).ToString();
                         if (checkIfUdotStreet != "")
@@ -454,9 +459,11 @@ namespace UtransEditorAGRC
                         }
                     }
 
-
                     //call check differnces method
                     checkTextboxDifferneces();
+
+                    //populate the cartocode combobox
+                    populateCartoCodeComboBox();
 
                 }
                 else //if the user selects more or less than one record in the dfc fc - clear out the textboxes
@@ -558,13 +565,10 @@ namespace UtransEditorAGRC
                     lblAlias2.Enabled = false;
                     lblAlias2Type.Enabled = false;
                     
-
-
                     //show get new feature button and make save button not enabled
                     btnCopyNewSegment.Visible = true;
                     btnSaveToUtrans.Enabled = false;
                 }
-
 
             }
             catch (Exception ex)
@@ -572,6 +576,30 @@ namespace UtransEditorAGRC
                 MessageBox.Show(ex.Message + " " + ex.Source + " " + ex.StackTrace + " " + ex.TargetSite, "Error!");
             }
         }
+
+
+
+        //populate the cartocode combobox
+        private void populateCartoCodeComboBox() 
+        {
+            try
+            {
+                //parse the cartocodes to get the values before the hyphen
+                MessageBox.Show("Cartocodes... Utrans: " + strUtransCartoCode + ", County: " + strCountyCartoCode);
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
+                "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
+                "Error Location:" + Environment.NewLine + ex.StackTrace,
+                "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
 
 
 
@@ -1536,6 +1564,23 @@ namespace UtransEditorAGRC
                 //save the values on the form in the utrans database
                 //get the selected dfc layers value for the current utrans oid
 
+                //check if a cartocode has been chosen
+                if (cboCartoCode.SelectedIndex == -1) //or maybe check for .text == ""
+                {
+                    DialogResult dialogResult1 = MessageBox.Show("Warning!  You are saving a street segment that has not been assigned a CARTOCODE." + Environment.NewLine + "All street segments typically require a CARTOCODE value, which can be selected on the drop-down list." + Environment.NewLine + Environment.NewLine + "Would you like to continue the save without a CARTOCODE?", "Format Warning!", MessageBoxButtons.YesNo);
+                    if (dialogResult1 == DialogResult.Yes)
+                    {
+                        // do nothing... continue to saving
+                    }
+                    else if (dialogResult1 == DialogResult.No) //exit the save operation becuase the user chose to select a cartocode
+                    {
+                        //exit out and don't proceed to saving...
+                        return;
+                    }
+                }
+
+
+                //get query filter for utrans oid
                 IQueryFilter arcUtransEdit_QueryFilter = new QueryFilter();
                 arcUtransEdit_QueryFilter.WhereClause = "OBJECTID = " + strUtransOID;
 
@@ -1685,15 +1730,15 @@ namespace UtransEditorAGRC
                     {
                         string strFullNameNumeric = txtUtranStName.Text.Trim() + " " + txtUtranSufDir.Text.Trim();
 
-                        //make sure sufdir is populated and sttype is not
+                        //check if sufdir is populated and sttype is not
                         if (txtUtranSufDir.Text == "" | txtUtranStType.Text != "")
                         {
-                            DialogResult dialogResult = MessageBox.Show("Format Warning!  You are saving a numberic street but have conflict with either SUFDIR or STREETTYPE." + Environment.NewLine + Environment.NewLine +  "Numberic Streets typically require a SUFDIR value and not a STREETTYPE value." + Environment.NewLine + "Would you like to continue with the save?", "Format Warning!", MessageBoxButtons.YesNo);
-                            if (dialogResult == DialogResult.Yes)
+                            DialogResult dialogResult2 = MessageBox.Show("Format Warning!  You are saving a numberic street but have conflict with either SUFDIR or STREETTYPE." + Environment.NewLine + "Numberic Streets typically require a SUFDIR value and not a STREETTYPE value." + Environment.NewLine + Environment.NewLine + "Would you like to continue with the save?", "Format Warning!", MessageBoxButtons.YesNo);
+                            if (dialogResult2 == DialogResult.Yes)
                             {
                                 arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("FULLNAME"), strFullNameNumeric.Trim());
                             }
-                            else if (dialogResult == DialogResult.No)
+                            else if (dialogResult2 == DialogResult.No)
                             {
                                 return;
                             }
@@ -1704,18 +1749,18 @@ namespace UtransEditorAGRC
                         }
                     }
                     else //it's not a numeric street - it's alphabetic
-	                {
+                    {
                         string strFullNameAlpha = txtUtranStName.Text.Trim() + " " + txtUtranStType.Text.Trim();
 
-                        //make sure sttype is populated and sufdir is not
+                        //check if sttype is populated and sufdir is not
                         if (txtUtranSufDir.Text != "" | txtUtranStType.Text == "")
                         {
-                            DialogResult dialogResult = MessageBox.Show("Format Warning!  You are saving an alphabetic street but have conflict with either SUFDIR or STREETTYPE." + Environment.NewLine + Environment.NewLine + "Alphabetic Streets typically require a STREETTYPE and often do not include a SUFDIR value." + Environment.NewLine + "Would you like to continue with the save?", "Format Warning!", MessageBoxButtons.YesNo);
-                            if (dialogResult == DialogResult.Yes)
+                            DialogResult dialogResult3 = MessageBox.Show("Format Warning!  You are saving an alphabetic street but have conflict with either SUFDIR or STREETTYPE." + Environment.NewLine + "Alphabetic Streets typically require a STREETTYPE and often do not include a SUFDIR value." + Environment.NewLine + Environment.NewLine + "Would you like to continue with the save?", "Format Warning!", MessageBoxButtons.YesNo);
+                            if (dialogResult3 == DialogResult.Yes)
                             {
                                 arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("FULLNAME"), strFullNameAlpha.Trim());
                             }
-                            else if (dialogResult == DialogResult.No)
+                            else if (dialogResult3 == DialogResult.No)
                             {
                                 return;
                             }
@@ -1724,12 +1769,12 @@ namespace UtransEditorAGRC
                         {
                             arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("FULLNAME"), strFullNameAlpha.Trim());
                         }
-	                }
-                    
+                    }
+
 
                     // ACSNAME //
 
-                    
+
 
 
                     //store the feature if not a duplicate
@@ -1757,6 +1802,13 @@ namespace UtransEditorAGRC
                     MessageBox.Show("Oops, an error occurred! Could not find a record in the UTRANS database base to update using the following query: " + arcUtransEdit_QueryFilter.ToString() + "." + Environment.NewLine + "Please check DFC_RESULT selection and try again.", "Error Saving to UTRANS!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+
+
+
+
+
+
+
             }
             catch (Exception ex)
             {
@@ -2108,25 +2160,6 @@ namespace UtransEditorAGRC
         {
 
         }
-
-
-        //blink the 'new in utrans' label
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            this.lblChangeType.Visible = !this.lblChangeType.Visible;
-
-            _blinkCount++;
-
-            if (_blinkCount == _maxNumberOfBlinks)
-            {
-                timer1.Stop();
-                lblChangeType.Visible = true;
-                lblChangeType.Visible = true;
-            }
-
-        }
-
-
 
 
     }
