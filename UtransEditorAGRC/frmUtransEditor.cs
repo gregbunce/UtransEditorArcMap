@@ -1663,6 +1663,83 @@ namespace UtransEditorAGRC
                 }
 
 
+                //check what's selected in the combobox for status field, if completed is selected then proceed to save, else calc value in dfc field and don't save in utrans
+                // calculate status field, if not text = COMPLETED
+                IQueryFilter arcQueryFilter_DFC_updateOID = new QueryFilter();
+                arcQueryFilter_DFC_updateOID.WhereClause = "OBJECTID = " + strDFC_RESULT_oid;
+
+                ICalculator arcCalculator = new Calculator();
+                ICursor arcCur_dfcLayer = clsGlobals.arcGeoFLayerDfcResult.FeatureClass.Update(arcQueryFilter_DFC_updateOID, true) as ICursor;
+                
+                string strComboBoxTextValue = cboStatusField.Text.ToString();
+                switch (strComboBoxTextValue)
+                {
+                    case "COMPLETED":
+                        //do nothing, proceed to saving in utrans database
+                        //update the dfc status field after the save, that way we know it was solid, without errors
+                        break;
+                    case "IGNORE":
+                        string strCalcExprIgnore = @"""" + strComboBoxTextValue + @"""";
+                        
+                        //proceed with calculating values in the dfc table 
+                        arcCalculator.Cursor = arcCur_dfcLayer;
+                        arcCalculator.Expression = strCalcExprIgnore;
+                        arcCalculator.Field = "CURRENT_NOTES";
+                        arcCalculator.Calculate();
+                        arcCalculator.ShowErrorPrompt = true;
+                        
+                        //clear out the cursor
+                        arcCur_dfcLayer = null;
+
+                        //refresh the map layers and data
+                        arcActiveView.Refresh();
+                        arcActiveView.Refresh();
+                        
+                        //exit
+                        return;
+                    case "REVISIT":
+                        string strCalcExprRevisit = @"""" + strComboBoxTextValue + @"""";
+
+                        //proceed with calculating values in the dfc table 
+                        arcCalculator.Cursor = arcCur_dfcLayer;
+                        arcCalculator.Expression = strCalcExprRevisit;
+                        arcCalculator.Field = "CURRENT_NOTES";
+                        arcCalculator.Calculate();
+                        arcCalculator.ShowErrorPrompt = true;
+
+                        //clear out the cursor
+                        arcCur_dfcLayer = null;
+
+                        //refresh the map layers and data
+                        arcActiveView.Refresh();
+                        arcActiveView.Refresh();
+
+                        //exit                        
+                        return;
+                    case "OTHER":
+                        string strCalcExprOther = @"""" + strComboBoxTextValue + @"""";
+
+                        //proceed with calculating values in the dfc table 
+                        arcCalculator.Cursor = arcCur_dfcLayer;
+                        arcCalculator.Expression = strCalcExprOther;
+                        arcCalculator.Field = "CURRENT_NOTES";
+                        arcCalculator.Calculate();
+                        arcCalculator.ShowErrorPrompt = true;
+
+                        //clear out the cursor
+                        arcCur_dfcLayer = null;
+
+                        //refresh the map layers and data
+                        arcActiveView.Refresh();
+                        arcActiveView.Refresh();
+
+                        //exit
+                        return;
+                }
+
+
+                // BEGIN TO SAVE DATA IN UTRANS //
+
                 //get query filter for utrans oid
                 IQueryFilter arcUtransEdit_QueryFilter = new QueryFilter();
                 arcUtransEdit_QueryFilter.WhereClause = "OBJECTID = " + strUtransOID;
@@ -1842,12 +1919,9 @@ namespace UtransEditorAGRC
                         }
                     }
 
-
-                    // ACSNAME //
-
-
-
-
+                    // ACSALIAS //
+                    string strAscAlias = txtUtransAcsName.Text.Trim() + " " + txtUtransAcsSuf.Text.Trim();
+                    arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("ACSALIAS"), strAscAlias.Trim());
 
                     // CARTOCODE
                     if (cboCartoCode.SelectedIndex == 15) //this is the 99 value
@@ -1867,7 +1941,6 @@ namespace UtransEditorAGRC
                         arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("CARTOCODE"), (cboCartoCode.SelectedIndex + 1));
                     }
                     
-
                     //store the feature if not a duplicate
                     arcUtransEdit_Feature.Store();
 
@@ -1879,20 +1952,18 @@ namespace UtransEditorAGRC
 
 
                     //refresh the map
-                    arcActiveView.Refresh();
-
+                    //arcActiveView.Refresh();
 
                     //now that save was succesful, calculate status field
-                    IQueryFilter arcQueryFilter_DFC_updateOID = new QueryFilter();
-                    arcQueryFilter_DFC_updateOID.WhereClause = "OBJECTID = " + strDFC_RESULT_oid;
+                    //arcQueryFilter_DFC_updateOID = new QueryFilter();
+                    //arcQueryFilter_DFC_updateOID.WhereClause = "OBJECTID = " + strDFC_RESULT_oid;
 
                     //get the combobox value in a string
-                    string strComboBoxTextValue = cboStatusField.Text.ToString();
                     string strComboBoxTextValueDoubleQuotes = @"""" + strComboBoxTextValue + @"""";
 
                     //proceed with calculating values in the dfc table - 
-                    ICalculator arcCalculator = new Calculator();
-                    ICursor arcCur_dfcLayer = clsGlobals.arcGeoFLayerDfcResult.FeatureClass.Update(arcQueryFilter_DFC_updateOID, true) as ICursor;
+                    //ICalculator arcCalculator = new Calculator();
+                    //ICursor arcCur_dfcLayer = clsGlobals.arcGeoFLayerDfcResult.FeatureClass.Update(arcQueryFilter_DFC_updateOID, true) as ICursor;
 
                     arcCalculator.Cursor = arcCur_dfcLayer;
                     arcCalculator.Expression = strComboBoxTextValueDoubleQuotes;
@@ -1905,7 +1976,7 @@ namespace UtransEditorAGRC
 
 
                     //refresh the map layers and data
-                    arcActiveView.Refresh(); //.PartialRefresh(esriViewDrawPhase.esriViewGeoSelection, null, null);
+                    arcActiveView.Refresh();
                     arcActiveView.Refresh();
 
 
@@ -1921,13 +1992,6 @@ namespace UtransEditorAGRC
                     MessageBox.Show("Oops, an error occurred! Could not find a record in the UTRANS database base to update using the following query: " + arcUtransEdit_QueryFilter.ToString() + "." + Environment.NewLine + "Please check DFC_RESULT selection and try again.", "Error Saving to UTRANS!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-
-
-
-
-
-
-
             }
             catch (Exception ex)
             {
