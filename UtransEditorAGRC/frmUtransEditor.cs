@@ -383,7 +383,7 @@ namespace UtransEditorAGRC
                             }
                             else
                             {
-                                lblChangeType.Text = "New (Now in UTRANS)";
+                                lblChangeType.Text = "New (Now in UTRANS - Please Verify Attributes and Click Save)";
                             }
                             //lblChangeType.Text = "New";
                             break;
@@ -1886,19 +1886,27 @@ namespace UtransEditorAGRC
                     IQueryFilter arcQueryFilter_DFC_updateOID = new QueryFilter();
                     arcQueryFilter_DFC_updateOID.WhereClause = "OBJECTID = " + strDFC_RESULT_oid;
 
+                    //get the combobox value in a string
+                    string strComboBoxTextValue = cboStatusField.Text.ToString();
+                    string strComboBoxTextValueDoubleQuotes = @"""" + strComboBoxTextValue + @"""";
+
                     //proceed with calculating values in the dfc table - 
                     ICalculator arcCalculator = new Calculator();
                     ICursor arcCur_dfcLayer = clsGlobals.arcGeoFLayerDfcResult.FeatureClass.Update(arcQueryFilter_DFC_updateOID, true) as ICursor;
 
                     arcCalculator.Cursor = arcCur_dfcLayer;
-                    arcCalculator.Expression = cboStatusField.Text.ToString();
-                    arcCalculator.Field = "CURRENT_NOTES"; // "CURRENT_NOTES";
+                    arcCalculator.Expression = strComboBoxTextValueDoubleQuotes;
+                    arcCalculator.Field = "CURRENT_NOTES";
                     arcCalculator.Calculate();
                     arcCalculator.ShowErrorPrompt = true;
 
                     //clear out the cursor
                     arcCur_dfcLayer = null;
 
+
+                    //refresh the map layers and data
+                    arcActiveView.Refresh(); //.PartialRefresh(esriViewDrawPhase.esriViewGeoSelection, null, null);
+                    arcActiveView.Refresh();
 
 
                     //call the next button
@@ -2081,7 +2089,7 @@ namespace UtransEditorAGRC
 
                 //create query filter to get the new segment (from county fc)
                 IQueryFilter arcQueryFilter_loadSegment = new QueryFilter();
-                arcQueryFilter_loadSegment.SubFields = "Shape,ZIPLEFT,ZIPRIGHT,L_F_ADD,L_T_ADD,R_F_ADD,R_T_ADD,PREDIR,STREETNAME,STREETTYPE,SUFDIR,ALIAS1,ALIAS1TYPE,ALIAS2,ALIAS2TYPE,ACSALIAS,ACSNAME,ACSSUF,USPS_PLACE,ONEWAY,SPEED,VERTLEVEL,CLASS,MODIFYDATE,COLLDATE,ACCURACY,SOURCE,NOTES";
+                arcQueryFilter_loadSegment.SubFields = "Shape,ZIPLEFT,ZIPRIGHT,L_F_ADD,L_T_ADD,R_F_ADD,R_T_ADD,PREDIR,STREETNAME,STREETTYPE,SUFDIR,ALIAS1,ALIAS1TYPE,ALIAS2,ALIAS2TYPE,ACSALIAS,ACSNAME,ACSSUF,USPS_PLACE,ONEWAY,SPEED,VERTLEVEL,CLASS,MODIFYDATE,COLLDATE,ACCURACY,SOURCE,NOTES,STATUS,ACCESS,USAGENOTES,BIKE_L,BIKE_R,BIKE_NOTES,BIKE_STATUS,GRID1MIL,GRID100K";
                 arcQueryFilter_loadSegment.WhereClause = "OBJECTID = " + strCountyOID;
 
                 //get the county roads segment for quering new utrans street segment below
