@@ -250,6 +250,14 @@ namespace UtransEditorAGRC
         {
             try
             {
+                //close the utrans editing form if open and visible
+                if (clsGlobals.UtransEdior2 != null)
+                {
+                    if (clsGlobals.UtransEdior2.Visible == true)
+                    {
+                        clsGlobals.UtransEdior2.Close();
+                    }
+                }
             }
             catch (Exception e)
             {

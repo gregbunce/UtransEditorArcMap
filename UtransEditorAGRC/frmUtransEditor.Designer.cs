@@ -52,7 +52,7 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.txtCountyAcsSuf = new System.Windows.Forms.TextBox();
-            this.txtCountyAcsAlilas = new System.Windows.Forms.TextBox();
+            this.txtCountyAcsName = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.txtCountyAlias2Type = new System.Windows.Forms.TextBox();
@@ -64,9 +64,9 @@
             this.groupBoxUtransSeg = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtUtransAcsSuf = new System.Windows.Forms.TextBox();
-            this.txtUtransAcsAllias = new System.Windows.Forms.TextBox();
+            this.txtUtransAcsName = new System.Windows.Forms.TextBox();
             this.lblAcsSuf = new System.Windows.Forms.Label();
-            this.lblAcsAlias = new System.Windows.Forms.Label();
+            this.lblAcsName = new System.Windows.Forms.Label();
             this.lblAlias2Type = new System.Windows.Forms.Label();
             this.lblAlias2 = new System.Windows.Forms.Label();
             this.txtUtransAlias2Type = new System.Windows.Forms.TextBox();
@@ -325,7 +325,7 @@
             this.groupBox3.Controls.Add(this.label16);
             this.groupBox3.Controls.Add(this.label15);
             this.groupBox3.Controls.Add(this.txtCountyAcsSuf);
-            this.groupBox3.Controls.Add(this.txtCountyAcsAlilas);
+            this.groupBox3.Controls.Add(this.txtCountyAcsName);
             this.groupBox3.Controls.Add(this.label14);
             this.groupBox3.Controls.Add(this.label13);
             this.groupBox3.Controls.Add(this.txtCountyAlias2Type);
@@ -358,9 +358,9 @@
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label15.Location = new System.Drawing.Point(342, 46);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(58, 13);
+            this.label15.Size = new System.Drawing.Size(59, 13);
             this.label15.TabIndex = 10;
-            this.label15.Text = "ACSALIAS";
+            this.label15.Text = "ACSNAME";
             // 
             // txtCountyAcsSuf
             // 
@@ -372,15 +372,15 @@
             this.txtCountyAcsSuf.TabIndex = 9;
             this.txtCountyAcsSuf.Tag = "CoACSSUF";
             // 
-            // txtCountyAcsAlilas
+            // txtCountyAcsName
             // 
-            this.txtCountyAcsAlilas.BackColor = System.Drawing.SystemColors.Window;
-            this.txtCountyAcsAlilas.Location = new System.Drawing.Point(342, 63);
-            this.txtCountyAcsAlilas.Name = "txtCountyAcsAlilas";
-            this.txtCountyAcsAlilas.ReadOnly = true;
-            this.txtCountyAcsAlilas.Size = new System.Drawing.Size(102, 22);
-            this.txtCountyAcsAlilas.TabIndex = 8;
-            this.txtCountyAcsAlilas.Tag = "CoACSALIAS";
+            this.txtCountyAcsName.BackColor = System.Drawing.SystemColors.Window;
+            this.txtCountyAcsName.Location = new System.Drawing.Point(342, 63);
+            this.txtCountyAcsName.Name = "txtCountyAcsName";
+            this.txtCountyAcsName.ReadOnly = true;
+            this.txtCountyAcsName.Size = new System.Drawing.Size(102, 22);
+            this.txtCountyAcsName.TabIndex = 8;
+            this.txtCountyAcsName.Tag = "CoACSNAME";
             // 
             // label14
             // 
@@ -477,9 +477,9 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.txtUtransAcsSuf);
-            this.groupBox2.Controls.Add(this.txtUtransAcsAllias);
+            this.groupBox2.Controls.Add(this.txtUtransAcsName);
             this.groupBox2.Controls.Add(this.lblAcsSuf);
-            this.groupBox2.Controls.Add(this.lblAcsAlias);
+            this.groupBox2.Controls.Add(this.lblAcsName);
             this.groupBox2.Controls.Add(this.lblAlias2Type);
             this.groupBox2.Controls.Add(this.lblAlias2);
             this.groupBox2.Controls.Add(this.txtUtransAlias2Type);
@@ -508,17 +508,17 @@
             this.txtUtransAcsSuf.Tag = "ACSSUF";
             this.txtUtransAcsSuf.TextChanged += new System.EventHandler(this.txtUtransAcsSuf_TextChanged);
             // 
-            // txtUtransAcsAllias
+            // txtUtransAcsName
             // 
-            this.txtUtransAcsAllias.BackColor = System.Drawing.SystemColors.Window;
-            this.txtUtransAcsAllias.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtUtransAcsAllias.Location = new System.Drawing.Point(342, 63);
-            this.txtUtransAcsAllias.MaxLength = 8;
-            this.txtUtransAcsAllias.Name = "txtUtransAcsAllias";
-            this.txtUtransAcsAllias.Size = new System.Drawing.Size(102, 22);
-            this.txtUtransAcsAllias.TabIndex = 8;
-            this.txtUtransAcsAllias.Tag = "ACSALIAS";
-            this.txtUtransAcsAllias.TextChanged += new System.EventHandler(this.txtUtransAcsAllias_TextChanged);
+            this.txtUtransAcsName.BackColor = System.Drawing.SystemColors.Window;
+            this.txtUtransAcsName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtUtransAcsName.Location = new System.Drawing.Point(342, 63);
+            this.txtUtransAcsName.MaxLength = 8;
+            this.txtUtransAcsName.Name = "txtUtransAcsName";
+            this.txtUtransAcsName.Size = new System.Drawing.Size(102, 22);
+            this.txtUtransAcsName.TabIndex = 8;
+            this.txtUtransAcsName.Tag = "ACSNAME";
+            this.txtUtransAcsName.TextChanged += new System.EventHandler(this.txtUtransAcsAllias_TextChanged);
             // 
             // lblAcsSuf
             // 
@@ -531,16 +531,16 @@
             this.lblAcsSuf.Text = "ACSSUF";
             this.lblAcsSuf.DoubleClick += new System.EventHandler(this.lbl_DoubleClick);
             // 
-            // lblAcsAlias
+            // lblAcsName
             // 
-            this.lblAcsAlias.AutoSize = true;
-            this.lblAcsAlias.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAcsAlias.Location = new System.Drawing.Point(342, 45);
-            this.lblAcsAlias.Name = "lblAcsAlias";
-            this.lblAcsAlias.Size = new System.Drawing.Size(58, 13);
-            this.lblAcsAlias.TabIndex = 10;
-            this.lblAcsAlias.Text = "ACSALIAS";
-            this.lblAcsAlias.DoubleClick += new System.EventHandler(this.lbl_DoubleClick);
+            this.lblAcsName.AutoSize = true;
+            this.lblAcsName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAcsName.Location = new System.Drawing.Point(342, 45);
+            this.lblAcsName.Name = "lblAcsName";
+            this.lblAcsName.Size = new System.Drawing.Size(59, 13);
+            this.lblAcsName.TabIndex = 10;
+            this.lblAcsName.Text = "ACSNAME";
+            this.lblAcsName.DoubleClick += new System.EventHandler(this.lbl_DoubleClick);
             // 
             // lblAlias2Type
             // 
@@ -1112,16 +1112,16 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox txtCountyAcsSuf;
-        private System.Windows.Forms.TextBox txtCountyAcsAlilas;
+        private System.Windows.Forms.TextBox txtCountyAcsName;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox txtCountyAlias2Type;
         private System.Windows.Forms.TextBox txtCountyAlias2;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label lblAcsSuf;
-        private System.Windows.Forms.Label lblAcsAlias;
+        private System.Windows.Forms.Label lblAcsName;
         private System.Windows.Forms.TextBox txtUtransAcsSuf;
-        private System.Windows.Forms.TextBox txtUtransAcsAllias;
+        private System.Windows.Forms.TextBox txtUtransAcsName;
         private System.Windows.Forms.Label lblAlias2Type;
         private System.Windows.Forms.Label lblAlias2;
         private System.Windows.Forms.TextBox txtUtransAlias2Type;

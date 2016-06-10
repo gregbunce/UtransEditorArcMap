@@ -154,7 +154,7 @@ namespace UtransEditorAGRC
                             }
                         }
                         catch (Exception) { }//in case there is an error looping through layers (sometimes on group layers or dynamic xy layers), just keep going
-
+                        
                     }
                 }
 
@@ -207,7 +207,7 @@ namespace UtransEditorAGRC
 
 
                 //add textboxes to the control list
-                ctrlList.Add(this.txtCountyAcsAlilas);
+                ctrlList.Add(this.txtCountyAcsName);
                 ctrlList.Add(this.txtCountyAcsSuf);
                 ctrlList.Add(this.txtCountyAlias1);
                 ctrlList.Add(this.txtCountyAlias1Type);
@@ -226,7 +226,7 @@ namespace UtransEditorAGRC
                 ctrlList.Add(this.txtUtranPreDir);
                 ctrlList.Add(this.txtUtranR_F_Add);
                 ctrlList.Add(this.txtUtranR_T_Add);
-                ctrlList.Add(this.txtUtransAcsAllias);
+                ctrlList.Add(this.txtUtransAcsName);
                 ctrlList.Add(this.txtUtransAcsSuf);
                 ctrlList.Add(this.txtUtransAlias1);
                 ctrlList.Add(this.txtUtransAlias1Type);
@@ -290,7 +290,7 @@ namespace UtransEditorAGRC
                 txtUtranPreDir.ReadOnly = false;
                 txtUtranR_F_Add.ReadOnly = false;
                 txtUtranR_T_Add.ReadOnly = false;
-                txtUtransAcsAllias.ReadOnly = false;
+                txtUtransAcsName.ReadOnly = false;
                 txtUtransAcsSuf.ReadOnly = false;
                 txtUtransAlias1.ReadOnly = false;
                 txtUtransAlias1Type.ReadOnly = false;
@@ -308,7 +308,7 @@ namespace UtransEditorAGRC
                 lblStName.Enabled = true;
                 lblStType.Enabled = true;
                 lblSufDir.Enabled = true;
-                lblAcsAlias.Enabled = true;
+                lblAcsName.Enabled = true;
                 lblAcsSuf.Enabled = true;
                 lblAlias.Enabled = true;
                 lblAlias1Type.Enabled = true;
@@ -383,7 +383,7 @@ namespace UtransEditorAGRC
                             }
                             else
                             {
-                                lblChangeType.Text = "New (Now in UTRANS - Please Verify Attributes and Click Save)";
+                                lblChangeType.Text = "New ( Now in UTRANS - Please Verify Attributes and Click Save )";
                             }
                             //lblChangeType.Text = "New";
                             break;
@@ -503,11 +503,11 @@ namespace UtransEditorAGRC
                 txtUtransInitialAlias1Type = txtUtransAlias1Type.Text;
                 txtUtransInitialAlias2 = txtUtransAlias2.Text;
                 txtUtransInitialAlias2Type = txtUtransAlias2Type.Text;
-                txtUtransInitialAcsAlias = txtUtransAcsAllias.Text;
+                txtUtransInitialAcsAlias = txtUtransAcsName.Text;
                 txtUtransInitialAscSuf = txtUtransAcsSuf.Text;
 
                 //revert labels back to regular (non-italic)
-                lblAcsAlias.Font = fontLabelRegular;
+                lblAcsName.Font = fontLabelRegular;
                 lblAcsSuf.Font = fontLabelRegular;
                 lblAlias.Font = fontLabelRegular;
                 lblAlias1Type.Font = fontLabelRegular;
@@ -531,7 +531,7 @@ namespace UtransEditorAGRC
                     txtUtranPreDir.BackColor = Color.LightGray;
                     txtUtranR_F_Add.BackColor = Color.LightGray;
                     txtUtranR_T_Add.BackColor = Color.LightGray;
-                    txtUtransAcsAllias.BackColor = Color.LightGray;
+                    txtUtransAcsName.BackColor = Color.LightGray;
                     txtUtransAcsSuf.BackColor = Color.LightGray;
                     txtUtransAlias1.BackColor = Color.LightGray;
                     txtUtransAlias1Type.BackColor = Color.LightGray;
@@ -547,7 +547,7 @@ namespace UtransEditorAGRC
                     txtUtranPreDir.ReadOnly = true;
                     txtUtranR_F_Add.ReadOnly = true;
                     txtUtranR_T_Add.ReadOnly = true;
-                    txtUtransAcsAllias.ReadOnly = true;
+                    txtUtransAcsName.ReadOnly = true;
                     txtUtransAcsSuf.ReadOnly = true;
                     txtUtransAlias1.ReadOnly = true;
                     txtUtransAlias1Type.ReadOnly = true;
@@ -565,7 +565,7 @@ namespace UtransEditorAGRC
                     lblStName.Enabled = false;
                     lblStType.Enabled = false;
                     lblSufDir.Enabled = false;
-                    lblAcsAlias.Enabled = false;
+                    lblAcsName.Enabled = false;
                     lblAcsSuf.Enabled = false;
                     lblAlias.Enabled = false;
                     lblAlias1Type.Enabled = false;
@@ -748,10 +748,10 @@ namespace UtransEditorAGRC
                     //lblRightTo.Font = fontLabelDataMismatch;
                     //boolHadDifferenceR_T_Add = true;
                 }
-                if (txtCountyAcsAlilas.Text.ToUpper().ToString() != txtUtransAcsAllias.Text.ToUpper().ToString())
+                if (txtCountyAcsName.Text.ToUpper().ToString() != txtUtransAcsName.Text.ToUpper().ToString())
                 {
-                    txtUtransAcsAllias.BackColor = Color.LightYellow;
-                    txtCountyAcsAlilas.BackColor = Color.LightYellow;
+                    txtUtransAcsName.BackColor = Color.LightYellow;
+                    txtCountyAcsName.BackColor = Color.LightYellow;
                     //lblAcsAlias.Font = fontLabelDataMismatch;
                     //boolHadDifferenceAcsAlias = true;
                 }
@@ -1050,14 +1050,14 @@ namespace UtransEditorAGRC
                 // ACSALIAS
                 if (clickedLabel.Text == "ACSALIAS")
                 {
-                    if (txtUtransAcsAllias.Text != txtCountyAcsAlilas.Text)
+                    if (txtUtransAcsName.Text != txtCountyAcsName.Text)
                     {
-                        txtUtransAcsAllias.Text = txtCountyAcsAlilas.Text;
+                        txtUtransAcsName.Text = txtCountyAcsName.Text;
                         return;
                     }
-                    if (txtUtransAcsAllias.Text == txtCountyAcsAlilas.Text)
+                    if (txtUtransAcsName.Text == txtCountyAcsName.Text)
                     {
-                        txtUtransAcsAllias.Text = txtUtransInitialAcsAlias;
+                        txtUtransAcsName.Text = txtUtransInitialAcsAlias;
                         return;
                     }
                 }
@@ -1553,26 +1553,26 @@ namespace UtransEditorAGRC
         {
             try
             {
-                if (txtUtransAcsAllias.Text.ToUpper().ToString() != txtCountyAcsAlilas.Text.ToUpper().ToString())
+                if (txtUtransAcsName.Text.ToUpper().ToString() != txtCountyAcsName.Text.ToUpper().ToString())
                 {
-                    txtUtransAcsAllias.BackColor = Color.LightYellow;
-                    txtCountyAcsAlilas.BackColor = Color.LightYellow;
+                    txtUtransAcsName.BackColor = Color.LightYellow;
+                    txtCountyAcsName.BackColor = Color.LightYellow;
                 }
-                else if (txtUtransAcsAllias.Text.ToUpper().ToString() == txtCountyAcsAlilas.Text.ToUpper().ToString())
+                else if (txtUtransAcsName.Text.ToUpper().ToString() == txtCountyAcsName.Text.ToUpper().ToString())
                 {
-                    txtUtransAcsAllias.BackColor = Color.White;
-                    txtCountyAcsAlilas.BackColor = Color.White;
+                    txtUtransAcsName.BackColor = Color.White;
+                    txtCountyAcsName.BackColor = Color.White;
                 }
 
-                if (txtUtransAcsAllias.Text != txtUtransInitialAcsAlias)
+                if (txtUtransAcsName.Text != txtUtransInitialAcsAlias)
                 {
-                    lblAcsAlias.Font = fontLabelHasEdits;
+                    lblAcsName.Font = fontLabelHasEdits;
                     //lblAcsAlias.ForeColor = Color.LightSalmon;
                     btnSaveToUtrans.Enabled = true;
                 }
                 else
                 {
-                    lblAcsAlias.Font = fontLabelRegular;
+                    lblAcsName.Font = fontLabelRegular;
                     //lblAcsAlias.ForeColor = Color.Black;
                     btnSaveToUtrans.Enabled = false;
                 }
@@ -2222,6 +2222,8 @@ namespace UtransEditorAGRC
                 //check for duplcate records - use less than two b/c if the number ranges are null it's doesn't find a match in utrans so it's 0
                 if (intUtransFeatCount == 1)
                 {
+                    //calc values in the dfc table to show the new oid
+
                     IQueryFilter arcQueryFilter_DFC_updateOID = new QueryFilter();
                     arcQueryFilter_DFC_updateOID.WhereClause = "OBJECTID = " + strDFC_RESULT_oid;
 
@@ -2248,10 +2250,6 @@ namespace UtransEditorAGRC
                     MessageBox.Show("Warning... The new road segment that was just copied into the Utrans database could not be found with the following defintion query: " + arcQueryFilterNewUtransSegment.WhereClause.ToString(), "Not Found in Utrans", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-
-
-                //calc values in the dfc table to show the new oid
-
 
 
                 //refresh the map layers and data
