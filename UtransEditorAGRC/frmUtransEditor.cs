@@ -1772,22 +1772,22 @@ namespace UtransEditorAGRC
                             if (ctrlCurrent.Tag.ToString() == "L_F_ADD" & ctrlCurrent.Text.ToString() == "")
                             {
                                 arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField(ctrlCurrent.Tag.ToString()), 0);
-                                break;
+                                //break;
                             }
                             else if (ctrlCurrent.Tag.ToString() == "L_T_ADD" & ctrlCurrent.Text.ToString() == "")
                             {
                                 arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField(ctrlCurrent.Tag.ToString()), 0);
-                                break;
+                                //break;
                             }
                             else if (ctrlCurrent.Tag.ToString() == "R_F_ADD" & ctrlCurrent.Text.ToString() == "")
                             {
                                 arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField(ctrlCurrent.Tag.ToString()), 0);
-                                break;
+                                //break;
                             }
                             else if (ctrlCurrent.Tag.ToString() == "R_T_ADD" & ctrlCurrent.Text.ToString() == "")
                             {
                                 arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField(ctrlCurrent.Tag.ToString()), 0);
-                                break;
+                                //break;
                             }
                             else
                             {
