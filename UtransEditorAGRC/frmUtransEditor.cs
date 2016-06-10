@@ -266,13 +266,14 @@ namespace UtransEditorAGRC
                 //check if the form is open/visible - if not, don't go through this code
                 if (clsGlobals.UtransEdior2.Visible == true)
                 {
+                    //do nothing... proceed into the method
                     //MessageBox.Show("form is visible");
                 }
                 else
                 {
-                    //MessageBox.Show("form is not visible");
                     //exit out of the method becuase the form is not open
                     return;
+                    //MessageBox.Show("form is not visible");
                 }
 
                 //hide the copy new segment button
@@ -1879,6 +1880,26 @@ namespace UtransEditorAGRC
 
                     //refresh the map
                     arcActiveView.Refresh();
+
+
+                    //now that save was succesful, calculate status field
+                    IQueryFilter arcQueryFilter_DFC_updateOID = new QueryFilter();
+                    arcQueryFilter_DFC_updateOID.WhereClause = "OBJECTID = " + strDFC_RESULT_oid;
+
+                    //proceed with calculating values in the dfc table - 
+                    ICalculator arcCalculator = new Calculator();
+                    ICursor arcCur_dfcLayer = clsGlobals.arcGeoFLayerDfcResult.FeatureClass.Update(arcQueryFilter_DFC_updateOID, true) as ICursor;
+
+                    arcCalculator.Cursor = arcCur_dfcLayer;
+                    arcCalculator.Expression = cboStatusField.Text.ToString();
+                    arcCalculator.Field = "CURRENT_NOTES"; // "CURRENT_NOTES";
+                    arcCalculator.Calculate();
+                    arcCalculator.ShowErrorPrompt = true;
+
+                    //clear out the cursor
+                    arcCur_dfcLayer = null;
+
+
 
                     //call the next button
                     //btnNext_Click(sender, e);
