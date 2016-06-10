@@ -61,6 +61,8 @@ namespace UtransEditorAGRC
         string strUtransCartoCode = "";
         string strCountyCartoCode = "";
 
+        IMap arcMapp;
+
         //initialize the form
         public frmUtransEditor()
         {
@@ -106,7 +108,7 @@ namespace UtransEditorAGRC
                 IMxDocument arcMxDoc = clsGlobals.arcApplication.Document as IMxDocument;
 
                 //get the focus map
-                IMap arcMapp = arcMxDoc.FocusMap;
+                arcMapp = arcMxDoc.FocusMap;
 
                 arcActiveView = arcMapp as IActiveView;
                 arcMapp.ClearSelection();
@@ -1947,23 +1949,8 @@ namespace UtransEditorAGRC
                     //stop the edit operation
                     clsGlobals.arcEditor.StopOperation("Street Edit");
 
-
-                    //select the utrans street segment for user's visibility in ArcMap
-
-
-                    //refresh the map
-                    //arcActiveView.Refresh();
-
-                    //now that save was succesful, calculate status field
-                    //arcQueryFilter_DFC_updateOID = new QueryFilter();
-                    //arcQueryFilter_DFC_updateOID.WhereClause = "OBJECTID = " + strDFC_RESULT_oid;
-
                     //get the combobox value in a string
                     string strComboBoxTextValueDoubleQuotes = @"""" + strComboBoxTextValue + @"""";
-
-                    //proceed with calculating values in the dfc table - 
-                    //ICalculator arcCalculator = new Calculator();
-                    //ICursor arcCur_dfcLayer = clsGlobals.arcGeoFLayerDfcResult.FeatureClass.Update(arcQueryFilter_DFC_updateOID, true) as ICursor;
 
                     arcCalculator.Cursor = arcCur_dfcLayer;
                     arcCalculator.Expression = strComboBoxTextValueDoubleQuotes;
@@ -1974,16 +1961,20 @@ namespace UtransEditorAGRC
                     //clear out the cursor
                     arcCur_dfcLayer = null;
 
+                    //unselect everything in map
+                    arcMapp.ClearSelection();
 
+                    //select the utrans street segment for user's visibility in ArcMap
+                    //or call the onselection changed to refresh and update the form
+                    //select the one record in the above asigned feature layer
+                    IFeatureSelection featSelectUtransUpdated = clsGlobals.arcGeoFLayerUtransStreets as IFeatureSelection;
+                    featSelectUtransUpdated.SelectFeatures(arcUtransEdit_QueryFilter, esriSelectionResultEnum.esriSelectionResultNew, false);
+                    
                     //refresh the map layers and data
                     arcActiveView.Refresh();
                     arcActiveView.Refresh();
-
-
-                    //call the next button
-                    //btnNext_Click(sender, e);
-
-                    //or call the onselection changed to refresh and update the form
+                    
+                    //call selection changed - not sure if needed as there is a new selection above
                     frmUtransEditor_OnSelectionChanged();
 
                 }
