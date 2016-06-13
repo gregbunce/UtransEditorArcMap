@@ -1049,8 +1049,8 @@ namespace UtransEditorAGRC
                     }
                 }
 
-                // ACSALIAS
-                if (clickedLabel.Text == "ACSALIAS")
+                // ACSNAME
+                if (clickedLabel.Text == "ACSNAME")
                 {
                     if (txtUtransAcsName.Text != txtCountyAcsName.Text)
                     {
@@ -1550,7 +1550,7 @@ namespace UtransEditorAGRC
             }
         }
 
-        //ACSALIAS
+        //ACSNAME
         private void txtUtransAcsAllias_TextChanged(object sender, EventArgs e)
         {
             try
@@ -2288,7 +2288,7 @@ namespace UtransEditorAGRC
 
                     arcCalculator.Cursor = arcCur_dfcLayer;
                     arcCalculator.Expression = strNewStreetOID;
-                    arcCalculator.Field = "BASE_FID"; // "CURRENT_NOTES";
+                    arcCalculator.Field = "BASE_FID";
                     arcCalculator.Calculate();
                     arcCalculator.ShowErrorPrompt = true;
 
@@ -2351,6 +2351,7 @@ namespace UtransEditorAGRC
             }
             
         }
+
 
 
     }

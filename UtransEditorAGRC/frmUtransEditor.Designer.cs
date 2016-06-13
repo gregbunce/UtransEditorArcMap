@@ -109,6 +109,7 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.cboCartoCode = new System.Windows.Forms.ComboBox();
+            this.chkShowVertices = new System.Windows.Forms.CheckBox();
             this.groupBoxCountySeg.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -1040,11 +1041,22 @@
             this.cboCartoCode.TabIndex = 0;
             this.cboCartoCode.SelectedIndexChanged += new System.EventHandler(this.cboCartoCode_SelectedIndexChanged);
             // 
+            // chkShowVertices
+            // 
+            this.chkShowVertices.AutoSize = true;
+            this.chkShowVertices.Location = new System.Drawing.Point(167, 443);
+            this.chkShowVertices.Name = "chkShowVertices";
+            this.chkShowVertices.Size = new System.Drawing.Size(140, 17);
+            this.chkShowVertices.TabIndex = 24;
+            this.chkShowVertices.Text = "Show Vertices on New?";
+            this.chkShowVertices.UseVisualStyleBackColor = true;
+            // 
             // frmUtransEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1258, 472);
+            this.Controls.Add(this.chkShowVertices);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.btnCopyNewSegment);
             this.Controls.Add(this.groupBox6);
@@ -1163,5 +1175,6 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.ComboBox cboCartoCode;
+        private System.Windows.Forms.CheckBox chkShowVertices;
     }
 }
