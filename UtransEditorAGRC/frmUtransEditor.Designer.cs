@@ -112,6 +112,8 @@
             this.chkShowVertices = new System.Windows.Forms.CheckBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.btnUpdateDfcObjectID = new System.Windows.Forms.Button();
+            this.btnClearVertices = new System.Windows.Forms.Button();
+            this.linkLabelDefQuery = new System.Windows.Forms.LinkLabel();
             this.groupBoxCountySeg.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -854,7 +856,7 @@
             // linkLabelAttrDoc
             // 
             this.linkLabelAttrDoc.AutoSize = true;
-            this.linkLabelAttrDoc.Location = new System.Drawing.Point(12, 434);
+            this.linkLabelAttrDoc.Location = new System.Drawing.Point(12, 436);
             this.linkLabelAttrDoc.Name = "linkLabelAttrDoc";
             this.linkLabelAttrDoc.Size = new System.Drawing.Size(122, 13);
             this.linkLabelAttrDoc.TabIndex = 9;
@@ -922,7 +924,7 @@
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(12, 454);
+            this.label31.Location = new System.Drawing.Point(12, 457);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(145, 13);
             this.label31.TabIndex = 16;
@@ -931,7 +933,7 @@
             // lblVersionName
             // 
             this.lblVersionName.AutoSize = true;
-            this.lblVersionName.Location = new System.Drawing.Point(152, 454);
+            this.lblVersionName.Location = new System.Drawing.Point(152, 457);
             this.lblVersionName.Name = "lblVersionName";
             this.lblVersionName.Size = new System.Drawing.Size(71, 13);
             this.lblVersionName.TabIndex = 17;
@@ -995,9 +997,9 @@
             // 
             this.btnCopyNewSegment.BackgroundImage = global::UtransEditorAGRC.Properties.Resources.EditingCopyParallel32;
             this.btnCopyNewSegment.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnCopyNewSegment.Location = new System.Drawing.Point(1003, 408);
+            this.btnCopyNewSegment.Location = new System.Drawing.Point(1010, 409);
             this.btnCopyNewSegment.Name = "btnCopyNewSegment";
-            this.btnCopyNewSegment.Size = new System.Drawing.Size(50, 50);
+            this.btnCopyNewSegment.Size = new System.Drawing.Size(50, 53);
             this.btnCopyNewSegment.TabIndex = 22;
             this.toolTip1.SetToolTip(this.btnCopyNewSegment, "Load Selected County Segment into UTRANS Database.");
             this.btnCopyNewSegment.UseVisualStyleBackColor = true;
@@ -1049,12 +1051,15 @@
             // chkShowVertices
             // 
             this.chkShowVertices.AutoSize = true;
-            this.chkShowVertices.Location = new System.Drawing.Point(1067, 446);
+            this.chkShowVertices.Checked = true;
+            this.chkShowVertices.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkShowVertices.Location = new System.Drawing.Point(1067, 447);
             this.chkShowVertices.Name = "chkShowVertices";
             this.chkShowVertices.Size = new System.Drawing.Size(140, 17);
             this.chkShowVertices.TabIndex = 24;
             this.chkShowVertices.Text = "Show Vertices on New?";
             this.chkShowVertices.UseVisualStyleBackColor = true;
+            this.chkShowVertices.Visible = false;
             // 
             // groupBox7
             // 
@@ -1078,11 +1083,34 @@
             this.btnUpdateDfcObjectID.UseVisualStyleBackColor = true;
             this.btnUpdateDfcObjectID.Click += new System.EventHandler(this.btnUpdateDfcObjectID_Click);
             // 
+            // btnClearVertices
+            // 
+            this.btnClearVertices.Location = new System.Drawing.Point(27, 393);
+            this.btnClearVertices.Name = "btnClearVertices";
+            this.btnClearVertices.Size = new System.Drawing.Size(91, 23);
+            this.btnClearVertices.TabIndex = 26;
+            this.btnClearVertices.Text = "Clear Vertices";
+            this.btnClearVertices.UseVisualStyleBackColor = true;
+            this.btnClearVertices.Click += new System.EventHandler(this.btnClearVertices_Click);
+            // 
+            // linkLabelDefQuery
+            // 
+            this.linkLabelDefQuery.AutoSize = true;
+            this.linkLabelDefQuery.Location = new System.Drawing.Point(12, 420);
+            this.linkLabelDefQuery.Name = "linkLabelDefQuery";
+            this.linkLabelDefQuery.Size = new System.Drawing.Size(136, 13);
+            this.linkLabelDefQuery.TabIndex = 27;
+            this.linkLabelDefQuery.TabStop = true;
+            this.linkLabelDefQuery.Text = "DFC_RESULT Def Queries";
+            this.linkLabelDefQuery.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelDefQuery_LinkClicked);
+            // 
             // frmUtransEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1258, 476);
+            this.Controls.Add(this.linkLabelDefQuery);
+            this.Controls.Add(this.btnClearVertices);
             this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.chkShowVertices);
             this.Controls.Add(this.groupBox5);
@@ -1207,5 +1235,7 @@
         private System.Windows.Forms.CheckBox chkShowVertices;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.Button btnUpdateDfcObjectID;
+        private System.Windows.Forms.Button btnClearVertices;
+        private System.Windows.Forms.LinkLabel linkLabelDefQuery;
     }
 }

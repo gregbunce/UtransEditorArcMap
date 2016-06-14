@@ -16,6 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ESRI.ArcGIS.GeoDatabaseUI;
+using ESRI.ArcGIS.Display;
 
 namespace UtransEditorAGRC
 {
@@ -62,6 +63,10 @@ namespace UtransEditorAGRC
         string strCountyCartoCode = "";
 
         IMap arcMapp;
+
+        ICompositeGraphicsLayer2 pComGraphicsLayer;
+        ICompositeLayer pCompositeLayer;
+        ILayer pLayer;
 
         //initialize the form
         public frmUtransEditor()
@@ -280,6 +285,7 @@ namespace UtransEditorAGRC
 
                 //hide the copy new segment button
                 btnCopyNewSegment.Hide();
+                chkShowVertices.Hide();
 
                 //reset the cartocode combobox to nothing
                 cboCartoCode.SelectedIndex = -1;
@@ -576,6 +582,7 @@ namespace UtransEditorAGRC
                     
                     //show get new feature button and make save button not enabled
                     btnCopyNewSegment.Visible = true;
+                    chkShowVertices.Visible = true;
                     //btnSaveToUtrans.Enabled = false;
                 }
 
@@ -2326,8 +2333,13 @@ namespace UtransEditorAGRC
                 arcQueryFilter_NewSteetUtrans.WhereClause = "OBJECTID = " + strNewStreetOID;
 
                 IFeatureSelection featSelectUtransUpdated = clsGlobals.arcGeoFLayerUtransStreets as IFeatureSelection;
-                featSelectUtransUpdated.SelectFeatures(arcQueryFilter_NewSteetUtrans, esriSelectionResultEnum.esriSelectionResultNew, false);                   
-                
+                featSelectUtransUpdated.SelectFeatures(arcQueryFilter_NewSteetUtrans, esriSelectionResultEnum.esriSelectionResultNew, false);
+
+
+                if (chkShowVertices.Checked == true)
+                {
+                    displayVerticesOnNew();
+                }
 
 
                 //refresh the map layers and data
@@ -2488,6 +2500,172 @@ namespace UtransEditorAGRC
                 arcCur_dfcLayer = null;
                 arcQueryFilter_DFC_updateSplitOID = null;
 
+                // refresh the map
+                arcActiveView.Refresh();
+                arcActiveView.Refresh();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
+                "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
+                "Error Location:" + Environment.NewLine + ex.StackTrace,
+                "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+
+
+        //show the vertices if the user has the checkbox checked
+        public void displayVerticesOnNew() 
+        {
+            try
+            {
+                //get the map's graphics layer
+                pComGraphicsLayer = arcMapp.BasicGraphicsLayer as ICompositeGraphicsLayer2;
+                pCompositeLayer = pComGraphicsLayer as ICompositeLayer;
+
+                //loop through all graphic layers in the map and check for the 'UtransVertices' layer, if found, delete it, in order to start fresh
+                for (int i = 0; i < pCompositeLayer.Count; i++)
+                {
+                    pLayer = pCompositeLayer.get_Layer(i);
+                    if (pLayer.Name == "UtransVertices")
+                    {
+                        pComGraphicsLayer.DeleteLayer("UtransVertices");
+                        break;
+                    }
+                }
+
+                //add a graphics layer to the map, so we can add the symbols to it
+                IGraphicsLayer pGraphicsLayer = pComGraphicsLayer.AddLayer("UtransVertices", null);
+                arcMapp.ActiveGraphicsLayer = (ILayer)pGraphicsLayer;
+                IGraphicsContainer pGraphicsContainer = pComGraphicsLayer.FindLayer("UtransVertices") as IGraphicsContainer;
+
+
+                //setup marker symbol
+                ISimpleMarkerSymbol pSimpleMarker = new SimpleMarkerSymbol();
+                ISymbol pSymbolMarker = (ISymbol)pSimpleMarker;
+                IRgbColor pRgbColor = new ESRI.ArcGIS.Display.RgbColorClass();
+                pRgbColor.Red = 223;
+                pRgbColor.Green = 155;
+                pRgbColor.Blue = 255;
+                pSimpleMarker.Color = pRgbColor;
+                pSimpleMarker.Style = esriSimpleMarkerStyle.esriSMSDiamond;
+                pSimpleMarker.Size = 8;
+
+                //setup line symbol
+                ISimpleLineSymbol pSimpleLineSymbol = new SimpleLineSymbol();
+                ISymbol pSymbolLine = (ISymbol)pSimpleLineSymbol;
+                pRgbColor = new ESRI.ArcGIS.Display.RgbColor();
+                pRgbColor.Red = 0;
+                pRgbColor.Green = 255;
+                pRgbColor.Blue = 0;
+                pSimpleLineSymbol.Color = pRgbColor;
+                pSimpleLineSymbol.Style = esriSimpleLineStyle.esriSLSSolid;
+                pSimpleLineSymbol.Width = 1;
+
+                //setup simplefill symbol
+                ISimpleFillSymbol pSimpleFillSymbol = new SimpleFillSymbol();
+                ISymbol pSymbolPolygon = (ISymbol)pSimpleFillSymbol;
+                pRgbColor = new ESRI.ArcGIS.Display.RgbColor();
+                pRgbColor.Red = 0;
+                pRgbColor.Green = 0;
+                pRgbColor.Blue = 255;
+                pSimpleFillSymbol.Color = pRgbColor;
+                pSimpleFillSymbol.Style = esriSimpleFillStyle.esriSFSSolid;
+
+                //get all the street segments in the current map extent in a cursor
+                IEnvelope pMapExtent = arcActiveView.Extent;
+                ISpatialFilter pQFilter = new SpatialFilter();
+                pQFilter.GeometryField = "SHAPE";
+                pQFilter.Geometry = pMapExtent;
+                pQFilter.SpatialRel = esriSpatialRelEnum.esriSpatialRelIntersects;
+                IFeatureCursor pFCursor = clsGlobals.arcGeoFLayerUtransStreets.Search(pQFilter, true);
+
+                //draw each street segment and then each segments's point collection
+                IFeature pFeature = pFCursor.NextFeature();
+                IGeometry pGeometry;
+
+                while (pFeature != null)
+                {
+                    pGeometry = pFeature.Shape;
+                    //draw the segment
+                    //draw each vertex on the segment
+                    IPointCollection pPointCollection = pGeometry as IPointCollection;
+                    for (int i = 0; i < pPointCollection.PointCount; i++)
+                    {
+                        IGeometry pPtGeom = pPointCollection.get_Point(i);
+                        IElement pElement = new MarkerElement();
+                        pElement.Geometry = pPtGeom;
+                        IMarkerElement pMarkerElement = pElement as IMarkerElement;
+                        pMarkerElement.Symbol = pSimpleMarker;
+                        pGraphicsContainer.AddElement(pElement, 0);
+                    }
+                    pFeature = pFCursor.NextFeature();
+                }
+
+                // null out variables
+                pLayer = null;
+                pComGraphicsLayer = null;
+                pCompositeLayer = null;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
+                "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
+                "Error Location:" + Environment.NewLine + ex.StackTrace,
+                "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+
+
+        //this button, when clicked clears the map's vertices in the UtransVertices graphic layer, if any
+        private void btnClearVertices_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //get the map's graphics layer
+                pComGraphicsLayer = arcMapp.BasicGraphicsLayer as ICompositeGraphicsLayer2;
+                pCompositeLayer = pComGraphicsLayer as ICompositeLayer;
+
+                //loop through all graphic layers in the map and check for the 'UtransVertices' layer, if found, delete it, in order to start fresh
+                for (int i = 0; i < pCompositeLayer.Count; i++)
+                {
+                    pLayer = pCompositeLayer.get_Layer(i);
+                    if (pLayer.Name == "UtransVertices")
+                    {
+                        pComGraphicsLayer.DeleteLayer("UtransVertices");
+                        break;
+                    }
+                }
+
+                // null out variables
+                pLayer = null;
+                pComGraphicsLayer = null;
+                pCompositeLayer = null;
+
+                // refresh the map
+                arcActiveView.Refresh();
+                arcActiveView.Refresh();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
+                "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
+                "Error Location:" + Environment.NewLine + ex.StackTrace,
+                "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private void linkLabelDefQuery_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                //open google doc attr doc showing attribute details
+                //System.Diagnostics.Process.Start(e.Link.LinkData as string);
+                System.Diagnostics.Process.Start("https://docs.google.com/document/d/1h7FTFUEXWobA8fvctgxKLaxr6LslnwVPnGVgPlrHnz0/edit");
             }
             catch (Exception ex)
             {
