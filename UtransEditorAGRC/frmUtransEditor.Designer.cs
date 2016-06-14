@@ -110,6 +110,8 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.cboCartoCode = new System.Windows.Forms.ComboBox();
             this.chkShowVertices = new System.Windows.Forms.CheckBox();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.btnUpdateDfcObjectID = new System.Windows.Forms.Button();
             this.groupBoxCountySeg.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -119,6 +121,7 @@
             this.groupBoxStatusField.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.groupBox7.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtCountyL_F_Add
@@ -851,7 +854,7 @@
             // linkLabelAttrDoc
             // 
             this.linkLabelAttrDoc.AutoSize = true;
-            this.linkLabelAttrDoc.Location = new System.Drawing.Point(24, 423);
+            this.linkLabelAttrDoc.Location = new System.Drawing.Point(12, 434);
             this.linkLabelAttrDoc.Name = "linkLabelAttrDoc";
             this.linkLabelAttrDoc.Size = new System.Drawing.Size(122, 13);
             this.linkLabelAttrDoc.TabIndex = 9;
@@ -878,7 +881,7 @@
             // groupBoxStatusField
             // 
             this.groupBoxStatusField.Controls.Add(this.cboStatusField);
-            this.groupBoxStatusField.Location = new System.Drawing.Point(487, 401);
+            this.groupBoxStatusField.Location = new System.Drawing.Point(827, 409);
             this.groupBoxStatusField.Name = "groupBoxStatusField";
             this.groupBoxStatusField.Size = new System.Drawing.Size(166, 49);
             this.groupBoxStatusField.TabIndex = 12;
@@ -919,7 +922,7 @@
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(24, 401);
+            this.label31.Location = new System.Drawing.Point(12, 454);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(145, 13);
             this.label31.TabIndex = 16;
@@ -928,7 +931,7 @@
             // lblVersionName
             // 
             this.lblVersionName.AutoSize = true;
-            this.lblVersionName.Location = new System.Drawing.Point(164, 401);
+            this.lblVersionName.Location = new System.Drawing.Point(152, 454);
             this.lblVersionName.Name = "lblVersionName";
             this.lblVersionName.Size = new System.Drawing.Size(71, 13);
             this.lblVersionName.TabIndex = 17;
@@ -937,7 +940,7 @@
             // btnNext
             // 
             this.btnNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNext.Location = new System.Drawing.Point(80, 16);
+            this.btnNext.Location = new System.Drawing.Point(80, 15);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(58, 32);
             this.btnNext.TabIndex = 0;
@@ -947,12 +950,12 @@
             // 
             // groupBox6
             // 
-            this.groupBox6.Controls.Add(this.label34);
-            this.groupBox6.Controls.Add(this.label33);
             this.groupBox6.Controls.Add(this.btnNext);
             this.groupBox6.Controls.Add(this.btnPrev);
+            this.groupBox6.Controls.Add(this.label34);
+            this.groupBox6.Controls.Add(this.label33);
             this.groupBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox6.Location = new System.Drawing.Point(318, 393);
+            this.groupBox6.Location = new System.Drawing.Point(665, 399);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(145, 74);
             this.groupBox6.TabIndex = 19;
@@ -961,25 +964,27 @@
             // label34
             // 
             this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(90, 52);
+            this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label34.Location = new System.Drawing.Point(90, 50);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(39, 16);
+            this.label34.Size = new System.Drawing.Size(35, 16);
             this.label34.TabIndex = 2;
             this.label34.Text = "Next";
             // 
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(16, 52);
+            this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label33.Location = new System.Drawing.Point(16, 50);
             this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(40, 16);
+            this.label33.Size = new System.Drawing.Size(36, 16);
             this.label33.TabIndex = 1;
             this.label33.Text = "Prev";
             // 
             // btnPrev
             // 
             this.btnPrev.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPrev.Location = new System.Drawing.Point(7, 16);
+            this.btnPrev.Location = new System.Drawing.Point(7, 15);
             this.btnPrev.Name = "btnPrev";
             this.btnPrev.Size = new System.Drawing.Size(58, 32);
             this.btnPrev.TabIndex = 0;
@@ -990,7 +995,7 @@
             // 
             this.btnCopyNewSegment.BackgroundImage = global::UtransEditorAGRC.Properties.Resources.EditingCopyParallel32;
             this.btnCopyNewSegment.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnCopyNewSegment.Location = new System.Drawing.Point(999, 401);
+            this.btnCopyNewSegment.Location = new System.Drawing.Point(1003, 408);
             this.btnCopyNewSegment.Name = "btnCopyNewSegment";
             this.btnCopyNewSegment.Size = new System.Drawing.Size(50, 50);
             this.btnCopyNewSegment.TabIndex = 22;
@@ -1006,7 +1011,7 @@
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.cboCartoCode);
-            this.groupBox5.Location = new System.Drawing.Point(668, 401);
+            this.groupBox5.Location = new System.Drawing.Point(337, 399);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(316, 50);
             this.groupBox5.TabIndex = 23;
@@ -1044,18 +1049,41 @@
             // chkShowVertices
             // 
             this.chkShowVertices.AutoSize = true;
-            this.chkShowVertices.Location = new System.Drawing.Point(167, 443);
+            this.chkShowVertices.Location = new System.Drawing.Point(1067, 446);
             this.chkShowVertices.Name = "chkShowVertices";
             this.chkShowVertices.Size = new System.Drawing.Size(140, 17);
             this.chkShowVertices.TabIndex = 24;
             this.chkShowVertices.Text = "Show Vertices on New?";
             this.chkShowVertices.UseVisualStyleBackColor = true;
             // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.btnUpdateDfcObjectID);
+            this.groupBox7.Location = new System.Drawing.Point(171, 399);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(154, 48);
+            this.groupBox7.TabIndex = 25;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Did You Split A Line?";
+            // 
+            // btnUpdateDfcObjectID
+            // 
+            this.btnUpdateDfcObjectID.Location = new System.Drawing.Point(13, 16);
+            this.btnUpdateDfcObjectID.Name = "btnUpdateDfcObjectID";
+            this.btnUpdateDfcObjectID.Size = new System.Drawing.Size(133, 23);
+            this.btnUpdateDfcObjectID.TabIndex = 0;
+            this.btnUpdateDfcObjectID.Text = "Update DFC ObjectID";
+            this.toolTip1.SetToolTip(this.btnUpdateDfcObjectID, "Select the Utrans Segmant and its Overlapping\r\nDFC_RESULT segment, then click but" +
+        "ton.");
+            this.btnUpdateDfcObjectID.UseVisualStyleBackColor = true;
+            this.btnUpdateDfcObjectID.Click += new System.EventHandler(this.btnUpdateDfcObjectID_Click);
+            // 
             // frmUtransEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1258, 472);
+            this.ClientSize = new System.Drawing.Size(1258, 476);
+            this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.chkShowVertices);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.btnCopyNewSegment);
@@ -1089,6 +1117,7 @@
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             this.groupBox5.ResumeLayout(false);
+            this.groupBox7.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1176,5 +1205,7 @@
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.ComboBox cboCartoCode;
         private System.Windows.Forms.CheckBox chkShowVertices;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.Button btnUpdateDfcObjectID;
     }
 }

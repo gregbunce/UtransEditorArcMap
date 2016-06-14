@@ -318,7 +318,7 @@ namespace UtransEditorAGRC
                 lblAlias2Type.Enabled = true;
 
                 //disable the save to utrans button - until a change has been detected
-                btnSaveToUtrans.Enabled = false;
+                //btnSaveToUtrans.Enabled = false;
 
 
                 //make sure the backcolor of each color is white
@@ -576,7 +576,7 @@ namespace UtransEditorAGRC
                     
                     //show get new feature button and make save button not enabled
                     btnCopyNewSegment.Visible = true;
-                    btnSaveToUtrans.Enabled = false;
+                    //btnSaveToUtrans.Enabled = false;
                 }
 
             }
@@ -1119,7 +1119,8 @@ namespace UtransEditorAGRC
                 {
                     lblLeftFrom.Font = fontLabelRegular;
                     //lblLeftFrom.ForeColor = Color.Black;
-                    btnSaveToUtrans.Enabled = false;
+                    //btnSaveToUtrans.Enabled = false;
+                    btnSaveToUtrans.Enabled = true;
                 }
             }
             catch (Exception ex)
@@ -1157,7 +1158,8 @@ namespace UtransEditorAGRC
                 {
                     lblLeftTo.Font = fontLabelRegular;
                     //lblLeftTo.ForeColor = Color.Black;
-                    btnSaveToUtrans.Enabled = false;
+                    //btnSaveToUtrans.Enabled = false;
+                    btnSaveToUtrans.Enabled = true;
                 }
             }
             catch (Exception ex)
@@ -1195,7 +1197,8 @@ namespace UtransEditorAGRC
                 {
                     lblRightFrom.Font = fontLabelRegular;
                     //lblRightFrom.ForeColor = Color.Black;
-                    btnSaveToUtrans.Enabled = false;
+                    //btnSaveToUtrans.Enabled = false;
+                    btnSaveToUtrans.Enabled = true;
                 }
             }
             catch (Exception ex)
@@ -1233,7 +1236,8 @@ namespace UtransEditorAGRC
                 {
                     lblRightTo.Font = fontLabelRegular;
                     //lblRightTo.ForeColor = Color.Black;
-                    btnSaveToUtrans.Enabled = false;
+                    //btnSaveToUtrans.Enabled = false;
+                    btnSaveToUtrans.Enabled = true;
                 }
             }
             catch (Exception ex)
@@ -1271,7 +1275,8 @@ namespace UtransEditorAGRC
                 {
                     lblPreDir.Font = fontLabelRegular;
                     //lblPreDir.ForeColor = Color.Black;
-                    btnSaveToUtrans.Enabled = false;
+                    //btnSaveToUtrans.Enabled = false;
+                    btnSaveToUtrans.Enabled = true;
                 }
             }
             catch (Exception ex)
@@ -1309,7 +1314,8 @@ namespace UtransEditorAGRC
                 {
                     lblStName.Font = fontLabelRegular;
                     //lblStName.ForeColor = Color.Black;
-                    btnSaveToUtrans.Enabled = false;
+                    //btnSaveToUtrans.Enabled = false;
+                    btnSaveToUtrans.Enabled = true;
                 }
             }
             catch (Exception ex)
@@ -1347,7 +1353,8 @@ namespace UtransEditorAGRC
                 {
                     lblStType.Font = fontLabelRegular;
                     //lblStType.ForeColor = Color.Black;
-                    btnSaveToUtrans.Enabled = false;
+                    //btnSaveToUtrans.Enabled = false;
+                    btnSaveToUtrans.Enabled = true;
                 }
             }
             catch (Exception ex)
@@ -1385,7 +1392,8 @@ namespace UtransEditorAGRC
                 {
                     lblSufDir.Font = fontLabelRegular;
                     //lblSufDir.ForeColor = Color.Black;
-                    btnSaveToUtrans.Enabled = false;
+                    //btnSaveToUtrans.Enabled = false;
+                    btnSaveToUtrans.Enabled = true;
                 }
             }
             catch (Exception ex)
@@ -1423,7 +1431,8 @@ namespace UtransEditorAGRC
                 {
                     lblAlias.Font = fontLabelRegular;
                     //lblAlias.ForeColor = Color.Black;
-                    btnSaveToUtrans.Enabled = false;
+                    //btnSaveToUtrans.Enabled = false;
+                    btnSaveToUtrans.Enabled = true;
                 }
             }
             catch (Exception ex)
@@ -1462,7 +1471,8 @@ namespace UtransEditorAGRC
                 {
                     lblAlias1Type.Font = fontLabelRegular;
                     //lblAlias1Type.ForeColor = Color.Black;
-                    btnSaveToUtrans.Enabled = false;
+                    //btnSaveToUtrans.Enabled = false;
+                    btnSaveToUtrans.Enabled = true;
                 }
             }
             catch (Exception ex)
@@ -1500,7 +1510,8 @@ namespace UtransEditorAGRC
                 {
                     lblAlias2.Font = fontLabelRegular;
                     //lblAlias2.ForeColor = Color.Black;
-                    btnSaveToUtrans.Enabled = false;
+                    //btnSaveToUtrans.Enabled = false;
+                    btnSaveToUtrans.Enabled = true;
                 }
             }
             catch (Exception ex)
@@ -1538,7 +1549,8 @@ namespace UtransEditorAGRC
                 {
                     lblAlias2Type.Font = fontLabelRegular;
                     //lblAlias2Type.ForeColor = Color.Black;
-                    btnSaveToUtrans.Enabled = false;
+                    //btnSaveToUtrans.Enabled = false;
+                    btnSaveToUtrans.Enabled = true;
                 }
             }
             catch (Exception ex)
@@ -1576,7 +1588,8 @@ namespace UtransEditorAGRC
                 {
                     lblAcsName.Font = fontLabelRegular;
                     //lblAcsAlias.ForeColor = Color.Black;
-                    btnSaveToUtrans.Enabled = false;
+                    //btnSaveToUtrans.Enabled = false;
+                    btnSaveToUtrans.Enabled = true;
                 }
             }
             catch (Exception ex)
@@ -1614,7 +1627,8 @@ namespace UtransEditorAGRC
                 {
                     lblAcsSuf.Font = fontLabelRegular;
                     //lblAcsSuf.ForeColor = Color.Black;
-                    btnSaveToUtrans.Enabled = false;
+                    //btnSaveToUtrans.Enabled = false;
+                    btnSaveToUtrans.Enabled = true;
                 }
             }
             catch (Exception ex)
@@ -2273,7 +2287,7 @@ namespace UtransEditorAGRC
                     intUtransFeatCount = intUtransFeatCount + 1;
                 }
 
-
+                
                 //check for duplcate records - use less than two b/c if the number ranges are null it's doesn't find a match in utrans so it's 0
                 if (intUtransFeatCount == 1)
                 {
@@ -2305,6 +2319,15 @@ namespace UtransEditorAGRC
                     MessageBox.Show("Warning... The new road segment that was just copied into the Utrans database could not be found with the following defintion query: " + arcQueryFilterNewUtransSegment.WhereClause.ToString(), "Not Found in Utrans", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
+
+
+                //select new feature from utrans
+                IQueryFilter arcQueryFilter_NewSteetUtrans = new QueryFilter();
+                arcQueryFilter_NewSteetUtrans.WhereClause = "OBJECTID = " + strNewStreetOID;
+
+                IFeatureSelection featSelectUtransUpdated = clsGlobals.arcGeoFLayerUtransStreets as IFeatureSelection;
+                featSelectUtransUpdated.SelectFeatures(arcQueryFilter_NewSteetUtrans, esriSelectionResultEnum.esriSelectionResultNew, false);                   
+                
 
 
                 //refresh the map layers and data
@@ -2350,6 +2373,129 @@ namespace UtransEditorAGRC
                 cboCartoCode.Font = fontLabelRegular; // for some reason you have to set it to regular each time or it's bold - maybe b/c it's a child of groupbox
             }
             
+        }
+
+
+
+        // this method is called when the update oid button is clicked
+        private void btnUpdateDfcObjectID_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string strDfcResultSelectedFeatureOID = "";
+                string strDfcResultSelectedFeatureExistingBaseFID = "";
+                string strUtransSelectedFeatureOID = "";
+
+
+
+                // make sure one dfc_result layer is selected
+                IFeatureSelection arcFeatureSelectionDFC = clsGlobals.arcGeoFLayerDfcResult as IFeatureSelection;
+                ISelectionSet arcSelSetDFC = arcFeatureSelectionDFC.SelectionSet;
+
+                //check if one record is selected in the dfc
+                if (arcSelSetDFC.Count == 1)
+                {
+                    //get a cursor of the selected features
+                    ICursor arcCursor;
+                    arcSelSetDFC.Search(null, false, out arcCursor);
+
+                    //get the first row (there should only be one)
+                    IRow arcRow = arcCursor.NextRow();
+
+                    //get the objectid from dfc layer
+                    strDfcResultSelectedFeatureOID = arcRow.get_Value(arcRow.Fields.FindField("OBJECTID")).ToString();
+                    strDfcResultSelectedFeatureExistingBaseFID = arcRow.get_Value(arcRow.Fields.FindField("BASE_FID")).ToString();
+
+                    //null out variables
+                    arcCursor = null;
+                    arcRow = null;
+                }
+                else
+                {
+                    MessageBox.Show("Please select only ONE feature from the DFC_RESULT layer.  Note that the feature must overlap the selected Utrans segment.");
+                    return;
+                }
+                
+
+                // make sure one utrans segment is selected
+                IFeatureSelection arcFeatureSelectionUtrans = clsGlobals.arcGeoFLayerUtransStreets as IFeatureSelection;
+                ISelectionSet arcSelSetUtrans = arcFeatureSelectionUtrans.SelectionSet;
+
+                //check if one record is selected in utrans
+                if (arcSelSetUtrans.Count == 1)
+                {
+                    //get a cursor of the selected features
+                    ICursor arcCursor;
+                    arcSelSetUtrans.Search(null, false, out arcCursor);
+
+                    //get the first row (there should only be one)
+                    IRow arcRow = arcCursor.NextRow();
+
+                    //get the objectid from dfc layer
+                    strUtransSelectedFeatureOID = arcRow.get_Value(arcRow.Fields.FindField("OBJECTID")).ToString();
+
+                    //null out variables
+                    arcCursor = null;
+                    arcRow = null;
+
+                }
+                else
+                {
+                    MessageBox.Show("Please select only ONE feature from the UTRANS.TRANSADMIN.StatewideStreets layer.  Note that the feature must overlap the selected DFC_RESULT segment.");
+                    return;
+                }
+
+
+                // update the dfc_result oid with the new oid after the split (populate the previous field with the intial utrans oid)
+                IQueryFilter arcQueryFilter_DFC_updateSplitOID = new QueryFilter();
+                arcQueryFilter_DFC_updateSplitOID.WhereClause = "OBJECTID = " + strDfcResultSelectedFeatureOID;
+
+                //create string for use of double quotes in expression
+                string strCalcExprNewBaseFID = @"""" + strUtransSelectedFeatureOID + @"""";
+                string strCalcExprPrevBaseFID = @"""" + strDfcResultSelectedFeatureExistingBaseFID + @"""";
+
+                //proceed with calculating values in the dfc table - 
+                ICalculator arcCalculator = new Calculator();
+                ICursor arcCur_dfcLayer = clsGlobals.arcGeoFLayerDfcResult.FeatureClass.Update(arcQueryFilter_DFC_updateSplitOID, true) as ICursor;
+
+                //update the BASE_FID field
+                arcCalculator.Cursor = arcCur_dfcLayer;
+                arcCalculator.Expression = strCalcExprNewBaseFID;
+                arcCalculator.Field = "BASE_FID";
+                arcCalculator.Calculate();
+                arcCalculator.ShowErrorPrompt = true;
+
+                //update the PREV__NOTES field
+                //proceed with calculating values in the dfc table - 
+                arcCalculator = new Calculator();
+                arcCur_dfcLayer = clsGlobals.arcGeoFLayerDfcResult.FeatureClass.Update(arcQueryFilter_DFC_updateSplitOID, true) as ICursor;
+                
+                arcCalculator.Cursor = arcCur_dfcLayer;
+                arcCalculator.Expression = strCalcExprPrevBaseFID;
+                arcCalculator.Field = "PREV__NOTES";
+                arcCalculator.Calculate();
+                arcCalculator.ShowErrorPrompt = true;
+
+
+                //show messagebox of what was updated on dfc_result layer
+                MessageBox.Show("The following feature in the DFC_RESULT layer was updated: The record with OBJECTID : " + strDfcResultSelectedFeatureOID + " now contains the value " + strCalcExprNewBaseFID + " for the field BASE_FID.  It replaced the previous value of " + strDfcResultSelectedFeatureExistingBaseFID + ".");
+
+                //null out variables...
+                arcFeatureSelectionDFC = null;
+                arcSelSetDFC = null;
+                arcFeatureSelectionUtrans = null;
+                arcSelSetUtrans = null;
+                arcCur_dfcLayer = null;
+                arcQueryFilter_DFC_updateSplitOID = null;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
+                "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
+                "Error Location:" + Environment.NewLine + ex.StackTrace,
+                "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
 
