@@ -63,6 +63,16 @@ namespace UtransEditorAGRC.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap btnGoogleStreetViewTool {
+            get {
+                object obj = ResourceManager.GetObject("btnGoogleStreetViewTool", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap clsBtnUtransEditor {
             get {
                 object obj = ResourceManager.GetObject("clsBtnUtransEditor", resourceCulture);

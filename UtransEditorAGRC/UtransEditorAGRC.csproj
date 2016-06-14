@@ -154,6 +154,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="btnGoogleStreetViewTool.cs" />
     <Compile Include="clsBtnUtransEditor.cs" />
     <Compile Include="clsExtensionDataEditor.cs" />
     <Compile Include="clsGlobals.cs" />
@@ -190,6 +191,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="btnGoogleStreetViewTool.cur" />
+    <None Include="btnGoogleStreetViewTool.png" />
     <Content Include="clsBtnUtransEditor.bmp" />
     <None Include="EditingCopyParallel32.png" />
   </ItemGroup>
