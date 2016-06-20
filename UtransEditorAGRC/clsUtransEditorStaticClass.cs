@@ -190,10 +190,11 @@ namespace UtransEditorAGRC
             //row.Elements.Add(new ListEntry.Custom() { LocalName = "CountyAddrSegment", Value = "176 N Templlle" });
             //row.Elements.Add(new ListEntry.Custom() { LocalName = "AgrcAddrSegment", Value = "146 N Temple" });
 
-            row.Elements.Add(new ListEntry.Custom() { LocalName = "log", Value = "Joey" });
-            row.Elements.Add(new ListEntry.Custom() { LocalName = "county", Value = "Smit" });
-            row.Elements.Add(new ListEntry.Custom() { LocalName = "notes", Value = "2666" });
-            row.Elements.Add(new ListEntry.Custom() { LocalName = "segment", Value = "17666" });
+            row.Elements.Add(new ListEntry.Custom() { LocalName = "logdate", Value = DateTime.Now.ToString("d") });
+            row.Elements.Add(new ListEntry.Custom() { LocalName = "countyid", Value = "Smityy" });
+            row.Elements.Add(new ListEntry.Custom() { LocalName = "notes", Value = "2687ds" });
+            row.Elements.Add(new ListEntry.Custom() { LocalName = "agrcsegment", Value = "176526fd" });
+            row.Elements.Add(new ListEntry.Custom() { LocalName = "cntysegment", Value = "176526fd" });
 
             // Send the new row to the API for insertion.
             service.Insert(listFeed, row);
