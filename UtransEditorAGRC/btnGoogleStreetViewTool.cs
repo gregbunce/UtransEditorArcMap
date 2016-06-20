@@ -125,6 +125,8 @@ namespace UtransEditorAGRC
             // TODO: Add btnGoogleStreetViewTool.OnClick implementation
         }
 
+
+        // this method is called when the tool is active and the user clicks down on the mouse - it captures the x,y coords and then reprojects them to wgs and opens a browser with streetview
         public override void OnMouseDown(int Button, int Shift, int X, int Y)
         {
             try
@@ -169,8 +171,6 @@ namespace UtransEditorAGRC
                 //open the default internet browser and pass in the apn number to the assessor's gis website, and then zoom to the apn
                 System.Diagnostics.Process.Start("https://maps.google.com/maps?q=&layer=c&cbll=" + pMapPoint.Y + "," + pMapPoint.X + "&cbp=12,0,0,0,0");
 
-
-
                 //deactivate the tool
                 //this.m_deactivate = true;
                 //this.Deactivate();
@@ -184,7 +184,7 @@ namespace UtransEditorAGRC
                 MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
                 "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
                 "Error Location:" + Environment.NewLine + ex.StackTrace,
-                "Election ArcMap Mapping Tools Error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 

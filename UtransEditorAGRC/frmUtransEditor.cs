@@ -46,6 +46,8 @@ namespace UtransEditorAGRC
         IFeatureSelection arcFeatureSelection; // = clsGlobals.arcGeoFLayerDfcResult as IFeatureSelection;
         ISelectionSet arcSelSet; // = arcFeatureSelection.SelectionSet;
         IActiveView arcActiveView;
+        IFeatureLayerDefinition arcFeatureLayerDef;
+        IQueryFilter arcQFilterLabelCount;
 
         //create an italic font for lables - to use where data does not match
         
@@ -61,6 +63,8 @@ namespace UtransEditorAGRC
         string strDFC_RESULT_oid = "";
         string strUtransCartoCode = "";
         string strCountyCartoCode = "";
+
+        bool boolVerticesOn = false;
 
         IMap arcMapp;
 
@@ -81,6 +85,9 @@ namespace UtransEditorAGRC
         {
             try
             {
+                clsUtransEditorStaticClass.AuthorizeRequestGoogleSheetsAPI();
+                clsUtransEditorStaticClass.AddRowToGoogleSpreadsheet();
+
                 //setup event handler for when the  map selection changes
                 ((IEditEvents_Event)clsGlobals.arcEditor).OnSelectionChanged += new IEditEvents_OnSelectionChangedEventHandler(frmUtransEditor_OnSelectionChanged);
 
@@ -251,6 +258,15 @@ namespace UtransEditorAGRC
                     ctrl.BackColor = Color.White;
                     ctrl.Text = "";
                 }
+
+                //update the feature count label on the form
+                arcFeatureLayerDef = clsGlobals.arcGeoFLayerDfcResult as IFeatureLayerDefinition;
+                arcQFilterLabelCount = new QueryFilter();
+                arcQFilterLabelCount.WhereClause = arcFeatureLayerDef.DefinitionExpression;
+
+                int intDfcCount = clsGlobals.arcGeoFLayerDfcResult.DisplayFeatureClass.FeatureCount(arcQFilterLabelCount);
+                lblCounter.Text = intDfcCount.ToString();
+
             }
             catch (Exception ex)
             {
@@ -1994,7 +2010,14 @@ namespace UtransEditorAGRC
                     //refresh the map layers and data
                     arcActiveView.Refresh();
                     arcActiveView.Refresh();
-                    
+
+                    //update the feature count label on the form
+                    //arcFeatureLayerDef = clsGlobals.arcGeoFLayerDfcResult as IFeatureLayerDefinition;
+                    arcQFilterLabelCount = new QueryFilter();
+                    arcQFilterLabelCount.WhereClause = arcFeatureLayerDef.DefinitionExpression;
+                    int intDfcCount = clsGlobals.arcGeoFLayerDfcResult.DisplayFeatureClass.FeatureCount(arcQFilterLabelCount);
+                    lblCounter.Text = intDfcCount.ToString();
+
                     //call selection changed - not sure if needed as there is a new selection above
                     frmUtransEditor_OnSelectionChanged();
 
@@ -2521,6 +2544,7 @@ namespace UtransEditorAGRC
         {
             try
             {
+
                 //get the map's graphics layer
                 pComGraphicsLayer = arcMapp.BasicGraphicsLayer as ICompositeGraphicsLayer2;
                 pCompositeLayer = pComGraphicsLayer as ICompositeLayer;
@@ -2604,6 +2628,9 @@ namespace UtransEditorAGRC
                     pFeature = pFCursor.NextFeature();
                 }
 
+                boolVerticesOn = true;
+                btnClearVertices.Visible = true;
+
                 // null out variables
                 pLayer = null;
                 pComGraphicsLayer = null;
@@ -2645,6 +2672,10 @@ namespace UtransEditorAGRC
                 pLayer = null;
                 pComGraphicsLayer = null;
                 pCompositeLayer = null;
+
+
+                boolVerticesOn = false;
+                btnClearVertices.Visible = false;
 
                 // refresh the map
                 arcActiveView.Refresh();

@@ -102,18 +102,20 @@
             this.lblVersionName = new System.Windows.Forms.Label();
             this.btnNext = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.btnPrev = new System.Windows.Forms.Button();
             this.label34 = new System.Windows.Forms.Label();
             this.label33 = new System.Windows.Forms.Label();
-            this.btnPrev = new System.Windows.Forms.Button();
             this.btnCopyNewSegment = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.btnUpdateDfcObjectID = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.cboCartoCode = new System.Windows.Forms.ComboBox();
             this.chkShowVertices = new System.Windows.Forms.CheckBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.btnUpdateDfcObjectID = new System.Windows.Forms.Button();
             this.btnClearVertices = new System.Windows.Forms.Button();
             this.linkLabelDefQuery = new System.Windows.Forms.LinkLabel();
+            this.lblCounter = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.groupBoxCountySeg.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -134,6 +136,7 @@
             this.txtCountyL_F_Add.ReadOnly = true;
             this.txtCountyL_F_Add.Size = new System.Drawing.Size(67, 22);
             this.txtCountyL_F_Add.TabIndex = 1;
+            this.txtCountyL_F_Add.TabStop = false;
             this.txtCountyL_F_Add.Tag = "CoL_F_ADD";
             // 
             // label2
@@ -204,6 +207,7 @@
             this.txtCountySufDir.ReadOnly = true;
             this.txtCountySufDir.Size = new System.Drawing.Size(55, 22);
             this.txtCountySufDir.TabIndex = 17;
+            this.txtCountySufDir.TabStop = false;
             this.txtCountySufDir.Tag = "CoSUFDIR";
             // 
             // txtCountyStType
@@ -214,6 +218,7 @@
             this.txtCountyStType.ReadOnly = true;
             this.txtCountyStType.Size = new System.Drawing.Size(78, 22);
             this.txtCountyStType.TabIndex = 16;
+            this.txtCountyStType.TabStop = false;
             this.txtCountyStType.Tag = "CoSTREETTYPE";
             // 
             // label6
@@ -234,6 +239,7 @@
             this.txtCountyStName.ReadOnly = true;
             this.txtCountyStName.Size = new System.Drawing.Size(239, 22);
             this.txtCountyStName.TabIndex = 15;
+            this.txtCountyStName.TabStop = false;
             this.txtCountyStName.Tag = "CoSTREETNAME";
             // 
             // label1
@@ -254,6 +260,7 @@
             this.txtCountyPreDir.ReadOnly = true;
             this.txtCountyPreDir.Size = new System.Drawing.Size(67, 22);
             this.txtCountyPreDir.TabIndex = 14;
+            this.txtCountyPreDir.TabStop = false;
             this.txtCountyPreDir.Tag = "CoPREDIR";
             // 
             // txtCountyL_T_Add
@@ -264,6 +271,7 @@
             this.txtCountyL_T_Add.ReadOnly = true;
             this.txtCountyL_T_Add.Size = new System.Drawing.Size(67, 22);
             this.txtCountyL_T_Add.TabIndex = 7;
+            this.txtCountyL_T_Add.TabStop = false;
             this.txtCountyL_T_Add.Tag = "CoL_T_ADD";
             // 
             // label10
@@ -284,6 +292,7 @@
             this.txtCountyR_F_Add.ReadOnly = true;
             this.txtCountyR_F_Add.Size = new System.Drawing.Size(67, 22);
             this.txtCountyR_F_Add.TabIndex = 8;
+            this.txtCountyR_F_Add.TabStop = false;
             this.txtCountyR_F_Add.Tag = "CoR_F_ADD";
             // 
             // label9
@@ -304,6 +313,7 @@
             this.txtCountyR_T_Add.ReadOnly = true;
             this.txtCountyR_T_Add.Size = new System.Drawing.Size(67, 22);
             this.txtCountyR_T_Add.TabIndex = 9;
+            this.txtCountyR_T_Add.TabStop = false;
             this.txtCountyR_T_Add.Tag = "CoR_T_ADD";
             // 
             // label8
@@ -376,6 +386,7 @@
             this.txtCountyAcsSuf.ReadOnly = true;
             this.txtCountyAcsSuf.Size = new System.Drawing.Size(102, 22);
             this.txtCountyAcsSuf.TabIndex = 9;
+            this.txtCountyAcsSuf.TabStop = false;
             this.txtCountyAcsSuf.Tag = "CoACSSUF";
             // 
             // txtCountyAcsName
@@ -386,6 +397,7 @@
             this.txtCountyAcsName.ReadOnly = true;
             this.txtCountyAcsName.Size = new System.Drawing.Size(102, 22);
             this.txtCountyAcsName.TabIndex = 8;
+            this.txtCountyAcsName.TabStop = false;
             this.txtCountyAcsName.Tag = "CoACSNAME";
             // 
             // label14
@@ -416,6 +428,7 @@
             this.txtCountyAlias2Type.ReadOnly = true;
             this.txtCountyAlias2Type.Size = new System.Drawing.Size(143, 22);
             this.txtCountyAlias2Type.TabIndex = 5;
+            this.txtCountyAlias2Type.TabStop = false;
             this.txtCountyAlias2Type.Tag = "CoALIAS2TYPE";
             // 
             // txtCountyAlias2
@@ -426,6 +439,7 @@
             this.txtCountyAlias2.ReadOnly = true;
             this.txtCountyAlias2.Size = new System.Drawing.Size(172, 22);
             this.txtCountyAlias2.TabIndex = 4;
+            this.txtCountyAlias2.TabStop = false;
             this.txtCountyAlias2.Tag = "CoALIAS2";
             // 
             // txtCountyAlias1Type
@@ -436,6 +450,7 @@
             this.txtCountyAlias1Type.ReadOnly = true;
             this.txtCountyAlias1Type.Size = new System.Drawing.Size(143, 22);
             this.txtCountyAlias1Type.TabIndex = 3;
+            this.txtCountyAlias1Type.TabStop = false;
             this.txtCountyAlias1Type.Tag = "CoALIAS1TYPE";
             // 
             // txtCountyAlias1
@@ -446,6 +461,7 @@
             this.txtCountyAlias1.ReadOnly = true;
             this.txtCountyAlias1.Size = new System.Drawing.Size(172, 22);
             this.txtCountyAlias1.TabIndex = 2;
+            this.txtCountyAlias1.TabStop = false;
             this.txtCountyAlias1.Tag = "CoALIAS1";
             // 
             // label12
@@ -510,7 +526,7 @@
             this.txtUtransAcsSuf.MaxLength = 1;
             this.txtUtransAcsSuf.Name = "txtUtransAcsSuf";
             this.txtUtransAcsSuf.Size = new System.Drawing.Size(102, 22);
-            this.txtUtransAcsSuf.TabIndex = 9;
+            this.txtUtransAcsSuf.TabIndex = 14;
             this.txtUtransAcsSuf.Tag = "ACSSUF";
             this.txtUtransAcsSuf.TextChanged += new System.EventHandler(this.txtUtransAcsSuf_TextChanged);
             // 
@@ -522,7 +538,7 @@
             this.txtUtransAcsName.MaxLength = 8;
             this.txtUtransAcsName.Name = "txtUtransAcsName";
             this.txtUtransAcsName.Size = new System.Drawing.Size(102, 22);
-            this.txtUtransAcsName.TabIndex = 8;
+            this.txtUtransAcsName.TabIndex = 13;
             this.txtUtransAcsName.Tag = "ACSNAME";
             this.txtUtransAcsName.TextChanged += new System.EventHandler(this.txtUtransAcsAllias_TextChanged);
             // 
@@ -578,7 +594,7 @@
             this.txtUtransAlias2Type.MaxLength = 4;
             this.txtUtransAlias2Type.Name = "txtUtransAlias2Type";
             this.txtUtransAlias2Type.Size = new System.Drawing.Size(143, 22);
-            this.txtUtransAlias2Type.TabIndex = 5;
+            this.txtUtransAlias2Type.TabIndex = 12;
             this.txtUtransAlias2Type.Tag = "ALIAS2TYPE";
             this.txtUtransAlias2Type.TextChanged += new System.EventHandler(this.txtUtransAlias2Type_TextChanged);
             // 
@@ -590,7 +606,7 @@
             this.txtUtransAlias2.MaxLength = 30;
             this.txtUtransAlias2.Name = "txtUtransAlias2";
             this.txtUtransAlias2.Size = new System.Drawing.Size(172, 22);
-            this.txtUtransAlias2.TabIndex = 4;
+            this.txtUtransAlias2.TabIndex = 11;
             this.txtUtransAlias2.Tag = "ALIAS2";
             this.txtUtransAlias2.TextChanged += new System.EventHandler(this.txtUtransAlias2_TextChanged);
             // 
@@ -602,7 +618,7 @@
             this.txtUtransAlias1Type.MaxLength = 4;
             this.txtUtransAlias1Type.Name = "txtUtransAlias1Type";
             this.txtUtransAlias1Type.Size = new System.Drawing.Size(143, 22);
-            this.txtUtransAlias1Type.TabIndex = 3;
+            this.txtUtransAlias1Type.TabIndex = 10;
             this.txtUtransAlias1Type.Tag = "ALIAS1TYPE";
             this.txtUtransAlias1Type.TextChanged += new System.EventHandler(this.txtUtransAlias1Type_TextChanged);
             // 
@@ -614,7 +630,7 @@
             this.txtUtransAlias1.MaxLength = 30;
             this.txtUtransAlias1.Name = "txtUtransAlias1";
             this.txtUtransAlias1.Size = new System.Drawing.Size(172, 22);
-            this.txtUtransAlias1.TabIndex = 2;
+            this.txtUtransAlias1.TabIndex = 9;
             this.txtUtransAlias1.Tag = "ALIAS1";
             this.txtUtransAlias1.TextChanged += new System.EventHandler(this.txtUtransAlias1_TextChanged);
             // 
@@ -686,7 +702,7 @@
             this.txtUtranL_T_Add.MaxLength = 17;
             this.txtUtranL_T_Add.Name = "txtUtranL_T_Add";
             this.txtUtranL_T_Add.Size = new System.Drawing.Size(67, 22);
-            this.txtUtranL_T_Add.TabIndex = 7;
+            this.txtUtranL_T_Add.TabIndex = 2;
             this.txtUtranL_T_Add.Tag = "L_T_ADD";
             this.txtUtranL_T_Add.TextChanged += new System.EventHandler(this.txtUtranL_T_Add_TextChanged);
             this.txtUtranL_T_Add.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtUtran_HouseNumber_KeyPress);
@@ -723,7 +739,7 @@
             this.txtUtranSufDir.MaxLength = 1;
             this.txtUtranSufDir.Name = "txtUtranSufDir";
             this.txtUtranSufDir.Size = new System.Drawing.Size(55, 22);
-            this.txtUtranSufDir.TabIndex = 17;
+            this.txtUtranSufDir.TabIndex = 8;
             this.txtUtranSufDir.Tag = "SUFDIR";
             this.txtUtranSufDir.TextChanged += new System.EventHandler(this.txtUtranSufDir_TextChanged);
             // 
@@ -735,7 +751,7 @@
             this.txtUtranStType.MaxLength = 4;
             this.txtUtranStType.Name = "txtUtranStType";
             this.txtUtranStType.Size = new System.Drawing.Size(78, 22);
-            this.txtUtranStType.TabIndex = 16;
+            this.txtUtranStType.TabIndex = 7;
             this.txtUtranStType.Tag = "STREETTYPE";
             this.txtUtranStType.TextChanged += new System.EventHandler(this.txtUtranStType_TextChanged);
             // 
@@ -758,7 +774,7 @@
             this.txtUtranStName.MaxLength = 30;
             this.txtUtranStName.Name = "txtUtranStName";
             this.txtUtranStName.Size = new System.Drawing.Size(239, 22);
-            this.txtUtranStName.TabIndex = 15;
+            this.txtUtranStName.TabIndex = 6;
             this.txtUtranStName.Tag = "STREETNAME";
             this.txtUtranStName.TextChanged += new System.EventHandler(this.txtUtranStName_TextChanged);
             // 
@@ -781,7 +797,7 @@
             this.txtUtranPreDir.MaxLength = 1;
             this.txtUtranPreDir.Name = "txtUtranPreDir";
             this.txtUtranPreDir.Size = new System.Drawing.Size(67, 22);
-            this.txtUtranPreDir.TabIndex = 14;
+            this.txtUtranPreDir.TabIndex = 5;
             this.txtUtranPreDir.Tag = "PREDIR";
             this.txtUtranPreDir.TextChanged += new System.EventHandler(this.txtUtranPreDir_TextChanged);
             // 
@@ -803,7 +819,7 @@
             this.txtUtranR_F_Add.MaxLength = 17;
             this.txtUtranR_F_Add.Name = "txtUtranR_F_Add";
             this.txtUtranR_F_Add.Size = new System.Drawing.Size(67, 22);
-            this.txtUtranR_F_Add.TabIndex = 8;
+            this.txtUtranR_F_Add.TabIndex = 3;
             this.txtUtranR_F_Add.Tag = "R_F_ADD";
             this.txtUtranR_F_Add.TextChanged += new System.EventHandler(this.txtUtranR_F_Add_TextChanged);
             this.txtUtranR_F_Add.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtUtran_HouseNumber_KeyPress);
@@ -826,7 +842,7 @@
             this.txtUtranR_T_Add.MaxLength = 17;
             this.txtUtranR_T_Add.Name = "txtUtranR_T_Add";
             this.txtUtranR_T_Add.Size = new System.Drawing.Size(67, 22);
-            this.txtUtranR_T_Add.TabIndex = 9;
+            this.txtUtranR_T_Add.TabIndex = 4;
             this.txtUtranR_T_Add.Tag = "R_T_ADD";
             this.txtUtranR_T_Add.TextChanged += new System.EventHandler(this.txtUtranR_T_Add_TextChanged);
             this.txtUtranR_T_Add.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtUtran_HouseNumber_KeyPress);
@@ -856,7 +872,7 @@
             // linkLabelAttrDoc
             // 
             this.linkLabelAttrDoc.AutoSize = true;
-            this.linkLabelAttrDoc.Location = new System.Drawing.Point(12, 436);
+            this.linkLabelAttrDoc.Location = new System.Drawing.Point(12, 422);
             this.linkLabelAttrDoc.Name = "linkLabelAttrDoc";
             this.linkLabelAttrDoc.Size = new System.Drawing.Size(122, 13);
             this.linkLabelAttrDoc.TabIndex = 9;
@@ -877,6 +893,7 @@
             this.cboStatusField.Name = "cboStatusField";
             this.cboStatusField.Size = new System.Drawing.Size(142, 21);
             this.cboStatusField.TabIndex = 11;
+            this.cboStatusField.TabStop = false;
             this.cboStatusField.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             this.cboStatusField.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.cboStatusField_MouseDoubleClick);
             // 
@@ -924,7 +941,7 @@
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(12, 457);
+            this.label31.Location = new System.Drawing.Point(12, 461);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(145, 13);
             this.label31.TabIndex = 16;
@@ -933,7 +950,7 @@
             // lblVersionName
             // 
             this.lblVersionName.AutoSize = true;
-            this.lblVersionName.Location = new System.Drawing.Point(152, 457);
+            this.lblVersionName.Location = new System.Drawing.Point(152, 461);
             this.lblVersionName.Name = "lblVersionName";
             this.lblVersionName.Size = new System.Drawing.Size(71, 13);
             this.lblVersionName.TabIndex = 17;
@@ -963,6 +980,17 @@
             this.groupBox6.TabIndex = 19;
             this.groupBox6.TabStop = false;
             // 
+            // btnPrev
+            // 
+            this.btnPrev.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPrev.Location = new System.Drawing.Point(7, 15);
+            this.btnPrev.Name = "btnPrev";
+            this.btnPrev.Size = new System.Drawing.Size(58, 32);
+            this.btnPrev.TabIndex = 0;
+            this.btnPrev.TabStop = false;
+            this.btnPrev.Text = "<";
+            this.btnPrev.UseVisualStyleBackColor = true;
+            // 
             // label34
             // 
             this.label34.AutoSize = true;
@@ -983,16 +1011,6 @@
             this.label33.TabIndex = 1;
             this.label33.Text = "Prev";
             // 
-            // btnPrev
-            // 
-            this.btnPrev.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPrev.Location = new System.Drawing.Point(7, 15);
-            this.btnPrev.Name = "btnPrev";
-            this.btnPrev.Size = new System.Drawing.Size(58, 32);
-            this.btnPrev.TabIndex = 0;
-            this.btnPrev.Text = "<";
-            this.btnPrev.UseVisualStyleBackColor = true;
-            // 
             // btnCopyNewSegment
             // 
             this.btnCopyNewSegment.BackgroundImage = global::UtransEditorAGRC.Properties.Resources.EditingCopyParallel32;
@@ -1001,6 +1019,7 @@
             this.btnCopyNewSegment.Name = "btnCopyNewSegment";
             this.btnCopyNewSegment.Size = new System.Drawing.Size(50, 53);
             this.btnCopyNewSegment.TabIndex = 22;
+            this.btnCopyNewSegment.TabStop = false;
             this.toolTip1.SetToolTip(this.btnCopyNewSegment, "Load Selected County Segment into UTRANS Database.");
             this.btnCopyNewSegment.UseVisualStyleBackColor = true;
             this.btnCopyNewSegment.Visible = false;
@@ -1009,6 +1028,19 @@
             // toolTip1
             // 
             this.toolTip1.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip1_Popup);
+            // 
+            // btnUpdateDfcObjectID
+            // 
+            this.btnUpdateDfcObjectID.Location = new System.Drawing.Point(13, 16);
+            this.btnUpdateDfcObjectID.Name = "btnUpdateDfcObjectID";
+            this.btnUpdateDfcObjectID.Size = new System.Drawing.Size(133, 23);
+            this.btnUpdateDfcObjectID.TabIndex = 0;
+            this.btnUpdateDfcObjectID.TabStop = false;
+            this.btnUpdateDfcObjectID.Text = "Update DFC ObjectID";
+            this.toolTip1.SetToolTip(this.btnUpdateDfcObjectID, "Select the Utrans Segmant and its Overlapping\r\nDFC_RESULT segment, then click but" +
+        "ton.");
+            this.btnUpdateDfcObjectID.UseVisualStyleBackColor = true;
+            this.btnUpdateDfcObjectID.Click += new System.EventHandler(this.btnUpdateDfcObjectID_Click);
             // 
             // groupBox5
             // 
@@ -1071,32 +1103,22 @@
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Did You Split A Line?";
             // 
-            // btnUpdateDfcObjectID
-            // 
-            this.btnUpdateDfcObjectID.Location = new System.Drawing.Point(13, 16);
-            this.btnUpdateDfcObjectID.Name = "btnUpdateDfcObjectID";
-            this.btnUpdateDfcObjectID.Size = new System.Drawing.Size(133, 23);
-            this.btnUpdateDfcObjectID.TabIndex = 0;
-            this.btnUpdateDfcObjectID.Text = "Update DFC ObjectID";
-            this.toolTip1.SetToolTip(this.btnUpdateDfcObjectID, "Select the Utrans Segmant and its Overlapping\r\nDFC_RESULT segment, then click but" +
-        "ton.");
-            this.btnUpdateDfcObjectID.UseVisualStyleBackColor = true;
-            this.btnUpdateDfcObjectID.Click += new System.EventHandler(this.btnUpdateDfcObjectID_Click);
-            // 
             // btnClearVertices
             // 
-            this.btnClearVertices.Location = new System.Drawing.Point(27, 393);
+            this.btnClearVertices.Location = new System.Drawing.Point(15, 393);
             this.btnClearVertices.Name = "btnClearVertices";
             this.btnClearVertices.Size = new System.Drawing.Size(91, 23);
             this.btnClearVertices.TabIndex = 26;
+            this.btnClearVertices.TabStop = false;
             this.btnClearVertices.Text = "Clear Vertices";
             this.btnClearVertices.UseVisualStyleBackColor = true;
+            this.btnClearVertices.Visible = false;
             this.btnClearVertices.Click += new System.EventHandler(this.btnClearVertices_Click);
             // 
             // linkLabelDefQuery
             // 
             this.linkLabelDefQuery.AutoSize = true;
-            this.linkLabelDefQuery.Location = new System.Drawing.Point(12, 420);
+            this.linkLabelDefQuery.Location = new System.Drawing.Point(12, 442);
             this.linkLabelDefQuery.Name = "linkLabelDefQuery";
             this.linkLabelDefQuery.Size = new System.Drawing.Size(136, 13);
             this.linkLabelDefQuery.TabIndex = 27;
@@ -1104,11 +1126,31 @@
             this.linkLabelDefQuery.Text = "DFC_RESULT Def Queries";
             this.linkLabelDefQuery.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelDefQuery_LinkClicked);
             // 
+            // lblCounter
+            // 
+            this.lblCounter.AutoSize = true;
+            this.lblCounter.Location = new System.Drawing.Point(80, 14);
+            this.lblCounter.Name = "lblCounter";
+            this.lblCounter.Size = new System.Drawing.Size(13, 13);
+            this.lblCounter.TabIndex = 28;
+            this.lblCounter.Text = "0";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(22, 13);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(63, 13);
+            this.label3.TabIndex = 29;
+            this.label3.Text = "Remaining: ";
+            // 
             // frmUtransEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1258, 476);
+            this.ClientSize = new System.Drawing.Size(1258, 481);
+            this.Controls.Add(this.lblCounter);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.linkLabelDefQuery);
             this.Controls.Add(this.btnClearVertices);
             this.Controls.Add(this.groupBox7);
@@ -1237,5 +1279,7 @@
         private System.Windows.Forms.Button btnUpdateDfcObjectID;
         private System.Windows.Forms.Button btnClearVertices;
         private System.Windows.Forms.LinkLabel linkLabelDefQuery;
+        private System.Windows.Forms.Label lblCounter;
+        private System.Windows.Forms.Label label3;
     }
 }
