@@ -85,7 +85,7 @@ namespace UtransEditorAGRC
         {
             try
             {
-                clsUtransEditorStaticClass.AuthorizeRequestGoogleSheetsAPI();
+                //clsUtransEditorStaticClass.AuthorizeRequestGoogleSheetsAPI();
                 clsUtransEditorStaticClass.AddRowToGoogleSpreadsheet();
 
                 //setup event handler for when the  map selection changes
