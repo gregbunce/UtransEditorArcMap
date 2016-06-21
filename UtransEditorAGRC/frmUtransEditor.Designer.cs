@@ -888,11 +888,11 @@
             "COMPLETED",
             "IGNORE",
             "REVISIT",
-            "OTHER",
-            "NOTIFY COUNTY"});
+            "NOTIFY AND IGNORE",
+            "NOTIFY AND SAVE"});
             this.cboStatusField.Location = new System.Drawing.Point(11, 19);
             this.cboStatusField.Name = "cboStatusField";
-            this.cboStatusField.Size = new System.Drawing.Size(142, 21);
+            this.cboStatusField.Size = new System.Drawing.Size(160, 21);
             this.cboStatusField.TabIndex = 11;
             this.cboStatusField.TabStop = false;
             this.cboStatusField.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
@@ -903,7 +903,7 @@
             this.groupBoxStatusField.Controls.Add(this.cboStatusField);
             this.groupBoxStatusField.Location = new System.Drawing.Point(827, 409);
             this.groupBoxStatusField.Name = "groupBoxStatusField";
-            this.groupBoxStatusField.Size = new System.Drawing.Size(166, 49);
+            this.groupBoxStatusField.Size = new System.Drawing.Size(177, 49);
             this.groupBoxStatusField.TabIndex = 12;
             this.groupBoxStatusField.TabStop = false;
             this.groupBoxStatusField.Text = "Change Status Field";
