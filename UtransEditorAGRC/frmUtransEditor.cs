@@ -91,6 +91,9 @@ namespace UtransEditorAGRC
                 //get the editor workspace
                 IWorkspace arcWspace = clsGlobals.arcEditor.EditWorkspace;
 
+                //set the bool to false so the user imput form will ask the user to provide a google access code
+                clsGlobals.boolGoogleHasAccessCode = false;
+
                 //if the workspace is not remote (sde), exit the sub - if it's sde get the version name
                 if (arcWspace.Type != esriWorkspaceType.esriRemoteDatabaseWorkspace) 
                 { 
@@ -1728,6 +1731,9 @@ namespace UtransEditorAGRC
                         //clear out the cursor
                         arcCur_dfcLayer = null;
 
+                        //unselect everything in map
+                        arcMapp.ClearSelection();
+
                         //refresh the map layers and data
                         arcActiveView.Refresh();
                         arcActiveView.Refresh();
@@ -1746,6 +1752,9 @@ namespace UtransEditorAGRC
 
                         //clear out the cursor
                         arcCur_dfcLayer = null;
+
+                        //unselect everything in map
+                        arcMapp.ClearSelection();
 
                         //refresh the map layers and data
                         arcActiveView.Refresh();
@@ -1766,6 +1775,9 @@ namespace UtransEditorAGRC
                         //clear out the cursor
                         arcCur_dfcLayer = null;
 
+                        //unselect everything in map
+                        arcMapp.ClearSelection();
+
                         //refresh the map layers and data
                         arcActiveView.Refresh();
                         arcActiveView.Refresh();
@@ -1785,14 +1797,51 @@ namespace UtransEditorAGRC
                         //clear out the cursor
                         arcCur_dfcLayer = null;
 
-                        //refresh the map layers and data
-                        arcActiveView.Refresh();
-                        arcActiveView.Refresh();
-
                         //call google spreadsheet doc
                         clsGlobals.strCountySegment = txtCountyPreDir.Text.Trim() + " " + txtCountyStName.Text.Trim() + " " + txtCountyStType.Text.Trim() + " " + txtCountySufDir.Text.Trim();
                         clsGlobals.strCountySegmentTrimed = clsGlobals.strCountySegment.Trim();
+                        if (txtCountyL_F_Add.Text != "")
+                        {
+                            clsGlobals.strCountyL_F_Add = txtCountyL_F_Add.Text.ToString().Trim();
+                        }
+                        else
+                        {
+                            clsGlobals.strCountyL_F_Add = "0";
+                        }
+                        if (txtCountyL_T_Add.Text != "")
+                        {
+                            clsGlobals.strCountyL_T_Add = txtCountyL_T_Add.Text.ToString().Trim();
+                        }
+                        else
+                        {
+                            clsGlobals.strCountyL_T_Add = "0";
+                        }
+                        if (txtCountyR_F_Add.Text != "")
+                        {
+                            clsGlobals.strCountyR_F_Add = txtCountyR_F_Add.Text.ToString().Trim();
+                        }
+                        else
+                        {
+                            clsGlobals.strCountyR_F_Add = "0";
+                        }
+                        if (txtCountyR_T_Add.Text != "")
+                        {
+                            clsGlobals.strCountyR_T_Add = txtCountyR_T_Add.Text.ToString().Trim();
+                        }
+                        else
+                        {
+                            clsGlobals.strCountyR_T_Add = "0";
+                        }
+
+
                         clsUtransEditorStaticClass.AddRowToGoogleSpreadsheet();
+
+                        //unselect everything in map
+                        arcMapp.ClearSelection();
+
+                        //refresh the map layers and data
+                        arcActiveView.Refresh();
+                        arcActiveView.Refresh();
 
                         //exit
                         return;

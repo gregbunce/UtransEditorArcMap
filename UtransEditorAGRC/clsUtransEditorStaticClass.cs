@@ -23,7 +23,7 @@ namespace UtransEditorAGRC
         {
             if (parameters == null)
             {
-
+                clsGlobals.boolGoogleHasAccessCode = false;
                 ////////////////////////////////////////////////////////////////////////////
                 // STEP 1: Configure how to perform OAuth 2.0
                 ////////////////////////////////////////////////////////////////////////////
@@ -107,7 +107,11 @@ namespace UtransEditorAGRC
             }
             else
             {
-                //do nothing
+                //set the bool to true so the dialog doesn't show the label and textbox for the access code
+                clsGlobals.boolGoogleHasAccessCode = true;
+                //open up the user input from - use ShowDialog b/c is waits for user to click ok button before continue - aka: async
+                clsGlobals.UserInputNotes = new frmUserInputNotes();
+                clsGlobals.UserInputNotes.ShowDialog();
             }
 
 
@@ -202,17 +206,16 @@ namespace UtransEditorAGRC
 
             // Create a local representation of the new row.
             ListEntry row = new ListEntry();
-            //row.Elements.Add(new ListEntry.Custom() { LocalName = "LogDate", Value = "today" });
-            //row.Elements.Add(new ListEntry.Custom() { LocalName = "CountyID", Value = "Salt Lake" });
-            //row.Elements.Add(new ListEntry.Custom() { LocalName = "AgrcNotes", Value = "need to update this" });
-            //row.Elements.Add(new ListEntry.Custom() { LocalName = "CountyAddrSegment", Value = "176 N Templlle" });
-            //row.Elements.Add(new ListEntry.Custom() { LocalName = "AgrcAddrSegment", Value = "146 N Temple" });
 
             row.Elements.Add(new ListEntry.Custom() { LocalName = "logdate", Value = DateTime.Now.ToString("d") });
             row.Elements.Add(new ListEntry.Custom() { LocalName = "countyid", Value = clsGlobals.strCountyID });
             row.Elements.Add(new ListEntry.Custom() { LocalName = "notes", Value = clsGlobals.strUserInputForSpreadsheet.ToString().Trim() });
-            row.Elements.Add(new ListEntry.Custom() { LocalName = "agrcsegment", Value = "176fd" });
+            row.Elements.Add(new ListEntry.Custom() { LocalName = "agrcsegment", Value = "still testing this field" });
             row.Elements.Add(new ListEntry.Custom() { LocalName = "cntysegment", Value = clsGlobals.strCountySegmentTrimed });
+            row.Elements.Add(new ListEntry.Custom() { LocalName = "leftfrom", Value = clsGlobals.strCountyL_F_Add });
+            row.Elements.Add(new ListEntry.Custom() { LocalName = "leftto", Value = clsGlobals.strCountyL_T_Add });
+            row.Elements.Add(new ListEntry.Custom() { LocalName = "rightfrom", Value = clsGlobals.strCountyR_F_Add });
+            row.Elements.Add(new ListEntry.Custom() { LocalName = "rightto", Value = clsGlobals.strCountyR_T_Add });
 
             // Send the new row to the API for insertion.
             service.Insert(listFeed, row);

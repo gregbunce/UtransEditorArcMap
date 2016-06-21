@@ -108,5 +108,31 @@ namespace UtransEditorAGRC
             set;
 
         }
+
+        public static string strCountyL_F_Add
+        {
+            get;
+            set;
+        }
+
+        public static string strCountyL_T_Add
+        {
+            get;
+            set;
+        }
+
+        public static string strCountyR_F_Add
+        {
+            get;
+            set;
+        }
+
+        public static string strCountyR_T_Add
+        {
+            get;
+            set;
+        }
+
+
     }
 }
