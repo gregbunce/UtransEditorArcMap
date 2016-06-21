@@ -133,6 +133,14 @@ namespace UtransEditorAGRC
             set;
         }
 
+        public static string strAgrcSegment
+        {
+            get;
+            set;
+        }
+
+
+
 
     }
 }

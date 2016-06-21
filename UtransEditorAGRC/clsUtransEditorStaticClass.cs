@@ -209,8 +209,8 @@ namespace UtransEditorAGRC
 
             row.Elements.Add(new ListEntry.Custom() { LocalName = "logdate", Value = DateTime.Now.ToString("d") });
             row.Elements.Add(new ListEntry.Custom() { LocalName = "countyid", Value = clsGlobals.strCountyID });
-            row.Elements.Add(new ListEntry.Custom() { LocalName = "notes", Value = clsGlobals.strUserInputForSpreadsheet.ToString().Trim() });
-            row.Elements.Add(new ListEntry.Custom() { LocalName = "agrcsegment", Value = "still testing this field" });
+            row.Elements.Add(new ListEntry.Custom() { LocalName = "agrcnotes", Value = clsGlobals.strUserInputForSpreadsheet.ToString().Trim() });
+            row.Elements.Add(new ListEntry.Custom() { LocalName = "agrcsegment", Value = clsGlobals.strAgrcSegment.ToString().Trim() });
             row.Elements.Add(new ListEntry.Custom() { LocalName = "cntysegment", Value = clsGlobals.strCountySegmentTrimed });
             row.Elements.Add(new ListEntry.Custom() { LocalName = "leftfrom", Value = clsGlobals.strCountyL_F_Add });
             row.Elements.Add(new ListEntry.Custom() { LocalName = "leftto", Value = clsGlobals.strCountyL_T_Add });

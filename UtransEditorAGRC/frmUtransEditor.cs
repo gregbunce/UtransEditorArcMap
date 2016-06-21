@@ -1833,7 +1833,49 @@ namespace UtransEditorAGRC
                             clsGlobals.strCountyR_T_Add = "0";
                         }
 
+                        //check if null values in utrans streets, if so assign zero
+                        string strGoogleLogLeftTo;
+                        string strGoogleLogLeftFrom;
+                        string strGoogleLogRightTo;
+                        string strGoogleLogRightFrom;
+                        
+                        if (txtUtranL_T_Add.Text == "")
+	                    {
+		                    strGoogleLogLeftTo = "0";
+	                    }
+                        else
+	                    {
+                            strGoogleLogLeftTo = txtUtranL_T_Add.Text;
+	                    }
+                        if (txtUtranL_F_Add.Text == "")
+	                    {
+		                     strGoogleLogLeftFrom = "0";
+	                    }
+                        else
+	                    {
+                            strGoogleLogLeftFrom = txtUtranL_F_Add.Text;
+	                    }
+                        if (txtUtranR_F_Add.Text == "")
+	                    {
+		                    strGoogleLogRightFrom = "0";
+	                    }
+                        else
+	                    {
+                            strGoogleLogRightFrom = txtUtranR_F_Add.Text;
+	                    }
+                        if (txtUtranR_T_Add.Text == "")
+	                    {
+		                    strGoogleLogRightTo = "0";
+	                    }
+                        else
+	                    {
+                            strGoogleLogRightTo = txtUtranR_T_Add.Text;
+	                    }
 
+                        //string together the agrc street segment
+                        clsGlobals.strAgrcSegment = strGoogleLogLeftFrom + "-" + strGoogleLogLeftTo + " " + strGoogleLogRightFrom + "-" + strGoogleLogRightTo + " " + txtUtranPreDir.Text.Trim() + " " + txtUtranStName.Text.Trim() + " " + txtUtranStType.Text.Trim() + " " + txtUtranSufDir.Text.Trim();
+
+                        //call the google api to transfer values to the spreadsheet
                         clsUtransEditorStaticClass.AddRowToGoogleSpreadsheet();
 
                         //unselect everything in map
