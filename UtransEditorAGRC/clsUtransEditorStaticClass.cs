@@ -16,13 +16,14 @@ namespace UtransEditorAGRC
         public static SpreadsheetsService service;
         public static string accessToken;
         public static OAuth2Parameters parameters;
-        public static string strAccessCode = "4/n-puZ4O2y3rRKmE_lhQfgaz12LQnuRdpe_nWLg_8bBc"; //i got this access code 6/21/2016
+        public static string strAccessCode = "4/n-puZ4O2y3rRKmE_lhQfgaz12LQnuRdpe_nWLg_8bBc"; //i got this access code 6/21/2016 - not being used right now
 
         // this method authorizes the google api with client id and secret, etc..
         public static void AuthorizeRequestGoogleSheetsAPI()
         {
             if (parameters == null)
             {
+
                 ////////////////////////////////////////////////////////////////////////////
                 // STEP 1: Configure how to perform OAuth 2.0
                 ////////////////////////////////////////////////////////////////////////////
@@ -85,7 +86,13 @@ namespace UtransEditorAGRC
                 //  + "request token.  Once that is complete, type in your access code to "
                 //  + "continue...");
                 //parameters.AccessCode = Console.ReadLine();
-                parameters.AccessCode = Microsoft.VisualBasic.Interaction.InputBox("Title", "Prompt", "Default", 0, 0);
+                //parameters.AccessCode = Microsoft.VisualBasic.Interaction.InputBox("Title", "Prompt", "Default", 0, 0);
+                
+                //open up the user input from - use ShowDialog b/c is waits for user to click ok button before continue - aka: async
+                clsGlobals.UserInputNotes = new frmUserInputNotes();
+                clsGlobals.UserInputNotes.ShowDialog();
+
+                parameters.AccessCode = clsGlobals.strUserInputGoogleAccessCode.ToString().Trim();
                 ////////////////////////////////////////////////////////////////////////////
                 // STEP 4: Get the Access Token
                 ////////////////////////////////////////////////////////////////////////////
@@ -175,7 +182,7 @@ namespace UtransEditorAGRC
                 }
                 else
                 {
-                    MessageBox.Show("Didn't find a spreadsheet with the name UtransEditorCountyNotificationList.  The info was not saved to a google spreadsheet.");
+                    //MessageBox.Show("Didn't find a spreadsheet with the name UtransEditorCountyNotificationList.  The info was not saved to a google spreadsheet.");
                 }
 
             }
@@ -202,13 +209,14 @@ namespace UtransEditorAGRC
             //row.Elements.Add(new ListEntry.Custom() { LocalName = "AgrcAddrSegment", Value = "146 N Temple" });
 
             row.Elements.Add(new ListEntry.Custom() { LocalName = "logdate", Value = DateTime.Now.ToString("d") });
-            row.Elements.Add(new ListEntry.Custom() { LocalName = "countyid", Value = "Smityy" });
-            row.Elements.Add(new ListEntry.Custom() { LocalName = "notes", Value = "2687ds" });
-            row.Elements.Add(new ListEntry.Custom() { LocalName = "agrcsegment", Value = "176526fd" });
-            row.Elements.Add(new ListEntry.Custom() { LocalName = "cntysegment", Value = "176526fd" });
+            row.Elements.Add(new ListEntry.Custom() { LocalName = "countyid", Value = clsGlobals.strCountyID });
+            row.Elements.Add(new ListEntry.Custom() { LocalName = "notes", Value = clsGlobals.strUserInputForSpreadsheet.ToString().Trim() });
+            row.Elements.Add(new ListEntry.Custom() { LocalName = "agrcsegment", Value = "176fd" });
+            row.Elements.Add(new ListEntry.Custom() { LocalName = "cntysegment", Value = clsGlobals.strCountySegmentTrimed });
 
             // Send the new row to the API for insertion.
             service.Insert(listFeed, row);
+
         }
 
 

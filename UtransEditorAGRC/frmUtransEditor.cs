@@ -85,9 +85,6 @@ namespace UtransEditorAGRC
         {
             try
             {
-                //clsUtransEditorStaticClass.AuthorizeRequestGoogleSheetsAPI();
-                clsUtransEditorStaticClass.AddRowToGoogleSpreadsheet();
-
                 //setup event handler for when the  map selection changes
                 ((IEditEvents_Event)clsGlobals.arcEditor).OnSelectionChanged += new IEditEvents_OnSelectionChangedEventHandler(frmUtransEditor_OnSelectionChanged);
 
@@ -466,6 +463,7 @@ namespace UtransEditorAGRC
 
                         //get the county's cartocode
                         //strCountyCartoCode = arcCountyFeature.get_Value(arcCountyFeature.Fields.FindFieldByAliasName("CARTOCODE")).ToString().Trim();
+                        clsGlobals.strCountyID = arcCountyFeature.get_Value(arcCountyFeature.Fields.FindFieldByAliasName("COFIPS")).ToString().Trim();
                     }
 
 
@@ -1771,6 +1769,30 @@ namespace UtransEditorAGRC
                         //refresh the map layers and data
                         arcActiveView.Refresh();
                         arcActiveView.Refresh();
+
+                        //exit
+                        return;
+                    case "NOTIFY COUNTY":
+                        string strCalcExprInformCounty = @"""" + strComboBoxTextValue + @"""";
+
+                        //proceed with calculating values in the dfc table 
+                        arcCalculator.Cursor = arcCur_dfcLayer;
+                        arcCalculator.Expression = strCalcExprInformCounty;
+                        arcCalculator.Field = "CURRENT_NOTES";
+                        arcCalculator.Calculate();
+                        arcCalculator.ShowErrorPrompt = true;
+
+                        //clear out the cursor
+                        arcCur_dfcLayer = null;
+
+                        //refresh the map layers and data
+                        arcActiveView.Refresh();
+                        arcActiveView.Refresh();
+
+                        //call google spreadsheet doc
+                        clsGlobals.strCountySegment = txtCountyPreDir.Text.Trim() + " " + txtCountyStName.Text.Trim() + " " + txtCountyStType.Text.Trim() + " " + txtCountySufDir.Text.Trim();
+                        clsGlobals.strCountySegmentTrimed = clsGlobals.strCountySegment.Trim();
+                        clsUtransEditorStaticClass.AddRowToGoogleSpreadsheet();
 
                         //exit
                         return;

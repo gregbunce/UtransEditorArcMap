@@ -66,5 +66,47 @@ namespace UtransEditorAGRC
             set;
         }
 
+        public static frmUserInputNotes UserInputNotes
+        {
+            get;
+            set;
+        }
+
+        public static string strUserInputForSpreadsheet
+        {
+            get;
+            set;
+        }
+
+        public static string strUserInputGoogleAccessCode
+        {
+            get;
+            set;
+        }
+
+        public static string strCountySegment
+        {
+            get;
+            set;
+        }
+
+        public static string strCountySegmentTrimed
+        {
+            get;
+            set;
+        }
+
+        public static string strCountyID
+        {
+            get;
+            set;
+        }
+
+        public static bool boolGoogleHasAccessCode
+        {
+            get;
+            set;
+
+        }
     }
 }

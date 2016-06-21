@@ -888,7 +888,8 @@
             "COMPLETED",
             "IGNORE",
             "REVISIT",
-            "OTHER"});
+            "OTHER",
+            "NOTIFY COUNTY"});
             this.cboStatusField.Location = new System.Drawing.Point(11, 19);
             this.cboStatusField.Name = "cboStatusField";
             this.cboStatusField.Size = new System.Drawing.Size(142, 21);
