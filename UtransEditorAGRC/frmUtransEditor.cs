@@ -1234,7 +1234,7 @@ namespace UtransEditorAGRC
 
         // R_F_ADD
         private void txtUtranR_F_Add_TextChanged(object sender, EventArgs e)
-        {);
+        {
             try
             {
                 if (txtUtranR_F_Add.Text.ToUpper().ToString() != txtCountyR_F_Add.Text.ToUpper().ToString())
