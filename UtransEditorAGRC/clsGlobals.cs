@@ -1,6 +1,7 @@
 ﻿using ESRI.ArcGIS.Carto;
 using ESRI.ArcGIS.Editor;
 using ESRI.ArcGIS.Framework;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -139,6 +140,12 @@ namespace UtransEditorAGRC
             set;
         }
 
+
+        public static Logger logger
+        {
+            get;
+            set;
+        }
 
 
 

@@ -232,6 +232,12 @@
     <None Include="btnGoogleStreetViewTool.png" />
     <Content Include="clsBtnUtransEditor.bmp" />
     <None Include="EditingCopyParallel32.png" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
