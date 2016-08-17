@@ -16,6 +16,8 @@
             if (disposing && (components != null))
             {
                 components.Dispose();
+                fontLabelHasEdits.Dispose();
+                fontLabelRegular.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -171,6 +173,7 @@
             this.groupBoxCountySeg.TabIndex = 7;
             this.groupBoxCountySeg.TabStop = false;
             this.groupBoxCountySeg.Text = "Selected County Road Segment";
+            this.groupBoxCountySeg.Enter += new System.EventHandler(this.groupBoxCountySeg_Enter);
             // 
             // groupBox4
             // 
@@ -1173,6 +1176,7 @@
             this.MaximizeBox = false;
             this.Name = "frmUtransEditor";
             this.Text = "AGRC Custom UTRANS Editor";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmUtransEditor_FormClosing);
             this.Load += new System.EventHandler(this.frmUtransEditor_Load);
             this.groupBoxCountySeg.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);

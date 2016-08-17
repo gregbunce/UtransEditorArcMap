@@ -17,16 +17,18 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ESRI.ArcGIS.GeoDatabaseUI;
 using ESRI.ArcGIS.Display;
-using NLog;
-using NLog.Config;
+//using NLog;
+//using NLog.Config;
 
 namespace UtransEditorAGRC
 {
+
     public partial class frmUtransEditor : Form
     {
         //set up nlogger for catching errors
-        //private static Logger logger;
+        //clsGlobals.logger = LogManager.GetCurrentClassLogger();
         
+ 
         //form-wide variables...
         // create a list of controls that contains address pieces for managing edits
         private List<Control> ctrlList = new List<Control>();
@@ -59,7 +61,6 @@ namespace UtransEditorAGRC
         IQueryFilter arcQFilterLabelCount;
 
         //create an italic font for lables - to use where data does not match
-        
         Font fontLabelHasEdits = new Font("Microsoft Sans Serif", 8.0f, FontStyle.Bold);
 
         //create an italic font for lables - to use where data does not match
@@ -95,8 +96,8 @@ namespace UtransEditorAGRC
             try
             {
                 //test if the logger is working
-                LogManager.Configuration = new XmlLoggingConfiguration("c:\\Users\\gbunce\\documents\\visual studio 2013\\Projects\\UtransEditorAGRC\\UtransEditorAGRC\\NLog.config");
-                clsGlobals.logger = LogManager.GetCurrentClassLogger();
+                //LogManager.Configuration = new XmlLoggingConfiguration("c:\\Users\\gbunce\\documents\\visual studio 2013\\Projects\\UtransEditorAGRC\\UtransEditorAGRC\\NLog.config");
+                //clsGlobals.logger = LogManager.GetCurrentClassLogger();
                 //clsGlobals.logger.Trace("test on load");
 
                 //setup event handler for when the  map selection changes
@@ -284,7 +285,7 @@ namespace UtransEditorAGRC
             }
             catch (Exception ex)
             {
-                clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
+                //clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
 
                 MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
                 "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
@@ -328,20 +329,20 @@ namespace UtransEditorAGRC
                 groupBox5.Font = fontLabelRegular;
 
                 //enable the textboxes - in case last record was "N" and were disabled
-                txtUtranL_F_Add.ReadOnly = false;
-                txtUtranL_T_Add.ReadOnly = false;
-                txtUtranPreDir.ReadOnly = false;
-                txtUtranR_F_Add.ReadOnly = false;
-                txtUtranR_T_Add.ReadOnly = false;
-                txtUtransAcsName.ReadOnly = false;
-                txtUtransAcsSuf.ReadOnly = false;
-                txtUtransAlias1.ReadOnly = false;
-                txtUtransAlias1Type.ReadOnly = false;
-                txtUtransAlias2.ReadOnly = false;
-                txtUtransAlias2Type.ReadOnly = false;
-                txtUtranStName.ReadOnly = false;
-                txtUtranStType.ReadOnly = false;
-                txtUtranSufDir.ReadOnly = false;
+                ////////txtUtranL_F_Add.ReadOnly = false;
+                ////////txtUtranL_T_Add.ReadOnly = false;
+                ////////txtUtranPreDir.ReadOnly = false;
+                ////////txtUtranR_F_Add.ReadOnly = false;
+                ////////txtUtranR_T_Add.ReadOnly = false;
+                ////////txtUtransAcsName.ReadOnly = false;
+                ////////txtUtransAcsSuf.ReadOnly = false;
+                ////////txtUtransAlias1.ReadOnly = false;
+                ////////txtUtransAlias1Type.ReadOnly = false;
+                ////////txtUtransAlias2.ReadOnly = false;
+                ////////txtUtransAlias2Type.ReadOnly = false;
+                ////////txtUtranStName.ReadOnly = false;
+                ////////txtUtranStType.ReadOnly = false;
+                ////////txtUtranSufDir.ReadOnly = false;
 
                 lblLeftFrom.Enabled = true;
                 lblRightFrom.Enabled = true;
@@ -586,20 +587,20 @@ namespace UtransEditorAGRC
                     txtUtranSufDir.BackColor = Color.LightGray;
 
                     //i could change this to loop the control list and update all the controls with a tag like utrans
-                    txtUtranL_F_Add.ReadOnly = true;
-                    txtUtranL_T_Add.ReadOnly = true;
-                    txtUtranPreDir.ReadOnly = true;
-                    txtUtranR_F_Add.ReadOnly = true;
-                    txtUtranR_T_Add.ReadOnly = true;
-                    txtUtransAcsName.ReadOnly = true;
-                    txtUtransAcsSuf.ReadOnly = true;
-                    txtUtransAlias1.ReadOnly = true;
-                    txtUtransAlias1Type.ReadOnly = true;
-                    txtUtransAlias2.ReadOnly = true;
-                    txtUtransAlias2Type.ReadOnly = true;
-                    txtUtranStName.ReadOnly = true;
-                    txtUtranStType.ReadOnly = true;
-                    txtUtranSufDir.ReadOnly = true;
+                    ////////txtUtranL_F_Add.ReadOnly = true;
+                    ////////txtUtranL_T_Add.ReadOnly = true;
+                    ////////txtUtranPreDir.ReadOnly = true;
+                    ////////txtUtranR_F_Add.ReadOnly = true;
+                    ////////txtUtranR_T_Add.ReadOnly = true;
+                    ////////txtUtransAcsName.ReadOnly = true;
+                    ////////txtUtransAcsSuf.ReadOnly = true;
+                    ////////txtUtransAlias1.ReadOnly = true;
+                    ////////txtUtransAlias1Type.ReadOnly = true;
+                    ////////txtUtransAlias2.ReadOnly = true;
+                    ////////txtUtransAlias2Type.ReadOnly = true;
+                    ////////txtUtranStName.ReadOnly = true;
+                    ////////txtUtranStType.ReadOnly = true;
+                    ////////txtUtranSufDir.ReadOnly = true;
 
                     lblLeftFrom.Enabled = false;
                     lblRightFrom.Enabled = false;
@@ -625,7 +626,7 @@ namespace UtransEditorAGRC
             }
             catch (Exception ex)
             {
-                clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
+                //clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
 
                 MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
                 "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
@@ -726,7 +727,7 @@ namespace UtransEditorAGRC
             }
             catch (Exception ex)
             {
-                clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
+                //clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
 
                 MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
                 "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
@@ -846,7 +847,7 @@ namespace UtransEditorAGRC
             }
             catch (Exception ex)
             {
-                clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
+                //clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
                 
                 MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
                 "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
@@ -869,7 +870,7 @@ namespace UtransEditorAGRC
             }
             catch (Exception ex)
             {
-                clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
+                //clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
 
                 MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
                 "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
@@ -1179,10 +1180,12 @@ namespace UtransEditorAGRC
                     //btnSaveToUtrans.Enabled = false;
                     btnSaveToUtrans.Enabled = true;
                 }
+                //fontLabelHasEdits.Dispose();
+                //fontLabelRegular.Dispose();
             }
             catch (Exception ex)
             {
-                clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
+                //clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
 
                 MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
                 "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
@@ -1220,10 +1223,12 @@ namespace UtransEditorAGRC
                     //btnSaveToUtrans.Enabled = false;
                     btnSaveToUtrans.Enabled = true;
                 }
+                //fontLabelHasEdits.Dispose();
+                //fontLabelRegular.Dispose();
             }
             catch (Exception ex)
             {
-                clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
+                //clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
 
                 MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
                 "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
@@ -1261,10 +1266,12 @@ namespace UtransEditorAGRC
                     //btnSaveToUtrans.Enabled = false;
                     btnSaveToUtrans.Enabled = true;
                 }
+                //fontLabelHasEdits.Dispose();
+                //fontLabelRegular.Dispose();
             }
             catch (Exception ex)
             {
-                clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
+                //clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
 
                 MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
                 "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
@@ -1302,10 +1309,12 @@ namespace UtransEditorAGRC
                     //btnSaveToUtrans.Enabled = false;
                     btnSaveToUtrans.Enabled = true;
                 }
+                //fontLabelHasEdits.Dispose();
+                //fontLabelRegular.Dispose();
             }
             catch (Exception ex)
             {
-                clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
+                //clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
 
                 MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
                 "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
@@ -1343,10 +1352,12 @@ namespace UtransEditorAGRC
                     //btnSaveToUtrans.Enabled = false;
                     btnSaveToUtrans.Enabled = true;
                 }
+                //fontLabelHasEdits.Dispose();
+                //fontLabelRegular.Dispose();
             }
             catch (Exception ex)
             {
-                clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
+                //clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
 
                 MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
                 "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
@@ -1384,10 +1395,12 @@ namespace UtransEditorAGRC
                     //btnSaveToUtrans.Enabled = false;
                     btnSaveToUtrans.Enabled = true;
                 }
+                //fontLabelHasEdits.Dispose();
+                //fontLabelRegular.Dispose();
             }
             catch (Exception ex)
             {
-                clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
+                //clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
 
                 MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
                 "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
@@ -1425,10 +1438,12 @@ namespace UtransEditorAGRC
                     //btnSaveToUtrans.Enabled = false;
                     btnSaveToUtrans.Enabled = true;
                 }
+                //fontLabelHasEdits.Dispose();
+                //fontLabelRegular.Dispose();
             }
             catch (Exception ex)
             {
-                clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
+                //clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
 
                 MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
                 "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
@@ -1466,10 +1481,12 @@ namespace UtransEditorAGRC
                     //btnSaveToUtrans.Enabled = false;
                     btnSaveToUtrans.Enabled = true;
                 }
+                //fontLabelHasEdits.Dispose();
+                //fontLabelRegular.Dispose();
             }
             catch (Exception ex)
             {
-                clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
+                //clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
 
                 MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
                 "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
@@ -1507,10 +1524,12 @@ namespace UtransEditorAGRC
                     //btnSaveToUtrans.Enabled = false;
                     btnSaveToUtrans.Enabled = true;
                 }
+                //fontLabelHasEdits.Dispose();
+                //fontLabelRegular.Dispose();
             }
             catch (Exception ex)
             {
-                clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
+                //clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
 
                 MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
                 "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
@@ -1549,10 +1568,12 @@ namespace UtransEditorAGRC
                     //btnSaveToUtrans.Enabled = false;
                     btnSaveToUtrans.Enabled = true;
                 }
+                //fontLabelHasEdits.Dispose();
+                //fontLabelRegular.Dispose();
             }
             catch (Exception ex)
             {
-                clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
+                //clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
 
                 MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
                 "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
@@ -1590,10 +1611,12 @@ namespace UtransEditorAGRC
                     //btnSaveToUtrans.Enabled = false;
                     btnSaveToUtrans.Enabled = true;
                 }
+                //fontLabelHasEdits.Dispose();
+                //fontLabelRegular.Dispose();
             }
             catch (Exception ex)
             {
-                clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
+                //clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
 
                 MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
                 "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
@@ -1631,10 +1654,12 @@ namespace UtransEditorAGRC
                     //btnSaveToUtrans.Enabled = false;
                     btnSaveToUtrans.Enabled = true;
                 }
+                //fontLabelHasEdits.Dispose();
+                //fontLabelRegular.Dispose();
             }
             catch (Exception ex)
             {
-                clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
+                //clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
 
                 MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
                 "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
@@ -1672,10 +1697,12 @@ namespace UtransEditorAGRC
                     //btnSaveToUtrans.Enabled = false;
                     btnSaveToUtrans.Enabled = true;
                 }
+                //fontLabelHasEdits.Dispose();
+                //fontLabelRegular.Dispose();
             }
             catch (Exception ex)
             {
-                clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
+                //clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
 
                 MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
                 "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
@@ -1713,10 +1740,12 @@ namespace UtransEditorAGRC
                     //btnSaveToUtrans.Enabled = false;
                     btnSaveToUtrans.Enabled = true;
                 }
+                //fontLabelHasEdits.Dispose();
+                //fontLabelRegular.Dispose();
             }
             catch (Exception ex)
             {
-                clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
+                //clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
 
                 MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
                 "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
@@ -2278,7 +2307,7 @@ namespace UtransEditorAGRC
             }
             catch (Exception ex)
             {
-                clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
+                //clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
 
                 MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
                 "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
@@ -2407,7 +2436,7 @@ namespace UtransEditorAGRC
             }
             catch (Exception ex)
             {
-                clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
+                //clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
 
                 MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
                 "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
@@ -2594,6 +2623,8 @@ namespace UtransEditorAGRC
                 else if (intUtransFeatCount > 1)
                 {
                     MessageBox.Show("The new road segment that was just copied into the Utrans database has duplicate attributes with an existing segment! Please investigate and proceed as necessary.", "Duplicate Attributes!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+
                 }
                 else if (intUtransFeatCount == 0)
                 {
@@ -2629,7 +2660,7 @@ namespace UtransEditorAGRC
             }
             catch (Exception ex)
             {
-                clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
+                //clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
 
                 MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
                 "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
@@ -2659,6 +2690,9 @@ namespace UtransEditorAGRC
                 groupBox5.Font = fontLabelRegular;
                 cboCartoCode.Font = fontLabelRegular; // for some reason you have to set it to regular each time or it's bold - maybe b/c it's a child of groupbox
             }
+            
+            //fontLabelHasEdits.Dispose();
+            //fontLabelRegular.Dispose();
             
         }
 
@@ -2782,7 +2816,7 @@ namespace UtransEditorAGRC
             }
             catch (Exception ex)
             {
-                clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
+                //clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
 
                 MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
                 "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
@@ -2893,7 +2927,7 @@ namespace UtransEditorAGRC
             }
             catch (Exception ex)
             {
-                clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
+                //clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
 
                 MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
                 "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
@@ -2939,7 +2973,7 @@ namespace UtransEditorAGRC
             }
             catch (Exception ex)
             {
-                clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
+                //clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
 
                 MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
                 "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
@@ -2958,13 +2992,36 @@ namespace UtransEditorAGRC
             }
             catch (Exception ex)
             {
-                clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
+                //clsGlobals.logger.Error(Environment.NewLine + "Error Message: " + ex.Message + Environment.NewLine + "Error Source: " + ex.Source + Environment.NewLine + "Error Location:" + ex.StackTrace + Environment.NewLine + "Target Site: " + ex.TargetSite);
 
                 MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
                 "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
                 "Error Location:" + Environment.NewLine + ex.StackTrace,
                 "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
+        }
+
+
+        private void frmUtransEditor_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            try
+            {
+                e.Cancel = false;
+                this.Dispose();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
+                "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
+                "Error Location:" + Environment.NewLine + ex.StackTrace,
+                "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+
+        }
+
+        private void groupBoxCountySeg_Enter(object sender, EventArgs e)
+        {
+
         }
 
 

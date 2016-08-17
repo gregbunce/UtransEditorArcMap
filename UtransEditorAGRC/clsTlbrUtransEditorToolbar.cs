@@ -73,7 +73,7 @@ namespace UtransEditorAGRC
             //AddItem("{FBF8C3FB-0480-11D2-8D21-080009EE4E51}", 1); //undo command
             //AddItem(new Guid("FBF8C3FB-0480-11D2-8D21-080009EE4E51"), 2); //redo command
             AddItem("{a47c1699-cbdc-48d0-8b47-b9de988a81f9}"); //clsBtnUtransEditor button
-            // i removed this from this toolbar b/c I added it the custom tools toolbar... AddItem("{9c72acd1-2825-44a1-a540-e4f795eae241}"); //google street view dude
+            AddItem("{9c72acd1-2825-44a1-a540-e4f795eae241}"); //google street view dude
         }
 
         public override string Caption
