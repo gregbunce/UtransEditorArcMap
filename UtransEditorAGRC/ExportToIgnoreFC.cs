@@ -148,27 +148,61 @@ namespace UtransEditorAGRC
                     // loop through the dfc_result layer's "ignore" and 'notify and ignore' features
                     while ((arcFeat_DFC = arcFeatCursor_DFC.NextFeature()) != null)
                     {
-                        
+                        //create a new feature in the ignore fgdb feature class and give it the geometry of the current dfc_result feature
+                        IFeature arcNewFeature = arcFL_IgnoreFGDB.FeatureClass.CreateFeature();
+                        arcNewFeature.Shape = arcFeat_DFC.ShapeCopy;
+
+                        string strUtransOID = null;
+                        string strCountyRoadsOID = null;
+                        string strCurrentNotes = null;
+                        string strPrevNotes = null;
+                        string strChangeType = null;
+
+
+                        // get the field values from the dfc_result layer
+                        strUtransOID = arcFeat_DFC.get_Value(arcFeat_DFC.Fields.FindField("BASE_FID")).ToString();
+                        strCountyRoadsOID = arcFeat_DFC.get_Value(arcFeat_DFC.Fields.FindField("UPDATE_FID")).ToString();
+                        strCurrentNotes = arcFeat_DFC.get_Value(arcFeat_DFC.Fields.FindField("CURRENT_NOTES")) as string;
+                        strPrevNotes = arcFeat_DFC.get_Value(arcFeat_DFC.Fields.FindField("PREV__NOTES")) as string;
+                        strChangeType = arcFeat_DFC.get_Value(arcFeat_DFC.Fields.FindField("CHANGE_TYPE")) as string;
+
+
+                        // set up query filters and cursors for the utrans segment to get values from
+                        if (strUtransOID != "-1")
+                        {
+                            IQueryFilter arcQF_Utrans = new QueryFilter();
+                            arcQF_Utrans.WhereClause = "OBJECTID = " + strUtransOID;
+                            IFeatureCursor arcFeatCursor_Utrans = arcFL_UtransStreet.Search(arcQF_Utrans, false);
+                            IFeature arcFeat_Utrans = arcFeatCursor_Utrans.NextFeature();                            
+                        }
+                        else
+                        {
+                            //empty string
+                            arcNewFeature.set_Value(arcFL_IgnoreFGDB.FeatureClass.Fields.FindField("UtransSegment"), "None");
+                        }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+                        // store the new row/feature
+                        arcNewFeature.Store();
                     }
-
-                    
-
-
-
-
-
                 }
                 else
                 {
                     MessageBox.Show("Make sure all the dropdown menus have been choosen.", "Missing Selections", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
-
-
-
-
             }
             catch (Exception ex)
             {
