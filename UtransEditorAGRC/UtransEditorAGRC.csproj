@@ -184,12 +184,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="btnExportIgnoresToFC.cs" />
     <Compile Include="btnGoogleStreetViewTool.cs" />
     <Compile Include="clsBtnUtransEditor.cs" />
     <Compile Include="clsExtensionDataEditor.cs" />
     <Compile Include="clsGlobals.cs" />
     <Compile Include="clsModelessDialog.cs" />
     <Compile Include="clsUtransEditorStaticClass.cs" />
+    <Compile Include="ExportToIgnoreFC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExportToIgnoreFC.Designer.cs">
+      <DependentUpon>ExportToIgnoreFC.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmUserInputNotes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -232,6 +239,7 @@
     <None Include="btnGoogleStreetViewTool.png" />
     <Content Include="clsBtnUtransEditor.bmp" />
     <None Include="EditingCopyParallel32.png" />
+    <None Include="ExportIgnores.png" />
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -241,6 +249,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ExportToIgnoreFC.resx">
+      <DependentUpon>ExportToIgnoreFC.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmUserInputNotes.resx">
       <DependentUpon>frmUserInputNotes.cs</DependentUpon>
     </EmbeddedResource>

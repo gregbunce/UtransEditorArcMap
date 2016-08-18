@@ -74,6 +74,7 @@ namespace UtransEditorAGRC
             //AddItem(new Guid("FBF8C3FB-0480-11D2-8D21-080009EE4E51"), 2); //redo command
             AddItem("{a47c1699-cbdc-48d0-8b47-b9de988a81f9}"); //clsBtnUtransEditor button
             AddItem("{9c72acd1-2825-44a1-a540-e4f795eae241}"); //google street view dude
+            AddItem("{1a46a1ce-da1b-40a0-a213-0d9a486a772f}"); //export ignores to fgdb button
         }
 
         public override string Caption
