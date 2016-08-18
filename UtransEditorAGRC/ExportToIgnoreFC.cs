@@ -21,6 +21,7 @@ namespace UtransEditorAGRC
         IFeatureLayer arcFL_DFC = null;
         IFeatureLayer arcFL_IgnoreFGDB = null;
         IFeature arcFeat_DFC = null;
+        string[] strCOFIPS_Array;
 
         public ExportToIgnoreFC()
         {
@@ -91,6 +92,9 @@ namespace UtransEditorAGRC
 
             try
             {
+                //show busy mouse
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
+
                 // loop through the map get access to the layers in the combo boxes
                 if (cboCountyName.SelectedIndex != -1 & cboCountyStreets.SelectedIndex != -1 & cboDFC_RESULT.SelectedIndex != -1 & cboIgnoredFC.SelectedIndex != -1 & cboUtransStreets.SelectedIndex != -1)
                 {
@@ -150,7 +154,7 @@ namespace UtransEditorAGRC
                     {
                         //create a new feature in the ignore fgdb feature class and give it the geometry of the current dfc_result feature
                         IFeature arcNewFeature = arcFL_IgnoreFGDB.FeatureClass.CreateFeature();
-                        arcNewFeature.Shape = arcFeat_DFC.ShapeCopy;
+                        arcNewFeature.Shape = arcFeat_DFC.Shape;
 
                         string strUtransOID = null;
                         string strCountyRoadsOID = null;
@@ -166,6 +170,22 @@ namespace UtransEditorAGRC
                         strPrevNotes = arcFeat_DFC.get_Value(arcFeat_DFC.Fields.FindField("PREV__NOTES")) as string;
                         strChangeType = arcFeat_DFC.get_Value(arcFeat_DFC.Fields.FindField("CHANGE_TYPE")) as string;
 
+                        // split the cofips value to get out the number
+                        string strCOFIPS_Combobox = null;
+                        strCOFIPS_Array = null;
+                        string strCOFIPS_Number = null;
+                        strCOFIPS_Combobox = cboCountyName.Text;
+                        strCOFIPS_Array = strCOFIPS_Combobox.Split('-');
+                        strCOFIPS_Number = strCOFIPS_Array[0].ToString().Trim();
+
+                        // set field values for new feature
+                        arcNewFeature.set_Value(arcFL_IgnoreFGDB.FeatureClass.Fields.FindField("UPDATE_FID"), strCountyRoadsOID);
+                        arcNewFeature.set_Value(arcFL_IgnoreFGDB.FeatureClass.Fields.FindField("BASE_FID"), strUtransOID);
+                        arcNewFeature.set_Value(arcFL_IgnoreFGDB.FeatureClass.Fields.FindField("CHANGE_TYPE"), strChangeType);
+                        arcNewFeature.set_Value(arcFL_IgnoreFGDB.FeatureClass.Fields.FindField("CURRENT_NOTES"), strCurrentNotes);
+                        arcNewFeature.set_Value(arcFL_IgnoreFGDB.FeatureClass.Fields.FindField("PREV__NOTES"), strPrevNotes);
+                        arcNewFeature.set_Value(arcFL_IgnoreFGDB.FeatureClass.Fields.FindField("Date_Ignored"), dateTimePickerExportIgnores.Value.ToShortDateString());
+                        arcNewFeature.set_Value(arcFL_IgnoreFGDB.FeatureClass.Fields.FindField("COFIPS"), strCOFIPS_Number);
 
                         // set up query filters and cursors for the utrans segment to get values from
                         if (strUtransOID != "-1")
@@ -173,31 +193,96 @@ namespace UtransEditorAGRC
                             IQueryFilter arcQF_Utrans = new QueryFilter();
                             arcQF_Utrans.WhereClause = "OBJECTID = " + strUtransOID;
                             IFeatureCursor arcFeatCursor_Utrans = arcFL_UtransStreet.Search(arcQF_Utrans, false);
-                            IFeature arcFeat_Utrans = arcFeatCursor_Utrans.NextFeature();                            
+                            IFeature arcFeat_Utrans = arcFeatCursor_Utrans.NextFeature();
+
+                            if (arcFeat_Utrans != null)
+                            {
+                                //populate the utrans segment with the needed values
+                                arcNewFeature.set_Value(arcFL_IgnoreFGDB.FeatureClass.Fields.FindField("UtransSegment"), "| " +
+                                    arcFeat_Utrans.get_Value(arcFeat_Utrans.Fields.FindField("L_F_ADD")).ToString().Trim() + " | " +
+                                    arcFeat_Utrans.get_Value(arcFeat_Utrans.Fields.FindField("L_T_ADD")).ToString().Trim() + " | " +
+                                    arcFeat_Utrans.get_Value(arcFeat_Utrans.Fields.FindField("R_F_ADD")).ToString().Trim() + " | " +
+                                    arcFeat_Utrans.get_Value(arcFeat_Utrans.Fields.FindField("R_T_ADD")).ToString().Trim() + " | " +
+                                    arcFeat_Utrans.get_Value(arcFeat_Utrans.Fields.FindField("PREDIR")).ToString().Trim() + " | " +
+                                    arcFeat_Utrans.get_Value(arcFeat_Utrans.Fields.FindField("STREETNAME")).ToString().Trim() + " | " +
+                                    arcFeat_Utrans.get_Value(arcFeat_Utrans.Fields.FindField("STREETTYPE")).ToString().Trim() + " | " +
+                                    arcFeat_Utrans.get_Value(arcFeat_Utrans.Fields.FindField("SUFDIR")).ToString().Trim() + " | " +
+                                    arcFeat_Utrans.get_Value(arcFeat_Utrans.Fields.FindField("ALIAS1")).ToString().Trim() + " | " +
+                                    arcFeat_Utrans.get_Value(arcFeat_Utrans.Fields.FindField("ALIAS1TYPE")).ToString().Trim() + " | " +
+                                    arcFeat_Utrans.get_Value(arcFeat_Utrans.Fields.FindField("ALIAS2")).ToString().Trim() + " | " +
+                                    arcFeat_Utrans.get_Value(arcFeat_Utrans.Fields.FindField("ALIAS2TYPE")).ToString().Trim() + " | " +
+                                    arcFeat_Utrans.get_Value(arcFeat_Utrans.Fields.FindField("ACSNAME")).ToString().Trim() + " | " +
+                                    arcFeat_Utrans.get_Value(arcFeat_Utrans.Fields.FindField("ACSSUF")).ToString().Trim() + " |");
+
+                                //null out query filter and feature cursor
+                                System.Runtime.InteropServices.Marshal.ReleaseComObject(arcFeatCursor_Utrans);
+                                GC.Collect();
+                                arcFeatCursor_Utrans = null;
+                                arcQF_Utrans = null;                               
+                            }
+                            else
+                            {
+                                //utrans segment not found
+                                arcNewFeature.set_Value(arcFL_IgnoreFGDB.FeatureClass.Fields.FindField("UtransSegment"), "None Found");
+                            }
                         }
                         else
                         {
-                            //empty string
-                            arcNewFeature.set_Value(arcFL_IgnoreFGDB.FeatureClass.Fields.FindField("UtransSegment"), "None");
+                            //utrans segment not found
+                            arcNewFeature.set_Value(arcFL_IgnoreFGDB.FeatureClass.Fields.FindField("UtransSegment"), "None Found");
                         }
 
 
 
+                        // get the values from the county_streets layer
+                        IQueryFilter arcQF_CountyStreets = new QueryFilter();
+                        arcQF_CountyStreets.WhereClause = "OBJECTID = " + strCountyRoadsOID;
+                        IFeatureCursor arcFeatCursor_CountyStreets = arcFL_CountyStreets.Search(arcQF_CountyStreets, false);
+                        IFeature arcFeat_CountyStreets = arcFeatCursor_CountyStreets.NextFeature();
 
+                        if (arcFeat_CountyStreets != null)
+                        {
+                            //populate the utrans segment with the needed values
+                            arcNewFeature.set_Value(arcFL_IgnoreFGDB.FeatureClass.Fields.FindField("CountySegment"), "| " +
+                                arcFeat_CountyStreets.get_Value(arcFeat_CountyStreets.Fields.FindField("L_F_ADD")).ToString().Trim() + " | " +
+                                arcFeat_CountyStreets.get_Value(arcFeat_CountyStreets.Fields.FindField("L_T_ADD")).ToString().Trim() + " | " +
+                                arcFeat_CountyStreets.get_Value(arcFeat_CountyStreets.Fields.FindField("R_F_ADD")).ToString().Trim() + " | " +
+                                arcFeat_CountyStreets.get_Value(arcFeat_CountyStreets.Fields.FindField("R_T_ADD")).ToString().Trim() + " | " +
+                                arcFeat_CountyStreets.get_Value(arcFeat_CountyStreets.Fields.FindField("PREDIR")).ToString().Trim() + " | " +
+                                arcFeat_CountyStreets.get_Value(arcFeat_CountyStreets.Fields.FindField("STREETNAME")).ToString().Trim() + " | " +
+                                arcFeat_CountyStreets.get_Value(arcFeat_CountyStreets.Fields.FindField("STREETTYPE")).ToString().Trim() + " | " +
+                                arcFeat_CountyStreets.get_Value(arcFeat_CountyStreets.Fields.FindField("SUFDIR")).ToString().Trim() + " | " +
+                                arcFeat_CountyStreets.get_Value(arcFeat_CountyStreets.Fields.FindField("ALIAS1")).ToString().Trim() + " | " +
+                                arcFeat_CountyStreets.get_Value(arcFeat_CountyStreets.Fields.FindField("ALIAS1TYPE")).ToString().Trim() + " | " +
+                                arcFeat_CountyStreets.get_Value(arcFeat_CountyStreets.Fields.FindField("ALIAS2")).ToString().Trim() + " | " +
+                                arcFeat_CountyStreets.get_Value(arcFeat_CountyStreets.Fields.FindField("ALIAS2TYPE")).ToString().Trim() + " | " +
+                                arcFeat_CountyStreets.get_Value(arcFeat_CountyStreets.Fields.FindField("ACSNAME")).ToString().Trim() + " | " +
+                                arcFeat_CountyStreets.get_Value(arcFeat_CountyStreets.Fields.FindField("ACSSUF")).ToString().Trim() + " |");
 
-
-
-
-
-
-
-
-
+                            //null out query filter and feature cursor
+                            System.Runtime.InteropServices.Marshal.ReleaseComObject(arcFeat_CountyStreets);
+                            GC.Collect();
+                            arcFeat_CountyStreets = null;
+                            arcQF_CountyStreets = null;                            
+                        }
+                        else
+                        {
+                            arcNewFeature.set_Value(arcFL_IgnoreFGDB.FeatureClass.Fields.FindField("CountySegment"), "None Found");
+                        }
 
 
                         // store the new row/feature
                         arcNewFeature.Store();
                     }
+
+                    //null out query filter and feature cursor
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(arcQF_DFC_Ignore);
+                    GC.Collect();
+
+                    MessageBox.Show("Done exporting Ignores from " + strCOFIPS_Array[1].ToString().Trim() + " County's DFC_RESULT layer.", "Finished!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    
+                    //close the form
+                    this.Close();
                 }
                 else
                 {
