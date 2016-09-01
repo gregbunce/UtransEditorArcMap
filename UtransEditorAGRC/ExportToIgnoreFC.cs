@@ -21,7 +21,7 @@ namespace UtransEditorAGRC
         IFeatureLayer arcFL_DFC = null;
         IFeatureLayer arcFL_IgnoreFGDB = null;
         IFeature arcFeat_DFC = null;
-        string[] strCOFIPS_Array;
+        //string[] strCOFIPS_Array;
 
         public ExportToIgnoreFC()
         {
@@ -45,13 +45,6 @@ namespace UtransEditorAGRC
                 arcMapp = arcMxDoc.FocusMap;
 
                 IActiveView arcActiveView = arcMapp as IActiveView;
-
-
-                //////get access to the document (the current mxd), and the active view (data view or layout view), and the focus map (the data-view's data-frame with active focus)
-                ////pMxDocument = (IMxDocument)clsElecMappingToolsExtension.m_application.Document;
-                ////pActiveView = pMxDocument.ActiveView; //set the active view to the document's current active view state (aka: page layout or map)
-                ////pMap = pActiveView.FocusMap; //set the map to currently selected/activated map/frame within the document's acitve view
-
 
                 ILayer pLayer;
                 IFeatureLayer pFeatureLayer;
@@ -141,7 +134,15 @@ namespace UtransEditorAGRC
                         MessageBox.Show("Please select the correct layer for UTRANS.StatewideStreets", "Layer Name Issue", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
-                    
+
+
+                    // split the cofips value to get out the number
+                    string strCOFIPS_Combobox = null;
+                    string[] strCOFIPS_Array = null;
+                    string strCOFIPS_Number = null;
+                    strCOFIPS_Combobox = cboCountyName.Text;
+                    strCOFIPS_Array = strCOFIPS_Combobox.Split('-');
+                    strCOFIPS_Number = strCOFIPS_Array[0].ToString().Trim();
 
 
                     // set up feature cursor for getting the ignore records from the dfc
@@ -169,14 +170,6 @@ namespace UtransEditorAGRC
                         strCurrentNotes = arcFeat_DFC.get_Value(arcFeat_DFC.Fields.FindField("CURRENT_NOTES")) as string;
                         strPrevNotes = arcFeat_DFC.get_Value(arcFeat_DFC.Fields.FindField("PREV__NOTES")) as string;
                         strChangeType = arcFeat_DFC.get_Value(arcFeat_DFC.Fields.FindField("CHANGE_TYPE")) as string;
-
-                        // split the cofips value to get out the number
-                        string strCOFIPS_Combobox = null;
-                        strCOFIPS_Array = null;
-                        string strCOFIPS_Number = null;
-                        strCOFIPS_Combobox = cboCountyName.Text;
-                        strCOFIPS_Array = strCOFIPS_Combobox.Split('-');
-                        strCOFIPS_Number = strCOFIPS_Array[0].ToString().Trim();
 
                         // set field values for new feature
                         arcNewFeature.set_Value(arcFL_IgnoreFGDB.FeatureClass.Fields.FindField("UPDATE_FID"), strCountyRoadsOID);
