@@ -10,6 +10,8 @@ using ESRI.ArcGIS.Carto;
 using ESRI.ArcGIS.Editor;
 using ESRI.ArcGIS.Geodatabase;
 using ESRI.ArcGIS.Geometry;
+using ESRI.ArcGIS.Display;
+using ESRI.ArcGIS.esriSystem;
 
 namespace UtransEditorAGRC
 {
@@ -70,7 +72,7 @@ namespace UtransEditorAGRC
 
         #endregion
         #endregion
-
+        IFeature arcSelectedFeature;
         private IApplication m_application;
         public btnTool_SplitLine()
         {
@@ -137,23 +139,39 @@ namespace UtransEditorAGRC
             // TODO: Add btnTool_SplitLine.OnClick implementation
 
             // get access to the selected map element
-            IFeature arcSelectedFeature = clsGlobals.arcEditor.EditSelection.Next();
+            //loop through and see how many features are selected
+            IEnumFeature selectedFeatures = clsGlobals.arcEditor.EditSelection as IEnumFeature;
+            selectedFeatures.Reset();
 
-            if (!(arcSelectedFeature.Shape is IPolyline))
+            int intSelectedCount = 0;
+            while ((selectedFeatures.Next()) != null)
             {
-                MessageBox.Show("Selected feature must be a polyline.  Please select one polyline feature.","Select Polyline", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                intSelectedCount = intSelectedCount + 1;
+            }
+
+            //make sure only one feature is selected
+            if (intSelectedCount == 1)
+            {
+                clsGlobals.arcEditor.EditSelection.Reset();
+                arcSelectedFeature = clsGlobals.arcEditor.EditSelection.Next();
+
+                if (!(arcSelectedFeature.Shape is IPolyline))
+                {
+                    MessageBox.Show("Selected feature must be a polyline.  Please select one polyline feature.","Select Polyline", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    // deactivate the tool so it's no longer selected
+                    this.Deactivate();
+                    return;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select only one feature.", "Select Only One", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 // deactivate the tool so it's no longer selected
                 this.Deactivate();
                 return;
             }
-            //else if (arcSelectedFeature.Shape is IPolyline)
-            //{
-            //    MessageBox.Show("Nice work, you have selected a polyline.", "Hooragh, aye, el-chapo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //}
-
-
-
         }
+
 
 
 
@@ -171,11 +189,38 @@ namespace UtransEditorAGRC
                 // get active view (can be data frame in either page layout or data view)
                 IActiveView arcActiveView = arcMapp as IActiveView;
 
-                
-                
+                // set classic snapping to true
+                IEditProperties4 arcEditProperties4 = clsGlobals.arcEditor as IEditProperties4;
+                arcEditProperties4.ClassicSnapping = true;
 
+                // set some variables for capturing where the user's click location
+                ISnapEnvironment arcSnapEnvironment = clsGlobals.arcEditor as ISnapEnvironment;
+                IPoint arcSplitPoint = new ESRI.ArcGIS .Geometry.Point();
+                IScreenDisplay arcScreenDisplay = arcActiveView.ScreenDisplay;
+                IDisplayTransformation arcDisplayTransformation = arcScreenDisplay.DisplayTransformation;
 
+                // get the x and y from the user's mouse click - these are variables that are passed in via the OnMouseDown click event
+                arcSplitPoint = arcDisplayTransformation.ToMapPoint(X, Y);
 
+                // snap to existing snap environment
+                arcSnapEnvironment.SnapPoint(arcSplitPoint);
+
+                // call the split centerline method
+                doCenterlineSplit(arcSelectedFeature, arcSplitPoint);
+
+                // expand the envelope
+                IEnvelope arcEnvelope = arcSelectedFeature.Extent;
+                arcEnvelope.Expand(1.2, 1.2, true);
+                // if the parent arc is horizontal or vertical, refresh the full screen
+                if (arcEnvelope.Width < arcMxDoc.ActivatedView.Extent.Width / 100)
+                {
+                    arcEnvelope = arcMxDoc.ActivatedView.Extent;
+                }
+                if (arcEnvelope.Height < arcMxDoc.ActivatedView.Extent.Height / 100)
+                {
+                    arcEnvelope = arcMxDoc.ActivatedView.Extent;
+                }
+                arcActiveView.PartialRefresh(esriViewDrawPhase.esriViewGeography & esriViewDrawPhase.esriViewGeoSelection, null, arcEnvelope);
 
             }
             catch (Exception ex)
@@ -197,5 +242,433 @@ namespace UtransEditorAGRC
             // TODO:  Add btnTool_SplitLine.OnMouseUp implementation
         }
         #endregion
+
+
+
+
+        // this method splits the centerline
+        public void doCenterlineSplit(IFeature arcParentFeature, IPoint arcSplitPoint)
+        {
+            try
+            {
+                // set address field range fields
+                string strLeftFromName = "L_F_ADD";
+                string strLeftToName = "L_T_ADD";
+                string strRightFromName = "R_F_ADD";
+                string strRightToName = "R_T_ADD";
+                long longLeftFromNum;
+                long longLeftToNum;
+                long longRightFromNum;
+                long longRightToNum;
+
+
+                ICurve arcParentCurve = arcParentFeature.Shape as ICurve;
+
+                // check if the curve is nothing
+                if (arcParentCurve == null)
+                {
+                    MessageBox.Show("The selected polyline does not have a valid shape.", "Can Not Split", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                // check if the curve is nothing
+                if (arcParentCurve.IsEmpty == true)
+                {
+                    MessageBox.Show("The selected polyline has an empty geometry.", "Can Not Split", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                // check if the curve is nothing
+                if (arcParentCurve.Length == 0)
+                {
+                    MessageBox.Show("The selected polyline has a length of zero.", "Can Not Split", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+
+                // make sure the required fields which contain the house numbers have been specified
+                IFields arcFields = arcParentFeature.Fields;
+                longLeftFromNum = arcFields.FindField(strLeftFromName);
+                longLeftToNum = arcFields.FindField(strLeftToName);
+                longRightFromNum = arcFields.FindField(strRightFromName);
+                longRightToNum = arcFields.FindField(strRightToName);
+
+                // check for Null values in the 4 house number fields (modGlobals has comments on g_pExtension)
+                if (longLeftFromNum == null | longLeftToNum == null | longRightFromNum == null | longRightToNum == null)
+                {
+                    MessageBox.Show("One or more of the house numbers are Null for the selected line.", "Can Not Split", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // try to get a valid house number from each of the 4 house number fields.
+                // this is especially important if the fields are Text, which is common for geocoding data.
+                long lngFrom_Left_HouseNum = TryToGetValidHouseNum(arcSelectedFeature.get_Value(arcSelectedFeature.Fields.FindField("L_F_ADD")).ToString().Trim());
+                long lngFrom_Right_HouseNum = TryToGetValidHouseNum(arcSelectedFeature.get_Value(arcSelectedFeature.Fields.FindField("R_F_ADD")).ToString().Trim());
+                long lngTo_Left_HouseNum = TryToGetValidHouseNum(arcSelectedFeature.get_Value(arcSelectedFeature.Fields.FindField("L_T_ADD")).ToString().Trim());
+                long lngTo_Right_HouseNum = TryToGetValidHouseNum(arcSelectedFeature.get_Value(arcSelectedFeature.Fields.FindField("R_T_ADD")).ToString().Trim());
+
+                if (lngFrom_Left_HouseNum == -1 | lngFrom_Right_HouseNum == -1 | lngTo_Left_HouseNum == -1 | lngTo_Right_HouseNum == -1)
+                {
+                    MessageBox.Show("One or more of the house numbers are invalid for the selected line.  Please see the attribute table and verify that address ranges are valid.", "Can Not Split", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+
+                bool blnMixedParity = false;
+                
+                // check left address ranges //
+                // both of these values should retrun as false (if only odd numbers are on left) - meaning the to and from range for that side of the road is odd
+                bool blnLeftFromIsEven = isEven(lngFrom_Left_HouseNum);
+                bool blnLeftToIsEven = isEven(lngTo_Left_HouseNum);
+
+                // check if side of the road is both even or both odd
+                if (blnLeftToIsEven != blnLeftFromIsEven)
+                {
+                    MessageBox.Show("The left side of the selected line has both even and odd numbers.  Ensure the left ranges are both either odd or even.", "Mixed Parity", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+
+                // check right address ranges //
+                // both ranges should be same
+                bool blnRightFromIsEven = isEven(lngFrom_Right_HouseNum);
+                bool blnRightToIsEven = isEven(lngTo_Right_HouseNum);
+
+                // check if side of the road is both even or odd
+                if (blnRightFromIsEven != blnRightToIsEven)
+	            {
+                    MessageBox.Show("The right side of the selected line has both even and odd numbers.  Ensure the right ranges are both either odd or even.", "Mixed Parity", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+	            }
+
+                // verify the 2 sides of the polyline have opposite parity (unless one side has 2 zeros)
+                bool blnLeftIsEven = isEven(lngFrom_Left_HouseNum);
+                bool blnOneSideHasZeros;
+
+                // check if any of the range values are zero
+                if ((lngFrom_Left_HouseNum == 0 & lngTo_Left_HouseNum == 0) | (lngFrom_Right_HouseNum == 0 & lngTo_Right_HouseNum == 0))
+                {
+                    blnOneSideHasZeros = true;
+                }
+                else
+                {
+                    blnOneSideHasZeros = false;
+                }
+
+
+                if (blnOneSideHasZeros == false)
+                {
+                    // check if both the right and left "from" ranges are of same parity
+                    if (blnLeftFromIsEven == blnRightFromIsEven)
+                    {
+                        if (blnLeftFromIsEven == false)
+                        {
+                            MessageBox.Show("Both sides of the selected line begin with odd numbers.  Ensure one side of segment begins with an odd number and the other begins with an even number.", "Mixed Parity", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Both sides of the selected line begin with even numbers.  Ensure one side of segment begins with an odd number and the other begins with an even number.", "Mixed Parity", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                    }
+
+                    // check if both the right and left "to" ranges are of same parity
+                    if (blnLeftToIsEven == blnRightToIsEven)
+                    {
+                        if (blnLeftToIsEven == false)
+                        {
+                            MessageBox.Show("Both sides of the selected line end with odd numbers.  Ensure one side of segment ends with an odd number and the other ends with an even number.", "Mixed Parity", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Both sides of the selected line end with even numbers.  Ensure one side of segment ends with an odd number and the other ends with an even number.", "Mixed Parity", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                    }
+                }
+
+
+                // create the point that will be used to split the selected polyline //
+                if (arcSplitPoint == null)
+                {
+                    MessageBox.Show("A valid split point could not be created. The split point (from user mouse-click) returned null.", "Can not Split", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                if (arcSplitPoint.IsEmpty == true)
+                {
+                    MessageBox.Show("A valid split point could not be created. The split point (from user mouse-click) returned IsEmpty.", "Can not Split", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+
+                // split the parent feature into 2 offspring features. we use IFeatureEdit::Split since
+                // it respects geodatabase behaviour (subtypes, domains, split policies etc). it also maintains
+                // M and Z values, and works for geometric networks and topological ArcInfo coverages
+                IFeatureEdit arcFeatureEdit = arcParentFeature as IFeatureEdit;
+                ISet arcNewSet;
+                
+                // start an edit operation
+                clsGlobals.arcEditor.StartOperation();
+                
+                // split the segment
+                arcNewSet = arcFeatureEdit.Split(arcSplitPoint);
+
+                // make sure the segment was split into 2 segments
+                if (arcNewSet.Count != 2)
+                {
+                    MessageBox.Show("The selected line was not split into two segments -- unknown error.  Please check selected segment and try process again.", "Can not Split", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    clsGlobals.arcEditor.AbortOperation();
+                    return;
+                }
+
+
+                // we now need to modify the house numbers of the 2 offspring polylines. before doing this,
+                // we must be sure pNewFeature1 is the offspring line that contains the parent's from vertex,
+                // or our logic will not work. Since ISet::Next does not return the features in any particular
+                // order, we must test and switch if needed.
+                IFeature arcNewFeature1 = arcNewSet.Next() as IFeature;  // will be wrong 50% of the time
+                IFeature arcNewFeature2;
+                ICurve arcNewFeatCurve1 = arcNewFeature1.Shape as ICurve;
+                ICurve arcNewFeatCurve2;
+
+                // get the from points from each curve
+                IPoint arcParentFromPnt = arcParentCurve.FromPoint;
+                IPoint arcNewFeature1FromPnt = arcNewFeatCurve1.FromPoint;
+
+                // set up relational operator to check if points are equal
+                IRelationalOperator arcRelationalOperator = arcParentFromPnt as IRelationalOperator;
+                if (arcRelationalOperator.Equals(arcNewFeature1FromPnt) == true)
+                {
+                    // no need to switch... just set the from point for the 2nd segment (the other split segment)
+                    arcNewFeature2 = arcNewSet.Next() as IFeature;
+                    arcNewFeatCurve2 = arcNewFeature2.Shape as ICurve;
+                }
+                else // will happen 50% of the time, need to switch features
+                {
+                    arcNewFeature2 = arcNewFeature1;
+                    arcNewFeatCurve2 = arcNewFeature2.Shape as ICurve;
+                    arcNewFeature1 = arcNewSet.Next() as IFeature;
+                    arcNewFeatCurve1 = arcNewFeature1.Shape as ICurve;
+                }
+
+
+                // get the distance along the curve (as a ratio) where the split point falls. we will need
+                // this soon for the interpolation of house numbers.
+                double dblDistAlongCurve = arcNewFeatCurve1.Length / (arcNewFeatCurve1.Length + arcNewFeatCurve2.Length);
+
+                // fix the 4 house numbers that are not correct (main part of code). the other 4 numbers are
+                // already correct (the FROM_LEFT and FROM_RIGHT of the first feature, and the TO_LEFT and TO_RIGHT of the second feature).
+                long lngLeftNum = getInterpolatedHouseNumber(lngFrom_Left_HouseNum, lngTo_Left_HouseNum, dblDistAlongCurve);
+                long lngRightNum = getInterpolatedHouseNumber(lngFrom_Right_HouseNum, lngTo_Right_HouseNum, dblDistAlongCurve);
+
+                // the following 10 lines set the TO_LEFT and TO_RIGHT numbers of the first feature //
+                if (lngFrom_Left_HouseNum == lngTo_Left_HouseNum) // if parent had no range of house numbers
+                {
+                    arcNewFeature1.set_Value(arcNewFeature1.Fields.FindField("L_T_ADD"), lngFrom_Left_HouseNum);
+                }
+                else
+                {
+                    arcNewFeature1.set_Value(arcNewFeature1.Fields.FindField("L_T_ADD"), lngLeftNum);
+                }
+                if (lngFrom_Right_HouseNum == lngTo_Right_HouseNum)
+                {
+                    arcNewFeature1.set_Value(arcNewFeature1.Fields.FindField("R_T_ADD"), lngFrom_Right_HouseNum);
+                }
+                else
+                {
+                    arcNewFeature1.set_Value(arcNewFeature1.Fields.FindField("R_T_ADD"), lngRightNum);
+                }
+
+                //store feature1
+                arcNewFeature1.Store();
+
+                //get field values for address ranges
+                long lngFeat1_L_T_ADD = Convert.ToInt64(arcNewFeature1.get_Value(arcNewFeature1.Fields.FindField("L_T_ADD")));
+                long lngFeat1_R_T_ADD = Convert.ToInt64(arcNewFeature1.get_Value(arcNewFeature1.Fields.FindField("R_T_ADD")));
+
+                // the following lines set the FROM_LEFT and FROM_RIGHT numbers of the second feature
+                // set the left_from
+                if (lngFrom_Left_HouseNum < lngTo_Left_HouseNum)
+                {
+                    //long intLTADD = Convert.ToInt64(arcNewFeature1.get_Value(arcNewFeature1.Fields.FindField("L_T_ADD")));
+                    //arcNewFeature2.set_Value(arcNewFeature2.Fields.FindField("L_F_ADD"), arcNewFeature1.get_Value(arcNewFeature1.Fields.FindField("L_T_ADD") + 2));
+                    arcNewFeature2.set_Value(arcNewFeature2.Fields.FindField("L_F_ADD"), lngFeat1_L_T_ADD + 2);
+                }
+                else if (lngFrom_Left_HouseNum == lngTo_Left_HouseNum) // if parent had no range of house numbers
+                {
+                    arcNewFeature2.set_Value(arcNewFeature2.Fields.FindField("L_F_ADD"), lngFrom_Left_HouseNum);
+                }
+                else // if house numbers run opposite to the polyline's digitized direction
+                {
+                    arcNewFeature2.set_Value(arcNewFeature2.Fields.FindField("L_F_ADD"), lngFeat1_L_T_ADD - 2);
+                }
+
+                // set the right_from for the feature 2
+                if (lngFrom_Right_HouseNum < lngTo_Right_HouseNum)
+                {
+                    arcNewFeature2.set_Value(arcNewFeature2.Fields.FindField("R_F_ADD"), lngFeat1_R_T_ADD + 2);
+                }
+                else if (lngFrom_Right_HouseNum == lngTo_Right_HouseNum)
+                {
+                    arcNewFeature2.set_Value(arcNewFeature2.Fields.FindField("R_F_ADD"), lngFrom_Right_HouseNum);
+                }
+                else // if house numbers run opposite to the polyline's digitized direction
+                {
+                    arcNewFeature2.set_Value(arcNewFeature2.Fields.FindField("R_F_ADD"), lngFeat1_R_T_ADD - 2);
+                }
+                
+
+                // store the features
+                //arcNewFeature1.Store();
+                arcNewFeature2.Store();
+
+                // stop the edit operation
+                clsGlobals.arcEditor.StopOperation("AGRC Split Line");
+
+
+            }
+            catch (Exception ex)
+            {
+                // abort the operation if there's an error
+                clsGlobals.arcEditor.AbortOperation();
+
+
+                MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
+                "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
+                "Error Location:" + Environment.NewLine + ex.StackTrace,
+                "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                
+                return;
+            }
+        }
+
+
+
+        // this method tries to get a valid house number
+        public long TryToGetValidHouseNum(object strHouseNum) 
+        {
+            try
+            {
+                // attempt to get a valid Long Interger from the supplied candidate
+                // returns -1 if not possible
+                int intHouseNum;
+                bool blnIsNumber = int.TryParse(strHouseNum.ToString().Trim(), out intHouseNum);
+
+                if (blnIsNumber == true)
+                {
+                    // convert the int to long and return it
+                    long longHouseNum = Convert.ToInt64(intHouseNum);
+
+                    // check if value is zero
+                    if (longHouseNum != 0)
+                    {
+                       return longHouseNum; 
+                    }
+                    else
+                    {
+                        return -1;
+                    }
+                }
+                else
+                {
+                    return -1;
+                }
+            } 
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
+                "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
+                "Error Location:" + Environment.NewLine + ex.StackTrace,
+                "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                return 0;
+            }
+        }
+
+
+
+        // check if number is even
+        public bool isEven(long longHseNumber) 
+        {
+            try
+            {
+                // return True is number is even (could also shorten this code to: "return longHseNumber % 2 == 0;"
+                if (longHseNumber % 2 == 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
+                "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
+                "Error Location:" + Environment.NewLine + ex.StackTrace,
+                "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                
+                // retrun false
+                return false;
+            }   
+        }
+
+
+        // this method is called from the 'doCenterlineSplit' method above and returns a long value
+        public long getInterpolatedHouseNumber(long lngFrom, long lngTo, double dblDist)
+        {
+            try
+            {
+                // interpolate the next lowest whole number given lngFrom and lngTo. Makes sure it is on the
+                // correct side of the street if MixedParity is False.
+                // start by returning the raw (Double) interpolated house number.
+                double dblHouseNum;
+                long lngNextLowestHouseNumber;
+
+                if (lngFrom < lngTo)
+                {
+                    dblHouseNum = ((lngTo - lngFrom) * dblDist) + lngFrom;
+                    lngNextLowestHouseNumber = Convert.ToInt64(dblHouseNum); //this will retrun a long
+                }
+                else
+                {
+                    dblHouseNum = lngFrom - ((lngFrom - lngTo) * dblDist);
+                    lngNextLowestHouseNumber = Convert.ToInt64(dblHouseNum) + 1; //this will return a long
+                }
+
+                // make sure the interpolated number is on the correct side of the street
+                bool blnFromIsEven = isEven(lngFrom);
+                bool blnCandidateNumberIsEven = isEven(lngNextLowestHouseNumber);
+
+
+                if (blnFromIsEven != blnCandidateNumberIsEven)
+                {
+                    if (lngFrom < lngTo)
+                    {
+                        lngNextLowestHouseNumber = lngNextLowestHouseNumber - 1;
+                    }
+                    else
+                    {
+                        lngNextLowestHouseNumber = lngNextLowestHouseNumber + 1;
+                    }
+                }
+
+                // retrun the value
+                return lngNextLowestHouseNumber;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
+                "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
+                "Error Location:" + Environment.NewLine + ex.StackTrace,
+                "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                return -1;
+            }
+        
+        }
+
+
     }
 }
