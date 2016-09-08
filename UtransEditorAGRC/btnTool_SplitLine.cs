@@ -12,6 +12,7 @@ using ESRI.ArcGIS.Geodatabase;
 using ESRI.ArcGIS.Geometry;
 using ESRI.ArcGIS.Display;
 using ESRI.ArcGIS.esriSystem;
+using System.Collections.Generic;
 
 namespace UtransEditorAGRC
 {
@@ -73,6 +74,9 @@ namespace UtransEditorAGRC
         #endregion
         #endregion
         IFeature arcSelectedFeature;
+        int intStreetName;
+        int intACSName;
+        IPoint m_Position = null;
         private IApplication m_application;
         public btnTool_SplitLine()
         {
@@ -190,11 +194,14 @@ namespace UtransEditorAGRC
                 IActiveView arcActiveView = arcMapp as IActiveView;
 
                 // set classic snapping to true
-                IEditProperties4 arcEditProperties4 = clsGlobals.arcEditor as IEditProperties4;
-                arcEditProperties4.ClassicSnapping = true;
+                //IEditProperties4 arcEditProperties4 = clsGlobals.arcEditor as IEditProperties4;
+                //arcEditProperties4.ClassicSnapping = true;
 
                 // set some variables for capturing where the user's click location
                 ISnapEnvironment arcSnapEnvironment = clsGlobals.arcEditor as ISnapEnvironment;
+                //Boolean snapped = arcSnapEnvironment.SnapPoint()
+                
+                
                 IPoint arcSplitPoint = new ESRI.ArcGIS .Geometry.Point();
                 IScreenDisplay arcScreenDisplay = arcActiveView.ScreenDisplay;
                 IDisplayTransformation arcDisplayTransformation = arcScreenDisplay.DisplayTransformation;
@@ -203,7 +210,50 @@ namespace UtransEditorAGRC
                 arcSplitPoint = arcDisplayTransformation.ToMapPoint(X, Y);
 
                 // snap to existing snap environment
-                arcSnapEnvironment.SnapPoint(arcSplitPoint);
+                arcSnapEnvironment.SnapPoint(m_Position);
+                //arcSnapEnvironment.SnapPoint(arcSplitPoint);
+                
+                // see if the there's anyintersecting segments with a coordinate address to use values in the new number assignments
+                IContentsView arcContentsView = arcMxDoc.CurrentContentsView;
+                IFeatureLayer arcFeatLayer = (IFeatureLayer)arcContentsView.SelectedItem;
+                IFeatureClass arcFeatClass = arcFeatLayer.FeatureClass;
+                List<IFeature> listFeatures = new List<IFeature>();
+                listFeatures = checkForIntersectingSegments(arcSplitPoint, .5, arcFeatClass);
+
+                // get the objectid of the selected feature - so we can exclude it from the intesecting search below
+                string strSelectedOID = arcSelectedFeature.get_Value(arcSelectedFeature.Fields.FindField("OBJECTID")).ToString();
+
+                // if see there are any features intersecting (there is always 1 - it's the selected feature to split, so we need to check if it's more than 1)
+                if (listFeatures.Count > 1)
+                {
+                    bool blnUseCoordinateAddress;
+
+                    // loop through the intesecting features to see if any have coordinate address to use
+                    for (int i = 0; i < listFeatures.Count; i++)
+                    {
+                        // ignore the ifeature that's the selected one - we don't need to check for coordinate values for the selected
+                        if (strSelectedOID != listFeatures[i].OID.ToString())
+                        {
+                            // check if street name is acs/coordinate (numberic)
+                            bool isNumeric_StName = int.TryParse(listFeatures[i].get_Value(listFeatures[i].Fields.FindField("STREETNAME")).ToString(), out intStreetName);
+
+                            bool isNumeric_ACSName = int.TryParse(listFeatures[i].get_Value(listFeatures[i].Fields.FindField("ACSNAME")).ToString(), out intACSName);
+
+                            // if the value is numeric then capture the number and proceed
+                            if (isNumeric_StName == true)
+                            {
+                                //MessageBox.Show(intStreetName.ToString());
+                                break; // breaks from "for loop"
+                            }
+                            if (isNumeric_ACSName == true)
+                            {
+                                //MessageBox.Show(intACSName.ToString());
+                                break; // breaks from "for loop"
+                            }
+                        }
+                    }
+                }
+
 
                 // call the split centerline method
                 doCenterlineSplit(arcSelectedFeature, arcSplitPoint);
@@ -235,7 +285,51 @@ namespace UtransEditorAGRC
         public override void OnMouseMove(int Button, int Shift, int X, int Y)
         {
             // TODO:  Add btnTool_SplitLine.OnMouseMove implementation
+            if (m_Position != null)
+
+
+                clsGlobals.arcEditor.InvertAgent(m_Position, 0);
+
+            m_Position = clsGlobals.arcEditor.Display.DisplayTransformation.ToMapPoint(X, Y);
+
+
+            //Get the snap environment from the editor
+
+
+            ISnapEnvironment se = clsGlobals.arcEditor as ISnapEnvironment;
+
+
+            Boolean snapped = se.SnapPoint(m_Position);
+
+
+            clsGlobals.arcEditor.InvertAgent(m_Position, 0);
         }
+
+        ////public override void OnMouseMove(MouseEventArgs arg)
+        ////{
+        ////    if (m_Position != null)
+
+
+        ////        clsGlobals.arcEditor.InvertAgent(m_Position, 0);
+
+        ////    m_Position = clsGlobals.arcEditor.Display.DisplayTransformation.ToMapPoint(arg.X, arg.Y);
+
+
+        ////    //Get the snap environment from the editor
+
+
+        ////    ISnapEnvironment se = clsGlobals.arcEditor as ISnapEnvironment;
+
+
+        ////    Boolean snapped = se.SnapPoint(m_Position);
+
+
+        ////    clsGlobals.arcEditor.InvertAgent(m_Position, 0);
+
+        ////}
+
+
+
 
         public override void OnMouseUp(int Button, int Shift, int X, int Y)
         {
@@ -667,6 +761,29 @@ namespace UtransEditorAGRC
                 return -1;
             }
         
+        }
+
+
+
+        // get features that intersect the buffered mouse click and return them as a list of IFeature
+        public List<IFeature> checkForIntersectingSegments(IPoint mousePoint, double buffer, IFeatureClass featureClass)
+        {
+            var envelope = mousePoint.Envelope;
+            envelope.Expand(buffer, buffer, false);
+            var geodataset = (IGeoDataset)featureClass;
+            string shapeFieldName = featureClass.ShapeFieldName;
+            ESRI.ArcGIS.Geodatabase.ISpatialFilter spatialFilter = new ESRI.ArcGIS.Geodatabase.SpatialFilter();
+            spatialFilter.Geometry = envelope;
+            spatialFilter.SpatialRel = esriSpatialRelEnum.esriSpatialRelCrosses;  // website for other options edndoc.esri.com/arcobjects/9.2/ComponentHelp/esrigeodatabase/esrispatialrelenum.htm
+            spatialFilter.set_OutputSpatialReference(shapeFieldName, geodataset.SpatialReference);
+
+            ESRI.ArcGIS.Geodatabase.IFeatureCursor featureCursor = featureClass.Search(spatialFilter, false);
+
+            var features = new List<IFeature>();
+            ESRI.ArcGIS.Geodatabase.IFeature feature;
+            while ((feature = featureCursor.NextFeature()) != null)
+                features.Add(feature);
+            return features;
         }
 
 
