@@ -139,7 +139,7 @@ namespace UtransEditorAGRC
 
 
 
-        /// Occurs when this tool is clicked
+        /// Occurs when this tool (button) is clicked
         public override void OnClick()
         {
             // TODO: Add btnTool_SplitLine.OnClick implementation
@@ -165,7 +165,7 @@ namespace UtransEditorAGRC
                 {
                     MessageBox.Show("Selected feature must be a polyline.  Please select one polyline feature.","Select Polyline", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     // deactivate the tool so it's no longer selected
-                    this.Deactivate();
+                    clsGlobals.arcApplication.CurrentTool = null;
                     return;
                 }
             }
@@ -173,7 +173,7 @@ namespace UtransEditorAGRC
             {
                 MessageBox.Show("Please select only one feature.", "Select Only One", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 // deactivate the tool so it's no longer selected
-                this.Deactivate();
+                clsGlobals.arcApplication.CurrentTool = null;
                 return;
             }
         }
@@ -181,7 +181,7 @@ namespace UtransEditorAGRC
 
 
 
-        // this code runs when user presses the mouse button down on the mouse 
+        // this code runs when user presses the mouse button down on the map
         public override void OnMouseDown(int Button, int Shift, int X, int Y)
         {
             try
@@ -205,15 +205,18 @@ namespace UtransEditorAGRC
                 
                 
                 IPoint arcSplitPoint = new ESRI.ArcGIS .Geometry.Point();
-                IScreenDisplay arcScreenDisplay = arcActiveView.ScreenDisplay;
-                IDisplayTransformation arcDisplayTransformation = arcScreenDisplay.DisplayTransformation;
+                arcSplitPoint = m_Position; // m_Position is set in the MouseMove event
+                //////IScreenDisplay arcScreenDisplay = arcActiveView.ScreenDisplay;
+                //////IDisplayTransformation arcDisplayTransformation = arcScreenDisplay.DisplayTransformation;
 
-                // get the x and y from the user's mouse click - these are variables that are passed in via the OnMouseDown click event
-                arcSplitPoint = arcDisplayTransformation.ToMapPoint(X, Y);
+                //////// snap to existing snap environment
+                //////arcSnapEnvironment.SnapPoint(m_Position);
+                
+                ////////arcSnapEnvironment.SnapPoint(arcSplitPoint);
 
-                // snap to existing snap environment
-                arcSnapEnvironment.SnapPoint(m_Position);
-                //arcSnapEnvironment.SnapPoint(arcSplitPoint);
+                //////// get the x and y from the user's mouse click - these are variables that are passed in via the OnMouseDown click event
+                //////arcSplitPoint = arcDisplayTransformation.ToMapPoint(X, Y);
+
                 
                 // see if the there's anyintersecting segments with a coordinate address to use values in the new number assignments
                 IContentsView arcContentsView = arcMxDoc.CurrentContentsView;
@@ -224,6 +227,8 @@ namespace UtransEditorAGRC
 
                 // get the objectid of the selected feature - so we can exclude it from the intesecting search below
                 string strSelectedOID = arcSelectedFeature.get_Value(arcSelectedFeature.Fields.FindField("OBJECTID")).ToString();
+                isNumeric_StName = false;
+                isNumeric_ACSName = false;
 
                 // if see there are any features intersecting (there is always 1 - it's the selected feature to split, so we need to check if it's more than 1)
                 if (listFeatures.Count > 1)
@@ -256,7 +261,6 @@ namespace UtransEditorAGRC
                     }
                 }
 
-
                 // call the split centerline method
                 doCenterlineSplit(arcSelectedFeature, arcSplitPoint);
 
@@ -272,8 +276,13 @@ namespace UtransEditorAGRC
                 {
                     arcEnvelope = arcMxDoc.ActivatedView.Extent;
                 }
-                arcActiveView.PartialRefresh(esriViewDrawPhase.esriViewGeography & esriViewDrawPhase.esriViewGeoSelection, null, arcEnvelope);
+                //arcActiveView.PartialRefresh(esriViewDrawPhase.esriViewGeography & esriViewDrawPhase.esriViewGeoSelection, null, arcEnvelope);
 
+                // deativate the tool 
+                clsGlobals.arcApplication.CurrentTool = null;
+                arcMapp.ClearSelection();
+                arcActiveView.Refresh();
+                arcActiveView.Refresh();
             }
             catch (Exception ex)
             {
@@ -284,11 +293,12 @@ namespace UtransEditorAGRC
             }
         }
 
+
+        // this method is called everytime the mouse moves and show the user the snapping points of the selected feature
         public override void OnMouseMove(int Button, int Shift, int X, int Y)
         {
             // TODO:  Add btnTool_SplitLine.OnMouseMove implementation
             if (m_Position != null)
-
 
                 clsGlobals.arcEditor.InvertAgent(m_Position, 0);
 
@@ -296,13 +306,9 @@ namespace UtransEditorAGRC
 
 
             //Get the snap environment from the editor
-
-
             ISnapEnvironment se = clsGlobals.arcEditor as ISnapEnvironment;
 
-
             Boolean snapped = se.SnapPoint(m_Position);
-
 
             clsGlobals.arcEditor.InvertAgent(m_Position, 0);
         }
