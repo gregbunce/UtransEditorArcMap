@@ -206,6 +206,9 @@ namespace UtransEditorAGRC
                 
                 IPoint arcSplitPoint = new ESRI.ArcGIS .Geometry.Point();
                 arcSplitPoint = m_Position; // m_Position is set in the MouseMove event
+    
+                // the section of code below that is commented out was used before i converted over to gettting the snapping environment from the mouse movement event
+                // don't need it anymore, could be useful if i don't get the snapping point from the mouse movement event
                 //////IScreenDisplay arcScreenDisplay = arcActiveView.ScreenDisplay;
                 //////IDisplayTransformation arcDisplayTransformation = arcScreenDisplay.DisplayTransformation;
 
@@ -217,7 +220,6 @@ namespace UtransEditorAGRC
                 //////// get the x and y from the user's mouse click - these are variables that are passed in via the OnMouseDown click event
                 //////arcSplitPoint = arcDisplayTransformation.ToMapPoint(X, Y);
 
-                
                 // see if the there's anyintersecting segments with a coordinate address to use values in the new number assignments
                 IContentsView arcContentsView = arcMxDoc.CurrentContentsView;
                 IFeatureLayer arcFeatLayer = (IFeatureLayer)arcContentsView.SelectedItem;
