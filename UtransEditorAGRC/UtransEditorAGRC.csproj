@@ -201,6 +201,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="btnAssignDfcOIDs.cs" />
     <Compile Include="btnExportIgnoresToFC.cs" />
     <Compile Include="btnGoogleStreetViewTool.cs" />
     <Compile Include="btnTool_SplitLine.cs" />
@@ -258,6 +259,7 @@
     <None Include="CadastralMergePointSelection16.png" />
     <None Include="CadastralLineSegmentation32.png" />
     <EmbeddedResource Include="btnTool_SplitLine.cur" />
+    <None Include="CadastralCreateLineString16.png" />
     <Content Include="clsBtnUtransEditor.bmp" />
     <None Include="EditingCopyParallel32.png" />
     <None Include="ExportIgnores.png" />

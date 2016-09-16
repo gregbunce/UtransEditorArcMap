@@ -84,7 +84,7 @@ namespace UtransEditorAGRC
         {
             base.m_category = "AGRC"; //localizable text
             base.m_caption = "AGRC Split Line Tool";  //localizable text
-            base.m_message = "This tool splits the selected line and its ranges.";  //localizable text 
+            base.m_message = "This tool splits the selected line and its ranges, and incorporates intersecting coordinate (numeric) street into split ranges.";  //localizable text 
             base.m_toolTip = "AGRC Split Line Tool";  //localizable text 
             base.m_name = "AgrcSplitLine";   //unique id, non-localizable (e.g. "MyCategory_ArcMapCommand")
             base.m_bitmap = Properties.Resources.CadastralMergePointSelection16;

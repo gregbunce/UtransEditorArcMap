@@ -148,6 +148,12 @@ namespace UtransEditorAGRC
         }
 
 
+        public static bool blnCanUseUtransTool
+        {
+            get;
+            set;
+        }
+
 
     }
 }

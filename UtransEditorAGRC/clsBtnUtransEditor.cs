@@ -134,8 +134,8 @@ namespace UtransEditorAGRC
                     //get a reference to ieditlayers to see which layers are editable
                     IEditLayers arcEditLayers = clsGlobals.arcEditor as IEditLayers;
                     IMap arcMapp = clsGlobals.arcEditor.Map;
-                    //make sure there is a map document
-                    if (arcMapp == null) { return false; }
+                    //make sure there is a map document in edit mode, else return false
+                    if (arcMapp == null) { clsGlobals.blnCanUseUtransTool = false;  return false; }
 
                     //loop through all the layers in the map and see if streets is there and editable
                     for (int i = 0; i < arcMapp.LayerCount; i++)
@@ -161,9 +161,13 @@ namespace UtransEditorAGRC
                     //if all the needed layers are in the map, and utrans streets are editable then enable button
                     if (isEditable & isCountyStreets & isDfcResult)
                     {
+                        // inform the global bool variable that utrans can edit - allowing other tools to enable as a result
+                        clsGlobals.blnCanUseUtransTool = true;
                         return true;
                     }
                     else
+                        // inform the global bool variable that utrans cannot edit - allowing other tools to disable as a result
+                        clsGlobals.blnCanUseUtransTool = false;
                         return false;
                 }
                 catch (Exception e)

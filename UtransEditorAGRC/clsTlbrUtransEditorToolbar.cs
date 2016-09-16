@@ -76,6 +76,7 @@ namespace UtransEditorAGRC
             AddItem("{9c72acd1-2825-44a1-a540-e4f795eae241}"); //google street view dude
             AddItem("{1a46a1ce-da1b-40a0-a213-0d9a486a772f}"); //export ignores to fgdb button
             AddItem("{f23641e9-16d1-49f1-9b79-cd55b2c4af77}"); //split line tool
+            AddItem("{5ef97ac3-f209-4eeb-9e21-3dc598d069a8}"); // assign selected features new objectid in dfc_result layer
         }
 
         public override string Caption
