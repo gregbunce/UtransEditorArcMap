@@ -197,8 +197,6 @@ namespace UtransEditorAGRC
                             arcFeatureIntersectingUtrans = arcFeatureCursor.NextFeature();
 
                             arcFeature_DFC.Store();
-
-
                         }
 
                         //if no match in utrans was found..

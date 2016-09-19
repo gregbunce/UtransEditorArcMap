@@ -2148,16 +2148,37 @@ namespace UtransEditorAGRC
                     arcAddrSysCursor = null;
                     arcFeatureAddrSys = null;
 
-                    // ZIPLEFT and ZIPRIGHT
-                    IFeatureCursor arcZipCursor = clsGlobals.arcFLayerZipCodes.Search(arcSpatialFilter, false);
-                    IFeature arcFeatureZip = arcZipCursor.NextFeature();
-                    if (arcFeatureZip != null)
+                    // ZIPLEFT and ZIPRIGHT (use iconstructpoint.constructoffset method to offset the midpoint of the line)
+                    // test the iconstructpoint.constructtooffset mehtod
+                    IConstructPoint arcConstructionPoint_posRight = new PointClass();
+                    IConstructPoint arcConstructionPoint_negLeft = new PointClass();
+                    
+                    // call offset mehtod to get a point along the curve's midpoint - offsetting in the postive position (esri documentation states that positive offset will always return point on the right side of the curve)
+                    arcConstructionPoint_posRight.ConstructOffset(arcUtransEdits_polyline, esriSegmentExtension.esriNoExtension, 0.5, true, 15);  // 10 meters is about 33 feet (15 is about 50 feet)
+                    IPoint outPoint_posRight = arcConstructionPoint_posRight as IPoint;
+                    MessageBox.Show("for positive/right offset: " + outPoint_posRight.X + " , " + outPoint_posRight.Y);
+
+                    // call offset mehtod to get a point along the curve's midpoint - offsetting in the negative position (esri documentation states that negative offset will always return point on the left-side of curve)
+                    arcConstructionPoint_negLeft.ConstructOffset(arcUtransEdits_polyline, esriSegmentExtension.esriNoExtension, 0.5, true, -15);  // -10 meters is about -33 feet (15 is about 50 feet)
+                    IPoint outPoint_negLeft = arcConstructionPoint_negLeft as IPoint;
+                    MessageBox.Show("for negative/left offset: " + outPoint_negLeft.X + " , " + outPoint_negLeft.Y);
+
+
+                    // LEFT ZIP //
+                    // query zipcode layer for a zip on left side of segment
+                    ISpatialFilter arcSpatialFilter_leftZip = new SpatialFilter();
+                    arcSpatialFilter_leftZip.Geometry = outPoint_negLeft;
+                    arcSpatialFilter_leftZip.SpatialRel = esriSpatialRelEnum.esriSpatialRelIntersects;
+
+                    IFeatureCursor arcZipCursor_left = clsGlobals.arcFLayerZipCodes.Search(arcSpatialFilter_leftZip, false);
+                    IFeature arcFeatureZip_left = arcZipCursor_left.NextFeature();
+                    if (arcFeatureZip_left != null)
                     {
                         //update the value in the utrans based on the intersect
-                        arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("ZIPLEFT"), arcFeatureZip.get_Value(arcFeatureZip.Fields.FindField("ZIP5")));
-                        arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("ZIPRIGHT"), arcFeatureZip.get_Value(arcFeatureZip.Fields.FindField("ZIP5")));
+                        arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("ZIPLEFT"), arcFeatureZip_left.get_Value(arcFeatureZip_left.Fields.FindField("ZIP5")));
+                        //arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("ZIPRIGHT"), arcFeatureZip_left.get_Value(arcFeatureZip_left.Fields.FindField("ZIP5")));
                         //maybe update the usps_place field as well with the "name" field from the zipcodes layer
-                        arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("USPS_PLACE"), arcFeatureZip.get_Value(arcFeatureZip.Fields.FindField("NAME")).ToString().Trim());
+                        arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("USPS_PLACE"), arcFeatureZip_left.get_Value(arcFeatureZip_left.Fields.FindField("NAME")).ToString().Trim());
                     }
                     else
                     {
@@ -2166,8 +2187,63 @@ namespace UtransEditorAGRC
                         //return;
                     }
                     //clear out variables
-                    arcZipCursor = null;
-                    arcFeatureZip = null;
+                    // release the cursor
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(arcZipCursor_left);
+                    //GC.Collect();
+                    arcZipCursor_left = null;
+                    arcFeatureZip_left = null;
+                    arcSpatialFilter_leftZip = null;
+
+                    // RIGHT ZIP //
+                    // query zipcode layer for a zipcode on right side of segment // 
+                    ISpatialFilter arcSpatialFilter_rightZip = new SpatialFilter();
+                    arcSpatialFilter_rightZip.Geometry = outPoint_posRight;
+                    arcSpatialFilter_rightZip.SpatialRel = esriSpatialRelEnum.esriSpatialRelIntersects;
+
+                    IFeatureCursor arcZipCursor_right = clsGlobals.arcFLayerZipCodes.Search(arcSpatialFilter_rightZip, false);
+                    IFeature arcFeatureZip_right = arcZipCursor_right.NextFeature();
+                    if (arcFeatureZip_right != null)
+                    {
+                        //update the value in the utrans based on the intersect
+                        //arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("ZIPLEFT"), arcFeatureZip_right.get_Value(arcFeatureZip_right.Fields.FindField("ZIP5")));
+                        arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("ZIPRIGHT"), arcFeatureZip_right.get_Value(arcFeatureZip_right.Fields.FindField("ZIP5")));
+                        //maybe update the usps_place field as well with the "name" field from the zipcodes layer
+                        arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("USPS_PLACE"), arcFeatureZip_right.get_Value(arcFeatureZip_right.Fields.FindField("NAME")).ToString().Trim());
+                    }
+                    else
+                    {
+                        MessageBox.Show("The midpoint of the street segment you are trying to update is not within a ZipCode.", "Whoa there Cowboy!");
+                        //give option to leave blank or abort edit operation and return
+                        //return;
+                    }
+                    //clear out variables
+                    // release the cursor
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(arcFeatureZip_right);
+                    //GC.Collect();
+                    arcFeatureZip_right = null;
+                    arcFeatureZip_right = null;
+                    arcSpatialFilter_rightZip = null;
+
+
+                    //////IFeatureCursor arcZipCursor = clsGlobals.arcFLayerZipCodes.Search(arcSpatialFilter, false);
+                    //////IFeature arcFeatureZip = arcZipCursor.NextFeature();
+                    //////if (arcFeatureZip != null)
+                    //////{
+                    //////    //update the value in the utrans based on the intersect
+                    //////    arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("ZIPLEFT"), arcFeatureZip.get_Value(arcFeatureZip.Fields.FindField("ZIP5")));
+                    //////    arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("ZIPRIGHT"), arcFeatureZip.get_Value(arcFeatureZip.Fields.FindField("ZIP5")));
+                    //////    //maybe update the usps_place field as well with the "name" field from the zipcodes layer
+                    //////    arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("USPS_PLACE"), arcFeatureZip.get_Value(arcFeatureZip.Fields.FindField("NAME")).ToString().Trim());
+                    //////}
+                    //////else
+                    //////{
+                    //////    MessageBox.Show("The midpoint of the street segment you are trying to update is not within a ZipCode.", "Whoa there Cowboy!");
+                    //////    //give option to leave blank or abort edit operation and return
+                    //////    //return;
+                    //////}
+                    ////////clear out variables
+                    //////arcZipCursor = null;
+                    //////arcFeatureZip = null;
 
                     // COFIPS
                     IFeatureCursor arcCountiesCursor = clsGlobals.arcFLayerCounties.Search(arcSpatialFilter, false);
@@ -2318,6 +2394,7 @@ namespace UtransEditorAGRC
             {
                 //stop the edit operation
                 clsGlobals.arcEditor.StopOperation("Street Edit");
+                GC.Collect();
             }
         }
 
