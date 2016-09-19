@@ -61,6 +61,12 @@ namespace UtransEditorAGRC
             set;
         }
 
+        public static IFeatureLayer arcFLayerMunicipalities
+        {
+            get;
+            set;
+        }
+
         public static frmUtransEditor UtransEdior2
         {
             get;

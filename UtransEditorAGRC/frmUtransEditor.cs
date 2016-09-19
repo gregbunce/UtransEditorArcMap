@@ -181,6 +181,10 @@ namespace UtransEditorAGRC
                             {
                                 clsGlobals.arcFLayerCounties = arcMapp.get_Layer(i) as IFeatureLayer;
                             }
+                            if (arcObjClass.AliasName.ToString() == "SGID10.BOUNDARIES.Municipalities")
+                            {
+                                clsGlobals.arcFLayerMunicipalities = arcMapp.get_Layer(i) as IFeatureLayer;
+                            }
                         }
                         catch (Exception) { }//in case there is an error looping through layers (sometimes on group layers or dynamic xy layers), just keep going
                         
@@ -222,6 +226,12 @@ namespace UtransEditorAGRC
                 else if (clsGlobals.arcFLayerCounties == null)
                 {
                     MessageBox.Show("A needed layer is Missing in the map." + Environment.NewLine + "Please add 'SGID10.BOUNDARIES.Counties' in order to continue.", "Missing Layer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.Close();
+                    return;
+                }
+                else if (clsGlobals.arcFLayerMunicipalities == null)
+                {
+                    MessageBox.Show("A needed layer is Missing in the map." + Environment.NewLine + "Please add 'SGID10.BOUNDARIES.Municipalities' in order to continue.", "Missing Layer", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     this.Close();
                     return;
                 }
@@ -2156,15 +2166,15 @@ namespace UtransEditorAGRC
                     // call offset mehtod to get a point along the curve's midpoint - offsetting in the postive position (esri documentation states that positive offset will always return point on the right side of the curve)
                     arcConstructionPoint_posRight.ConstructOffset(arcUtransEdits_polyline, esriSegmentExtension.esriNoExtension, 0.5, true, 15);  // 10 meters is about 33 feet (15 is about 50 feet)
                     IPoint outPoint_posRight = arcConstructionPoint_posRight as IPoint;
-                    MessageBox.Show("for positive/right offset: " + outPoint_posRight.X + " , " + outPoint_posRight.Y);
+                    //MessageBox.Show("for positive/right offset: " + outPoint_posRight.X + " , " + outPoint_posRight.Y);
 
                     // call offset mehtod to get a point along the curve's midpoint - offsetting in the negative position (esri documentation states that negative offset will always return point on the left-side of curve)
                     arcConstructionPoint_negLeft.ConstructOffset(arcUtransEdits_polyline, esriSegmentExtension.esriNoExtension, 0.5, true, -15);  // -10 meters is about -33 feet (15 is about 50 feet)
                     IPoint outPoint_negLeft = arcConstructionPoint_negLeft as IPoint;
-                    MessageBox.Show("for negative/left offset: " + outPoint_negLeft.X + " , " + outPoint_negLeft.Y);
+                    //MessageBox.Show("for negative/left offset: " + outPoint_negLeft.X + " , " + outPoint_negLeft.Y);
 
 
-                    // LEFT ZIP //
+                    // LEFT - ZIP & MUNICIPALITY(SDE) //
                     // query zipcode layer for a zip on left side of segment
                     ISpatialFilter arcSpatialFilter_leftZip = new SpatialFilter();
                     arcSpatialFilter_leftZip.Geometry = outPoint_negLeft;
@@ -2182,7 +2192,7 @@ namespace UtransEditorAGRC
                     }
                     else
                     {
-                        MessageBox.Show("The midpoint of the street segment you are trying to update is not within a ZipCode.", "Whoa there Cowboy!");
+                        MessageBox.Show("A zipcode could not be found on the left side of the segment - based on the segment's midpoint with a 15 meter offset.", "Whoa there Cowboy!");
                         //give option to leave blank or abort edit operation and return
                         //return;
                     }
@@ -2192,9 +2202,28 @@ namespace UtransEditorAGRC
                     //GC.Collect();
                     arcZipCursor_left = null;
                     arcFeatureZip_left = null;
+
+                    // query the municipal layer
+                    IFeatureCursor arcMuniCursor_left = clsGlobals.arcFLayerMunicipalities.Search(arcSpatialFilter_leftZip, false);
+                    IFeature arcFeatureMuni_left = arcMuniCursor_left.NextFeature();
+
+                    if (arcFeatureMuni_left != null)
+                    {
+                        arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("L_CITY"), arcFeatureMuni_left.get_Value(arcFeatureMuni_left.Fields.FindField("NAME")));
+                    }
+                    else
+                    {
+                        arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("L_CITY"), "");
+                        //MessageBox.Show("A Municipality/City could not be found on the left side of the segment - based on the segment's midpoint with a 15 meter offset.", "Whoa there Cowboy!");
+                    }
+
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(arcMuniCursor_left);
+                    arcMuniCursor_left = null;
+                    arcFeatureMuni_left = null;
                     arcSpatialFilter_leftZip = null;
 
-                    // RIGHT ZIP //
+
+                    // RIGHT ZIP & MUNICIPALITY(SDE) //
                     // query zipcode layer for a zipcode on right side of segment // 
                     ISpatialFilter arcSpatialFilter_rightZip = new SpatialFilter();
                     arcSpatialFilter_rightZip.Geometry = outPoint_posRight;
@@ -2212,7 +2241,7 @@ namespace UtransEditorAGRC
                     }
                     else
                     {
-                        MessageBox.Show("The midpoint of the street segment you are trying to update is not within a ZipCode.", "Whoa there Cowboy!");
+                        MessageBox.Show("A zipcode could not be found on the right side of the segment - based on the segment's midpoint with a 15 meter offset.", "Whoa there Cowboy!");
                         //give option to leave blank or abort edit operation and return
                         //return;
                     }
@@ -2222,6 +2251,24 @@ namespace UtransEditorAGRC
                     //GC.Collect();
                     arcFeatureZip_right = null;
                     arcFeatureZip_right = null;
+
+                    // query the municipal layer
+                    IFeatureCursor arcMuniCursor_right = clsGlobals.arcFLayerMunicipalities.Search(arcSpatialFilter_rightZip, false);
+                    IFeature arcFeatureMuni_right = arcMuniCursor_right.NextFeature();
+
+                    if (arcFeatureMuni_right != null)
+                    {
+                        arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("R_CITY"), arcFeatureMuni_right.get_Value(arcFeatureMuni_right.Fields.FindField("NAME")));
+                    }
+                    else
+                    {
+                        arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("R_CITY"), "");
+                        //MessageBox.Show("A Municipality/City could not be found on the right side of the segment - based on the segment's midpoint with a 15 meter offset.", "Whoa there Cowboy!");
+                    }
+
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(arcMuniCursor_right);
+                    arcMuniCursor_right = null;
+                    arcFeatureMuni_right = null;
                     arcSpatialFilter_rightZip = null;
 
 
