@@ -142,7 +142,7 @@ namespace UtransEditorAGRC
         /// Occurs when this tool (button) is clicked
         public override void OnClick()
         {
-            // TODO: Add btnTool_SplitLine.OnClick implementation
+            // TODO: Add btnTool_SplitLine.OnClick implementationn
 
             // get access to the selected map element
             //loop through and see how many features are selected
