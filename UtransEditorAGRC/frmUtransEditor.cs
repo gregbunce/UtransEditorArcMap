@@ -59,6 +59,7 @@ namespace UtransEditorAGRC
         IActiveView arcActiveView;
         IFeatureLayerDefinition arcFeatureLayerDef;
         IQueryFilter arcQFilterLabelCount;
+        IFeature arcCountyFeature; // i gave this form-scope becuase i need access to this varialbe in the onclick method to pass it into the google spreadsheet get city code method 
 
         //create an italic font for lables - to use where data does not match
         Font fontLabelHasEdits = new Font("Microsoft Sans Serif", 8.0f, FontStyle.Bold);
@@ -473,15 +474,12 @@ namespace UtransEditorAGRC
                     //MessageBox.Show("Utrans OID: " + strUtransOID.ToString());
 
                     IFeatureCursor arcCountyFeatCursor = clsGlobals.arcGeoFLayerCountyStreets.Search(arcCountyQueryFilter, true);
-                    IFeature arcCountyFeature = (IFeature)arcCountyFeatCursor.NextFeature();
-
+                    arcCountyFeature = (IFeature)arcCountyFeatCursor.NextFeature();
 
                     IFeatureCursor arcUtransFeatCursor = clsGlobals.arcGeoFLayerUtransStreets.Search(arcUtransQueryFilter, true);
                     IFeature arcUtransFeature = (IFeature)arcUtransFeatCursor.NextFeature();
 
-
                     //update the textboxes with the selected dfc row//
-
                     //make sure the query returned results for county roads
                     if (arcCountyFeature != null)
                     {
@@ -1950,6 +1948,9 @@ namespace UtransEditorAGRC
                             strGoogleLogRightTo = txtUtranR_T_Add.Text;
 	                    }
 
+                        // get city from muni layer for google doc city field
+                        clsGlobals.strGoogleSpreadsheetCityField = getCityFromSpatialIntersect(arcCountyFeature);
+
                         //string together the agrc street segment
                         clsGlobals.strAgrcSegment = strGoogleLogLeftFrom + "-" + strGoogleLogLeftTo + " " + strGoogleLogRightFrom + "-" + strGoogleLogRightTo + " " + txtUtranPreDir.Text.Trim() + " " + txtUtranStName.Text.Trim() + " " + txtUtranStType.Text.Trim() + " " + txtUtranSufDir.Text.Trim();
 
@@ -2053,6 +2054,9 @@ namespace UtransEditorAGRC
                             strGoogleLogRightTo = txtUtranR_T_Add.Text;
 	                    }
 
+                        // get city from muni layer for google doc city field
+                        clsGlobals.strGoogleSpreadsheetCityField = getCityFromSpatialIntersect(arcCountyFeature);
+
                         //string together the agrc street segment
                         clsGlobals.strAgrcSegment = strGoogleLogLeftFrom + "-" + strGoogleLogLeftTo + " " + strGoogleLogRightFrom + "-" + strGoogleLogRightTo + " " + txtUtranPreDir.Text.Trim() + " " + txtUtranStName.Text.Trim() + " " + txtUtranStType.Text.Trim() + " " + txtUtranSufDir.Text.Trim();
 
@@ -2155,6 +2159,7 @@ namespace UtransEditorAGRC
                         //return;
                     }
                     //clear out variables
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(arcAddrSysCursor);
                     arcAddrSysCursor = null;
                     arcFeatureAddrSys = null;
 
@@ -2271,26 +2276,9 @@ namespace UtransEditorAGRC
                     arcFeatureMuni_right = null;
                     arcSpatialFilter_rightZip = null;
 
-
-                    //////IFeatureCursor arcZipCursor = clsGlobals.arcFLayerZipCodes.Search(arcSpatialFilter, false);
-                    //////IFeature arcFeatureZip = arcZipCursor.NextFeature();
-                    //////if (arcFeatureZip != null)
-                    //////{
-                    //////    //update the value in the utrans based on the intersect
-                    //////    arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("ZIPLEFT"), arcFeatureZip.get_Value(arcFeatureZip.Fields.FindField("ZIP5")));
-                    //////    arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("ZIPRIGHT"), arcFeatureZip.get_Value(arcFeatureZip.Fields.FindField("ZIP5")));
-                    //////    //maybe update the usps_place field as well with the "name" field from the zipcodes layer
-                    //////    arcUtransEdit_Feature.set_Value(arcUtransEdit_Feature.Fields.FindField("USPS_PLACE"), arcFeatureZip.get_Value(arcFeatureZip.Fields.FindField("NAME")).ToString().Trim());
-                    //////}
-                    //////else
-                    //////{
-                    //////    MessageBox.Show("The midpoint of the street segment you are trying to update is not within a ZipCode.", "Whoa there Cowboy!");
-                    //////    //give option to leave blank or abort edit operation and return
-                    //////    //return;
-                    //////}
-                    ////////clear out variables
-                    //////arcZipCursor = null;
-                    //////arcFeatureZip = null;
+                    // null out the offset points
+                    outPoint_posRight = null;
+                    outPoint_negLeft = null;
 
                     // COFIPS
                     IFeatureCursor arcCountiesCursor = clsGlobals.arcFLayerCounties.Search(arcSpatialFilter, false);
@@ -3123,6 +3111,66 @@ namespace UtransEditorAGRC
                 "Error Location:" + Environment.NewLine + ex.StackTrace,
                 "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
+        }
+
+
+        // do a spatial intersect to get the city for the utrans segment (get city from sgid municipality layer)
+        private string getCityFromSpatialIntersect(IFeature arcFeature_CountySegment)
+        {
+            try
+            {
+                string strReturnCity = "";
+
+                //get the midpoint of the line segment for doing spatial queries (intersects)
+                IGeometry arcGeometry = arcFeature_CountySegment.ShapeCopy;
+                IPolyline arcPolyline = arcGeometry as IPolyline;
+                IPoint arcMidPoint = new ESRI.ArcGIS.Geometry.Point();
+
+                //get the midpoint of the line, pass it into a point
+                arcPolyline.QueryPoint(esriSegmentExtension.esriNoExtension, 0.5, true, arcMidPoint);
+                //MessageBox.Show("The midpoint of the selected line segment is: " + arcUtransEdits_midPoint.X.ToString() + ", " + arcUtransEdits_midPoint.Y.ToString());
+
+                // spatial intersect for the following fields: ADDR_SYS, ADDR_QUAD, ZIPLEFT, ZIPRIGHT, COFIPS (Maybe USPS_PLACE)
+                // ADDR_SYS and ADDR_QUAD
+                ISpatialFilter arcSpatialFilterCity = new SpatialFilter();
+                arcSpatialFilterCity.Geometry = arcMidPoint;
+                arcSpatialFilterCity.GeometryField = "SHAPE";
+                arcSpatialFilterCity.SpatialRel = esriSpatialRelEnum.esriSpatialRelIntersects;
+                arcSpatialFilterCity.SubFields = "*";
+
+                IFeatureCursor arcFC_City = clsGlobals.arcFLayerMunicipalities.Search(arcSpatialFilterCity, false);
+                IFeature arcFeature_City = arcFC_City.NextFeature();
+                if (arcFeature_City != null)
+                {
+                    strReturnCity = arcFeature_City.get_Value(arcFeature_City.Fields.FindField("NAME")).ToString().Trim();
+                }
+                else
+                {
+                    strReturnCity = "unincorporated";
+                }
+
+                // release memeory and variables
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(arcFC_City);
+                arcFC_City = null;
+                arcFeature_City = null;
+                arcGeometry = null;
+                arcPolyline = null;
+                arcMidPoint = null;
+                arcSpatialFilterCity = null;
+                
+
+                return strReturnCity;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Message: " + Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine +
+                "Error Source: " + Environment.NewLine + ex.Source + Environment.NewLine + Environment.NewLine +
+                "Error Location:" + Environment.NewLine + ex.StackTrace,
+                "UTRANS Editor tool error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                return "Error Getting City";
+            }
+        
         }
 
 

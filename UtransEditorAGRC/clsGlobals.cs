@@ -146,13 +146,17 @@ namespace UtransEditorAGRC
             set;
         }
 
+        public static string strGoogleSpreadsheetCityField
+        {
+            get;
+            set;
+        }
 
         public static Logger logger
         {
             get;
             set;
         }
-
 
         public static bool blnCanUseUtransTool
         {

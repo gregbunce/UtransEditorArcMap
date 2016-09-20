@@ -235,7 +235,7 @@ namespace UtransEditorAGRC
                 row.Elements.Add(new ListEntry.Custom() { LocalName = "leftto", Value = clsGlobals.strCountyL_T_Add });
                 row.Elements.Add(new ListEntry.Custom() { LocalName = "rightfrom", Value = clsGlobals.strCountyR_F_Add });
                 row.Elements.Add(new ListEntry.Custom() { LocalName = "rightto", Value = clsGlobals.strCountyR_T_Add });
-
+                row.Elements.Add(new ListEntry.Custom() { LocalName = "city", Value = clsGlobals.strGoogleSpreadsheetCityField });
                 // Send the new row to the API for insertion.
                 service.Insert(listFeed, row);
             }
