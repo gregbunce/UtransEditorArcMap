@@ -195,6 +195,29 @@ namespace UtransEditorAGRC
                 // get active view (can be data frame in either page layout or data view)
                 IActiveView arcActiveView = arcMapp as IActiveView;
 
+
+                // make sure the user has selected a layer in the toc
+                if (arcMxDoc.SelectedLayer == null)
+                {
+                    MessageBox.Show("Please select the roads layer in ArcMap's TOC.", "Select Layer in TOC", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+                if (!(arcMxDoc.SelectedLayer is IFeatureLayer))
+                {
+                    MessageBox.Show("Please select a polygon or line layer in the TOC.", "Must be Polygon or Line Layer", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                //cast the selected layer as a feature layer
+                IGeoFeatureLayer pGFlayer = (IGeoFeatureLayer)arcMxDoc.SelectedLayer;
+
+                //check if the feaure layer is a polygon or line layer
+                if (pGFlayer.FeatureClass.ShapeType != esriGeometryType.esriGeometryPolygon & pGFlayer.FeatureClass.ShapeType != esriGeometryType.esriGeometryPolyline)
+                {
+                    MessageBox.Show("Please select a polygon or line layer.", "Must be Polygon or Line Layer", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
                 // set classic snapping to true
                 //IEditProperties4 arcEditProperties4 = clsGlobals.arcEditor as IEditProperties4;
                 //arcEditProperties4.ClassicSnapping = true;
@@ -484,7 +507,7 @@ namespace UtransEditorAGRC
                 // it respects geodatabase behaviour (subtypes, domains, split policies etc). it also maintains
                 // M and Z values, and works for geometric networks and topological ArcInfo coverages
                 IFeatureEdit arcFeatureEdit = arcParentFeature as IFeatureEdit;
-                ISet arcNewSet;
+                ESRI.ArcGIS.esriSystem.ISet arcNewSet;
                 
                 // start an edit operation
                 clsGlobals.arcEditor.StartOperation();

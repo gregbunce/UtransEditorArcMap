@@ -28,7 +28,7 @@ namespace UtransEditorAGRC
         //set up nlogger for catching errors
         //clsGlobals.logger = LogManager.GetCurrentClassLogger();
         
- 
+        
         //form-wide variables...
         // create a list of controls that contains address pieces for managing edits
         private List<Control> ctrlList = new List<Control>();
@@ -101,6 +101,15 @@ namespace UtransEditorAGRC
                 //clsGlobals.logger = LogManager.GetCurrentClassLogger();
                 //clsGlobals.logger.Trace("test on load");
 
+                //get the current document
+                IMxDocument arcMxDoc = clsGlobals.arcApplication.Document as IMxDocument;
+
+                //get the focus map
+                arcMapp = arcMxDoc.FocusMap;
+
+                arcActiveView = arcMapp as IActiveView;
+                arcMapp.ClearSelection();
+
                 //setup event handler for when the  map selection changes
                 ((IEditEvents_Event)clsGlobals.arcEditor).OnSelectionChanged += new IEditEvents_OnSelectionChangedEventHandler(frmUtransEditor_OnSelectionChanged);
 
@@ -132,14 +141,14 @@ namespace UtransEditorAGRC
                 //get the workspace as a feature workspace
                 IFeatureWorkspace arcFeatWspace = arcWspace as IFeatureWorkspace;
 
-                //get the current document
-                IMxDocument arcMxDoc = clsGlobals.arcApplication.Document as IMxDocument;
+                //////get the current document
+                ////IMxDocument arcMxDoc = clsGlobals.arcApplication.Document as IMxDocument;
 
-                //get the focus map
-                arcMapp = arcMxDoc.FocusMap;
+                //////get the focus map
+                ////arcMapp = arcMxDoc.FocusMap;
 
-                arcActiveView = arcMapp as IActiveView;
-                arcMapp.ClearSelection();
+                ////arcActiveView = arcMapp as IActiveView;
+                ////arcMapp.ClearSelection();
 
                 //get reference to the layers in the map
                 //clear out any reference to the utrans street layer
@@ -410,7 +419,6 @@ namespace UtransEditorAGRC
 
                 arcFeatureSelection = clsGlobals.arcGeoFLayerDfcResult as IFeatureSelection;
                 arcSelSet = arcFeatureSelection.SelectionSet;
-
 
                 //check record is selected in the dfc fc
                 if (arcSelSet.Count == 1)
