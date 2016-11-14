@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ESRI.ArcGIS.GeoDatabaseUI;
 using ESRI.ArcGIS.Display;
+using ESRI.ArcGIS.ADF;
 //using NLog;
 //using NLog.Config;
 
@@ -481,11 +482,26 @@ namespace UtransEditorAGRC
                     //can check if oid = -1 then it's a new record so maybe make backround color on form green or something until user says okay to import, then populate
                     //MessageBox.Show("Utrans OID: " + strUtransOID.ToString());
 
+                    ////// feature cursor using com releaser
+                    ////using (ComReleaser comReleaserCountyFeatCur = new ComReleaser())
+                    ////{ 
+                    ////    IFeatureCursor arcCountyFeatCursor = clsGlobals.arcGeoFLayerCountyStreets.Search(arcCountyQueryFilter, true);
+                    ////    comReleaserCountyFeatCur.ManageLifetime(arcCountyFeatCursor);
+                    ////    arcCountyFeature = (IFeature)arcCountyFeatCursor.NextFeature();                    
+                    ////}
                     IFeatureCursor arcCountyFeatCursor = clsGlobals.arcGeoFLayerCountyStreets.Search(arcCountyQueryFilter, true);
-                    arcCountyFeature = (IFeature)arcCountyFeatCursor.NextFeature();
+                    arcCountyFeature = (IFeature)arcCountyFeatCursor.NextFeature();  
 
+                    ////// feature cursor using com releaser
+                    ////using (ComReleaser comReleaserUtransFeatCur = new ComReleaser())
+                    ////{
+                    ////    IFeatureCursor arcUtransFeatCursor = clsGlobals.arcGeoFLayerUtransStreets.Search(arcUtransQueryFilter, true);
+                    ////    comReleaserUtransFeatCur.ManageLifetime(arcUtransFeatCursor);
+                    ////    IFeature arcUtransFeature = (IFeature)arcUtransFeatCursor.NextFeature();                        
+                    ////}
                     IFeatureCursor arcUtransFeatCursor = clsGlobals.arcGeoFLayerUtransStreets.Search(arcUtransQueryFilter, true);
-                    IFeature arcUtransFeature = (IFeature)arcUtransFeatCursor.NextFeature();
+                    IFeature arcUtransFeature = (IFeature)arcUtransFeatCursor.NextFeature();     
+
 
                     //update the textboxes with the selected dfc row//
                     //make sure the query returned results for county roads
@@ -1816,6 +1832,15 @@ namespace UtransEditorAGRC
 
                 ICalculator arcCalculator = new Calculator();
                 ICursor arcCur_dfcLayer = clsGlobals.arcGeoFLayerDfcResult.FeatureClass.Update(arcQueryFilter_DFC_updateOID, true) as ICursor;
+
+                IFeatureCursor arcFeatCur_dfcLayer = clsGlobals.arcGeoFLayerDfcResult.Search(arcQueryFilter_DFC_updateOID, false);
+                IFeature arcFeature_DFC = arcFeatCur_dfcLayer.NextFeature();
+
+                if (arcFeature_DFC == null)
+                {
+                    MessageBox.Show("Could not find a feature in the DFC_RESULT layer with OID: " + strDFC_RESULT_oid, "OID Not Found", MessageBoxButtons.OK);
+                    return;
+                }
                 
                 string strComboBoxTextValue = cboStatusField.Text.ToString();
                 switch (strComboBoxTextValue)
@@ -1825,17 +1850,23 @@ namespace UtransEditorAGRC
                         //update the dfc status field after the save, that way we know it was solid, without errors
                         break;
                     case "IGNORE":
-                        string strCalcExprIgnore = @"""" + strComboBoxTextValue + @"""";
+                        ////string strCalcExprIgnore = @"""" + strComboBoxTextValue + @"""";
                         
-                        //proceed with calculating values in the dfc table 
-                        arcCalculator.Cursor = arcCur_dfcLayer;
-                        arcCalculator.Expression = strCalcExprIgnore;
-                        arcCalculator.Field = "CURRENT_NOTES";
-                        arcCalculator.Calculate();
-                        arcCalculator.ShowErrorPrompt = true;
+                        //////proceed with calculating values in the dfc table 
+                        ////arcCalculator.Cursor = arcCur_dfcLayer;
+                        ////arcCalculator.Expression = strCalcExprIgnore;
+                        ////arcCalculator.Field = "CURRENT_NOTES";
+                        ////arcCalculator.Calculate();
+                        ////arcCalculator.ShowErrorPrompt = true;
                         
-                        //clear out the cursor
-                        arcCur_dfcLayer = null;
+                        //////clear out the cursor
+                        ////arcCur_dfcLayer = null;
+
+                        // save the value to dfc_result layer
+                        clsGlobals.arcEditor.StartOperation();
+                        arcFeature_DFC.set_Value(arcFeature_DFC.Fields.FindField("CURRENT_NOTES"), strComboBoxTextValue);
+                        arcFeature_DFC.Store();
+                        clsGlobals.arcEditor.StopOperation("DFC_RESULT Update");
 
                         //unselect everything in map
                         arcMapp.ClearSelection();
@@ -2089,7 +2120,7 @@ namespace UtransEditorAGRC
                 //make sure a record is selected for editing
                 if (arcUtransEdit_Feature != null)
                 {
-                    //set the current edit layer to the address point layer
+                    //set the current edit layer to the utrans street layer - this tells the operation what layer gets the new feature
                     IEditLayers arcEditLayers = clsGlobals.arcEditor as IEditLayers;
                     arcEditLayers.SetCurrentLayer(clsGlobals.arcGeoFLayerUtransStreets, 0);
 
